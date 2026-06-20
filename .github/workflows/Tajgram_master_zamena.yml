@@ -1,0 +1,77 @@
+name: 🚀 Tajgram Master Injector (Full Branding & Assets)
+
+on:
+  workflow_dispatch: 
+
+permissions:
+  contents: write
+
+jobs:
+  inject_all_assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Main Repository
+        uses: actions/checkout@v4
+        with:
+          repository: 'saidjun/tajgram'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: main_repo
+
+      - name: Checkout Assets Repository
+        uses: actions/checkout@v4
+        with:
+          repository: 'saidjun/tajgram_clon'
+          path: asset_repo
+
+      - name: Inject All 25 Assets
+        run: |
+          echo "🤖 Робот тамоми 25 файли брендинги 'Алов'-ро замена мекунад..."
+
+          # 1. Keystore ва JSON-ҳо
+          cp -f asset_repo/TMessagesProj/config/release.keystore main_repo/TMessagesProj/config/
+          cp -f asset_repo/TMessagesProj/google-services.json main_repo/TMessagesProj/
+          cp -f asset_repo/TMessagesProj_App/google-services.json main_repo/TMessagesProj_App/
+          cp -f asset_repo/TMessagesProj_AppHockeyApp/google-services.json main_repo/TMessagesProj_AppHockeyApp/
+          cp -f asset_repo/TMessagesProj_AppHuawei/google-services.json main_repo/TMessagesProj_AppHuawei/
+          cp -f asset_repo/TMessagesProj_AppStandalone/google-services.json main_repo/TMessagesProj_AppStandalone/
+
+          # 2. Drawable (TMessagesProj)
+          cp -f asset_repo/TMessagesProj/src/main/res/drawable-hdpi/* main_repo/TMessagesProj/src/main/res/drawable-hdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/drawable-mdpi/* main_repo/TMessagesProj/src/main/res/drawable-mdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/drawable-xhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xhdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/drawable-xxhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xxhdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/drawable-xxxhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xxxhdpi/
+
+          # 3. Mipmap (TMessagesProj)
+          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-hdpi/* main_repo/TMessagesProj/src/main/res/mipmap-hdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-mdpi/* main_repo/TMessagesProj/src/main/res/mipmap-mdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-xhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xhdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-xxhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xxhdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-xxxhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xxxhdpi/
+          cp -f asset_repo/TMessagesProj/src/main/res/values-tg/strings.xml main_repo/TMessagesProj/src/main/res/values-tg/
+
+          # 4. Mipmap (TMessagesProj_AppStandalone)
+          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/
+          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/
+          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/
+          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/
+          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/
+
+          # 5. Файлҳои иловагӣ
+          cp -f asset_repo/new_strings.xml main_repo/
+          cp -f asset_repo/proxies.json main_repo/
+          cp -f asset_repo/walkthrough_strings.xml main_repo/
+
+      - name: Push Branding to Master
+        run: |
+          cd main_repo
+          git config user.name "Saidjun Chief Developer"
+          git config user.email "saidjun@tajgram.messenger"
+          git add .
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "ℹ️ Ҳеҷ тағйирот барои сабт нест."
+          else
+            git commit -m "👑 Master Injector: Full 25 assets synced correctly."
+            git push origin master
+            echo "🚀 Ҳама 25 суроға бомуваффақият сабт шуданд!"
+          fi

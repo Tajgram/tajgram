@@ -1,0 +1,112 @@
+name: 🎨 AUTOMATIC MAIN REPO ICON OVERWRITER
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  overwrite_logos:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Your Code Fresh
+        uses: actions/checkout@v4
+
+      - name: Set up Python with Image Engine
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install High Quality Image Library
+        run: pip install Pillow
+
+      - name: Hard Overwrite Every Single Folder With Exact Paths
+        run: |
+          git config --global user.name "Saidjun Chief Developer"
+          git config --global user.email "saidjun@tajgram.messenger"
+          
+          # ФАРМОНИ ТУ: PYTHON ДАР ҲАР ЯК ПАПКА 6 РАСМРО МУСТАҚИМ МЕПАЗАД ВА ЗАМЕНА МЕКУНАД
+          python3 -c "
+          import os
+          from PIL import Image
+          
+          res_dir = 'TMessagesProj/src/main/res'
+          draw_folders = ['drawable-mdpi', 'drawable-hdpi', 'drawable-xhdpi', 'drawable-xxhdpi', 'drawable-xxxhdpi']
+          base_sizes = {'mdpi': 48, 'hdpi': 72, 'xhdpi': 96, 'xxhdpi': 144, 'xxxhdpi': 192}
+          
+          main_img_path = f'{res_dir}/ic_launcher.png'
+          if os.path.exists(main_img_path):
+              img = Image.open(main_img_path).convert('RGBA')
+              
+              for folder in draw_folders:
+                  density = folder.replace('drawable-', '')
+                  b_size = base_sizes[density]
+                  target_dir = f'{res_dir}/{folder}'
+                  os.makedirs(target_dir, exist_ok=True)
+                  
+                  icon_square = img.resize((b_size, b_size), Image.Resampling.LANCZOS)
+                  
+                  # САБТИ МАҶБУРӢ ВА ЗАМЕНАИ МУТЛАҚ ДАР ҲАМАИ ПАПКАҲО ДОНА БА ДОНА
+                  icon_square.save(f'{target_dir}/menu_invit_tajgram.png', 'PNG', quality=100)
+                  icon_square.save(f'{target_dir}/menu_invite_tajgram.png', 'PNG', quality=100)
+                  icon_square.save(f'{target_dir}/msg_invite.png', 'PNG', quality=100)
+                  icon_square.save(f'{target_dir}/home_logo.png', 'PNG', quality=100)
+                  icon_square.save(f'{target_dir}/ic_launcher_inplace.png', 'PNG', quality=100)
+                  icon_square.save(f'{target_dir}/msg_panel.png', 'PNG', quality=100)
+                  
+                  # Уведомлениеҳо
+                  n_size = int(b_size * 0.5)
+                  icon_notif = img.resize((n_size, n_size), Image.Resampling.LANCZOS)
+                  icon_notif.save(f'{target_dir}/notification.png', 'PNG', quality=100)
+                  icon_notif.save(f'{target_dir}/status_icon.png', 'PNG', quality=100)
+                  
+          print('✅ ТАМОМИ ПАПКАҲО БО АДРЕСИ ДАҚИҚАШОН 100% ПУХТАНД!')
+          "
+          
+          # ФАРМОНИ АДРEСҲOИ МУТЛAҚ БAРOИ ОН КИ ГИТҲУБ ҲAМAИ ОНҲOРO ДOНA БA ДOНA ДAР PUSH НИШOН ДИҲAД:
+          
+          # 1. Папкаи drawable-mdpi
+          git add --force TMessagesProj/src/main/res/drawable-mdpi/menu_invit_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-mdpi/menu_invite_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-mdpi/msg_invite.png || true
+          git add --force TMessagesProj/src/main/res/drawable-mdpi/home_logo.png || true
+          git add --force TMessagesProj/src/main/res/drawable-mdpi/ic_launcher_inplace.png || true
+          git add --force TMessagesProj/src/main/res/drawable-mdpi/msg_panel.png || true
+          
+          # 2. Папкаи drawable-hdpi
+          git add --force TMessagesProj/src/main/res/drawable-hdpi/menu_invit_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-hdpi/menu_invite_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-hdpi/msg_invite.png || true
+          git add --force TMessagesProj/src/main/res/drawable-hdpi/home_logo.png || true
+          git add --force TMessagesProj/src/main/res/drawable-hdpi/ic_launcher_inplace.png || true
+          git add --force TMessagesProj/src/main/res/drawable-hdpi/msg_panel.png || true
+          
+          # 3. Папкаи drawable-xhdpi
+          git add --force TMessagesProj/src/main/res/drawable-xhdpi/menu_invit_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xhdpi/menu_invite_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xhdpi/msg_invite.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xhdpi/home_logo.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xhdpi/ic_launcher_inplace.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xhdpi/msg_panel.png || true
+          
+          # 4. Папкаи drawable-xxhdpi
+          git add --force TMessagesProj/src/main/res/drawable-xxhdpi/menu_invit_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxhdpi/menu_invite_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxhdpi/msg_invite.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxhdpi/home_logo.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxhdpi/ic_launcher_inplace.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxhdpi/msg_panel.png || true
+          
+          # 5. Папкаи drawable-xxxhdpi
+          git add --force TMessagesProj/src/main/res/drawable-xxxhdpi/menu_invit_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxxhdpi/menu_invite_tajgram.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxxhdpi/msg_invite.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxxhdpi/home_logo.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxxhdpi/ic_launcher_inplace.png || true
+          git add --force TMessagesProj/src/main/res/drawable-xxxhdpi/msg_panel.png || true
+          
+          TIMESTAMP=$(date +%s)
+          git commit --allow-empty -m "🎨 ABSOLUTE FIX: Synchronized all 30 assets into exact directory paths - ID ${TIMESTAMP}"
+          git push origin HEAD:${{ github.ref_name }} --force

@@ -1,0 +1,75 @@
+name: Sync & Update Strings
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync_strings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout My Repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MY_TOKEN }}
+          path: my_repo
+
+      - name: 📥 Checkout Official Telegram Repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'DrKLO/Telegram'
+          path: official_repo
+
+      - name: ⚙️ Update Main & Extract New Strings
+        run: |
+          python3 -c '
+          import xml.etree.ElementTree as ET
+          import os
+
+          # Роҳи файлҳо
+          my_file = "my_repo/TMessagesProj/src/main/res/values/strings.xml"
+          official_file = "official_repo/TMessagesProj/src/main/res/values/strings.xml"
+
+          if not os.path.exists(my_file) or not os.path.exists(official_file):
+              print("❌ Файлҳо ёфт нашуданд!")
+              exit(1)
+
+          # Хониши XML-ҳо
+          tree = ET.parse(my_file)
+          root = tree.getroot()
+          
+          # Гирифтани калидҳои мавҷуда (key-ҳо)
+          my_keys = {item.attrib["name"] for item in root.findall("string") if "name" in item.attrib}
+          
+          # Гирифтани калидҳои расмӣ (official)
+          off_tree = ET.parse(official_file)
+          off_root = off_tree.getroot()
+          
+          new_items = []
+          for item in off_root.findall("string"):
+              key = item.attrib.get("name")
+              if key and key not in my_keys:
+                  new_items.append(item)
+
+          if new_items:
+              # 1. Илова ба файли асосӣ
+              for item in new_items:
+                  root.append(item)
+              tree.write(my_file, encoding="utf-8", xml_declaration=True)
+              
+              # 2. Сохтани файли алоҳида барои тарҷума
+              with open("strings_to_translate.txt", "w", encoding="utf-8") as f:
+                  f.write("=== ИНҲО САТРҲОИ НАВ ҲАСТАНД, КИ БОЯД ТАРҶУМА ШАВАНД ===\n\n")
+                  for item in new_items:
+                      text = item.text if item.text else ""
+                      f.write(f'<string name="{item.attrib["name"]}">{text}</string>\n')
+          else:
+              print("✅ Ҳамаи сатрҳо баробаранд.")
+          '
+
+      - name: 📤 Push Changes
+        run: |
+          cd my_repo
+          git config user.name "TajgramRobot"
+          git config user.email "robot@tajgram.tj"
+          git add TMessagesProj/src/main/res/values/strings.xml strings_to_translate.txt
+          git diff-index --quiet HEAD || (git commit -m "Auto: Synced new official strings" && git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master)

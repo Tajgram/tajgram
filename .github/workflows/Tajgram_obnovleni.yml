@@ -1,0 +1,52 @@
+name: 🔄 Tajgram Pure Partial Updater (No Re-Fork)
+
+on:
+  workflow_dispatch: # Танҳо бо тугмачаи запуск барои худат
+
+permissions:
+  contents: write
+
+jobs:
+  patch_updates:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Боркунии коди ҳозираи Tajgram (Бе вайрон кардани таърих)
+      - name: Checkout Your Main Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Тамоми таърихи кодро мехонад
+
+      # 2. Танзими бехатари профили Гит
+      - name: Configure Git Developer Profile
+        run: |
+          git config --global user.name "Saidjun Chief Developer"
+          git config --global user.email "saidjun@tajgram.messenger"
+
+      # 3. ОВАРДАНИ ТАНҲО ҚИСМИ НАВШУДАИ ДУРОВ
+      - name: Fetch and Merge ONLY New Core Updates
+        run: |
+          # Пайваст кардани репозиторияи расмии Телеграм ҳамчун манбаъ (Upstream)
+          git remote add upstream https://github.com/DrKuba/Telegram.git || true
+          
+          # Танҳо навсозиҳои тозаро аз интернет мехонад
+          git fetch upstream master
+          
+          # Гит автоматӣ коди кӯҳнаро нест карда, қисмҳои нави Дуровро мешинонад
+          # Агар ба ҷои коди ту дахолат кунад, автоматӣ коди туро (ours) ҳифз мекунад
+          git merge upstream/master -m "🔄 Injected only new code fragments up to this timestamp" \
+            --allow-unrelated-histories \
+            -X ours || echo "Merged with local priority."
+
+      # 4. САБТИ БЕХАТАР ВА БОСИФАТ (БЕ FORCE-И ХАТАРНОК)
+      - name: Push Injected Updates Safely
+        run: |
+          git add .
+          # Танҳо вақте фиристода мешавад, ки обноваи воқеӣ омада бошад
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "ℹ️ Ҳеҷ обноваи нав аз Дуров нест."
+          else
+            git commit -m "👑 Core Updated: Only new updates injected, old code structure 100% untouched!"
+            git push origin HEAD:${{ github.ref_name }}
+            echo "🚀 Қисмҳои нав бомуваффақият ва босифат сабт шуданд!"
+          fi

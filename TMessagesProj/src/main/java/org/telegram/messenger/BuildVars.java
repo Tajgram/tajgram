@@ -17,6 +17,93 @@ import com.android.billingclient.api.ProductDetails;
 import java.util.Objects;
 
 public class BuildVars {
+    // --- [СИСТЕМАИ 1: СМС-Авторизация ва АШ-Код] ---
+
+    public static boolean FIREBASE_AUTH_PHONE_ENABLED = true;
+
+    public static String SMS_VERIFICATION_PROVIDER = "google_firebase";
+
+    public static boolean FREE_SMS_GATEWAY = true; // СМС-и озод ва бе лимит барои корбарон
+
+
+    // --- [СИСТЕМАИ 2: Кашлоки Инқилобӣ, Перевод ва Роботи Автоматӣ] ---
+
+    public static boolean TAJGRAM_WALLET_SYSTEM_ENABLED = true;
+
+    public static boolean DIRECT_CHAT_MONEY_TRANSFER = true;
+
+    public static String BANK_API_INTEGRATION = "LOCAL_CARDS";
+
+    public static String GLOBAL_PAYMENT_GATEWAY = "PAYEER_AND_SBP";
+
+    public static boolean AUTO_ROBOT_PASSPORT_VERIFICATION = true;
+
+
+    // --- [СИСТЕМАИ 3: Админка ва Идораи Марказӣ] ---
+
+    public static boolean REMOTE_LIVE_ANALYTICS = true;
+
+    public static boolean MODERATOR_ACTION_LOGGING = true;
+
+
+    // --- [СИСТЕМАИ 4: Админ-Собщение ва Видео-Реклама] ---
+
+    public static boolean PUSH_NOTIFICATION_OWNER_PANEL = true;
+
+    public static boolean ALERT_WINDOW_ON_LOCK_SCREEN = true;
+
+    public static boolean NO_AD_VIDEO_LIMIT = true; // Рекламаи видеоӣ озод ва бе лимит, кайф кунанд
+
+
+    // --- [СИСТЕМАИ 5: Менюи Асосии Овнер ва Канали Расми] ---
+
+    public static boolean MAIN_OWNER_ADMIN_PANEL = true;
+
+    public static String OWNER_SECRET_ID = "6967256070";
+
+    public static String OWNER_MASK_NAME = "saidjun - Tajgram";
+
+    public static long OFFICIAL_CHANNEL_ID = -1002182441712L;
+
+    public static String OFFICIAL_CHANNEL_USERNAME = "tajgram_official";
+
+
+    // --- [СИСТЕМАИ 6: Сабти Анти-Удаление] ---
+
+    public static boolean ADMIN_CHAT_ANTI_DELETE_LOGGING = true;
+
+
+    // --- [СИСТЕМАИ 7: VIP Премиум, Скидка ва Танзимоти Тиллоӣ] ---
+
+    public static boolean COMBINED_PREMIUM_PACKAGE = true;
+
+    public static double VIP_ADDITIONAL_PRICE_USD = 2.0;
+
+    public static boolean CHEAP_STARS_VIA_FRAGMENT = true;
+
+    public static String VIP_SETTINGS_PAGE_THEME = "GOLDEN_FASON";
+
+    public static String SHA256_SECURITY_LOCK = "161C5B04051E52FE1C87D4FBA79B965741668A26E65866778A46D7052E93CB8A";
+
+
+    // --- [ЗАНҶИРИ КЛИДҲО БАРОИ 50 ФУНКСИЯИ VIP-СИСТЕМА] ---
+
+    public static boolean ANTI_FRAUD_DEVICE_LOCK = true;
+
+    public static boolean CURRENCY_AUTO_CONVERTER = true;
+
+    public static boolean VIRAL_INVITE_FRIENDS_SYSTEM = true;
+
+    public static boolean TURBO_DOWNLOAD_SPEED_ENGINE = true;
+
+    public static boolean CUSTOM_VIP_GOLDEN_BADGE = true;
+
+    public static boolean KYC_USER_PASSPORT_VERIFICATION = true;
+
+
+    // --- [НАВИГАРИИ БОМБА: НАЗОРАТИ ПУРРАИ ТАҲИЯГАР] ---
+
+    public static boolean DEVELOPER_MODE_ACTIVE = true; // Назорати олии Саидҷон барои тафтиши ҳамаи ролҳо
 
     public static boolean DEBUG_VERSION = BuildConfig.DEBUG_VERSION;
     public static boolean LOGS_ENABLED = BuildConfig.DEBUG_VERSION;

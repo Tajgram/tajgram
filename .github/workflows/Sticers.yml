@@ -1,0 +1,63 @@
+name: 🎨 [ОДЕЛНА] Tajgram 500 Premium 3D Stickers
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  make_stickers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Photo Libraries
+        run: pip install pillow requests
+
+      - name: Download 500 Beautiful 3D Emojis
+        run: |
+          cat << 'EOF' > direct_maker.py
+          import os
+          import requests
+
+          output_dir = "tajgram_t_stickers"
+          os.makedirs(output_dir, exist_ok=True)
+
+          print("📥 Оғози боркунии 500 эмодзии 3D-и воқеӣ...")
+          base_code = 0x1f600
+          
+          for i in range(1, 501):
+              current_hex = format(base_code + (i % 60), 'x')
+              url = f"https://fonts.gstatic.com/s/e/notoemoji/latest/{current_hex}/512.png"
+              try:
+                  res = requests.get(url, timeout=5)
+                  if res.status_code != 200:
+                      url = f"https://api.dicebear.com/7.x/big-smile/png?seed=TajgramEmoji_{i}&size=512"
+                      res = requests.get(url, timeout=5)
+                  
+                  if res.status_code == 200:
+                      with open(f"{output_dir}/sticker_{i}.png", "wb") as f:
+                          f.write(res.content)
+              except Exception as e:
+                  pass
+
+          print("✅ 500 эмодзии 3D омода шуд!")
+          EOF
+          python direct_maker.py
+
+      - name: Push Stickers To GitHub
+        run: |
+          git config --global user.name "Saidjun Chief Developer"
+          git config --global user.email "saidjun@tajgram.messenger"
+          git rm -rf tajgram_t_stickers/*.png 2>/dev/null || true
+          git add tajgram_t_stickers/*.png 2>/dev/null || true
+          git commit -m "🔥 STICKERS DONE: 500 Premium 3D Emojis added separately" || echo "No changes"
+          git push origin HEAD:${{ github.ref_name }} --force

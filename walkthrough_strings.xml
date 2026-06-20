@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="onboarding_title_1">Welcome! 🌍</string>
+    <string name="onboarding_desc_1">Speed and security.</string>
+    <string name="onboarding_title_2">Shine with Stars! ⭐</string>
+    <string name="onboarding_desc_2">Premium features & translation.</string>
+    <string name="onboarding_title_3">Personal Bell 🔊</string>
+    <string name="onboarding_desc_3">Select voices and manage alerts.</string>
+    <string name="onboarding_title_4">100% Security 🛡️</string>
+    <string name="onboarding_desc_4">Proxy and anti-spy protection.</string>
+    <string name="onboarding_title_5">Let's Go! ✨</string>
+    <string name="onboarding_desc_5">Switch to Folk Mode and enjoy!</string>
+    <string name="skip_button">Skip (X)</string>
+    <string name="start_button">Start</string>
+</resources>

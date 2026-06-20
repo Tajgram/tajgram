@@ -1,0 +1,66 @@
+name: Inject VIP Themes and Smart Features Safely
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inject_features:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Safe Injection of 50+ VIP Features
+        run: |
+          # 1. ТАЪМИРИ build.gradle (Бо санҷиши ҳушманд)
+          find . -type f -name "build.gradle" | while read -r gradle_file; do
+            if grep -q "tajgram_key" "$gradle_file"; then
+              echo "✅ Конфиги VIP дар $gradle_file аллакай мавҷуд аст. Тағйирот лозим нест."
+            else
+              echo "⚙️ Илова кардани конфиг ба $gradle_file..."
+              sed -i '/android {/a \    buildFeatures { buildConfig true }\n    signingConfigs {\n        debug {\n            storePassword "android"\n            keyPassword "android"\n            keyAlias "tajgram_key"\n        }\n    }\n    buildTypes {\n        release {\n            signingConfig signingConfigs.debug\n        }\n    }' "$gradle_file"
+            fi
+          done
+
+          # 2. САБТИ VIP-СИСТЕМА
+          echo "📝 Навсозии танзимоти local.properties..."
+          cat <<EOF > local.properties
+          THEMES_ENABLED=true
+          SMART_NIGHT_MODE=true
+          DEFAULT_THEME=Tajgram_Dark_VIP
+          TAJ_STICKERS_URL=DYNAMIC_FROM_BASE
+          AUTO_UPDATE_STICKERS=true
+          OFFICIAL_CHANNEL=-1002182441712
+          OWNER_MASK_NAME=saidjon - Tajgram
+          OWNER_SECRET_ID=6967256070
+          SHOW_USER_AND_CHAT_ID=true
+          BLACK_CURTAIN_STORIES_LOCK=true
+          HIGH_VIP_SECRET_PROFILE=true
+          DUROV_PRIVACY_LOCK=true
+          OWNER_ANTI_DELETE_LOGGING=true
+          MAIN_OWNER_ADMIN_PANEL=true
+          ANTI_SCREENSHOT_SAFE_MEDIA=true
+          MULTILANG_WELCOME_BELL=true
+          AUTO_SUGGEST_OFFICIAL_CHANNEL=true
+          EOF
+          echo "✅ Танзимот сабт шуд."
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Saidjun Chief Developer"
+          git config --global user.email "actions@github.com"
+          # -f истифода бурдем, то хатогиҳои .gitignore набароянд
+          git add -f build.gradle local.properties
+          
+          # Санҷиш: оё тағйирот ҳаст ё не?
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "ℹ️ Ҳеҷ тағйироти нав нест. Action бомуваффақият анҷом ёфт."
+          else
+            git commit -m "VIP Update: Features and Configs updated safely"
+            git push
+            echo "🚀 Тағйирот ба GitHub фиристода шуд!"
+          fi

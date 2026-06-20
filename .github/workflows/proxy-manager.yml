@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MY_TOKEN }}
 
       - name: Self-Cleaning & Auto-Fetch
         run: |
@@ -54,4 +56,4 @@ jobs:
           git config --global user.email "bot@proxy.com"
           git add .
           git commit -m "Auto-Update: Cleaned & Updated Proxies" || echo "No changes"
-          git push
+          git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master

@@ -11,8 +11,9 @@ jobs:
       - name: 🔄 Клони лоиҳа аз GitHub (Бранчи master)
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.MY_TOKEN }} # Илова кардани токен барои дастрасӣ
           branch: master
-          fetch-depth: 2 # Муҳим барои муқоисаи сатрҳои нав
+          fetch-depth: 2 
 
       - name: 🐍 Насби Python дар Сервер
         uses: actions/setup-python@v5
@@ -95,4 +96,4 @@ jobs:
         run: |
           git add .
           git diff-index --quiet HEAD || git commit -m "Tajgram Auto-Workflow: Security and Strings sync completed"
-          git push origin master
+          git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master

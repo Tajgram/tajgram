@@ -21,7 +21,7 @@ jobs:
 
       - name: ⚙️ Update Main & Extract New Strings
         run: |
-          python3 -c '
+          python3 - <<EOF
           import xml.etree.ElementTree as ET
           import os
 
@@ -64,7 +64,7 @@ jobs:
                       f.write(f'<string name="{item.attrib["name"]}">{text}</string>\n')
           else:
               print("✅ Ҳамаи сатрҳо баробаранд.")
-          '
+          EOF
 
       - name: 📤 Push Changes
         run: |

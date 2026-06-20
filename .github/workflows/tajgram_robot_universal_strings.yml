@@ -1,6 +1,5 @@
 name: Tajgram Auto Update and Patching
 
-# Тугмаи "Run workflow"-ро дар панели GitHub намоён мекунад
 on:
   workflow_dispatch:
 
@@ -8,10 +7,10 @@ jobs:
   patch_and_push:
     runs-on: ubuntu-latest
     steps:
-      - name: 🔄 Клони лоиҳа аз GitHub (Бранчи master)
+      - name: 🔄 Клони лоиҳа аз GitHub
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.MY_TOKEN }} # Илова кардани токен барои дастрасӣ
+          token: ${{ secrets.MY_TOKEN }}
           branch: master
           fetch-depth: 2 
 
@@ -20,32 +19,29 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: 🧹 Очистка ва Диспатч (Бехато кардани Гит)
+      - name: 🧹 Очистка ва Диспатч
         run: |
           git config --global user.name "TajgramRobot"
           git config --global user.email "robot@tajgram.tj"
           git stash || true
-          git stash clear || true
           git checkout master
           git pull origin master || true
 
-      - name: ⚙️ Иҷрои Патчҳои BaseFragment ва ChatActivity
+      - name: ⚙️ Иҷрои Патчҳо ва Навсозии API
         run: |
-          python -c '
+          python3 - <<EOF
           import os
-          
+          import re
+
           # 1. Патчи BaseFragment
           bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           bf_code = """
-          // === TAJGRAM SECURITY START (DO NOT DUPLICATE) ===
+          // === TAJGRAM SECURITY START ===
           if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
               String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
               if (!org.telegram.messenger.BuildVars.SHA256_SECURITY_LOCK.equalsIgnoreCase(currentSignature)) {
                   return false;
               }
-          }
-          if (org.telegram.messenger.BuildVars.LOWEST_ROLE_SUPPORT_ONLY) {
-              org.telegram.messenger.FileLog.d("TAJGRAM SECURITY: Role-based restrictions applied.");
           }
           // === TAJGRAM SECURITY END ==="""
           
@@ -58,7 +54,7 @@ jobs:
           # 2. Патчи ChatActivity
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           ca_code = """
-              // === TAJGRAM SCREENSHOT LOCK START (DO NOT DUPLICATE) ===
+              // === TAJGRAM SCREENSHOT LOCK START ===
               if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
                   if (getParentActivity() != null) {
                       getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
@@ -71,29 +67,19 @@ jobs:
               if "TAJGRAM SCREENSHOT LOCK START" not in content:
                   content = content.replace("public void onResume() {", "public void onResume() {\n" + ca_code)
                   with open(ca_path, "w", encoding="utf-8") as f: f.write(content)
-          '
 
-      - name: 📝 Ҷудо кардани сатрҳои нави Дуров ба файли охирин
-        run: |
-          python -c '
-          import subprocess, re, os
-          sp = "TMessagesProj/src/main/res/values/strings.xml"
-          if os.path.exists(sp):
-              res = subprocess.run("git diff HEAD~1 -- " + sp, capture_output=True, text=True, shell=True)
-              lines = re.findall(r"\+\s*(<string name=\".*?\">.*?</string>)", res.stdout, re.DOTALL)
-              
-              if lines:
-                  with open("okhiron_satrhoi_navizabonTg.txt", "w", encoding="utf-8") as f:
-                      f.write("=== САТРҲОИ НАВИ ДУРОВ БАРОИ ТАҶГРАМ ===\n\n")
-                      for l in lines: 
-                          f.write(l + "\n")
-              else:
-                  with open("okhiron_satrhoi_navizabonTg.txt", "w", encoding="utf-8") as f:
-                      f.write("=== САТРҲОИ НАВ ПАЙДО НАШУДАНД ===")
-          '
+          # 3. Навсозии Config.java (API_ID ва API_HASH)
+          config_path = "TMessagesProj/src/main/java/org/telegram/messenger/Config.java"
+          if os.path.exists(config_path):
+              with open(config_path, "r", encoding="utf-8") as f: content = f.read()
+              # Regex барои иваз кардани API_ID
+              content = re.sub(r'public static int API_ID = \d+;', 'public static int API_ID = 39951434;', content)
+              # Regex барои иваз кардани API_HASH
+              content = re.sub(r'public static String API_HASH = "[^"]+";', 'public static String API_HASH = "fcf607bae206cefb2930121a86459c4b";', content)
+              with open(config_path, "w", encoding="utf-8") as f: f.write(content)
+          EOF
 
-      - name: 📤 Сохранить ва Push мустақим ба бранчи master
+      - name: 📤 Сохранить ва Push мустақим
         run: |
           git add .
-          git diff-index --quiet HEAD || git commit -m "Tajgram Auto-Workflow: Security and Strings sync completed"
-          git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master
+          git diff-index --quiet HEAD || (git commit -m "Tajgram Auto-Workflow: Security patches and API config updated" && git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master)

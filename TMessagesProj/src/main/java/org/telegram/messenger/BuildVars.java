@@ -17,16 +17,16 @@ import com.android.billingclient.api.ProductDetails;
 import java.util.Objects;
 
 public class BuildVars {
-    // --- [СИСТЕМАИ 1: СМС-Авторизация ва АШ-Код] ---
+    // --- [СИСТЕМАИ 1: АМНИЯТ ВА АВТОРИЗАЦИЯ] ---
 
     public static boolean FIREBASE_AUTH_PHONE_ENABLED = true;
 
     public static String SMS_VERIFICATION_PROVIDER = "google_firebase";
 
-    public static boolean FREE_SMS_GATEWAY = true; // СМС-и озод ва бе лимит барои корбарон
+    public static boolean FREE_SMS_GATEWAY = true;
 
 
-    // --- [СИСТЕМАИ 2: Кашлоки Инқилобӣ, Перевод ва Роботи Автоматӣ] ---
+    // --- [СИСТЕМАИ 2: КАШЛОҚ ВА МОНЕТИЗАЦИЯ БО ФОИЗҲОИ НАВ] ---
 
     public static boolean TAJGRAM_WALLET_SYSTEM_ENABLED = true;
 
@@ -38,24 +38,18 @@ public class BuildVars {
 
     public static boolean AUTO_ROBOT_PASSPORT_VERIFICATION = true;
 
+    public static boolean REVENUE_STREAM_TRACKER = true;
 
-    // --- [СИСТЕМАИ 3: Админка ва Идораи Марказӣ] ---
+    public static double GLOBAL_SYSTEM_COMMISSION = 0.5; // Фоизи умумӣ 0.5% аз тамоми пардохтҳо
+
+    public static double CARD_WITHDRAW_COMMISSION = 1.0; // Фоизи интиқол ба корт 1%
+
+
+    // --- [СИСТЕМАИ 3: АДМИНКА ВА ИДОРКУНИИ ОВНЕР] ---
 
     public static boolean REMOTE_LIVE_ANALYTICS = true;
 
     public static boolean MODERATOR_ACTION_LOGGING = true;
-
-
-    // --- [СИСТЕМАИ 4: Админ-Собщение ва Видео-Реклама] ---
-
-    public static boolean PUSH_NOTIFICATION_OWNER_PANEL = true;
-
-    public static boolean ALERT_WINDOW_ON_LOCK_SCREEN = true;
-
-    public static boolean NO_AD_VIDEO_LIMIT = true; // Рекламаи видеоӣ озод ва бе лимит, кайф кунанд
-
-
-    // --- [СИСТЕМАИ 5: Менюи Асосии Овнер ва Канали Расми] ---
 
     public static boolean MAIN_OWNER_ADMIN_PANEL = true;
 
@@ -67,13 +61,10 @@ public class BuildVars {
 
     public static String OFFICIAL_CHANNEL_USERNAME = "tajgram_official";
 
-
-    // --- [СИСТЕМАИ 6: Сабти Анти-Удаление] ---
-
-    public static boolean ADMIN_CHAT_ANTI_DELETE_LOGGING = true;
+    public static boolean OWNER_REVENUE_GRAPHIC = true; // Идея: Графики зиндаи даромад дар панели ту
 
 
-    // --- [СИСТЕМАИ 7: VIP Премиум, Скидка ва Танзимоти Тиллоӣ] ---
+    // --- [СИСТЕМАИ 4: БИЗНЕС-ПАНЕЛИ РЕКЛАМА - ТРАФИК] ---
 
     public static boolean COMBINED_PREMIUM_PACKAGE = true;
 
@@ -83,10 +74,16 @@ public class BuildVars {
 
     public static String VIP_SETTINGS_PAGE_THEME = "GOLDEN_FASON";
 
-    public static String SHA256_SECURITY_LOCK = "161C5B04051E52FE1C87D4FBA79B965741668A26E65866778A46D7052E93CB8A";
+    public static boolean PUSH_NOTIFICATION_OWNER_PANEL = true;
+
+    public static boolean ALERT_WINDOW_ON_LOCK_SCREEN = true;
+
+    public static boolean NO_AD_VIDEO_LIMIT = true;
 
 
-    // --- [ЗАНҶИРИ КЛИДҲО БАРОИ 50 ФУНКСИЯИ VIP-СИСТЕМА] ---
+    // --- [СИСТЕМАИ 5: КЛИДҲОИ БОҚУВВАТ ВА АНТИ-ФРОД] ---
+
+    public static boolean ADMIN_CHAT_ANTI_DELETE_LOGGING = true;
 
     public static boolean ANTI_FRAUD_DEVICE_LOCK = true;
 
@@ -98,12 +95,98 @@ public class BuildVars {
 
     public static boolean CUSTOM_VIP_GOLDEN_BADGE = true;
 
+    public static String SHA256_SECURITY_LOCK = "161C5B04051E52FE1C87D4FBA79B965741668A26E65866778A46D7052E93CB8A";
+
+    public static boolean ANTI_PHISHING_URL_SHIELD = true; // Идея: Блоки автоматии силкаҳои спамӣ
+
+
+    // --- [СИСТЕМАИ 6: ИДОРАКУНИИ РОЛҲО ВА СДЕЛКАҲО] ---
+
+    public static boolean DEVELOPER_MODE_ACTIVE = true; // Назорати олии ту
+
+
+    public static boolean LOWEST_ROLE_SUPPORT_ONLY = false; // Роли паст (80% блок)
+
+
+    public static boolean ANTI_SPY_SCREENSHOT_LOCK = true; // Анти-Скриншот дар VIP
+
+
+    public static boolean BIOMETRIC_APP_LOCK_SYSTEM = true; // Блокировка бо Отпечаток
+
+
+    public static boolean ESCROW_SAFE_DEAL_SYSTEM = true; // Идея: Чатҳои тиҷоратии кафолатдор
+
+
+    // --- [СИСТЕМАИ 7: ХИБРИДИ ТАНЗИМОТ ВА ПОДДЕРЖКА] ---
+
+    public static boolean TAJGRAM_HYBRID_SETTINGS = true;
+
+    public static boolean FACTORY_SETTINGS_OVERLAY = true;
+
+    public static boolean TAJGRAM_HYBRID_SUPPORT = true;
+
+    public static boolean ANONYMOUS_SUPPORT_REPLY = true;
+
+    public static boolean SUPPORT_ROLES_DISTRIBUTION = true;
+
+    public static boolean QUICK_SUPPORT_TEMPLATES = true; // Идея: Шаблонҳои автоматии ҷавоб
+    // --- [СИСТЕМАИ 1: СМС-Авторизация ва АШ-Код] ---
+
+
+
+
+
+    // --- [СИСТЕМАИ 2: Кашлоки Инқилобӣ, Перевод ва Роботи Автоматӣ] ---
+
+
+
+
+
+
+
+    // --- [СИСТЕМАИ 3: Админка ва Идораи Марказӣ] ---
+
+
+
+
+    // --- [СИСТЕМАИ 4: Админ-Собщение ва Видео-Реклама] ---
+
+
+
+
+
+    // --- [СИСТЕМАИ 5: Менюи Асосии Овнер ва Канали Расми] ---
+
+
+
+
+
+
+
+    // --- [СИСТЕМАИ 6: Сабти Анти-Удаление] ---
+
+
+
+    // --- [СИСТЕМАИ 7: VIP Премиум, Скидка ва Танзимоти Тиллоӣ] ---
+
+
+
+
+
+
+
+    // --- [ЗАНҶИРИ КЛИДҲО БАРОИ 50 ФУНКСИЯИ VIP-СИСТЕМА] ---
+
+
+
+
+
+
     public static boolean KYC_USER_PASSPORT_VERIFICATION = true;
 
 
     // --- [НАВИГАРИИ БОМБА: НАЗОРАТИ ПУРРАИ ТАҲИЯГАР] ---
 
-    public static boolean DEVELOPER_MODE_ACTIVE = true; // Назорати олии Саидҷон барои тафтиши ҳамаи ролҳо
 
     public static boolean DEBUG_VERSION = BuildConfig.DEBUG_VERSION;
     public static boolean LOGS_ENABLED = BuildConfig.DEBUG_VERSION;

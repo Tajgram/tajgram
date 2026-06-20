@@ -1,0 +1,57 @@
+name: Ultimate Autonomous Proxy Engine
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  auto-proxy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Self-Cleaning & Auto-Fetch
+        run: |
+          # 1. Тозакунии шаффоф: Ҷустуҷӯ ва тоза кардани проксиҳои кӯҳна
+          echo "Ҷустуҷӯи файли BuildVars.java..."
+          FILE=$(find . -name "BuildVars.java" | head -n 1)
+          if [ -f "$FILE" ]; then
+            echo "Файл ёфт шуд: $FILE"
+            echo "Тоза кардани проксиҳои кӯҳна..."
+            sed -i '/PROXY_ADDRESS/d; /PROXY_PORT/d; /PROXY_SECRET/d' "$FILE"
+            echo "Проксиҳои кӯҳна тоза шуданд."
+          else
+            echo "Хатогӣ: BuildVars.java ёфт нашуд!"
+            exit 1
+          fi
+          
+          # 2. Ҷустуҷӯи проксиҳои нав
+          echo "Боргирии проксиҳои нав..."
+          python3 -c "import requests, json;
+          try:
+              res = requests.get('https://api.proxyscrape.com/v2/?request=getproxies&protocol=mtproto&timeout=10000', timeout=10);
+              proxies = [p for p in res.text.split('\r\n') if p];
+              with open('proxies.json', 'w') as f:
+                  json.dump({'list': proxies[:10]}, f)
+              print('OK')
+          except Exception as e:
+              print(e)"
+          echo "Проксиҳои нав дар proxies.json сабт шуданд."
+          
+          # 3. Насби Agent
+          if ! grep -q "setupProxy" "$FILE"; then
+            sed -i '/public static boolean DEBUG_VERSION/a \    public static void setupProxy() { ProxyAgent.smartLoad(); }' "$FILE"
+            echo "Агенти хушманд (setupProxy) бомуваффақият илова шуд."
+          else
+            echo "Агенти хушманд аллакай дар файл мавҷуд аст."
+          fi
+
+      - name: Push Auto-Update
+        run: |
+          git config --global user.name "Auto-Proxy-Bot"
+          git config --global user.email "bot@proxy.com"
+          git add .
+          git commit -m "Auto-Update: Cleaned & Updated Proxies" || echo "No changes"
+          git push

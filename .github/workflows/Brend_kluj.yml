@@ -1,0 +1,53 @@
+name: Ultimate Permanent Rename and App Branding to Tajgram
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_brand:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code Fresh
+        uses: actions/checkout@v4
+
+      # 1. ТАНҲО ДАР ГРАДЛ ПРОПЕРТИЗ НOМИ ПАКЕТ ВА КАЛИДҲOРО ТИБҚИ СУРАТИ 1000064583.JPG ИВАЗ МЕКУНАД
+      - name: Inject Tajgram Configuration to gradle.properties
+        run: |
+          if [ -f gradle.properties ]; then
+            sed -i 's|^APP_PACKAGE=.*|APP_PACKAGE=org.tajgram.messenger|g' gradle.properties
+            sed -i 's|^RELEASE_KEY_PASSWORD=.*|RELEASE_KEY_PASSWORD=android|g' gradle.properties
+            sed -i 's|^RELEASE_KEY_ALIAS=.*|RELEASE_KEY_ALIAS=tajgram_key|g' gradle.properties
+            sed -i 's|^RELEASE_STORE_PASSWORD=.*|RELEASE_STORE_PASSWORD=android|g' gradle.properties
+          fi
+
+      # 2. ИВАЗ КАРДАНИ ТАМОМИ ЗАБОНҲО ДАР STRINGS.XML (БЕХАТАР ВА УМУМӢ)
+      - name: Global Safe Case-Insensitive and Multi-Language Rename
+        run: |
+          find . -type f -name "strings.xml" | while read file; do
+            # Аз ҳама аввал Telegram Premium-ро ба Tajgram Premium VIP табдил медиҳад
+            sed -i -E 's/[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm] [Pp][Rr][Ee][Mm][Ii][Uu][Mm]/Tajgram Premium VIP/g' "$file" 2>/dev/null || true
+            
+            # Баъд тамоми шаклҳои боқимондаи калимаи Telegram-ро ба Tajgram иваз мекунад
+            sed -i -E 's/[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]/Tajgram/g' "$file" 2>/dev/null || true
+            
+            # Иваз кардани калима бо забони Арабӣ (ҳарду шакли навишт)
+            sed -i 's/تيليجرام/Tajgram/g' "$file" 2>/dev/null || true
+            sed -i 's/تيليغрам/Tajgram/g' "$file" 2>/dev/null || true
+            
+            # Иваз кардани калима бо забони Форсӣ
+            sed -i 's/تلگرام/Tajgram/g' "$file" 2>/dev/null || true
+          done
+
+      # 3. САБТ ВА ПУШ КАРДАНИ ТАҒЙИРОТҲО БА РЕПОЗИТОРИЯ
+      - name: Commit and Push Changes Safely
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add gradle.properties
+          git add **/strings.xml 2>/dev/null || true
+          git commit -m "🚀 TAJGRAM BRANDING OVERHAUL: Ивази комили пакет, калидҳо ва тарҷумаи умумии забонҳо" || echo "Ҳеҷ тағйироте нест"
+          git push origin HEAD:${{ github.ref }}

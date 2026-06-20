@@ -37,10 +37,9 @@ jobs:
           tree = ET.parse(my_file)
           root = tree.getroot()
           
-          # Гирифтани калидҳои мавҷуда (key-ҳо)
+          # Гирифтани калидҳои мавҷуда
           my_keys = {item.attrib["name"] for item in root.findall("string") if "name" in item.attrib}
           
-          # Гирифтани калидҳои расмӣ (official)
           off_tree = ET.parse(official_file)
           off_root = off_tree.getroot()
           
@@ -50,20 +49,21 @@ jobs:
               if key and key not in my_keys:
                   new_items.append(item)
 
-          if new_items:
-              # 1. Илова ба файли асосӣ
-              for item in new_items:
-                  root.append(item)
-              tree.write(my_file, encoding="utf-8", xml_declaration=True)
-              
-              # 2. Сохтани файли алоҳида барои тарҷума
-              with open("strings_to_translate.txt", "w", encoding="utf-8") as f:
+          # Ҳамеша файлро месозем (ё бо сатрҳои нав, ё бо хабари "баробаранд")
+          with open("strings_to_translate.txt", "w", encoding="utf-8") as f:
+              if new_items:
+                  # 1. Илова ба файли асосӣ
+                  for item in new_items:
+                      root.append(item)
+                  tree.write(my_file, encoding="utf-8", xml_declaration=True)
+                  
+                  # 2. Сабт дар файли тарҷума
                   f.write("=== ИНҲО САТРҲОИ НАВ ҲАСТАНД, КИ БОЯД ТАРҶУМА ШАВАНД ===\n\n")
                   for item in new_items:
                       text = item.text if item.text else ""
                       f.write(f'<string name="{item.attrib["name"]}">{text}</string>\n')
-          else:
-              print("✅ Ҳамаи сатрҳо баробаранд.")
+              else:
+                  f.write("✅ Ҳамаи сатрҳо баробаранд. Чизе нав нест.")
           EOF
 
       - name: 📤 Push Changes

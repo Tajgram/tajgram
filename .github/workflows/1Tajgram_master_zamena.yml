@@ -14,14 +14,16 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'saidjun/tajgram'
-          token: ${{ secrets.MY_TOKEN }} # Токени махсуси ту
+          ref: 'master'
+          token: ${{ secrets.MY_TOKEN }}
           path: main_repo
 
       - name: Checkout Assets Repository
         uses: actions/checkout@v4
         with:
           repository: 'saidjun/tajgram_clon'
-          token: ${{ secrets.MY_TOKEN }} # Токени махсуси ту
+          ref: 'main'
+          token: ${{ secrets.MY_TOKEN }}
           path: asset_repo
 
       - name: Inject All 25 Assets
@@ -37,26 +39,26 @@ jobs:
           cp -f asset_repo/TMessagesProj_AppStandalone/google-services.json main_repo/TMessagesProj_AppStandalone/
 
           # 2. Drawable (TMessagesProj)
-          cp -f asset_repo/TMessagesProj/src/main/res/drawable-hdpi/* main_repo/TMessagesProj/src/main/res/drawable-hdpi/
-          cp -f asset_repo/TMessagesProj/src/main/res/drawable-mdpi/* main_repo/TMessagesProj/src/main/res/drawable-mdpi/
-          cp -f asset_repo/TMessagesProj/src/main/res/drawable-xhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xhdpi/
-          cp -f asset_repo/TMessagesProj/src/main/res/drawable-xxhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xxhdpi/
-          cp -f asset_repo/TMessagesProj/src/main/res/drawable-xxxhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xxxhdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/drawable-hdpi/* main_repo/TMessagesProj/src/main/res/drawable-hdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/drawable-mdpi/* main_repo/TMessagesProj/src/main/res/drawable-mdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/drawable-xhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xhdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/drawable-xxhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xxhdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/drawable-xxxhdpi/* main_repo/TMessagesProj/src/main/res/drawable-xxxhdpi/
 
           # 3. Mipmap (TMessagesProj)
-          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-hdpi/* main_repo/TMessagesProj/src/main/res/mipmap-hdpi/
-          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-mdpi/* main_repo/TMessagesProj/src/main/res/mipmap-mdpi/
-          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-xhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xhdpi/
-          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-xxhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xxhdpi/
-          cp -f asset_repo/TMessagesProj/src/main/res/mipmap-xxxhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xxxhdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/mipmap-hdpi/* main_repo/TMessagesProj/src/main/res/mipmap-hdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/mipmap-mdpi/* main_repo/TMessagesProj/src/main/res/mipmap-mdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/mipmap-xhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xhdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/mipmap-xxhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xxhdpi/
+          cp -rf asset_repo/TMessagesProj/src/main/res/mipmap-xxxhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xxxhdpi/
           cp -f asset_repo/TMessagesProj/src/main/res/values-tg/strings.xml main_repo/TMessagesProj/src/main/res/values-tg/
 
           # 4. Mipmap (TMessagesProj_AppStandalone)
-          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/
-          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/
-          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/
-          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/
-          cp -f asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/
+          cp -rf asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-hdpi/
+          cp -rf asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-mdpi/
+          cp -rf asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xhdpi/
+          cp -rf asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxhdpi/
+          cp -rf asset_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/* main_repo/TMessagesProj_AppStandalone/src/main/res/mipmap-xxxhdpi/
 
           # 5. Файлҳои иловагӣ
           cp -f asset_repo/new_strings.xml main_repo/
@@ -73,6 +75,6 @@ jobs:
             echo "ℹ️ Ҳеҷ тағйирот барои сабт нест."
           else
             git commit -m "👑 Master Injector: Full 25 assets synced correctly."
-            git push origin master
+            git push origin master --force
             echo "🚀 Ҳама 25 суроға бомуваффақият сабт шуданд!"
           fi

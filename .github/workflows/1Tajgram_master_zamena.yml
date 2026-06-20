@@ -51,6 +51,9 @@ jobs:
           cp -rf asset_repo/TMessagesProj/src/main/res/mipmap-xhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xhdpi/
           cp -rf asset_repo/TMessagesProj/src/main/res/mipmap-xxhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xxhdpi/
           cp -rf asset_repo/TMessagesProj/src/main/res/mipmap-xxxhdpi/* main_repo/TMessagesProj/src/main/res/mipmap-xxxhdpi/
+          
+          # ИЛОВАИ БЕХАТАРӢ: Фақат ҳамин папкаи набудагиро месозад, то файл бехатар замена шавад
+          mkdir -p main_repo/TMessagesProj/src/main/res/values-tg/
           cp -f asset_repo/TMessagesProj/src/main/res/values-tg/strings.xml main_repo/TMessagesProj/src/main/res/values-tg/
 
           # 4. Mipmap (TMessagesProj_AppStandalone)

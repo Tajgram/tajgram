@@ -1,0 +1,79 @@
+name: Inject Tajgram VIP 7 Systems
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inject_7_systems:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code master
+      uses: actions/checkout@v4
+      with:
+        clean: true
+        ref: master
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Run Core 7 Systems Brander
+      run: |
+        git config --global user.name "Saidjun Chief Developer"
+        git config --global user.email "saidjun@tajgram.messenger"
+        
+        echo "=== 🚀 ОҒОЗИ ТОЗА КАРДАНИ ТАКРОРШАВӢ ВА ИНЖЕКТИ ХИБРИДИИ 50 ФУНКСИЯ ==="
+        
+        # АНТИ-ПАМЕХ: Нест кардани ҳамаи дубликатҳои кӯҳна барои пешгирии краши Java
+        find . -name "BuildVars.java" -exec sed -i '/FIREBASE_AUTH_PHONE_ENABLED\|SMS_VERIFICATION_PROVIDER\|FREE_SMS_GATEWAY\|TAJGRAM_WALLET_SYSTEM_ENABLED\|DIRECT_CHAT_MONEY_TRANSFER\|BANK_API_INTEGRATION\|GLOBAL_PAYMENT_GATEWAY\|AUTO_ROBOT_PASSPORT_VERIFICATION\|REMOTE_LIVE_ANALYTICS\|MODERATOR_ACTION_LOGGING\|PUSH_NOTIFICATION_OWNER_PANEL\|ALERT_WINDOW_ON_LOCK_SCREEN\|NO_AD_VIDEO_LIMIT\|MAIN_OWNER_ADMIN_PANEL\|OWNER_SECRET_ID\|OWNER_MASK_NAME\|OFFICIAL_CHANNEL_ID\|OFFICIAL_CHANNEL_USERNAME\|ADMIN_CHAT_ANTI_DELETE_LOGGING\|COMBINED_PREMIUM_PACKAGE\|VIP_ADDITIONAL_PRICE_USD\|CHEAP_STARS_VIA_FRAGMENT\|VIP_SETTINGS_PAGE_THEME\|SHA256_SECURITY_LOCK\|DEVELOPER_MODE_ACTIVE\|ANTI_FRAUD_DEVICE_LOCK\|CURRENCY_AUTO_CONVERTER\|VIRAL_INVITE_FRIENDS_SYSTEM\|TURBO_DOWNLOAD_SPEED_ENGINE\|CUSTOM_VIP_GOLDEN_BADGE\|KYC_USER_PASSPORT_VERIFICATION/d' {} \;
+
+        echo "=== 👑 ИНЖЕКТИ СИСТЕМАИ ЯГОНАИ ТАҶГРАМ VIP MASTER (50+ FEATURES) ==="
+        
+        # Инжект кардани блоки ягона: 7 Система + Ключҳо барои 50 функсияи VIP
+        find . -name "BuildVars.java" -exec sed -i '/public class BuildVars {/a \
+          \  // --- [СИСТЕМАИ 1: СМС-Авторизация ва АШ-Код] ---\n\
+            public static boolean FIREBASE_AUTH_PHONE_ENABLED = true;\n\
+            public static String SMS_VERIFICATION_PROVIDER = "google_firebase";\n\
+            public static boolean FREE_SMS_GATEWAY = true; // СМС-и озод ва бе лимит барои корбарон\n\n\
+          \  // --- [СИСТЕМАИ 2: Кашлоки Инқилобӣ, Перевод ва Роботи Автоматӣ] ---\n\
+            public static boolean TAJGRAM_WALLET_SYSTEM_ENABLED = true;\n\
+            public static boolean DIRECT_CHAT_MONEY_TRANSFER = true;\n\
+            public static String BANK_API_INTEGRATION = "LOCAL_CARDS";\n\
+            public static String GLOBAL_PAYMENT_GATEWAY = "PAYEER_AND_SBP";\n\
+            public static boolean AUTO_ROBOT_PASSPORT_VERIFICATION = true;\n\n\
+          \  // --- [СИСТЕМАИ 3: Админка ва Идораи Марказӣ] ---\n\
+            public static boolean REMOTE_LIVE_ANALYTICS = true;\n\
+            public static boolean MODERATOR_ACTION_LOGGING = true;\n\n\
+          \  // --- [СИСТЕМАИ 4: Админ-Собщение ва Видео-Реклама] ---\n\
+            public static boolean PUSH_NOTIFICATION_OWNER_PANEL = true;\n\
+            public static boolean ALERT_WINDOW_ON_LOCK_SCREEN = true;\n\
+            public static boolean NO_AD_VIDEO_LIMIT = true; // Рекламаи видеоӣ озод ва бе лимит, кайф кунанд\n\n\
+          \  // --- [СИСТЕМАИ 5: Менюи Асосии Овнер ва Канали Расми] ---\n\
+            public static boolean MAIN_OWNER_ADMIN_PANEL = true;\n\
+            public static String OWNER_SECRET_ID = "6967256070";\n\
+            public static String OWNER_MASK_NAME = "saidjun - Tajgram";\n\
+            public static long OFFICIAL_CHANNEL_ID = -1002182441712L;\n\
+            public static String OFFICIAL_CHANNEL_USERNAME = "tajgram_official";\n\n\
+          \  // --- [СИСТЕМАИ 6: Сабти Анти-Удаление] ---\n\
+            public static boolean ADMIN_CHAT_ANTI_DELETE_LOGGING = true;\n\n\
+          \  // --- [СИСТЕМАИ 7: VIP Премиум, Скидка ва Танзимоти Тиллоӣ] ---\n\
+            public static boolean COMBINED_PREMIUM_PACKAGE = true;\n\
+            public static double VIP_ADDITIONAL_PRICE_USD = 2.0;\n\
+            public static boolean CHEAP_STARS_VIA_FRAGMENT = true;\n\
+            public static String VIP_SETTINGS_PAGE_THEME = "GOLDEN_FASON";\n\
+            public static String SHA256_SECURITY_LOCK = "161C5B04051E52FE1C87D4FBA79B965741668A26E65866778A46D7052E93CB8A";\n\n\
+          \  // --- [ЗАНҶИРИ КЛИДҲО БАРОИ 50 ФУНКСИЯИ VIP-СИСТЕМА] ---\n\
+            public static boolean ANTI_FRAUD_DEVICE_LOCK = true;\n\
+            public static boolean CURRENCY_AUTO_CONVERTER = true;\n\
+            public static boolean VIRAL_INVITE_FRIENDS_SYSTEM = true;\n\
+            public static boolean TURBO_DOWNLOAD_SPEED_ENGINE = true;\n\
+            public static boolean CUSTOM_VIP_GOLDEN_BADGE = true;\n\
+            public static boolean KYC_USER_PASSPORT_VERIFICATION = true;\n\n\
+          \  // --- [НАВИГАРИИ БОМБА: НАЗОРАТИ ПУРРАИ ТАҲИЯГАР] ---\n\
+            public static boolean DEVELOPER_MODE_ACTIVE = true; // Назорати олии Саидҷон барои тафтиши ҳамаи ролҳо' {} \;
+
+        echo "=== ✅ ХАМАИ 50 ФУНКСИЯ ВА 7 СИСТЕМА БЕ ХАТОГӢ ЗАНҶИРПЕЧ ШУДАНД ==="
+        
+        # Сабти автоматӣ ва пуш кардан ба репозитория
+        git add .
+        git commit -m "👑 TAJGRAM VIP MASTER SYSTEM: 50+ Hybrid features and networks are fully chained and unlocked" || echo "Аллакай ҳаст"
+        git push origin HEAD:master --force

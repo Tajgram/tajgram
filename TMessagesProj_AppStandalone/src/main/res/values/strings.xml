@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="VipSettingsTitle">Tajgram VIP Settings</string>
+<string name="VipSupportBot">Direct Support</string>
+<string name="LikeButton">👍 Like</string>
+<string name="DislikeButton">👎 Dislike</string>
+<string name="VoiceSelection">Select Voice Style 🔊</string>
+<string name="VoiceIcon_Girl">👩 Girl Voice</string>
+<string name="VoiceIcon_Boy">👨 Boy Voice</string>
+<string name="WelcomeBellTitle">Welcome to Tajgram!</string>
+<string name="WelcomeBellDesc">Thank you for choosing us.</string>
+<string name="WelcomeChannelSuggest">Please subscribe to the official channel.</string>
+<string name="WelcomeBellTitle_Reentry">Welcome Back!</string>
+<string name="WelcomeBellDesc_Reentry">Your space is ready.</string>
+<string name="ExitDialogTitle">Are you sure you want to leave?</string>
+<string name="ExitDialogDesc">We will be waiting for your quick return! ✨</string>
+<string name="TajgramBellCurrencyTitle">Live Currency Rates</string>
+<string name="TajgramBellCurrencyStatus">Updating rates online...</string>
+<string name="VipSettingsMenuTitle">Tajgram Settings</string>
+<string name="SecretSupportButtonLabel">Tajgram Secret Support</string>
+<string name="AskAQuestion">Technical Support</string>
+<string name="AskAQuestion_Owner">Contact Owner</string>
+<string name="TajgramFolkModeSwitch">Folk Mode</string>
+<string name="TajgramFolkModeDesc">Change dialect</string>
+<string name="Folk_Settings">App Repair</string>
+<string name="Folk_Security">Anti-Spy</string>
+<string name="Folk_InviteFriends">Invite Friends</string>
     <string name="SmsJobsMenu">SMS Statistics</string>
 
     <string name="SmsJobsPremiumHintTitle">Premium Subscription **for free**</string>

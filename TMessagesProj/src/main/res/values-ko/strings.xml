@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="VipSettingsTitle">Tajgram VIP Settings</string>
+<string name="VipSupportBot">Direct Support</string>
+<string name="LikeButton">👍 Like</string>
+<string name="DislikeButton">👎 Dislike</string>
+<string name="VoiceSelection">Select Voice Style 🔊</string>
+<string name="VoiceIcon_Girl">👩 Girl Voice</string>
+<string name="VoiceIcon_Boy">👨 Boy Voice</string>
+<string name="WelcomeBellTitle">Welcome to Tajgram!</string>
+<string name="WelcomeBellDesc">Thank you for choosing us.</string>
+<string name="WelcomeChannelSuggest">Please subscribe to the official channel.</string>
+<string name="WelcomeBellTitle_Reentry">Welcome Back!</string>
+<string name="WelcomeBellDesc_Reentry">Your space is ready.</string>
+<string name="ExitDialogTitle">Are you sure you want to leave?</string>
+<string name="ExitDialogDesc">We will be waiting for your quick return! ✨</string>
+<string name="TajgramBellCurrencyTitle">Live Currency Rates</string>
+<string name="TajgramBellCurrencyStatus">Updating rates online...</string>
+<string name="VipSettingsMenuTitle">Tajgram Settings</string>
+<string name="SecretSupportButtonLabel">Tajgram Secret Support</string>
+<string name="AskAQuestion">Technical Support</string>
+<string name="AskAQuestion_Owner">Contact Owner</string>
+<string name="TajgramFolkModeSwitch">Folk Mode</string>
+<string name="TajgramFolkModeDesc">Change dialect</string>
+<string name="Folk_Settings">App Repair</string>
+<string name="Folk_Security">Anti-Spy</string>
+<string name="Folk_InviteFriends">Invite Friends</string>
     <string name="AppName">텔레그램</string>
     <string name="AppNameBeta">텔레그램</string>
     <string name="LanguageName">한국어</string>
@@ -309,7 +334,6 @@
     <string name="ResetCustomNotificationsAlertTitle">알림 초기화</string>
     <string name="ResetCustomNotificationsAlert">정말 알림 설정을 기본값으로 초기화하겠습니까?</string>
     <string name="TextSizeHeader">메시지 글자 크기</string>
-    <string name="AskAQuestion">질문하기</string>
     <string name="AddAnExplanation">설명 추가</string>
     <string name="AddAnExplanationInfo">사용자가 틀린 답을 선택하면 이 설명이 나타납니다. 교육용으로 활용하기 좋습니다.</string>
     <string name="EnableAnimations">화면 전환 효과 사용</string>

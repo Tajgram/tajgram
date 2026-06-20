@@ -14,13 +14,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'saidjun/tajgram'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MY_TOKEN }} # Токени махсуси ту
           path: main_repo
 
       - name: Checkout Assets Repository
         uses: actions/checkout@v4
         with:
           repository: 'saidjun/tajgram_clon'
+          token: ${{ secrets.MY_TOKEN }} # Токени махсуси ту
           path: asset_repo
 
       - name: Inject All 25 Assets

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ АВТОМАТӢ СОХТА ШУД - ДУБЛИКАТ ЗАШИТА ФАЪОЛ АСТ -->
+<resources>
+    <string name="prank_instruction_title">Дастурамали Режими Ҳазл 🎭</string>
+    <string name="prank_instruction_desc">Шумо метавонед танзимотро бо хости шеваи худ, хоҳ прикол хоҳ чизи дигар иваз кунед ва хушҳол бошед! Аммо гапи бад, ҳақорат ё амалҳои ноҷо тафтиш ва маҳкам мешаванд.</string>
+    <string name="prank_accept_btn">Фаҳмидам ва Розиям 👍</string>
+    <string name="prank_warning_bad_word">Бубахшед, шумо бо ин суханон қоидаи барномаро вайрон кардед. Агар боз такрор кунед, дастрасӣ барои як рӯз қисман маҳдуд мешавад!</string>
+    <string name="prank_blocked_title">Дастрасӣ маҳдуд шуд 🚫</string>
+    <string name="prank_blocked_desc">Шумо 3 бор огоҳиро вайрон кардед. Режими Ҳазли шумо барои 24 соат маҳкам шуд. Пагоҳ бозгашта, суханони зебо нависед!</string>
+    <string name="prank_generation_empty">Бубахшед, мувофиқи табъи шумо ёфта натавонистам. Шумо ба табъи дилатон иваз карда, хушҳол бошед! 😊</string>
+    <string name="prank_btn_replace">Иваз кардан</string>
+    <string name="prank_btn_force">Маҷбуран гузошта шавад!</string>
+    <string name="prank_btn_cool">Гапи зур менависам</string>
+
+    <!-- 20 КАТЕГОРИЯИ ОГОҲИИ ПРИКОЛӢ -->
+    <string name="joke_c1_title">Э бетамиз!</string>
+    <string name="joke_c1_desc">Аз Худо наметарсӣ?! Сатрро иваз кун, набошад бачаҳора фарёд мекунам! 😡</string>
+    <string name="joke_c2_title">Э беақл!</string>
+    <string name="joke_c2_desc">Тӯ дигар гапи соз наёфтӣ? 🤣🤣 Ин гапҳоят на ба дунё фоида дораду на ба охират!</string>
+    <string name="joke_c3_title">Э ҷӯра / апа!</string>
+    <string name="joke_c3_desc">Зиёд нагузарон, мо фақат дӯст мемонем! 😂 Сар кун корро, калимаҳои сози барномаро навис!</string>
+    <string name="joke_c4_title">Э нависанда!</string>
+    <string name="joke_c4_desc">Роман навишта истодаӣ? 📝 Ин ҷо танзимоти меню аст! Кӯтоҳтар навис, ки интерфейс ба шикам наафтад!</string>
+    <string name="joke_c5_title">Э бизнесмен!</string>
+    <string name="joke_c5_desc">Дар танзимоти барномаи ман рекламаи худатро мечаспонӣ? 🤑 Ин ҷо бозори Панҷшанбе нест!</string>
+    <string name="joke_c6_title">Э директор!</string>
+    <string name="joke_c6_desc">Худат ягон сатр код нанавиштаӣ, боз шикоят мекунӣ? 😉 Созандаи барнома шабҳо хоб нарафтааст!</string>
+    <string name="joke_c7_title">Э Хакер!</string>
+    <string name="joke_c7_desc">Роҳат шуд? 💻 Стрингҳои оддӣ навис, рамзҳои махфиатро дар Терминал часпон!</string>
+    <string name="joke_c8_title">Э Раис!</string>
+    <string name="joke_c8_desc">Дар менюи оддии барнома маҷлиси ҳукуматӣ ташкил карда истодаӣ? 🏛️ Оддитар навис, халқ фаҳмад! 😉</string>
+    <string name="joke_c9_title">Э Миллионер!</string>
+    <string name="joke_c9_desc">Аз бӯи доллару криптаи навиштаат сарамон чарх зад! 💰 Аввал биё як калиди Premium-ро бихар! 🤣</string>
+    <string name="joke_c10_title">Э Рӯҳ!</string>
+    <string name="joke_c10_desc">Чиро пинҳон карда истодаӣ? 👻 Сатрро холӣ нагузор, ақаллан як эмоҷии хандон монда хушҳол шав!</string>
+    <string name="joke_c11_title">Э дод назан!</string>
+    <string name="joke_c11_desc">Гӯшҳоям кар шуд! 📢 Танзимоткуниро бо ҳарфҳои майдаву зебо навис! 😂</string>
+    <string name="joke_c12_title">Э Шоир!</string>
+    <string name="joke_c12_desc">Саъдии замон шудӣ? 📜 Ин ҷо менюи барнома аст, на дафтари шеъру ғазал! Як калимаи оддӣ навис! 😉</string>
+    <string name="joke_c13_title">Э танбал!</string>
+    <string name="joke_c13_desc">Ақаллан як калимаи пурра навис! 🐌 Танбалиро парто, Tajgram одамони чолокро дӯст медорад! 😂</string>
+    <string name="joke_c14_title">Э Ҷосус!</string>
+    <string name="joke_c14_desc">Агенти 007 шудӣ? 🕵️‍♂️ Мо ҳамаи кодҳои махфиатро медонем! Калимаи ошкоро навис!</string>
+    <string name="joke_c15_title">Э шикамба!</string>
+    <string name="joke_c15_desc">Дили моро ҳам хӯрок кунондӣ! 🍔 Аз бӯи Ошу Курутоби навиштаат коди барнома гурусна шуд! 🤣</string>
+    <string name="joke_c16_title">Э Бобо!</string>
+    <string name="joke_c16_desc">Магар мо дар асри ХVII ҳастем? 🧙‍♂️ Ин телефони сенсорӣ аст, асп ё ароба нест!</string>
+    <string name="joke_c17_title">Ҷаноби Олиҷаноб!</string>
+    <string name="joke_c17_desc">Тоҷатон наафтад! 👑 Султонӣ дар қаср аст, дар дохили Tajgram ҳама корбарон баробаранд! 😉</string>
+    <string name="joke_c18_title">Э Драма!</string>
+    <string name="joke_c18_desc">Ин қадар зиқ нашав, ҳамааш хуб мешавад! 😭 Барномаро бо ашкҳоят тар кардӣ, платааш месӯзад! ✨</string>
+    <string name="joke_c19_title">Э Одами Хезманд!</string>
+    <string name="joke_c19_desc">Ин забони марсианиро аз куҷо ёфтӣ? 🤪 Клавиатураро оҳистатар пахш кун, вай гуноҳ надорад!</string>
+    <string name="joke_c20_title">Э Саидҷони дуюм!</string>
+    <string name="joke_c20_desc">Соҳиби Tajgram якта аст ва ӯ ҳозир кодро назорат дорад! 🕶️ Худро админ натарош! 🤣</string>
+</resources>

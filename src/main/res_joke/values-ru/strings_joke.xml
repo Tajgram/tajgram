@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ АВТОМАТӢ СОХТА ШУД - ДУБЛИКАТ ЗАШИТА ФАЪОЛ АСТ -->
+<resources>
+    <string name="prank_instruction_title">Инструкция Режима Шуток 🎭</string>
+    <string name="prank_instruction_desc">Вы можете настроить интерфейс под свой вкус или шутки! Однако маты и неподобающие выражения блокируются. Ваша радость — это успех нашего приложения!</string>
+    <string name="prank_accept_btn">Понятно, Я согласен 👍</string>
+    <string name="prank_warning_bad_word">Извините, этими словами вы нарушили правила приложения. Если это повторится, доступ будет частично ограничен на один день.</string>
+    <string name="prank_blocked_title">Доступ ограничен 🚫</string>
+    <string name="prank_blocked_desc">Вы нарушили правила 3 раза. Режим Шуток заблокирован для вас на 24 часа. Возвращайтесь завтра с хорошими словами!</string>
+    <string name="prank_generation_empty">Извините, не удалось найти что-то подходящее под ваш вкус. Вы можете изменить настройки по своему усмотрению! 😊</string>
+    <string name="prank_btn_replace">Заменить</string>
+    <string name="prank_btn_force">Всё равно оставить!</string>
+    <string name="prank_btn_cool">Я напишу круче</string>
+
+    <!-- 20 КАТЕГОРИЯИ ОГОҲИИ ПРИКОЛӢ -->
+    <string name="joke_c1_title">Эй, беспредельщик!</string>
+    <string name="joke_c1_desc">Бога побойся! Замени строку, а то пацанов позову! 😡</string>
+    <string name="joke_c2_title">Эй, голова два уха!</string>
+    <string name="joke_c2_desc">Других слов не нашёл? 🤣🤣 Ни уму, ни сердцу! Замени!</string>
+    <string name="joke_c3_title">Полегче на поворотах!</string>
+    <string name="joke_c3_desc">Мы просто друзья! 😂 Давай ближе к делу, пиши настройки!</string>
+    <string name="joke_c4_title">Эй, Лев Толстой!</string>
+    <string name="joke_c4_desc">Роман пишешь? 📝 Это настройки меню, а не Война и Мир! Сократи текст!</string>
+    <string name="joke_c5_title">Эй, бизнесмен!</string>
+    <string name="joke_c5_desc">В настройках моего приложения свою рекламу пихаешь? 🤑 Тут тебе не Авито! Убери ссылку!</string>
+    <string name="joke_c6_title">Эй, критик!</string>
+    <string name="joke_c6_desc">Сам хоть строчку кода написал, чтобы жаловаться? 😉 Разработчик ночами не спал!</string>
+    <string name="joke_c7_title">Эй, Хакер!</string>
+    <string name="joke_c7_desc">Ну как, взломал? 💻 Мы тут не в Кремниевой долине, это Tajgram! Коды оставь для Терминала!</string>
+    <string name="joke_c8_title">Эй, Председатель!</string>
+    <string name="joke_c8_desc">Ты тут официальное собрание у меня в меню устраиваешь? 🏛️ Код приложения не выдержит!</string>
+    <string name="joke_c9_title">Эй, Крипто-Миллионер!</string>
+    <string name="joke_c9_desc">От запаха твоих виртуальных долларов голова закружилась! 💰 Купи сначала Premium-ключ! 🤣</string>
+    <string name="joke_c10_title">Эй, Призрак!</string>
+    <string name="joke_c10_desc">Ты что там скрываешь? 👻 Не оставляй строку пустой, поставь хотя бы смайлик!</string>
+    <string name="joke_c11_title">Эй, не кричи!</string>
+    <string name="joke_c11_desc">Уши заложило! 📢 Пиши маленькими буквами, капс тут не в моде! 😂</string>
+    <string name="joke_c12_title">Эй, Пушкин!</string>
+    <string name="joke_c12_desc">Стихами заговорил? 📜 Это меню приложения, а не вечер поэзии! Пиши проще! 😉</string>
+    <string name="joke_c13_title">Эй, лентяй!</string>
+    <string name="joke_c13_desc">Напиши хотя бы одно целое слово! 🐌 Букв жалко? Давай думай нормально! 😂</string>
+    <string name="joke_c14_title">Эй, Шпион!</string>
+    <string name="joke_c14_desc">Агент 007 нашелся? 🕵️‍♂️ Мы уже передали твои координаты! Сними маску! 🤣</string>
+    <string name="joke_c15_title">Эй, гурман!</string>
+    <string name="joke_c15_desc">Аж слюнки потекли! 🍔 От твоих шашлыков сервер проголодался! Сначала настрой, потом поедим!</string>
+    <string name="joke_c16_title">Эй, попаданец!</string>
+    <string name="joke_c16_desc">Мы вообще-то в XXI веке! 🧙‍♂️ Это сенсорный телефон, а не телега с конем!</string>
+    <string name="joke_c17_title">Ваше Величество!</string>
+    <string name="joke_c17_desc">Смотри, корона упадёт! 👑 Царствуй во дворе, а в Tajgram все пользователи равны!</string>
+    <string name="joke_c18_title">Эй, меланхолик!</string>
+    <string name="joke_c18_desc">Ну-ка без драмы, всё будет чётко! 😭 Затопишь сервер слезами — будет замыкание! ✨</string>
+    <string name="joke_c19_title">Эй, пришелец!</string>
+    <string name="joke_c19_desc">Ты на каком марсианском пишешь? 🤪 Пожалей клавиатуру, она не виновата!</string>
+    <string name="joke_c20_title">Дубликат Дурова!</string>
+    <string name="joke_c20_desc">Создатель у Tajgram один, и он сейчас видит твой экран! 🕶️ Не притворяйся админом! 🤣</string>
+</resources>

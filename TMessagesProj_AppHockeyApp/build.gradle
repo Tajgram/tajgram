@@ -185,7 +185,7 @@ android {
     buildFeatures {
         buildConfig = true
     }
-    namespace 'org.tajgram.messenger.regular'
+    namespace 'org.telegram.messenger.regular'
 
     lintOptions {
         checkReleaseBuilds false

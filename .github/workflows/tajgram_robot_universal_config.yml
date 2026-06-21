@@ -22,13 +22,11 @@ jobs:
         run: |
           git config --global user.name "TajgramRobot"
           git config --global user.email "robot@tajgram.tj"
-
       - name: ⚙️ Иҷрои Патчҳо ва Навсозии API
         run: |
           python3 - <<EOF
           import os
           import re
-
           # 1. Патчи BaseFragment
           bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           bf_code = """
@@ -46,7 +44,6 @@ jobs:
               if "TAJGRAM SECURITY START" not in content:
                   content = content.replace("public boolean onFragmentCreate() {", "public boolean onFragmentCreate() {\n" + bf_code)
                   with open(bf_path, "w", encoding="utf-8") as f: f.write(content)
-
           # 2. Патчи ChatActivity
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           ca_code = """
@@ -63,36 +60,18 @@ jobs:
               if "TAJGRAM SCREENSHOT LOCK START" not in content:
                   content = content.replace("public void onResume() {", "public void onResume() {\n" + ca_code)
                   with open(ca_path, "w", encoding="utf-8") as f: f.write(content)
-
-          # 3. Патчи СУПЕР-ДАҚИҚИ LocaleController (Тозакунӣ ва Ҷойгиркунии дуруст)
-          lc_path = "TMessagesProj/src/main/java/org/telegram/messenger/LocaleController.java"
-          if os.path.exists(lc_path):
-              with open(lc_path, "r", encoding="utf-8") as f: content = f.read()
-              
-              # ҚАДАМИ 1: Тоза кардани кодҳои хатои қаблӣ (барои он ки дубликат ва хатогӣ нест шавад)
-              content = re.sub(r'public\s+String\s+getCurrentLanguageCode\(\)\s*\{\s*return\s+"tg";\s*\}\s*', '', content)
-              
-              # ҚАДАМИ 2: Ёфтани блок ва шинондани код МАҲЗ дар болои @RequiresApi
-              pattern = r"(@RequiresApi\(api\s*=\s*Build\.VERSION_CODES\.N\)\s*private\s+static\s+final\s+class\s+RelativeIcu)"
-              if re.search(pattern, content):
-                  # Коди тоҷикӣ болотар аз аннотатсия меравад, то синфи RelativeIcu ва 3 қавси охир бетағйир монанд
-                  replacement = "public String getCurrentLanguageCode() {\n        return \"tg\";\n    }\n\n    \\1"
-                  content = re.sub(pattern, replacement, content)
-                  with open(lc_path, "w", encoding="utf-8") as f: f.write(content)
-                  print("✅ LocaleController бо муваффақият ва 100% тоза патч шуд!")
-              else:
-                  print("❌ Хато: Аннотатсия ё синфи RelativeIcu ёфт нашуд!")
-
-          # 4. Навсозии BuildVars.java (Ҷои API_ID ва API_HASH)
+          # 3. Навсозии BuildVars.java (Ҷои API_ID ва API_HASH)
           bv_path = "TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"
           if os.path.exists(bv_path):
               with open(bv_path, "r", encoding="utf-8") as f: content = f.read()
+              # Regex барои иваз кардани APP_ID
               content = re.sub(r'public static int APP_ID = \d+;', 'public static int APP_ID = 39951434;', content)
+              # Regex барои иваз кардани APP_HASH
               content = re.sub(r'public static String APP_HASH = "[^"]+";', 'public static String APP_HASH = "fcf607bae206cefb2930121a86459c4b";', content)
               with open(bv_path, "w", encoding="utf-8") as f: f.write(content)
           EOF
-
       - name: 📤 Push ба GitHub
         run: |
           git add .
+          # Танҳо агар тағйирот бошад, Push мекунад
           git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master)

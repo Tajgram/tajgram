@@ -1,38 +1,69 @@
-name: Cleanup Strings
-
+name: Tajgram Smart Sync
 on:
   workflow_dispatch:
 
 jobs:
-  cleanup:
+  check_translation:
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout Repo
+      - name: 📥 Checkout My Repo
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.MY_TOKEN }}
-          fetch-depth: 0 # Барои дуруст кор кардани git reset
 
-      - name: 🧹 Restore & Cleanup
+      - name: 🔍 Compare & Identify Missing Strings
         run: |
-          # 1. Танзимоти Git
+          python3 - <<EOF
+          import xml.etree.ElementTree as ET
+          import os
+
+          en_path = "TMessagesProj/src/main/res/values/strings.xml"
+          tg_path = "TMessagesProj/src/main/res/values-tg/strings.xml"
+          missing_path = "missing_strings.xml"
+
+          # 1. Хониши файлҳо
+          en_root = ET.parse(en_path).getroot()
+          tg_root = ET.parse(tg_path).getroot()
+
+          # 2. Гирифтани калидҳо
+          en_items = {item.attrib["name"]: item for item in en_root.findall("string") if "name" in item.attrib}
+          tg_keys = {item.attrib["name"] for item in tg_root.findall("string") if "name" in item.attrib}
+
+          # 3. Ёфтани гумшудаҳо
+          missing = []
+          print("--- САТРҲОИ ГУМШУДАИ ТАРҶУМА ---")
+          for key, element in en_items.items():
+              if key not in tg_keys:
+                  missing.append(element)
+                  print(f"⚠️ Гумшуда: {key}")
+          print("---------------------------------")
+
+          # 4. Сабт дар файл (танҳо агар чизе бошад)
+          if missing:
+              new_root = ET.Element("resources")
+              for item in missing:
+                  new_root.append(item)
+              
+              tree = ET.ElementTree(new_root)
+              tree.write(missing_path, encoding="utf-8", xml_declaration=True)
+              print(f"✅ {len(missing)} сатри нав дар {missing_path} захира шуд.")
+          else:
+              if os.path.exists(missing_path):
+                  os.remove(missing_path)
+              print("✅ Ҳамааш тарҷума шудааст, чизе намерасад.")
+          EOF
+
+      - name: 📤 Push Report
+        run: |
           git config user.name "TajgramRobot"
           git config user.email "robot@tajgram.tj"
-
-          # 2. Файлҳои нолозимро нест мекунем
-          rm -f strings_to_translate.txt
           
-          # 3. Барқарор кардани strings.xml (аз версияи охирини дуруст)
-          # Агар remote master аллакай "ифлос" бошад, ту бояд ба ҷои 'origin/master'
-          # ID-и коммити тозаро (масалан 15c2c35c) нависӣ
-          git checkout origin/master -- TMessagesProj/src/main/res/values/strings.xml
+          # Сабт танҳо агар тағйирот бошад
+          git add missing_strings.xml 2>/dev/null || true
           
-          # 4. Санҷиши тағйирот ва сабт (Commit)
-          # 'git diff --quiet' месанҷад, ки оё файл тағйир ёфтааст ё не
-          if ! git diff --quiet TMessagesProj/src/main/res/values/strings.xml; then
-            git add TMessagesProj/src/main/res/values/strings.xml
-            git commit -m "Cleanup: Removed unwanted strings"
+          if ! git diff-index --quiet HEAD --; then
+            git commit -m "Auto: Update missing strings report"
             git push
           else
-            echo "✅ Файл аллакай тоза аст, чизе барои сабт нест."
+            echo "✅ Ҳеҷ тағйироте нест, push намекунем."
           fi

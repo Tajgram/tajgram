@@ -19,14 +19,12 @@ jobs:
           find . -type f -name "strings.xml" | grep "values" | while read -r file; do
             echo "Processing: $file"
             
-            # 1. ТАФТИШ ВА ТОЗА КАРДАНИ ID-ҲОИ КӮҲНА (Ҳамаи дубликатҳоро 100% аз байн мебарад, агар 10 бор ҳам роҳандозӣ шавад)
+            # 1. ТАФТИШ ВА ТОЗА КАРДАНИ ID-ҲОИ КӮҲНА (Ҳамаи дубликатҳоро аввал комилан тоза мекунад)
             for id in $IDS; do
-              if grep -qE "name\s*=\s*['\"]$id['\"]" "$file"; then
-                sed -i -E "/name\s*=\s*['\"]$id['\"]/d" "$file"
-              fi
+              sed -i -E "/name\s*=\s*['\"]$id['\"]/d" "$file"
             done
             
-            # 2. Интихоби матни тарҷума вобаста ба замон (Услуби аслии худат)
+            # 2. Интихоби матни тарҷума вобаста ба замон (5 забони асосӣ ва минтақаҳои СССР/Европа)
             lang=$(basename "$(dirname "$file")")
             if [ "$lang" = "values-tg" ]; then
               STRS='<string name="VipSettingsTitle">Танзимоти VIP</string>\n<string name="VipSupportBot">Дастгирии мустақим</string>\n<string name="LikeButton">👍 Писанд</string>\n<string name="DislikeButton">👎 Нописанд</string>\n<string name="VoiceSelection">Интихоби овоз 🔊</string>\n<string name="VoiceIcon_Girl">👩 Овози духтар</string>\n<string name="VoiceIcon_Boy">👨 Овози писар</string>\n<string name="WelcomeBellTitle">Хуш омадед ба Tajgram!</string>\n<string name="WelcomeBellDesc">Ташаккур барои интихобатон.</string>\n<string name="WelcomeChannelSuggest">Лутфан ба канали расмӣ обуна шавед.</string>\n<string name="WelcomeBellTitle_Reentry">Хуш омадед!</string>\n<string name="WelcomeBellDesc_Reentry">Ҳамааш омода аст.</string>\n<string name="ExitDialogTitle">Мехоҳед бароед?</string>\n<string name="ExitDialogDesc">Мо мунтазири бозгашти шумоем! ✨</string>\n<string name="TajgramBellCurrencyTitle">Қурби асъор</string>\n<string name="TajgramBellCurrencyStatus">Навсозӣ...</string>\n<string name="VipSettingsMenuTitle">Танзимоти Tajgram</string>\n<string name="SecretSupportButtonLabel">Дастгирии махфӣ</string>\n<string name="AskAQuestion">Дастгирии техникӣ</string>\n<string name="AskAQuestion_Owner">Тамос бо соҳиб</string>\n<string name="TajgramFolkModeSwitch">Ҳолати мардумӣ</string>\n<string name="TajgramFolkModeDesc">Иваз кардани услуби сухан</string>\n<string name="Folk_Settings">Таъмири барнома</string>\n<string name="Folk_Security">Зидди ҷосусӣ</string>\n<string name="Folk_InviteFriends">Даъвати дӯстон</string>'
@@ -35,16 +33,20 @@ jobs:
             elif [ "$lang" = "values-ar" ]; then
               STRS='<string name="VipSettingsTitle">إعدادات VIP</string>\n<string name="VipSupportBot">دعم مباشر</string>\n<string name="LikeButton">👍 إعجاب</string>\n<string name="DislikeButton">👎 غير معجب</string>\n<string name="VoiceSelection">اختيار الصوت 🔊</string>\n<string name="VoiceIcon_Girl">👩 صوت فتاة</string>\n<string name="VoiceIcon_Boy">👨 صوت ولد</string>\n<string name="WelcomeBellTitle">مرحباً بك في تاج·گرام!</string>\n<string name="WelcomeBellDesc">شكراً لاختيارك لنا.</string>\n<string name="WelcomeChannelSuggest">يرجى الاشتراك في القناة الرسمية.</string>\n<string name="WelcomeBellTitle_Reentry">أهلاً بعودتك!</string>\n<string name="WelcomeBellDesc_Reentry">كل شيء جاهز.</string>\n<string name="ExitDialogTitle">هل تريد الخروج؟</string>\n<string name="ExitDialogDesc">نحن بانتظار عودتك! ✨</string>\n<string name="TajgramBellCurrencyTitle">أسعار العملات</string>\n<string name="TajgramBellCurrencyStatus">جارٍ التحديث...</string>\n<string name="VipSettingsMenuTitle">إعدادات تاج·گرام</string>\n<string name="SecretSupportButtonLabel">دعم سري</string>\n<string name="AskAQuestion">الدعم الفني</string>\n<string name="AskAQuestion_Owner">اتصل بالمالك</string>\n<string name="TajgramFolkModeSwitch">الوضع الشعبي</string>\n<string name="TajgramFolkModeDesc">تغيير نمط الكلام</string>\n<string name="Folk_Settings">إصلاح التطبيق</string>\n<string name="Folk_Security">مضاد التجسس</string>\n<string name="Folk_InviteFriends">دعوة الأصدقاء</string>'
             elif [[ "$lang" =~ ^values-(ru|uk|be|kk|uz|az|hy|ky|tk|mo) ]]; then
+              # Барои тамоми минтақаҳои СССР/Пост-Советӣ тарҷумаи русиро мешинонад
               STRS='<string name="VipSettingsTitle">VIP настройки</string>\n<string name="VipSupportBot">Прямая поддержка</string>\n<string name="LikeButton">👍 Нравится</string>\n<string name="DislikeButton">👎 Не нравится</string>\n<string name="VoiceSelection">Выбор голоса 🔊</string>\n<string name="VoiceIcon_Girl">👩 Голос девушки</string>\n<string name="VoiceIcon_Boy">👨 Голос парня</string>\n<string name="WelcomeBellTitle">Добро пожаловать!</string>\n<string name="WelcomeBellDesc">Спасибо что выбрали нас.</string>\n<string name="WelcomeChannelSuggest">Пожалуйста, подпишитесь на канал.</string>\n<string name="WelcomeBellTitle_Reentry">С возвращением!</string>\n<string name="WelcomeBellDesc_Reentry">Ваше место готово.</string>\n<string name="ExitDialogTitle">Вы уверены?</string>\n<string name="ExitDialogDesc">Ждем вашего возвращения! ✨</string>\n<string name="TajgramBellCurrencyTitle">Курс валют</string>\n<string name="TajgramBellCurrencyStatus">Обновление...</string>\n<string name="VipSettingsMenuTitle">Настройки Tajgram</string>\n<string name="SecretSupportButtonLabel">Секретная поддержка</string>\n<string name="AskAQuestion">Техподдержка</string>\n<string name="AskAQuestion_Owner">Связаться с владельцем</string>\n<string name="TajgramFolkModeSwitch">Народный режим</string>\n<string name="TajgramFolkModeDesc">Смена стиля общения</string>\n<string name="Folk_Settings">Починка приложения</string>\n<string name="Folk_Security">Анти-шпион</string>\n<string name="Folk_InviteFriends">Пригласить друзей</string>'
             else
+              # Тамоми забонҳои дигар (Англисӣ, Испанӣ, Франсузӣ ва дигар давлатҳои Европа) тарҷумаи глобалии Англисиро мегиранд
               STRS='<string name="VipSettingsTitle">Tajgram VIP Settings</string>\n<string name="VipSupportBot">Direct Support</string>\n<string name="LikeButton">👍 Like</string>\n<string name="DislikeButton">👎 Dislike</string>\n<string name="VoiceSelection">Select Voice Style 🔊</string>\n<string name="VoiceIcon_Girl">👩 Girl Voice</string>\n<string name="VoiceIcon_Boy">👨 Boy Voice</string>\n<string name="WelcomeBellTitle">Welcome to Tajgram!</string>\n<string name="WelcomeBellDesc">Thank you for choosing us.</string>\n<string name="WelcomeChannelSuggest">Please subscribe to the official channel.</string>\n<string name="WelcomeBellTitle_Reentry">Welcome Back!</string>\n<string name="WelcomeBellDesc_Reentry">Your space is ready.</string>\n<string name="ExitDialogTitle">Are you sure you want to leave?</string>\n<string name="ExitDialogDesc">We will be waiting for your quick return! ✨</string>\n<string name="TajgramBellCurrencyTitle">Live Currency Rates</string>\n<string name="TajgramBellCurrencyStatus">Updating rates online...</string>\n<string name="VipSettingsMenuTitle">Tajgram Settings</string>\n<string name="SecretSupportButtonLabel">Tajgram Secret Support</string>\n<string name="AskAQuestion">Technical Support</string>\n<string name="AskAQuestion_Owner">Contact Owner</string>\n<string name="TajgramFolkModeSwitch">Folk Mode</string>\n<string name="TajgramFolkModeDesc">Change dialect</string>\n<string name="Folk_Settings">App Repair</string>\n<string name="Folk_Security">Anti-Spy</string>\n<string name="Folk_InviteFriends">Invite Friends</string>'
             fi
             
-            # 3. ИЛОВА КАРДАН БА ПОЁНИ САТРИ START_BUTTON (Маҳз аз ҳамин ҷо мешинонад ва дигар ба аввал даст намезанад)
+            # 3. ИЛОВА КАРДАН БА ПОЁНИ САТРИ START_BUTTON (Бо истифодаи Regex, новобаста аз матни дохили тег)
             if grep -q "name=\"start_button\"" "$file"; then
-              sed -i "s|<string name=\"start_button\">Start</string>|<string name=\"start_button\">Start</string>\n$STRS|" "$file"
+              # Ин фармон теги start_button-ро бо ҳар забоне бошад меёбад ва STRS-ро маҳз зери он мешинонад
+              sed -i -E "s|(<string name=\"start_button\">[^<]*</string>)|\1\n$STRS|" "$file"
             else
-              sed -i "s|<resources>|<resources>\n$STRS|" "$file"
+              # Агар дар файл теги дақиқи資源 атрибутдор бошад ҳам иҷро мешавад
+              sed -i -E "s|(<resources[^>]*>)|\1\n$STRS|" "$file"
             fi
           done
 
@@ -53,5 +55,5 @@ jobs:
           git config --global user.name "Saidjun Chief Developer"
           git config --global user.email "actions@github.com"
           git add .
-          # Иловаи [skip ci] барои он ки ботҳои тозакунандаи дигар фаъол нашаванд
-          git diff-index --quiet HEAD || (git commit -m "Engine: Features Injected Safely [skip ci]" && git push origin master)
+          # Фармони устувор барои маҷбурӣ Push кардан, агар тағйирот бошад
+          git diff-index --quiet HEAD || (git commit -m "Engine: Features Injected Safely to USSR and Europe [skip ci]" && git push origin master)

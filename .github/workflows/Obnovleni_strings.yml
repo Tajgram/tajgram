@@ -11,19 +11,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.MY_TOKEN }}
+          fetch-depth: 0 # Барои дуруст кор кардани git reset
 
-      - name: 🧹 Restore Files
+      - name: 🧹 Restore & Cleanup
         run: |
-          # 1. Файли strings.xml-ро ба ҳолати аввалааш бармегардонем
-          git checkout origin/master -- TMessagesProj/src/main/res/values/strings.xml
-          
-          # 2. Файли нолозими strings_to_translate.txt-ро нест мекунем
-          rm -f strings_to_translate.txt
-          
-          # 3. Сабт кардан (сохранит) то ки GitHub ҳам тоза шавад
+          # 1. Танзимоти Git
           git config user.name "TajgramRobot"
           git config user.email "robot@tajgram.tj"
-          git add TMessagesProj/src/main/res/values/strings.xml
+
+          # 2. Файлҳои нолозимро нест мекунем
+          rm -f strings_to_translate.txt
           
-          # Агар тағйирот бошад, сабт мекунад
-          git diff-index --quiet HEAD || (git commit -m "Cleanup: Removed unwanted strings" && git push)
+          # 3. Барқарор кардани strings.xml (аз версияи охирини дуруст)
+          # Агар remote master аллакай "ифлос" бошад, ту бояд ба ҷои 'origin/master'
+          # ID-и коммити тозаро (масалан 15c2c35c) нависӣ
+          git checkout origin/master -- TMessagesProj/src/main/res/values/strings.xml
+          
+          # 4. Санҷиши тағйирот ва сабт (Commit)
+          # 'git diff --quiet' месанҷад, ки оё файл тағйир ёфтааст ё не
+          if ! git diff --quiet TMessagesProj/src/main/res/values/strings.xml; then
+            git add TMessagesProj/src/main/res/values/strings.xml
+            git commit -m "Cleanup: Removed unwanted strings"
+            git push
+          else
+            echo "✅ Файл аллакай тоза аст, чизе барои сабт нест."
+          fi

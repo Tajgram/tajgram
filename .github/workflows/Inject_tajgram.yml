@@ -1,4 +1,4 @@
-name: Inject Tajgram Walkthrough Module
+Name: Inject Tajgram Walkthrough Module
 on:
   workflow_dispatch:
 permissions:
@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Precision Injection (No Collateral Damage)
         run: |
@@ -17,7 +17,7 @@ jobs:
           find . -type f -name "strings.xml" | grep "values" | while read -r file; do
             echo "Processing: $file"
             
-            # 1. АВВАЛ ТАФТИШ ВА ТОЗА КАРДАНИ ID-ҲОИ КӮҲНА (Агар бошанд тоза мекунад, набошанд нарасад)
+            # 1. АВВАЛ ТАФТИШ ВА ТОЗА КАРДАНИ ID-ҲОИ КӮҲНА
             for id in $IDS; do
               if grep -q "name=\"$id\"" "$file"; then
                 sed -i "/name=\"$id\"/d" "$file"
@@ -31,16 +31,15 @@ jobs:
             elif [ "$lang" = "values-fa" ]; then
               STRS='<string name="onboarding_title_1">خوش آمدید! 🌍</string>\n<string name="onboarding_desc_1">سرعت و امنیت.</string>\n<string name="onboarding_title_2">با ستاره‌ها بدرخشید! ⭐</string>\n<string name="onboarding_desc_2">قابلیت‌های ویژه و ترجمه.</string>\n<string name="onboarding_title_3">زنگوله شخصی 🔊</string>\n<string name="onboarding_desc_3">انتخاب صداها و مدیریت هشدارها.</string>\n<string name="onboarding_title_4">امنیت ۱۰۰٪ 🛡️</string>\n<string name="onboarding_desc_4">محافظت پروکسی و ضد جاسوسی.</string>\n<string name="onboarding_title_5">بزن بریم! ✨</string>\n<string name="onboarding_desc_5">به حالت محلی تغییر دهید و لذت ببرید!</string>\n<string name="skip_button">رد شدن (X)</string>\n<string name="start_button">شروع</string>'
             elif [ "$lang" = "values-ar" ]; then
-              STRS='<string name="onboarding_title_1">مرحباً بك! 🌍</string>\n<string name="onboarding_desc_1">السرعة والأمان.</string>\n<string name="onboarding_title_2">تألق مع النجوم! ⭐</string>\n<string name="onboarding_desc_2">الميزات المميزة والترجمة.</string>\n<string name="onboarding_title_3">الجرس الشخصي 🔊</string>\n<string name="onboarding_desc_3">اختر الأصوات وإدارة التنبيهات.</string>\n<string name="onboarding_title_4">أمان 100% 🛡️</string>\n<string name="onboarding_desc_4">حماية البروكسي ومضاد التجسس.</string>\n<string name="onboarding_title_5">لننطلق! ✨</string>\n<string name="onboarding_desc_5">انتقل إلى الوضع الشعبي واستمتع!</string>\n<string name="skip_button">تخطى (X)</string>\n<string name="start_button">ابدأ</string>'
+              STRS='<string name="onboarding_title_1">مرحباً بك! 🌍</string>\n<string name="onboarding_desc_1">السرعة والأمان.</string>\n<string name="onboarding_title_2">تألق مع النجوم! ⭐</string>\n<string name="onboarding_desc_2">الميزات المميزة والترجمة.</string>\n<string name="onboarding_title_3">الجرس الشخصي 🔊</string>\n<string name="onboarding_desc_3">اختر الأصوات وإدارة التنبيهات.</string>\n<string name="onboarding_title_4">أمان 100% 🛡️</string>\n<string name="onboarding_desc_4">حماية البروكسي ومضاد التنبيهات.</string>\n<string name="onboarding_title_5">لننطلق! ✨</string>\n<string name="onboarding_desc_5">انتقل إلى الوضع الشعبي واستمتع!</string>\n<string name="skip_button">تخطى (X)</string>\n<string name="start_button">ابدأ</string>'
             elif [[ "$lang" =~ ^values-(ru|uk|be|kk|uz|az|hy|ky|tk|mo) ]]; then
-              # Қисми СССР
               STRS='<string name="onboarding_title_1">Добро пожаловать! 🌍</string>\n<string name="onboarding_desc_1">Скорость и безопасность.</string>\n<string name="onboarding_title_2">Сияйте со Звездами! ⭐</string>\n<string name="onboarding_desc_2">Премиум функции и перевод.</string>\n<string name="onboarding_title_3">Личный Звонок 🔊</string>\n<string name="onboarding_desc_3">Выбирайте голоса и управляйте уведомлениями.</string>\n<string name="onboarding_title_4">100% Безопасность 🛡️</string>\n<string name="onboarding_desc_4">Прокси и антишпионская защита.</string>\n<string name="onboarding_title_5">Поехали! ✨</string>\n<string name="onboarding_desc_5">Переключитесь на Народный режим и наслаждайтесь!</string>\n<string name="skip_button">Пропустить (X)</string>\n<string name="start_button">Старт</string>'
             else
-              # Қисми Аврупо ва Дигар забонҳо (Default)
-              STRS='<string name="onboarding_title_1">Welcome! 🌍</string>\n<string name="onboarding_desc_1">Speed and security.</string>\n<string name="onboarding_title_2">Shine with Stars! ⭐</string>\n<string name="onboarding_desc_2">Premium features & translation.</string>\n<string name="onboarding_title_3">Personal Bell 🔊</string>\n<string name="onboarding_desc_3">Select voices and manage alerts.</string>\n<string name="onboarding_title_4">100% Security 🛡️</string>\n<string name="onboarding_desc_4">Proxy and anti-spy protection.</string>\n<string name="onboarding_title_5">Let’s Go! ✨</string>\n<string name="onboarding_desc_5">Switch to Folk Mode and enjoy!</string>\n<string name="skip_button">Skip (X)</string>\n<string name="start_button">Start</string>'
+              # Аломати & комилан нест ва ба 'and' иваз шуд, то матн 100% оддӣ ва доимӣ бошад
+              STRS='<string name="onboarding_title_1">Welcome! 🌍</string>\n<string name="onboarding_desc_1">Speed and security.</string>\n<string name="onboarding_title_2">Shine with Stars! ⭐</string>\n<string name="onboarding_desc_2">Premium features and translation.</string>\n<string name="onboarding_title_3">Personal Bell 🔊</string>\n<string name="onboarding_desc_3">Select voices and manage alerts.</string>\n<string name="onboarding_title_4">100% Security 🛡️</string>\n<string name="onboarding_desc_4">Proxy and anti-spy protection.</string>\n<string name="onboarding_title_5">Let’s Go! ✨</string>\n<string name="onboarding_desc_5">Switch to Folk Mode and enjoy!</string>\n<string name="skip_button">Skip (X)</string>\n<string name="start_button">Start</string>'
             fi
             
-            # 3. БА АВВАЛИ ФАЙЛ САБТ КАРДАН (Рост баъди теги <resources>)
+            # 3. БА АВВАЛИ ФАЙЛ САБТ КАРДАН
             sed -i "s|<resources>|<resources>\n$STRS|" "$file"
           done
 
@@ -49,5 +48,4 @@ jobs:
           git config --global user.name "Saidjun Chief Developer"
           git config --global user.email "actions@github.com"
           git add .
-          # Сабти охирин ва қуфл кардани ботҳои тозакунанда бо [skip ci]
           git diff-index --quiet HEAD || (git commit -m "Onboarding: Precision update [skip ci]" && git push origin master)

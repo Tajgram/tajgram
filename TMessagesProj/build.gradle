@@ -235,7 +235,7 @@ android {
         }
     }
 
-    namespace 'org.tajgram.messenger'
+    namespace 'org.telegram.messenger'
 }
 
 

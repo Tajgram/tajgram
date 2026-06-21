@@ -4449,12 +4449,11 @@ public class LocaleController {
     }
 
     // -------- API 24+ localized relative formatter --------
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public String getCurrentLanguageCode() {
         return "tg";
     }
 
-    private static final class RelativeIcu {
+     {
         static String format(long diffMillis, Locale locale) {
             RelativeDateTimeFormatter f = RelativeDateTimeFormatter.getInstance(locale);
 

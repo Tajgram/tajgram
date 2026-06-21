@@ -1,75 +1,29 @@
-name: Sync & Update Strings
+name: Cleanup Strings
 
 on:
   workflow_dispatch:
 
 jobs:
-  sync_strings:
+  cleanup:
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout My Repo
+      - name: 📥 Checkout Repo
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.MY_TOKEN }}
-          path: my_repo
 
-      - name: 📥 Checkout Official Telegram Repo
-        uses: actions/checkout@v4
-        with:
-          repository: 'DrKLO/Telegram'
-          path: official_repo
-
-      - name: ⚙️ Update Main & Extract New Strings
+      - name: 🧹 Restore Files
         run: |
-          python3 - <<EOF
-          import xml.etree.ElementTree as ET
-          import os
-
-          # Роҳи файлҳо
-          my_file = "my_repo/TMessagesProj/src/main/res/values/strings.xml"
-          official_file = "official_repo/TMessagesProj/src/main/res/values/strings.xml"
-          # Роҳ барои файли тарҷума (ислоҳшуда)
-          translate_file = "my_repo/strings_to_translate.txt"
-
-          if not os.path.exists(my_file) or not os.path.exists(official_file):
-              print("❌ Файлҳо ёфт нашуданд!")
-              exit(1)
-
-          # Хониши XML-ҳо
-          tree = ET.parse(my_file)
-          root = tree.getroot()
-          my_keys = {item.attrib["name"] for item in root.findall("string") if "name" in item.attrib}
+          # 1. Файли strings.xml-ро ба ҳолати аввалааш бармегардонем
+          git checkout origin/master -- TMessagesProj/src/main/res/values/strings.xml
           
-          off_tree = ET.parse(official_file)
-          off_root = off_tree.getroot()
+          # 2. Файли нолозими strings_to_translate.txt-ро нест мекунем
+          rm -f strings_to_translate.txt
           
-          new_items = []
-          for item in off_root.findall("string"):
-              key = item.attrib.get("name")
-              if key and key not in my_keys:
-                  new_items.append(item)
-
-          # Сабт дар дохили my_repo
-          with open(translate_file, "w", encoding="utf-8") as f:
-              if new_items:
-                  # 1. Илова ба файли асосӣ
-                  for item in new_items:
-                      root.append(item)
-                  tree.write(my_file, encoding="utf-8", xml_declaration=True)
-                  
-                  # 2. Сабт дар файли тарҷума
-                  f.write("=== ИНҲО САТРҲОИ НАВ ҲАСТАНД, КИ БОЯД ТАРҶУМА ШАВАНД ===\n\n")
-                  for item in new_items:
-                      text = item.text if item.text else ""
-                      f.write(f'<string name="{item.attrib["name"]}">{text}</string>\n')
-              else:
-                  f.write("✅ Ҳамаи сатрҳо баробаранд. Чизе нав нест.")
-          EOF
-
-      - name: 📤 Push Changes
-        run: |
-          cd my_repo
+          # 3. Сабт кардан (сохранит) то ки GitHub ҳам тоза шавад
           git config user.name "TajgramRobot"
           git config user.email "robot@tajgram.tj"
-          git add TMessagesProj/src/main/res/values/strings.xml strings_to_translate.txt
-          git diff-index --quiet HEAD || (git commit -m "Auto: Synced new official strings" && git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master)
+          git add TMessagesProj/src/main/res/values/strings.xml
+          
+          # Агар тағйирот бошад, сабт мекунад
+          git diff-index --quiet HEAD || (git commit -m "Cleanup: Removed unwanted strings" && git push)

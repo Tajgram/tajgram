@@ -64,25 +64,24 @@ jobs:
                   content = content.replace("public void onResume() {", "public void onResume() {\n" + ca_code)
                   with open(ca_path, "w", encoding="utf-8") as f: f.write(content)
 
-          # 3. Патчи НАВ ва ДАҚИҚИ LocaleController (Мувофиқи скриншоти сатри 4453)
+          # 3. Патчи СУПЕР-ДАҚИҚИ LocaleController (Тозакунӣ ва Ҷойгиркунии дуруст)
           lc_path = "TMessagesProj/src/main/java/org/telegram/messenger/LocaleController.java"
           if os.path.exists(lc_path):
               with open(lc_path, "r", encoding="utf-8") as f: content = f.read()
               
-              # Санҷиш аз дубликат: агар коди тоҷикӣ аллакай набошад
-              if "getCurrentLanguageCode" not in content:
-                  # Робот маҳз матни заводиро аз скриншоти ту меёбад (бо regex барои бехатарӣ)
-                  pattern = r"private\s+static\s+final\s+class\s+RelativeIcu"
-                  if re.search(pattern, content):
-                      # Кодро маҳз як сатр болотар мешинонад ва сохтори 3 қавси охир бетағйир мемонад
-                      replacement = "public String getCurrentLanguageCode() {\n        return \"tg\";\n    }\n\n    private static final class RelativeIcu"
-                      content = re.sub(pattern, replacement, content)
-                      with open(lc_path, "w", encoding="utf-8") as f: f.write(content)
-                      print("✅ LocaleController бо муваффақият мувофиқи скриншот патч шуд!")
-                  else:
-                      print("❌ Хато: Сатри 'private static final class RelativeIcu' ёфт нашуд!")
+              # ҚАДАМИ 1: Тоза кардани кодҳои хатои қаблӣ (барои он ки дубликат ва хатогӣ нест шавад)
+              content = re.sub(r'public\s+String\s+getCurrentLanguageCode\(\)\s*\{\s*return\s+"tg";\s*\}\s*', '', content)
+              
+              # ҚАДАМИ 2: Ёфтани блок ва шинондани код МАҲЗ дар болои @RequiresApi
+              pattern = r"(@RequiresApi\(api\s*=\s*Build\.VERSION_CODES\.N\)\s*private\s+static\s+final\s+class\s+RelativeIcu)"
+              if re.search(pattern, content):
+                  # Коди тоҷикӣ болотар аз аннотатсия меравад, то синфи RelativeIcu ва 3 қавси охир бетағйир монанд
+                  replacement = "public String getCurrentLanguageCode() {\n        return \"tg\";\n    }\n\n    \\1"
+                  content = re.sub(pattern, replacement, content)
+                  with open(lc_path, "w", encoding="utf-8") as f: f.write(content)
+                  print("✅ LocaleController бо муваффақият ва 100% тоза патч шуд!")
               else:
-                  print("ℹ️ Патчи LocaleController аллакай мавҷуд аст, дубликат сохта нашуд.")
+                  print("❌ Хато: Аннотатсия ё синфи RelativeIcu ёфт нашуд!")
 
           # 4. Навсозии BuildVars.java (Ҷои API_ID ва API_HASH)
           bv_path = "TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"

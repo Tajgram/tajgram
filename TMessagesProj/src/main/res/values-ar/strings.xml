@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="onboarding_title_1">مرحباً بك! 🌍</string>
+<string name="onboarding_desc_1">السرعة والأمان.</string>
+<string name="onboarding_title_2">تألق مع النجوم! ⭐</string>
+<string name="onboarding_desc_2">الميزات المميزة والترجمة.</string>
+<string name="onboarding_title_3">الجرس الشخصي 🔊</string>
+<string name="onboarding_desc_3">اختر الأصوات وإدارة التنبيهات.</string>
+<string name="onboarding_title_4">أمان 100% 🛡️</string>
+<string name="onboarding_desc_4">حماية البروكسي ومضاد التجسس.</string>
+<string name="onboarding_title_5">لننطلق! ✨</string>
+<string name="onboarding_desc_5">انتقل إلى الوضع الشعبي واستمتع!</string>
+<string name="skip_button">تخطى (X)</string>
+<string name="start_button">ابدأ</string>
 <string name="VipSettingsTitle">إعدادات VIP</string>
 <string name="VipSupportBot">دعم مباشر</string>
 <string name="LikeButton">👍 إعجاب</string>
@@ -25,18 +37,6 @@
 <string name="Folk_Settings">إصلاح التطبيق</string>
 <string name="Folk_Security">مضاد التجسس</string>
 <string name="Folk_InviteFriends">دعوة الأصدقاء</string>
-<string name="onboarding_title_1">مرحباً بك! 🌍</string>
-<string name="onboarding_desc_1">السرعة والأمان.</string>
-<string name="onboarding_title_2">تألق مع النجوم! ⭐</string>
-<string name="onboarding_desc_2">الميزات المميزة والترجمة.</string>
-<string name="onboarding_title_3">الجرس الشخصي 🔊</string>
-<string name="onboarding_desc_3">اختر الأصوات وإدارة التنبيهات.</string>
-<string name="onboarding_title_4">أمان 100% 🛡️</string>
-<string name="onboarding_desc_4">حماية البروكسي ومضاد التجسس.</string>
-<string name="onboarding_title_5">لننطلق! ✨</string>
-<string name="onboarding_desc_5">انتقل إلى الوضع الشعبي واستمتع!</string>
-<string name="skip_button">تخطى (X)</string>
-<string name="start_button">ابدأ</string>
     <string name="AppName">Tajgram</string>
     <string name="AppNameBeta">(Beta) Tajgram</string>
     <string name="LanguageName">العربية</string>

@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="onboarding_title_1">Добро пожаловать! 🌍</string>
-<string name="onboarding_desc_1">Скорость и безопасность.</string>
-<string name="onboarding_title_2">Сияйте со Звездами! ⭐</string>
-<string name="onboarding_desc_2">Премиум функции и перевод.</string>
-<string name="onboarding_title_3">Личный Звонок 🔊</string>
-<string name="onboarding_desc_3">Выбирайте голоса и управляйте уведомлениями.</string>
-<string name="onboarding_title_4">100% Безопасность 🛡️</string>
-<string name="onboarding_desc_4">Прокси и антишпионская защита.</string>
-<string name="onboarding_title_5">Поехали! ✨</string>
-<string name="onboarding_desc_5">Переключитесь на Народный режим и наслаждайтесь!</string>
-<string name="skip_button">Пропустить (X)</string>
-<string name="start_button">Старт</string>
 <string name="VipSettingsTitle">VIP настройки</string>
 <string name="VipSupportBot">Прямая поддержка</string>
 <string name="LikeButton">👍 Нравится</string>
@@ -37,6 +25,18 @@
 <string name="Folk_Settings">Починка приложения</string>
 <string name="Folk_Security">Анти-шпион</string>
 <string name="Folk_InviteFriends">Пригласить друзей</string>
+<string name="onboarding_title_1">Добро пожаловать! 🌍</string>
+<string name="onboarding_desc_1">Скорость и безопасность.</string>
+<string name="onboarding_title_2">Сияйте со Звездами! ⭐</string>
+<string name="onboarding_desc_2">Премиум функции и перевод.</string>
+<string name="onboarding_title_3">Личный Звонок 🔊</string>
+<string name="onboarding_desc_3">Выбирайте голоса и управляйте уведомлениями.</string>
+<string name="onboarding_title_4">100% Безопасность 🛡️</string>
+<string name="onboarding_desc_4">Прокси и антишпионская защита.</string>
+<string name="onboarding_title_5">Поехали! ✨</string>
+<string name="onboarding_desc_5">Переключитесь на Народный режим и наслаждайтесь!</string>
+<string name="skip_button">Пропустить (X)</string>
+<string name="start_button">Старт</string>
     <string name="AppName">Tajgram</string>
     <string name="AppNameBeta">Tajgram Beta</string>
     <string name="LanguageName">Русский</string>

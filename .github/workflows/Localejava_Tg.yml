@@ -1,0 +1,61 @@
+name: Tajgram Locale Controller Patch Only
+
+on:
+  workflow_dispatch:
+
+jobs:
+  patch_locale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔄 Клони лоиҳа (Checkout)
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MY_TOKEN }}
+          branch: master
+
+      - name: 🐍 Насби Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 🧹 Танзими Нависандаи Git
+        run: |
+          git config --global user.name "TajgramRobot"
+          git config --global user.email "robot@tajgram.tj"
+
+      - name: ⚙️ Патчи Локализации Тоҷикӣ
+        run: |
+          python3 - <<EOF
+          import os
+
+          lc_path = "TMessagesProj/src/main/java/org/telegram/messenger/LocaleController.java"
+          
+          if os.path.exists(lc_path):
+              with open(lc_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+              
+              # Санҷиши бехатарӣ: Агар код аллакай илова шуда бошад, дигарбора даст намезанад
+              if "getCurrentLanguageCode()" not in content:
+                  # Лангари дақиқи матнӣ, ки ту дар файл фиристодӣ (4 пробел дорад)
+                  target = "    // -------- API 24+ localized relative formatter --------"
+                  
+                  # Ҷойгиркунии алоҳида: кодро мешинонад ва лангарро бетағйир ба ҷояш бармегардонад
+                  replacement = "    public String getCurrentLanguageCode() {\n        return \"tg\";\n    }\n\n    // -------- API 24+ localized relative formatter --------"
+                  
+                  if target in content:
+                      content = content.replace(target, replacement)
+                      with open(lc_path, "w", encoding="utf-8") as f:
+                          f.write(content)
+                      print("✅ Санҷиш бомуваффақият гузашт: Қавсҳо солим ва код ҷойгир шуд!")
+                  else:
+                      print("❌ Хато: Сатри лангар дар файл ёфт нашуд!")
+              else:
+                  print("⚠️ Огоҳӣ: Коди тоҷикии ту аллакай дар файл мустақил хов аст.")
+          else:
+              print(f"❌ Хато: Файли LocaleController.java дар ин суроға ёфт нашуд!")
+          EOF
+
+      - name: 📤 Push тағйирот ба GitHub
+        run: |
+          git add .
+          git diff-index --quiet HEAD || (git commit -m "Tajgram: Safe separate locale patch applied" && git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master)

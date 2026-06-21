@@ -64,13 +64,29 @@ jobs:
                   content = content.replace("public void onResume() {", "public void onResume() {\n" + ca_code)
                   with open(ca_path, "w", encoding="utf-8") as f: f.write(content)
 
-          # 3. Навсозии BuildVars.java (Ҷои API_ID ва API_HASH)
+          # 3. Патчи ДАҚИҚИ LocaleController (Дар ҷои мувофиқи боло, барои ҳифзи 3 қавси охир)
+          lc_path = "TMessagesProj/src/main/java/org/telegram/messenger/LocaleController.java"
+          if os.path.exists(lc_path):
+              with open(lc_path, "r", encoding="utf-8") as f: content = f.read()
+              
+              # Санҷиш аз дубликат: агар код аллакай набошад
+              if "getCurrentLanguageCode" not in content:
+                  # Робот маҳз болои RelativeIcu-ро меёбад ва коди тоҷикиро мешинонад
+                  if "public static class RelativeIcu" in content:
+                      content = content.replace(
+                          "public static class RelativeIcu",
+                          "public String getCurrentLanguageCode() {\n        return \"tg\";\n    }\n\n    public static class RelativeIcu"
+                      )
+                      with open(lc_path, "w", encoding="utf-8") as f: f.write(content)
+                      print("✅ LocaleController дар ҷои мувофиқи боло патч шуд. 3 қавси охир бетағйир монд.")
+              else:
+                  print("ℹ️ Патчи LocaleController аллакай ҳаст, дубликат сохта нашуд.")
+
+          # 4. Навсозии BuildVars.java (Ҷои API_ID ва API_HASH)
           bv_path = "TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"
           if os.path.exists(bv_path):
               with open(bv_path, "r", encoding="utf-8") as f: content = f.read()
-              # Regex барои иваз кардани APP_ID
               content = re.sub(r'public static int APP_ID = \d+;', 'public static int APP_ID = 39951434;', content)
-              # Regex барои иваз кардани APP_HASH
               content = re.sub(r'public static String APP_HASH = "[^"]+";', 'public static String APP_HASH = "fcf607bae206cefb2930121a86459c4b";', content)
               with open(bv_path, "w", encoding="utf-8") as f: f.write(content)
           EOF
@@ -78,5 +94,4 @@ jobs:
       - name: 📤 Push ба GitHub
         run: |
           git add .
-          # Танҳо агар тағйирот бошад, Push мекунад
           git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master)

@@ -64,23 +64,25 @@ jobs:
                   content = content.replace("public void onResume() {", "public void onResume() {\n" + ca_code)
                   with open(ca_path, "w", encoding="utf-8") as f: f.write(content)
 
-          # 3. Патчи ДАҚИҚИ LocaleController (Дар ҷои мувофиқи боло, барои ҳифзи 3 қавси охир)
+          # 3. Патчи НАВ ва ДАҚИҚИ LocaleController (Мувофиқи скриншоти сатри 4453)
           lc_path = "TMessagesProj/src/main/java/org/telegram/messenger/LocaleController.java"
           if os.path.exists(lc_path):
               with open(lc_path, "r", encoding="utf-8") as f: content = f.read()
               
-              # Санҷиш аз дубликат: агар код аллакай набошад
+              # Санҷиш аз дубликат: агар коди тоҷикӣ аллакай набошад
               if "getCurrentLanguageCode" not in content:
-                  # Робот маҳз болои RelativeIcu-ро меёбад ва коди тоҷикиро мешинонад
-                  if "public static class RelativeIcu" in content:
-                      content = content.replace(
-                          "public static class RelativeIcu",
-                          "public String getCurrentLanguageCode() {\n        return \"tg\";\n    }\n\n    public static class RelativeIcu"
-                      )
+                  # Робот маҳз матни заводиро аз скриншоти ту меёбад (бо regex барои бехатарӣ)
+                  pattern = r"private\s+static\s+final\s+class\s+RelativeIcu"
+                  if re.search(pattern, content):
+                      # Кодро маҳз як сатр болотар мешинонад ва сохтори 3 қавси охир бетағйир мемонад
+                      replacement = "public String getCurrentLanguageCode() {\n        return \"tg\";\n    }\n\n    private static final class RelativeIcu"
+                      content = re.sub(pattern, replacement, content)
                       with open(lc_path, "w", encoding="utf-8") as f: f.write(content)
-                      print("✅ LocaleController дар ҷои мувофиқи боло патч шуд. 3 қавси охир бетағйир монд.")
+                      print("✅ LocaleController бо муваффақият мувофиқи скриншот патч шуд!")
+                  else:
+                      print("❌ Хато: Сатри 'private static final class RelativeIcu' ёфт нашуд!")
               else:
-                  print("ℹ️ Патчи LocaleController аллакай ҳаст, дубликат сохта нашуд.")
+                  print("ℹ️ Патчи LocaleController аллакай мавҷуд аст, дубликат сохта нашуд.")
 
           # 4. Навсозии BuildVars.java (Ҷои API_ID ва API_HASH)
           bv_path = "TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"

@@ -1,17 +1,24 @@
 name: Tajgram Smart Sync
+
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Иҷроиши дастӣ аз бахши Actions
 
 jobs:
   check_translation:
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout My Repo
+      - name: 📥 Клони лоиҳа (Checkout)
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.MY_TOKEN }}
+          branch: master
 
-      - name: 🔍 Compare & Identify Missing Strings
+      - name: 🐍 Насби Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 🔍 Муқоиса ва Ислоҳи Хатогиҳои XML
         run: |
           python3 - <<EOF
           import xml.etree.ElementTree as ET
@@ -19,51 +26,82 @@ jobs:
 
           en_path = "TMessagesProj/src/main/res/values/strings.xml"
           tg_path = "TMessagesProj/src/main/res/values-tg/strings.xml"
-          missing_path = "missing_strings.xml"
+          
+          # Папка ва файли алоҳида барои сатрҳои нав
+          output_folder = "missing_translations"
+          output_file = os.path.join(output_folder, "strings.xml")
 
-          # 1. Хониши файлҳо
-          en_root = ET.parse(en_path).getroot()
-          tg_root = ET.parse(tg_path).getroot()
+          # 1. Санҷиши мавҷудияти файлҳои асосӣ
+          if not os.path.exists(en_path):
+              print(f"❌ ХАТОИ СИСТЕМА: Файли англисӣ дар суроғаи {en_path} ёфт нашуд!")
+              exit(1)
 
-          # 2. Гирифтани калидҳо
-          en_items = {item.attrib["name"]: item for item in en_root.findall("string") if "name" in item.attrib}
-          tg_keys = {item.attrib["name"] for item in tg_root.findall("string") if "name" in item.attrib}
+          if not os.path.exists(tg_path):
+              os.makedirs(os.path.dirname(tg_path), exist_ok=True)
+              with open(tg_path, "w", encoding="utf-8") as f:
+                  f.write('<resources>\n</resources>')
+              print("⚠️ Файли тоҷикӣ сохта шуд, чунки мавҷуд набуд.")
 
-          # 3. Ёфтани гумшудаҳо
+          # 2. Санҷиши бехатарии синтаксиси XML (Қавсҳо ва сохтор)
+          try:
+              en_root = ET.parse(en_path).getroot()
+          except ET.ParseError as e:
+              print(f"❌ ХАТОИ СИНТАКСИСӢ ДАР ФАЙЛИ АНГЛИСӢ: {e}")
+              exit(1)
+
+          try:
+              tg_root = ET.parse(tg_path).getroot()
+          except ET.ParseError as e:
+              print(f"❌ ХАТОИ СИНТАКСИСӢ ДАР ФАЙЛИ ТОҶИКИИ ТУ! Лутфан қавсҳоро санҷед. Хатогӣ: {e}")
+              exit(1)
+
+          # 3. Гирифтани элементҳо (Дастгирии пурраи string, plurals, string-array)
+          en_items = {item.attrib["name"]: item for item in en_root if "name" in item.attrib}
+          tg_keys = {item.attrib["name"] for item in tg_root if "name" in item.attrib}
+
+          # 4. Ёфтани сатрҳои нав (чизе, ки дар EN ҳаст, аммо дар TG нест)
           missing = []
-          print("--- САТРҲОИ ГУМШУДАИ ТАРҶУМА ---")
+          print("\n=== РӮЙХАТИ САТРҲОИ НАВИ ТАРҶУМАУШУДА ===")
           for key, element in en_items.items():
               if key not in tg_keys:
                   missing.append(element)
-                  print(f"⚠️ Гумшуда: {key}")
-          print("---------------------------------")
+                  print(f"➕ Сатри нав -> {key}")
+          print("=========================================\n")
 
-          # 4. Сабт дар файл (танҳо агар чизе бошад)
+          # 5. Сабт дар папкаи алоҳида
           if missing:
+              os.makedirs(output_folder, exist_ok=True)
               new_root = ET.Element("resources")
               for item in missing:
                   new_root.append(item)
               
+              # Зебосозии сохтори XML (Формати заводӣ)
+              if hasattr(ET, 'indent'):
+                  ET.indent(new_root, space="    ")
+              
               tree = ET.ElementTree(new_root)
-              tree.write(missing_path, encoding="utf-8", xml_declaration=True)
-              print(f"✅ {len(missing)} сатри нав дар {missing_path} захира шуд.")
+              tree.write(output_file, encoding="utf-8", xml_declaration=True)
+              print(f"✅ Муваффақият: {len(missing)} сатри нав ба папкаи '{output_folder}/strings.xml' ҷудо шуд.")
           else:
-              if os.path.exists(missing_path):
-                  os.remove(missing_path)
-              print("✅ Ҳамааш тарҷума шудааст, чизе намерасад.")
+              # Агар ҳамааш тарҷума бошад, папка ва файлро тоза мекунад
+              if os.path.exists(output_file):
+                  os.remove(output_file)
+              if os.path.exists(output_folder) and not os.listdir(output_folder):
+                  os.rmdir(output_folder)
+              print("🎉 Табрик! Ҳамаи сатрҳо тарҷума шудаанд. Ҳеҷ сатри нав ёфт нашуд.")
           EOF
 
-      - name: 📤 Push Report
+      - name: 📤 Push Натиҷа ба GitHub
         run: |
-          git config user.name "TajgramRobot"
-          git config user.email "robot@tajgram.tj"
+          git config --global user.name "TajgramRobot"
+          git config --global user.email "robot@tajgram.tj"
           
-          # Сабт танҳо агар тағйирот бошад
-          git add missing_strings.xml 2>/dev/null || true
+          # Илова ё тоза кардани папкаи алоҳида дар Гит
+          git add missing_translations/ 2>/dev/null || true
           
           if ! git diff-index --quiet HEAD --; then
-            git commit -m "Auto: Update missing strings report"
-            git push
+            git commit -m "Auto: Synced and extracted new strings to missing_translations/"
+            git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master
           else
-            echo "✅ Ҳеҷ тағйироте нест, push намекунем."
+            echo "✅ Ягон тағйирот нест, файлҳо аллакай 100% созанд."
           fi

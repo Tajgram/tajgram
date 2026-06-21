@@ -4448,6 +4448,10 @@ public class LocaleController {
         ).toString();
     }
 
+    public String getCurrentLanguageCode() {
+        return "tg";
+    }
+
     // -------- API 24+ localized relative formatter --------
     @RequiresApi(api = Build.VERSION_CODES.N)
     private static final class RelativeIcu {

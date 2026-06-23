@@ -1,10 +1,10 @@
-name: Build Tajgram APK (Auto JDK)
+name: Build Tajgram Official APK
 
 on:
-  workflow_dispatch: # Интихоби дастӣ нест, танҳо тугмаро мезанӣ ва тамом!
+  workflow_dispatch:
 
 jobs:
-  build-apk:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,24 +13,17 @@ jobs:
         with:
           submodules: recursive
 
-      # 1. Скрипти ҳушманд барои автоматӣ ёфтани версияи JDK
+      # 1. Муайян кардани автоматии JDK (17 ё 21)
       - name: Detect Required JDK Version
         id: detect-jdk
         run: |
-          # Пешфарз (Default) JDK 17 аст
           JDK_VER="17"
-          
-          # Санҷиши файлҳои gradle барои ёфтани VERSION_21 ё JavaLanguageVersion.of(21)
-          if grep -q -E "VERSION_21|JavaLanguageVersion.of\(21\)|languageVersion.*21" build.gradle TMessagesProj/build.gradle 2>/dev/null; then
+          if grep -q -E "VERSION_21|JavaLanguageVersion.of\(21\)" build.gradle TMessagesProj/build.gradle 2>/dev/null; then
             JDK_VER="21"
           fi
-          
           echo "SELECTED_JDK=$JDK_VER" >> $GITHUB_OUTPUT
-          echo "========================================================="
-          echo " СИСТЕМА АВТОМАТӢ МУАЙЯН КАРД: JDK $JDK_VER ЛОЗИМ АСТ."
-          echo "========================================================="
 
-      # 2. Насби автоматӣ Java дар асоси қадами боло
+      # 2. Насби автоматӣ Java
       - name: Setup Java (JDK)
         uses: actions/setup-java@v4
         with:
@@ -38,37 +31,36 @@ jobs:
           java-version: ${{ steps.detect-jdk.outputs.SELECTED_JDK }}
           cache: 'gradle'
 
-      # 3. Боркунии файлҳои махфӣ аз Secrets ба ҷойҳои расмии худ
-      - name: Inject Secrets and Configuration
+      # 3. Сохтани файлҳои махфии Keystore ва Firebase
+      - name: Inject Configuration and Secrets
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: |
-          # Сохтани папкаи config агар набошад
+          # Сохтани папкаи махфии config, ки Телеграм талаб мекунад
           mkdir -p TMessagesProj/config
           
-          # Декод кардани калид ба ҷои таъиншудаи Телеграм
+          # Декод кардани калид ва партофтан ба папкаи config
           if [ ! -z "$KEYSTORE_BASE64" ]; then
             echo "$KEYSTORE_BASE64" | base64 --decode > TMessagesProj/config/release.keystore 2>/dev/null
           fi
           
-          # Гузоштани google-services.json ба папкаи асосӣ
+          # Сохтани файли Firebase
           if [ ! -z "$GOOGLE_SERVICES_JSON" ]; then
+            echo "$GOOGLE_SERVICES_JSON" > TMessagesProj/config/google-services.json
             echo "$GOOGLE_SERVICES_JSON" > google-services.json
           fi
 
-      # 4. Сар додани Билди APK (бе логҳои зиёдатии спам)
-      - name: Build Release APK
+      # 4. Сар додани Билд (Градл паролҳоро худаш аз gradle.properties мехонад)
+      - name: Build APK via Gradle
         run: |
           chmod +x gradlew
-          echo "Билди Tajgram оғоз шуд, лутфан каме сабр кунед..."
-          
-          # -x lint хатогиҳои тарҷума ва коди беруниро соя мекунад, то билд "напазад"
+          echo "Билди Tajgram оғоз шуд. Паролҳо аз асли файл хонда мешаванд..."
           ./gradlew assembleRelease -x lint -x test --no-daemon 2>/dev/null || ./gradlew assembleRelease -x lint -x test --no-daemon
-          
-      # 5. Сабт ва омода кардани APK барои боргирӣ (Download)
-      - name: Upload Output APK
+
+      # 5. Боргурии барномаи тайёр (Artifact)
+      - name: Upload Finished APK
         uses: actions/upload-artifact@v4
         with:
-          name: Tajgram-Release-APK
+          name: Tajgram-Official-Release
           path: TMessagesProj/build/outputs/apk/release/*.apk

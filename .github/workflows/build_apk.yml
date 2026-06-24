@@ -1,4 +1,4 @@
-Name: Build Tajgram APK
+name: Build Tajgram APK
 
 on:
   workflow_dispatch:

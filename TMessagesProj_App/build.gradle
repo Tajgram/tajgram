@@ -175,6 +175,7 @@ android {
         targetSdkVersion 35
         versionName APP_VERSION_NAME
         ndkVersion "27.2.12479018"
+        buildConfigField "String", "SHA256_SECURITY_LOCK", "\"${System.getenv("SHA256_SECURITY_LOCK") ?: "DEFAULT_FALLBACK"}\""
 
         multiDexEnabled true
 

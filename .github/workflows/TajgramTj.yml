@@ -51,24 +51,28 @@ jobs:
           echo 'org.gradle.parallel=true' >> ~/.gradle/gradle.properties
           echo 'org.gradle.jvmargs=-Xmx8192m -Dfile.encoding=UTF-8 -XX:+UseParallelGC' >> ~/.gradle/gradle.properties
           echo 'android.native.buildOutput=verbose' >> ~/.gradle/gradle.properties
+
       - name: Configure Signing
         run: |
           echo "storeFile=${{ github.workspace }}/keystore.base64" >> local.properties
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> local.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> local.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> local.properties
+          echo "storePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> local.properties
+          echo "keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" >> local.properties
+          echo "keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> local.properties
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > TMessagesProj/google-services.json
-          
+          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > TMessagesProj_App/google-services.json
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.base64
+
       - name: Configure Secrets
         run: |
           echo "apiId=${{ secrets.TELEGRAM_API_ID }}" >> local.properties
           echo "apiHash=${{ secrets.TELEGRAM_API_HASH }}" >> local.properties    
+
       - name: Build with Gradle
         run: |
           ./gradlew assembleRelease
           ./gradlew bundlePlay
           ./gradlew sentryUploadSourceBundlePlay
+
       - name: Attest
         uses: actions/attest@v4
         with:

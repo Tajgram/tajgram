@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ "Master", "dev", "assets" ]
+    branches: [ "master", "dev", "assets" ]
     paths-ignore:
       - '**.md'
       - '.github/**'

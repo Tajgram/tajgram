@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    permissions:
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+
+  release:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: outputs
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            apk/**/*.apk
+            bundle/**/*.aab
+
+      - name: Upload to Telegram (Tajgram)
+        run: |
+          for file in TMessagesProj_App/build/outputs/apk/release/*.apk; do
+            if [ -f "$file" ]; then
+              echo "Фиристодани файл: $file"
+              curl -F chat_id="${{ secrets.RELEASE_CHANNEL_ID }}" \
+                   -F document=@"$file" \
+                   -F caption="🚀 **Tajgram** версияи нав омода шуд!" \
+                   -F parse_mode="Markdown" \
+                   https://api.telegram.org/bot${{ secrets.RELEASE_BOT_TOKEN }}/sendDocument
+            fi
+          done

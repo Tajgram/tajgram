@@ -1,4 +1,3 @@
-APP_PACKAGE=org.tajgram.messenger
 include ':TMessagesProj'
 include ':TMessagesProj_App'
 //include ':TMessagesProj_AppHuawei'

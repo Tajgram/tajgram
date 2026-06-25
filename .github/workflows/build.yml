@@ -61,6 +61,9 @@ jobs:
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj_App/google-services.json
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.base64
+          
+      - name: Show SHA Fingerprints
+        run: keytool -list -v -keystore keystore.base64 -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
 
       - name: Configure Secrets
         run: |

@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ "master", "dev", "assets" ]
+    branches: [ "master" ]
     paths-ignore:
       - '**.md'
       - '.github/**'
@@ -66,9 +66,12 @@ jobs:
         run: keytool -list -v -keystore keystore.base64 -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
 
       - name: Configure Secrets
+        env:
+          TELEGRAM_APP_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_APP_HASH: ${{ secrets.TELEGRAM_API_HASH }}
         run: |
-          echo "apiId=${{ secrets.TELEGRAM_API_ID }}" >> local.properties
-          echo "apiHash=${{ secrets.TELEGRAM_API_HASH }}" >> local.properties    
+          echo "TELEGRAM_APP_ID=$TELEGRAM_APP_ID" >> local.properties
+          echo "TELEGRAM_APP_HASH=$TELEGRAM_APP_HASH" >> local.properties
 
       - name: Build with Gradle
         run: |

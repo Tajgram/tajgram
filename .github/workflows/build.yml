@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev", "assets" ]
     paths-ignore:
       - '**.md'
       - '.github/**'
@@ -51,7 +51,6 @@ jobs:
           echo 'org.gradle.parallel=true' >> ~/.gradle/gradle.properties
           echo 'org.gradle.jvmargs=-Xmx8192m -Dfile.encoding=UTF-8 -XX:+UseParallelGC' >> ~/.gradle/gradle.properties
           echo 'android.native.buildOutput=verbose' >> ~/.gradle/gradle.properties
-
       - name: Configure Signing
         run: |
           echo "storeFile=${{ github.workspace }}/keystore.base64" >> local.properties
@@ -66,19 +65,15 @@ jobs:
         run: keytool -list -v -keystore keystore.base64 -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
 
       - name: Configure Secrets
-        env:
-          TELEGRAM_APP_ID: ${{ secrets.TELEGRAM_API_ID }}
-          TELEGRAM_APP_HASH: ${{ secrets.TELEGRAM_API_HASH }}
         run: |
-          echo "TELEGRAM_APP_ID=$TELEGRAM_APP_ID" >> local.properties
-          echo "TELEGRAM_APP_HASH=$TELEGRAM_APP_HASH" >> local.properties
-
+          echo "apiId=${{ secrets.TELEGRAM_API_ID }}" >> local.properties
+          echo "apiHash=${{ secrets.TELEGRAM_API_HASH }}" >> local.properties
+          
       - name: Build with Gradle
         run: |
           ./gradlew assembleRelease
           ./gradlew bundlePlay
           ./gradlew sentryUploadSourceBundlePlay
-
       - name: Attest
         uses: actions/attest@v4
         with:

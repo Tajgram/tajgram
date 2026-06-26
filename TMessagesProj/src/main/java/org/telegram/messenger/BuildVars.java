@@ -95,8 +95,8 @@ public class BuildVars {
 
     public static boolean CUSTOM_VIP_GOLDEN_BADGE = true;
 
-    public static String SHA256_SECURITY_LOCK = BuildConfig.SHA256_SECURITY_LOCK;
-    
+    public static String SHA256 = Extra.SHA256_BASE64;
+
     public static boolean ANTI_PHISHING_URL_SHIELD = true; // Идея: Блоки автоматии силкаҳои спамӣ
 
 

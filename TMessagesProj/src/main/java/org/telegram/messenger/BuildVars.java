@@ -95,7 +95,7 @@ public class BuildVars {
 
     public static boolean CUSTOM_VIP_GOLDEN_BADGE = true;
 
-    public static String SHA256 = Extra.SHA256_BASE64;
+    public static String SHA256 = BuildConfig.SHA256_KEY;
 
     public static boolean ANTI_PHISHING_URL_SHIELD = true; // Идея: Блоки автоматии силкаҳои спамӣ
 
@@ -197,8 +197,8 @@ public class BuildVars {
     public static boolean NO_SCOPED_STORAGE = Build.VERSION.SDK_INT <= 29;
     public static String BUILD_VERSION_STRING = BuildConfig.BUILD_VERSION_STRING;
     
-    public static int APP_ID = Extra.TELEGRAM_APP_ID;
-    public static String APP_HASH = Extra.TELEGRAM_APP_HASH;
+    public static int APP_ID = BuildConfig.APP_ID;
+    public static String APP_HASH = BuildConfig.APP_HASH;
     
     // SafetyNet key for Google Identity SDK, set it to empty to disable
     public static String SAFETYNET_KEY = "AIzaSyDqt8P-7F7CPCseMkOiVRgb1LY8RN1bvH8";

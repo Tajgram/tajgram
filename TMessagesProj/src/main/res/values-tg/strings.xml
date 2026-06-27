@@ -1592,7 +1592,7 @@
     <string name="URL">URL</string>
     <string name="MapPreviewProvider">Таъминкунандаи пешнамоиш харита</string>
     <string name="MapPreviewProviderTitle">Провайдери пешнамоиши харита</string>
-    <string name="MapPreviewProviderTajgram">Tajgram</string>
+    <string name="MapPreviewProviderTelegram">Tajgram</string>
     <string name="MapPreviewProviderGoogle">Google</string>
     <string name="MapPreviewProviderYandex">Яндекс</string>
     <string name="MapPreviewProviderNobody">Пешнамоиш нест</string>
@@ -1927,8 +1927,8 @@
     <string name="ALongTimeAgo">бори охир кайхо пеш дида шуда буд</string>
     <string name="NewMessageTitle">Паёми нав</string>
     <string name="InviteFriendsHelp">Барои даъват кардани онҳо ба Tajgram мухотибонро интихоб кунед</string>
-    <string name="InviteToTajgram">БА Tajgram ДАЪВАТ КУНЕД</string>
-    <string name="ShareTajgram2">Tajgram-ро мубодила кунед</string>
+    <string name="InviteToTelegram">БА Tajgram ДАЪВАТ КУНЕД</string>
+    <string name="ShareTelegram2">Tajgram-ро мубодила кунед</string>
     <string name="UpdateContactsTitle">Тамосҳоро навсозӣ кунед?</string>
     <string name="UpdateContactsMessage">Tajgram алоқаҳои зиёди ҳамоҳангнашударо муайян кард, оё мехоҳед онҳоро ҳозир ҳамоҳанг созед? Агар шумо аз дастгоҳ, SIM-карт ва ҳисоби Google-и худатон истифода баред, \"OK\"-ро интихоб кунед.</string>
     <string name="SortedByName">Аз рӯи ном ҷудо карда шудааст</string>
@@ -2702,13 +2702,13 @@
     <string name="UseProxySecret">Сирри</string>
     <string name="UseProxyUsername">Номи корбар</string>
     <string name="UseProxySocks5">Прокси SOCKS5</string>
-    <string name="UseProxyTajgram">Прокси MTProto</string>
-    <string name="UseProxyTajgramError">Проксие, ки шумо истифода мебаред, дуруст танзим карда нашудааст ва ғайрифаъол мешавад. Лутфан дигаре пайдо кунед.</string>
+    <string name="UseProxyTelegram">Прокси MTProto</string>
+    <string name="UseProxyTelegramError">Проксие, ки шумо истифода мебаред, дуруст танзим карда нашудааст ва ғайрифаъол мешавад. Лутфан дигаре пайдо кунед.</string>
     <string name="UseProxySponsor">Сарпарасти прокси</string>
     <string name="UseProxySponsorInfo">Танзимот</string>
     <string name="UseProxyInfo">Танзимот</string>
-    <string name="UseProxyTajgramInfo">Танзимот</string>
-    <string name="UseProxyTajgramInfo2">Ин прокси метавонад дар рӯйхати чатҳои шумо канали сарпарастиро нишон диҳад. Ин \' ягон трафики Tajgram-и шуморо ошкор намекунад.</string>
+    <string name="UseProxyTelegramInfo">Танзимот</string>
+    <string name="UseProxyTelegramInfo2">Ин прокси метавонад дар рӯйхати чатҳои шумо канали сарпарастиро нишон диҳад. Ин \' ягон трафики Tajgram-и шуморо ошкор намекунад.</string>
     <string name="UseProxyForCalls">Барои зангҳо проксиро истифода баред</string>
     <string name="UseProxyForCallsInfo">Серверҳои прокси метавонад сифати зангҳои шуморо паст кунад.</string>
     <string name="ConnectingToProxyEnable">Фаъол кардан</string>
@@ -2851,7 +2851,7 @@
     <string name="PassportProvidedInformation">Маълумоти пешниҳодшуда</string>
     <string name="PassportInfoTitle">Passport Tajgram чист?</string>
     <string name="PassportInfo2">Бо Tajgram Passport шумо метавонед ба осонӣ ба вебсайтҳо ва хидматҳое, ки тасдиқи шахсиятро талаб мекунанд, сабти ном кунед. Маълумот, маълумоти шахсӣ ва ҳуҷҷатҳои шумо бо рамзгузории охири ба охир ҳифз карда мешаванд. Ҳеҷ кас, аз ҷумла Tajgram, бе иҷозати шумо ба онҳо дастрасӣ пайдо карда наметавонад. Шумо метавонед барои гирифтани маълумоти бештар ба *FAQ*-и мо ташриф оред.</string>
-    <string name="PassportInfoUrl">https://Tajgram.org/faq#passport</string>
+    <string name="PassportInfoUrl">https://Telegram.org/faq#passport</string>
     <string name="TelegramPassportCreatePasswordInfo">Лутфан парол эҷод кунед, то маълумоти шахсии худро бо рамзгузории охири ба охир муҳофизат кунед. Ин парол инчунин ҳангоми ворид шудан ба Tajgram аз дастгоҳи нав талаб карда мешавад.</string>
     <string name="TelegramPassportCreatePassword">КАЛИДВОЖА СОЗЕД</string>
     <string name="TelegramPassportDelete">Паспорти Tajgram-ро нест кунед</string>
@@ -3154,7 +3154,7 @@
     <string name="DisablePasscodeConfirmMessage">Шумо мутмаин ҳастед, ки рамзро хомӯш кардан мехоҳед?</string>
     <string name="DisablePasscodeTurnOff">Хомӯш кардан</string>
     <string name="EnterNewPasscode">Рамзи нави худро ворид кунед</string>
-    <string name="EnterYourTajgramPasscode">Рамзи Tajgram-и худро ворид кунед</string>
+    <string name="EnterYourTelegramPasscode">Рамзи Tajgram-и худро ворид кунед</string>
     <string name="AutoLock">Қулфи худкор</string>
     <string name="AutoLockInfo">Агар барои муддате дур бошад, рамзи гузаришро талаб кунед.</string>
     <string name="AutoLockInTime">дар %1$s</string>
@@ -3945,7 +3945,7 @@
     <string name="DeleteAll">Ҳамаро нест кунед</string>
     <string name="StopLoadingTitle">Қатъи боркунӣ?</string>
     <string name="StopLoading">Мехоҳед боркуниро бекор кунед?</string>
-    <string name="UpdateTajgram">Навсозии Tajgram</string>
+    <string name="UpdateTelegram">Навсозии Tajgram</string>
     <string name="UpdateAppAlert">Бубахшед, барномаи Tajgram-и шумо кӯҳна шудааст ва наметавонад \' ин дархостро иҷро кунад. Лутфан Tajgram-ро навсозӣ кунед.</string>
     <string name="InvalidPhoneNumber">рақами телефон</string>
     <string name="PleaseLoginPassport">Лутфан ба ҳисоби Tajgram-и худ ворид шавед, то Passport Tajgram-ро истифода баред.</string>
@@ -4141,7 +4141,7 @@
     <string name="SlideUpToLock">Барои бастани сабт ба боло лағжед</string>
     <string name="NotificationsChartTitle">Огоҳиномаҳо</string>
     <string name="TotalDeviceFreeSize">%s Озод</string>
-    <string name="ClearTajgramCache">Тоза кардани кэши Tajgram</string>
+    <string name="ClearTelegramCache">Тоза кардани кэши Tajgram</string>
     <string name="StatisticOverview">Барраси</string>
     <string name="ViewsPerPost">Боздид аз ҳар як паём</string>
     <string name="ViewsPerStory">Намоишҳо барои ҳар як ҳикоя</string>
@@ -4151,7 +4151,7 @@
     <string name="SharesPerPost">Саҳмияҳо дар як паём</string>
     <string name="EnabledNotifications">Огоҳиҳои фаъол</string>
     <string name="ClearLocalDatabase">Тоза кардани пойгоҳи додаҳои маҳаллӣ</string>
-    <string name="TajgramCacheSize">%s Кэши Tajgram</string>
+    <string name="TelegramCacheSize">%s Кэши Tajgram</string>
     <string name="LocalDatabaseSize">%s Махзани маълумоти маҳаллии Tajgram</string>
     <string name="CacheWasCleared">%s дар дастгоҳи шумо озод карда шуд!</string>
     <string name="TotalDeviceSize">%s Дигар маълумот</string>
@@ -4675,8 +4675,8 @@
     <string name="Recipient_other">%1$d гиранда</string>
     <string name="OnlineCount_one">%1$d онлайн</string>
     <string name="OnlineCount_other">%1$d онлайн</string>
-    <string name="TajgramContacts_one">%1$d тамос дар Tajgram</string>
-    <string name="TajgramContacts_other">%1$d мухотибон дар Tajgram</string>
+    <string name="TelegramContacts_one">%1$d тамос дар Tajgram</string>
+    <string name="TelegramContacts_other">%1$d мухотибон дар Tajgram</string>
     <string name="InviteTextNum_one">Эй, ман \' барои сӯҳбат аз Tajgram истифода мекунам - ва %1$d аз тамоси дигари мо низ. Бо мо ҳамроҳ шудан! Онро дар ин ҷо зеркашӣ кунед: %2$s</string>
     <string name="InviteTextNum_other">Ҳей, ман \' барои сӯҳбат бо Tajgram истифода мекунам - ва %1$d аз мухотибони дигари мо низ. Бо мо ҳамроҳ шудан! Онро дар ин ҷо зеркашӣ кунед: %2$s</string>
     <string name="PeopleJoined_one">%1$d нафар ҳамроҳ шуданд</string>
@@ -5229,9 +5229,9 @@
     <string name="ChatThemeSaveDialogText">Оё шумо мехоҳед мавзӯи навро барои ин чат татбиқ кунед?</string>
     <string name="ChatThemeSaveDialogApply">Муроҷиат кунед</string>
     <string name="ChatThemeSaveDialogDiscard">Партофтан</string>
-    <string name="OptimizingTajgram">Оптимизатсияи Tajgram...</string>
-    <string name="OptimizingTajgramDescription1">Ин вобаста ба андозаи базаи маълумот метавонад вақти зиёдро талаб кунад. Лутфан барномаро то анҷоми раванд кушода нигоҳ доред.</string>
-    <string name="OptimizingTajgramDescription2">Узр барои заҳмати нохоста.</string>
+    <string name="OptimizingTelegram">Оптимизатсияи Tajgram...</string>
+    <string name="OptimizingTelegramDescription1">Ин вобаста ба андозаи базаи маълумот метавонад вақти зиёдро талаб кунад. Лутфан барномаро то анҷоми раванд кушода нигоҳ доред.</string>
+    <string name="OptimizingTelegramDescription2">Узр барои заҳмати нохоста.</string>
     <string name="EnjoyngAnimations">**oo** тамошои %1$s</string>
     <string name="IsEnjoyngAnimations">%1$s **oo** %2$s-ро тамошо мекунад</string>
     <string name="ThemeAlsoAppliedForHint">Мавзӯъ инчунин барои **%s** татбиқ карда мешавад.</string>
@@ -5490,7 +5490,7 @@
     <string name="SoundOnHint">Шумо огоҳиномаҳоро бо садо хоҳед гирифт.</string>
     <string name="SoundOffHint">\"Шумо огоҳиномаҳои хомӯш хоҳед гирифт.\"</string>
     <string name="NotificationsSound">Овози огоҳӣ</string>
-    <string name="TajgramTones">Оҳангҳои Tajgram</string>
+    <string name="TelegramTones">Оҳангҳои Tajgram</string>
     <string name="SystemTones">Оҳангҳои система</string>
     <string name="UploadSound">Садо бор кунед</string>
     <string name="NotificationsSoundPrivate">Овози чатҳои хусусӣ</string>
@@ -5645,9 +5645,9 @@
     <string name="GiftPremiumAboutThisLinkEnd">**Tajgram Premium VIP** обуна</string>
     <string name="GiftPremiumWhatsIncluded">\' чиро дар бар мегирад</string>
     <string name="GiftPremiumEventAdsTitle">Тӯҳфаҳо фиристед **to your friends!** 🎄</string>
-    <string name="GiftTajgramPremiumTitle">Тӯҳфаи Tajgram Premium VIP</string>
-    <string name="GiftTajgramPremiumOrStarsTitle">Тӯҳфаи Premium ё Stars</string>
-    <string name="GiftTajgramPremiumDescription">Бигзор **%1$s** аз хусусиятҳои истисноии Tajgram бо **Tajgram Premium VIP** лаззат барад.</string>
+    <string name="GiftTelegramPremiumTitle">Тӯҳфаи Tajgram Premium VIP</string>
+    <string name="GiftTelegramPremiumOrStarsTitle">Тӯҳфаи Premium ё Stars</string>
+    <string name="GiftTelegramPremiumDescription">Бигзор **%1$s** аз хусусиятҳои истисноии Tajgram бо **Tajgram Premium VIP** лаззат барад.</string>
     <string name="TelegramPremium">Tajgram Premium VIP</string>
     <string name="TelegramPremiumSubtitle">Дастгирӣ</string>
     <string name="TelegramPremiumSubscribedTitle">Шумо ҳама омодаед!</string>
@@ -5721,7 +5721,7 @@
     <string name="PremiumPreviewAppIcon">Нишонаи Premium App</string>
     <string name="PremiumPreviewAppIconDescription">Барои экрани асосии худ аз интихоби нишонаҳои барномаи Tajgram интихоб кунед.</string>
     <string name="UnlockPremiumIcons">Нишонаҳои Premiumро кушоед</string>
-    <string name="AboutTajgramPremium">Дар бораи Tajgram Premium VIP</string>
+    <string name="AboutTelegramPremium">Дар бораи Tajgram Premium VIP</string>
     <string name="AdditionalReactions">Реаксияҳои иловагӣ</string>
     <string name="AdditionalReactionsDescription">Бо обуна шудан ба Tajgram Premium VIP доираи васеи аксуламалҳоро ба паёмҳо кушоед.</string>
     <string name="PremiumPreviewAppIconDescription2">Бо обуна шудан ба Tajgram Premium VIP доираи васеи нишонаҳои барномаро кушоед.</string>
@@ -6965,8 +6965,8 @@
     <string name="BoostingSubscriptionsCountPlural_other">%2$s обуна</string>
     <string name="BoostingStarsCountPlural_one">%1$d Ситора</string>
     <string name="BoostingStarsCountPlural_other">%1$d Ситорахо</string>
-    <string name="BoostingTajgramPremiumCountPlural_one">%1$d Premium Tajgram</string>
-    <string name="BoostingTajgramPremiumCountPlural_other">%1$d Premium Tajgram</string>
+    <string name="BoostingTelegramPremiumCountPlural_one">%1$d Premium Tajgram</string>
+    <string name="BoostingTelegramPremiumCountPlural_other">%1$d Premium Tajgram</string>
     <string name="BoostingGetBoostsViaGifts">Тавассути тӯҳфаҳо пурқувват гиред</string>
     <string name="BoostingUseLink">Пайвандро истифода баред</string>
     <string name="BoostingShareThisLink">Ин истинодро бо муштариёни худ мубодила кунед, то беҳбудии бештар ба даст оред.</string>
@@ -7004,7 +7004,7 @@
     <string name="BoostingIncompleteGiveaway">Тӯҳфаи нопурра</string>
     <string name="BoostingNoRecipient">Қабулкунанда нест</string>
     <string name="BoostingSelectCountry">Кишварҳоро интихоб кунед</string>
-    <string name="BoostingTajgramPremiumFor">Tajgram Premium VIP барои %s</string>
+    <string name="BoostingTelegramPremiumFor">Tajgram Premium VIP барои %s</string>
     <string name="BoostingWinnersRandomly">ғолибон ба таври тасодуфӣ интихоб карда мешаванд</string>
     <string name="BoostingAwardSpecificUsers">Ҷоизаи корбарони мушаххас</string>
     <string name="BoostingChannelWillReceiveBoost_one">ин канал %d тақвият хоҳад гирифт</string>
@@ -8228,7 +8228,7 @@
     <string name="AddEffectMessageHint">Таъсири мутаҳаррикро илова кунед</string>
     <string name="AnimatedEffectPremium">Барои илова кардани ин эффекти аниматсионӣ ба **Tajgram Premium VIP** обуна шавед.</string>
     <string name="StickerEffects">Эффектҳо аз стикерҳо</string>
-    <string name="NumberNotOnTajgram">Ин рақам дар Tajgram нест</string>
+    <string name="NumberNotOnTelegram">Ин рақам дар Tajgram нест</string>
     <string name="NoUsernameFound2">Ин корбар дар Tajgram вуҷуд надорад</string>
     <string name="ViewProfile">Намоиши профил &gt;</string>
     <string name="ViewGroupProfile">Дидани маълумоти гурӯҳ &gt;</string>
@@ -8258,7 +8258,7 @@
     <string name="MessageShowSensitiveContentAlways">Ҳамеша 18+ медиаро нишон диҳед</string>
     <string name="MessageShowSensitiveContentButton">Ба ҳар ҳол бинед</string>
     <string name="SensitiveContentSettingsToast">Шумо метавонед намоиши медиаи ҳассосро дар **Chat Settings > Show 18+ Content** навсозӣ кунед</string>
-    <string name="MenuTajgramStars">Ситорахои шумо</string>
+    <string name="MenuTelegramStars">Ситорахои шумо</string>
     <string name="TelegramStars">Ситораҳои Tajgram</string>
     <string name="TelegramStarsInfo2">Барои кушодани мундариҷа ва хидматҳои дар мини-барномаҳои Tajgram Stars харед.  **More about Stars &gt;**</string>
     <string name="TelegramStarsChoose">Бастаро интихоб кунед</string>
@@ -8270,7 +8270,7 @@
     <string name="StarsCountX">%s Ситорахо</string>
     <string name="TonCountX">%s ТОН</string>
     <string name="StarsTOS">Бо идома додан ва харидани Stars, шумо бо **Terms and Conditions** розӣ мешавед.</string>
-    <string name="StarsTOSLink">https://Tajgram.org/tos</string>
+    <string name="StarsTOSLink">https://Telegram.org/tos</string>
     <string name="StarsBalance">Тавозун</string>
     <string name="StarsTransactionsAll">Ҳамаи амалиёт</string>
     <string name="StarsTransactionsIncoming">Даромад</string>
@@ -8950,7 +8950,7 @@
     <string name="Gift2TitleReceived">Тӯҳфаи гирифташуда</string>
     <string name="Gift2TitleSaved">Тӯҳфаи захирашуда</string>
     <string name="Gift2TitleChannel">Тӯҳфа</string>
-    <string name="TajgramPremiumShort">Премиум</string>
+    <string name="TelegramPremiumShort">Премиум Вип</string>
     <string name="Gift2Info2Out_one">%2$s метавонад ин тӯҳфаро дар профили худ нигоҳ дорад ё онро ба **%1$d** ситора табдил диҳад.</string>
     <string name="Gift2Info2Out_other">%2$s метавонад ин тӯҳфаро дар профили худ нигоҳ дорад ё онро ба **%1$d** ситораҳо табдил диҳад.</string>
     <string name="Gift2Info2OutUpgrade">%1$s метавонад ин тӯҳфаро дар профили худ нигоҳ дорад ё ба коллексияи беназир такмил диҳад.</string>
@@ -10107,7 +10107,7 @@
     <string name="GiftValue2LearnMore">бисёр омӯхтан</string>
     <string name="GiftValueAverage">Ин нархи миёнаи фурӯши **%s** дар Tajgram ва Fragment дар як моҳи охир аст.</string>
     <string name="GiftValueLastFragment">Ин нархест, ки **%s** охирин бор дар Fragment фурӯхта шуда буд.</string>
-    <string name="GiftValueLastTajgram">Ин нархест, ки **%s** бори охир дар Tajgram фурӯхта шуда буд.</string>
+    <string name="GiftValueLastTelegram">Ин нархест, ки **%s** бори охир дар Tajgram фурӯхта шуда буд.</string>
     <string name="GiftValueInitialSale">Фурӯши ибтидоӣ</string>
     <string name="GiftValueInitialPrice">Нархи ибтидоӣ</string>
     <string name="GiftValueLastSale">Фурӯши охирин</string>
@@ -10116,7 +10116,7 @@
     <string name="GiftValueMinPriceInfo">**%1$s** нархи поёни тӯҳфаҳои **%2$s** аст, ки дар Tajgram ва Fragment номбар шудаанд.</string>
     <string name="GiftValueAveragePrice">Нархи миёна</string>
     <string name="GiftValueAveragePriceInfo">**%1$s** нархи миёнаи фурӯши тӯҳфаҳои **%2$s** дар моҳи гузашта аст.</string>
-    <string name="GiftValueOnSaleTajgram">барои фурӯш дар Tajgram </string>
+    <string name="GiftValueOnSaleTelegram">барои фурӯш дар Tajgram </string>
     <string name="GiftValueOnSaleFragment">барои фурӯш дар Fragment </string>
     <string name="GiftSkipAnimation">Гузаштан</string>
     <string name="GiftThemesSetIn">Ҳамчун мавзӯъ дар...</string>
@@ -10813,7 +10813,7 @@
     <string name="SessionBotDevice">Дастгоҳ</string>
     <string name="SessionBotLocation">Макон</string>
     <string name="SessionBotDate">Сана</string>
-    <string name="OpenInTajgramBrowser2">Кушодан дар дохили барнома</string>
+    <string name="OpenInTelegramBrowser2">Кушодан дар дохили барнома</string>
     <string name="OpenInSystemBrowser2">Кушодан дар браузер</string>
     <string name="WebBookmarkAdd">Иловаи хатчӯб</string>
     <string name="BrowserSettingsNeverOpenInTitle2">Дар дохили барнома кушода нашавад</string>

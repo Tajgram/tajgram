@@ -67,7 +67,8 @@ jobs:
       - name: Configure Secrets
         run: |
           echo "apiId=${{ secrets.TELEGRAM_API_ID }}" >> local.properties
-          echo "apiHash=${{ secrets.TELEGRAM_API_HASH }}" >> local.properties    
+          echo "apiHash=${{ secrets.TELEGRAM_API_HASH }}" >> local.properties
+          echo "sha256=${{ secrets.SHA256_BASE64 }}" >> local.properties
       - name: Build with Gradle
         run: |
           ./gradlew assembleRelease

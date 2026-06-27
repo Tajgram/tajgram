@@ -87,6 +87,11 @@ android {
     buildToolsVersion '35.0.0'
     ndkVersion "27.2.12479018"
 
+    buildFeatures {
+    buildConfig = true
+}
+
+
     sourceSets.main.jniLibs.srcDirs = ['./jni/']
 
     externalNativeBuild {
@@ -112,6 +117,10 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 35
+
+        buildConfigField "int", "APP_ID", System.getenv("TELEGRAM_API_ID") ?: "0"
+        buildConfigField "String", "APP_HASH", "\"${System.getenv("TELEGRAM_API_HASH") ?: ""}\""
+        buildConfigField "String", "SHA256_KEY", "\"${System.getenv("SHA256_BASE64") ?: ""}\""
 
         vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
 

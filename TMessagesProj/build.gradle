@@ -138,6 +138,10 @@ android {
         minSdkVersion 23
         targetSdkVersion 36
 
+        buildConfigField "int", "APP_ID", System.getenv("TELEGRAM_API_ID") ?: "0"
+        buildConfigField "String", "APP_HASH", "\"${System.getenv("TELEGRAM_API_HASH") ?: ""}\""
+        buildConfigField "String", "SHA256_KEY", "\"${System.getenv("SHA256_BASE64") ?: ""}\""
+
         vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
 
         multiDexEnabled true

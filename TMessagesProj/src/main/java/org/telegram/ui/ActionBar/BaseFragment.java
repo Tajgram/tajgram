@@ -470,6 +470,7 @@ if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
     }
 }
 // === TAJGRAM SECURITY END ===
+
 /
 /===
 if (org.telegram.messenger.BuildVars.LOWEST_ROLE_SUPPORT_ONLY) {

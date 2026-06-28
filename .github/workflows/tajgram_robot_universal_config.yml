@@ -1,3 +1,5 @@
+name: Tajgram Auto Update and Patching
+
 on:
   workflow_dispatch:
 
@@ -11,55 +13,106 @@ jobs:
           token: ${{ secrets.MY_TOKEN }}
           branch: master
 
+      - name: 🐍 Насби Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: 🧹 Танзими Git
         run: |
           git config --global user.name "TajgramRobot"
           git config --global user.email "robot@tajgram.tj"
 
-      - name: ⚙️ ТOЗА КАРДАН ВА ИҶРOИ ПАТЧҲO (Тавассути sed)
+      - name: ⚙️ Иҷрои Патчҳо ва Навсозии API
         run: |
-          BF_FILE="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
-          CA_FILE="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
+          python3 - <<EOF
+          import os
+          import re
           
-          # 1. ТOЗА КАРДАНИ МУТЛАҚ ВА РЕШАКИИ ДУБЛИКАТҲO (Ҳама сатрҳои кӯҳна кати коментҳояшон удалит мешаванд)
-          sed -i '/TAJGRAM/d' $BF_FILE
-          sed -i '/ANTI_FRAUD/d' $BF_FILE
-          sed -i '/currentSignature/d' $BF_FILE
+          def apply_patch(file_path, function_signature, target_code, block_name, regex_patterns):
+              if not os.path.exists(file_path):
+                  print(f"❌ Файл ёфт нашуд: {file_path}")
+                  return
+                  
+              print(f"\n=== КОР БО ФАЙЛ: {file_path} ===")
+              with open(file_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+              
+              # 1. Ҳисоб ва нишон додани дубликатҳо пеш аз тозакунӣ
+              duplicates_found = 0
+              for pattern in regex_patterns:
+                  matches = re.findall(pattern, content, flags=re.DOTALL)
+                  duplicates_found += len(matches)
+              
+              print(f"🔍 Дубликатҳои кӯҳнаи '{block_name}' ёфт шуданд: {duplicates_found} та")
+              
+              # 2. УДАЛИТ КАРДАН: Пурра тоза кардани ҳамаи нусхаҳои кӯҳна
+              for pattern in regex_patterns:
+                  content = re.sub(pattern, '', content, flags=re.DOTALL)
+              
+              # Нормализатсия кардани функсия (тоза кардани сатрҳои холии монда)
+              content = re.sub(rf'{re.escape(function_signature)}\s*\{\s*', f'{function_signature} {{\n', content)
+              
+              # 3. НАВИШТАН: Гузоштани ягона нусхаи тоза
+              old_length = len(content)
+              content = content.replace(f"{function_signature} {{\n", f"{function_signature} {{\n{target_code}\n")
+              
+              if len(content) > old_length:
+                  print(f"✅ Коди нав барои '{block_name}' бо муваффақият НАВИШТА шуд!")
+              else:
+                  print(f"⚠️ Огоҳӣ: Функсияи '{function_signature}' барои гузоштани код ёфт нашуд.")
+                  
+              with open(file_path, "w", encoding="utf-8") as f:
+                  f.write(content)
           
-          sed -i '/TAJGRAM/d' $CA_FILE
-          sed -i '/ANTI_SPY/d' $CA_FILE
-          sed -i '/WindowManager.LayoutParams.FLAG_SECURE/d' $CA_FILE
-
-          # 2. НАВИШТАНИ НАВИ ТОЗА БА BaseFragment
-          # Коди нави тоза бе ягон дубликат мустақим дар аввали функсия гузошта мешавад
-          read -r -d '' BF_CODE << 'EOF' || true
-          // === TAJGRAM SECURITY START ===
+          # КОДҲО БАРОИ ИНЪЕКЦИЯ
+          bf_code = """// === TAJGRAM SECURITY START ===
           if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
               String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
               if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
                   return false;
               }
           }
-          // === TAJGRAM SECURITY END ===
-          EOF
+          // === TAJGRAM SECURITY END ==="""
           
-          # Фармони sed кодро мустақим ба даруни функсия мегузорад
-          sed -i "s/public boolean onFragmentCreate() {/public boolean onFragmentCreate() {\n$BF_CODE/g" $BF_FILE
-
-          # 3. НАВИШТАНИ НАВИ ТОЗА БА ChatActivity (Блоки скриншот)
-          read -r -d '' CA_CODE << 'EOF' || true
-              // === TAJGRAM SCREENSHOT LOCK START ===
+          ca_code = """    // === TAJGRAM SCREENSHOT LOCK START ===
               if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
                   if (getParentActivity() != null) {
                       getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
                   }
               }
-              // === TAJGRAM SCREENSHOT LOCK END ===
-          EOF
+              // === TAJGRAM SCREENSHOT LOCK END ==="""
           
-          sed -i "s/public void onResume() {/public void onResume() {\n$CA_CODE/g" $CA_FILE
+          # РЕГЕКСҲО БАРОИ ТОЗА КАРДАНИ ДУБЛИКАТҲО
+          bf_patterns = [
+              r'//\s*===\s*TAJGRAM\s*SECURITY\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SECURITY\s*END\s*===',
+              r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\n\s*\}\s*\n\s*\}'
+          ]
+          
+          ca_patterns = [
+              r'//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END\s*===',
+              r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\n\s*\}\s*\n\s*\}'
+          ]
+          
+          # ИҶРОИ КОР
+          apply_patch(
+              file_path="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java",
+              function_signature="public boolean onFragmentCreate()",
+              target_code=bf_code,
+              block_name="TAJGRAM SECURITY",
+              regex_patterns=bf_patterns
+          )
+          
+          apply_patch(
+              file_path="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java",
+              function_signature="public void onResume()",
+              target_code=ca_code,
+              block_name="TAJGRAM SCREENSHOT LOCK",
+              regex_patterns=ca_patterns
+          )
+          EOF
 
       - name: 📤 Push ба GitHub
         run: |
           git add .
-          git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@://github.com master)
+          git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API without duplicates" && git push https://${{ secrets.MY_TOKEN }}@://github.com/Tajgram/tajgram.git master)

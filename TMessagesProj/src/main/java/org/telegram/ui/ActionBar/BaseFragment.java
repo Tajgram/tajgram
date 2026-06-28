@@ -462,20 +462,6 @@ public abstract class BaseFragment {
     }
 
     public boolean onFragmentCreate() {
-// === TAJGRAM SECURITY START ===
-if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
-    String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
-    if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
-        return false;
-    }
-}
-// === TAJGRAM SECURITY END ===
-
-/
-/===
-if (org.telegram.messenger.BuildVars.LOWEST_ROLE_SUPPORT_ONLY) {
-    org.telegram.messenger.FileLog.d("TAJGRAM SECURITY: Role-based restrictions applied.");
-}
         return true;
     }
 

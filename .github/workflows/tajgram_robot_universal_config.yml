@@ -27,43 +27,12 @@ jobs:
         run: |
           python3 - <<EOF
           import os
+          import re
           
-          def secure_patch(file_path, start_marker, end_marker, target_func, patch_code):
-              if not os.path.exists(file_path):
-                  print(f"❌ Файл ёфт нашуд: {file_path}")
-                  return
-              
-              with open(file_path, "r", encoding="utf-8") as f:
-                  content = f.read()
-              
-              # 1. ТОЗА КАРДАНИ БЛОКҲОИ КӮҲНА БО КОММЕНТҲО
-              if start_marker in content and end_marker in content:
-                  parts = content.split(start_marker)
-                  before = parts[0]
-                  remaining = parts[1]
-                  if end_marker in remaining:
-                      after = remaining.split(end_marker, 1)[1]
-                      content = before + after
-              
-              # Тоза кардани боқимондаҳои аломатҳои хато аз файл
-              content = content.replace("\n    /\n", "\n").replace("\n    /===\n", "\n")
-              content = content.replace("\n# === TAJGRAM SECURITY END ===\n", "\n")
-              content = content.replace("\n// === TAJGRAM SECURITY END ===\n", "\n")
-              
-              # 2. НАВИШТАН: Гузоштани ягона нусхаи тоза (танҳо агар аллакай код набошад)
-              if "ANTI_FRAUD_DEVICE_LOCK" not in content and "ANTI_SPY_SCREENSHOT_LOCK" not in content:
-                  if target_func in content:
-                      content = content.replace(target_func, target_func + "\n" + patch_code)
-                      print(f"✅ Муваффақият: {file_path} патч шуд!")
-                  else:
-                      print(f"⚠️ Функсияи мақсад дар {file_path} ёфт нашуд.")
-              else:
-                  # Агар код аллакай бошад, вале комментҳо нест шуда бошанд, аввал онро тоза карда аз нав мегузорад
-                  print(f"🔄 Файл аллакай коди кӯҳна дорад, онро тоза нигоҳ медорем: {file_path}")
-                  
-              with open(file_path, "w", encoding="utf-8") as f:
-                  f.write(content)
-          
+          # ==========================================
+          # 1. ПАТЧИ БЕХАТАРИ BaseFragment (Анти-Фрауд)
+          # ==========================================
+          bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           bf_code = """// === TAJGRAM SECURITY START ===
           if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
               String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
@@ -73,33 +42,54 @@ jobs:
           }
           // === TAJGRAM SECURITY END ==="""
           
-          ca_code = """    // === TAJGRAM SCREENSHOT LOCK START ===
+          if os.path.exists(bf_path):
+              with open(bf_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+              
+              # АГАР КОД АЛЛАКАЙ БОШАД - ОНРО ТОЗА МЕКУНЕМ, КИ ДУБЛИКАТ НАШАВАД (МУҲОФИЗАТИ 100-БОРА)
+              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*START.*?//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*END.*?[-=]*', '', content, flags=re.DOTALL)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\}\s*\}', '', content, flags=re.DOTALL)
+              
+              # БА ҲОЛАТИ АСЛӢ БАРГАРДОНИДАН ВА ГУЗОШТАНИ КОДИ НАВ
+              content = re.sub(r'public boolean onFragmentCreate\(\)\s*\{\s*', 'public boolean onFragmentCreate() {\n', content)
+              if "ANTI_FRAUD_DEVICE_LOCK" not in content:
+                  content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code + "\n")
+              
+              with open(bf_path, "w", encoding="utf-8") as f:
+                  f.write(content)
+              print("✅ BaseFragment бо муваффақият патч шуд!")
+          
+          # ==========================================
+          # 2. ПАТЧИ БЕХАТАРИ ChatActivity (Скриншот)
+          # ==========================================
+          ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
+          ca_code = """\n    // === TAJGRAM SCREENSHOT LOCK START ===
               if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
                   if (getParentActivity() != null) {
                       getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
                   }
               }
               // === TAJGRAM SCREENSHOT LOCK END ==="""
-          
-          # ИҶРОИ КОР БАРОИ ҲАРДУ ФАЙЛ
-          secure_patch(
-              file_path="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java",
-              start_marker="// === TAJGRAM SECURITY START ===",
-              end_marker="// === TAJGRAM SECURITY END ===",
-              target_func="public boolean onFragmentCreate() {",
-              patch_code=bf_code
-          )
-          
-          secure_patch(
-              file_path="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java",
-              start_marker="// === TAJGRAM SCREENSHOT LOCK START ===",
-              end_marker="// === TAJGRAM SCREENSHOT LOCK END ===",
-              target_func="super.onResume();",
-              patch_code=ca_code
-          )
+              
+          if os.path.exists(ca_path):
+              with open(ca_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+              
+              # АГАР КОД АЛЛАКАЙ БОШАД - ОНРО ТОЗА МЕКУНЕМ (МУҲОФИЗАТИ 100-БОРА)
+              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START.*?//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END.*?[-=]*', '', content, flags=re.DOTALL)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\}\s*\}', '', content, flags=re.DOTALL)
+              
+              # БА ҲОЛАТИ АСЛӢ БАРГАРДОНИДАНИ SUPER.ONRESUME ВА НАВИШТАНИ КОД
+              content = re.sub(r'\s*super\.onResume\(\);\s*', '\n        super.onResume();\n', content)
+              if "ANTI_SPY_SCREENSHOT_LOCK" not in content:
+                  content = content.replace("super.onResume();", "super.onResume();" + ca_code)
+              
+              with open(ca_path, "w", encoding="utf-8") as f:
+                  f.write(content)
+              print("✅ ChatActivity бо муваффақият патч шуд!")
           EOF
 
       - name: 📤 Push ба GitHub
         run: |
           git add .
-            git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master)
+          git diff-index --quiet HEAD || (git commit -m "Tajgram: Bulletproof auto update without duplicates" && git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master)

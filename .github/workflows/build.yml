@@ -51,24 +51,44 @@ jobs:
           echo 'org.gradle.parallel=true' >> ~/.gradle/gradle.properties
           echo 'org.gradle.jvmargs=-Xmx8192m -Dfile.encoding=UTF-8 -XX:+UseParallelGC' >> ~/.gradle/gradle.properties
           echo 'android.native.buildOutput=verbose' >> ~/.gradle/gradle.properties
+      
       - name: Configure Signing
         run: |
-          echo "storeFile=${{ github.workspace }}/keystore.base64" >> local.properties
+          # САНҶИШИ СУҒУРТАВИИ КЕЙСТОР (ПАЙВАСТ КАРДАНИ ҲАРДУ ВАРИАНТ)
+          REPO_KEYSTORE="${{ github.workspace }}/TMessagesProj/config/release.keystore"
+          
+          if [ -f "$REPO_KEYSTORE" ]; then
+            echo "✅ Варианти 1: Файли Keystore дар папкаи лоиҳа ёфт шуд!"
+            echo "storeFile=$REPO_KEYSTORE" >> local.properties
+            # Барои он ки қадами Show SHA хато надиҳад, файлро ба ин ҷо ҳам нусхабардорӣ мекунем
+            cp "$REPO_KEYSTORE" "${{ github.workspace }}/keystore.base64"
+          else
+            echo "⚠️ Варианти 2: Файл дар папка нест. Сохтани Keystore аз Base64 (Secrets)..."
+            echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > ${{ github.workspace }}/keystore.base64
+            echo "storeFile=${{ github.workspace }}/keystore.base64" >> local.properties
+          fi
+
           echo "storePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> local.properties
           echo "keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" >> local.properties
           echo "keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> local.properties
           
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj_App/google-services.json
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.base64
          
-           # 2. Decode кардан аз Base64 (API Keys)
-          echo "apiId=$(echo '${{ secrets.API_ID_BASE64 }}' | base64 --decode)" >> local.properties
-          echo "apiHash=$(echo '${{ secrets.API_HASH_BASE64 }}' | base64 --decode)" >> local.properties
-          echo "sha256=$(echo '${{ secrets.SHA256_BASE64 }}' | base64 --decode)" >> local.properties
+          # Хондани сирҳо аз Secrets ва иваз кардани мустақим дар дохили BuildVars.java
+          REAL_ID=$(echo '${{ secrets.API_ID_BASE64 }}' | base64 --decode)
+          REAL_HASH=$(echo '${{ secrets.API_HASH_BASE64 }}' | base64 --decode)
+          REAL_SHA256=$(echo '${{ secrets.SHA256_BASE64 }}' | base64 --decode)
+          
+          BV_FILE="TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"
+          sed -i "s/APP_ID = 999999/APP_ID = $REAL_ID/g" $BV_FILE
+          sed -i "s/APP_HASH = \"SECRET_HASH_PLACEHOLDER\"/APP_HASH = \"$REAL_HASH\"/g" $BV_FILE
+          sed -i "s/SHA256_KEY = \"SECRET_SHA256_PLACEHOLDER\"/SHA256_KEY = \"$REAL_SHA256\"/g" $BV_FILE
       
       - name: Show SHA Fingerprints
-        run: keytool -list -v -keystore keystore.base64 -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
+        run: |
+          CURRENT_KEYSTORE=$(grep "storeFile=" local.properties | cut -d'=' -f2)
+          keytool -list -v -keystore "$CURRENT_KEYSTORE" -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
       
       - name: Build with Gradle
         run: |

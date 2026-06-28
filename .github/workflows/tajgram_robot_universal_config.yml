@@ -30,7 +30,7 @@ jobs:
           import re
           
           # ==========================================
-          # 1. ИСЛОҲИ BaseFragment (Анти-Фрауд)
+          # 1. ТОЗА КАРДАН ВА ПАТЧИ BaseFragment
           # ==========================================
           bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           bf_code = """// === TAJGRAM SECURITY START ===
@@ -40,27 +40,32 @@ jobs:
                   return false;
               }
           }
-          // === TAJGRAM SECURITY END ==="""
+          # === TAJGRAM SECURITY END ==="""
           
           if os.path.exists(bf_path):
               with open(bf_path, "r", encoding="utf-8") as f:
                   content = f.read()
               
-              # АВВАЛ: Ҳама гуна дубликатҳои кӯҳнаро, ки байни кушодашавии функсия мондаанд, пурра тоза мекунем
-              content = re.sub(r'//\s*===\s*TAJGRAM\s*SECURITY\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SECURITY\s*END\s*===', '', content, flags=re.DOTALL)
+              # ТОЗА КАРДАНИ ҲАМА ГУНА ВАРИАНТҲОИ КОММЕНТҲО (бо ===, бо --- ва бо қавсҳо)
+              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*START.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
+              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*END.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
               
-              # БА ҲОЛАТИ АСЛӢ ОВАРДАН: Агар функсия аз сабаби дубликатҳо вайрон шуда бошад, онро тоза ва стандартӣ мекунем
+              # ТОЗА КАРДАНИ ХУДИ КОДҲОИ ДУБЛИКАТШУДАИ АНТИ-ФРАУД (тозакунии кафолатдор)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\n\s*\}\s*\n\s*\}', '', content, flags=re.DOTALL)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?return\s+false;\s*\}\s*\}', '', content, flags=re.DOTALL)
+              
+              # БА ҲОЛАТИ ТОЗАИ АСЛӢ БАРГАРДОНИДАНИ КУШОДАШАВИИ ФУНКСИЯ
               content = re.sub(r'public boolean onFragmentCreate\(\)\s*\{\s*', 'public boolean onFragmentCreate() {\n', content)
               
-              # НАВИШТАН: Акнун бо боварии 100% танҳо ЯК дона коди навро мегузорем
+              # ГУЗОШТАНИ ЯГОНА НУСХАИ НАВ
               content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code + "\n")
               
               with open(bf_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print("✅ Файли BaseFragment бо муваффақият патч шуд ва дубликатҳо тоза шуданд!")
+              print("✅ BaseFragment комилан тоза ва патч шуд!")
           
           # ==========================================
-          # 2. ИСЛОҲИ ChatActivity (Блоки скриншот)
+          # 2. ТОЗА КАРДАН ВА ПАТЧИ ChatActivity
           # ==========================================
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           ca_code = """    // === TAJGRAM SCREENSHOT LOCK START ===
@@ -75,18 +80,22 @@ jobs:
               with open(ca_path, "r", encoding="utf-8") as f:
                   content = f.read()
               
-              # АВВАЛ: Ҳама гуна блокҳои скриншоти кӯҳнаро пурра тоза мекунем
-              content = re.sub(r'//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END\s*===', '', content, flags=re.DOTALL)
+              # ТОЗА КАРДАНИ ҲАМА ГУНА ВАРИАНТҲОИ КОММЕНТҲОИ СКРИНШОТ
+              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
+              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
               
-              # БА ҲОЛАТИ АСЛӢ ОВАРДАН: Функсияи onResume-ро тоза ва стандартӣ мекунем
+              # ТОЗА КАРДАНИ ХУДИ КОДҲОИ ДУБЛИКАТШУДАИ СКРИНШОТ ЛОК
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\n\s*\}\s*\n\s*\}', '', content, flags=re.DOTALL)
+              
+              # БА ҲОЛАТИ ТОЗАИ АСЛӢ БАРГАРДОНИДАНИ ONRESUME
               content = re.sub(r'public void onResume\(\)\s*\{\s*', 'public void onResume() {\n', content)
               
-              # НАВИШТАН: Танҳо ЯК дона коди нави скриншотро мегузорем
+              # ГУЗОШТАНИ ЯГОНА НУСХАИ НАВ
               content = content.replace("public void onResume() {\n", "public void onResume() {\n" + ca_code + "\n")
               
               with open(ca_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print("✅ Файли ChatActivity бо муваффақият патч шуд ва дубликатҳо тоза шуданд!")
+              print("✅ ChatActivity комилан тоза ва патч шуд!")
           EOF
 
       - name: 📤 Push ба GitHub

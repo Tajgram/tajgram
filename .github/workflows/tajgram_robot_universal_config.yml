@@ -13,6 +13,11 @@ jobs:
           token: ${{ secrets.MY_TOKEN }}
           branch: master
 
+      - name: 🐍 Насби Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: 🧹 Танзими Git
         run: |
           git config --global user.name "TajgramRobot"
@@ -20,49 +25,79 @@ jobs:
 
       - name: ⚙️ Иҷрои Патчҳо ва Навсозии API
         run: |
-          # ==========================================
-          # 1. ИСЛОҲИ БУНЁДИИ BaseFragment.java
-          # ==========================================
-          BF_FILE="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
+          python3 - <<EOF
+          import os
           
-          if [ -f "$BF_FILE" ]; then
-              # АВВАЛ: Тоза кардани ҳама намуди комментҳои хато (бо ===, ---, # ва /)
-              sed -i '/TAJGRAM SECURITY/d' "$BF_FILE"
-              sed -i '/^\s*\/$/d' "$BF_FILE"
-              sed -i '/^\s*\/===\s*$/d' "$BF_FILE"
+          def secure_patch(file_path, start_marker, end_marker, target_func, patch_code):
+              if not os.path.exists(file_path):
+                  print(f"❌ Файл ёфт нашуд: {file_path}")
+                  return
               
-              # УДАЛИТИ МУТЛАҚ: Тоза кардани тамоми блоки куҳнаи if аз аввал то охир
-              sed -i '/ANTI_FRAUD_DEVICE_LOCK/,/}/d' "$BF_FILE"
-              sed -i '/currentSignature/,/}/d' "$BF_FILE"
+              with open(file_path, "r", encoding="utf-8") as f:
+                  content = f.read()
               
-              # НАВИШТАН: Гузоштани ягона коди наву тозаи Анти-Фрауд
-              BF_CODE='// === TAJGRAM SECURITY START ===\n        if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {\n            String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);\n            if (currentSignature != null \&\& !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {\n                return false;\n            }\n        }\n        // === TAJGRAM SECURITY END ==='
+              # 1. ТОЗА КАРДАНИ БЛОКҲОИ КӮҲНА БО КОММЕНТҲО
+              if start_marker in content and end_marker in content:
+                  parts = content.split(start_marker)
+                  before = parts[0]
+                  remaining = parts[1]
+                  if end_marker in remaining:
+                      after = remaining.split(end_marker, 1)[1]
+                      content = before + after
               
-              sed -i "s/public boolean onFragmentCreate() {/public boolean onFragmentCreate() {\n        $BF_CODE/" "$BF_FILE"
-              print "✅ BaseFragment бо муваффақият тоза ва патч шуд!"
-          fi
-
-          # ==========================================
-          # 2. ИСЛОҲИ БУНЁДИИ ChatActivity.java
-          # ==========================================
-          CA_FILE="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
+              # Тоза кардани боқимондаҳои аломатҳои хато аз файл
+              content = content.replace("\n    /\n", "\n").replace("\n    /===\n", "\n")
+              content = content.replace("\n# === TAJGRAM SECURITY END ===\n", "\n")
+              content = content.replace("\n// === TAJGRAM SECURITY END ===\n", "\n")
+              
+              # 2. НАВИШТАН: Гузоштани ягона нусхаи тоза (танҳо агар аллакай код набошад)
+              if "ANTI_FRAUD_DEVICE_LOCK" not in content and "ANTI_SPY_SCREENSHOT_LOCK" not in content:
+                  if target_func in content:
+                      content = content.replace(target_func, target_func + "\n" + patch_code)
+                      print(f"✅ Муваффақият: {file_path} патч шуд!")
+                  else:
+                      print(f"⚠️ Функсияи мақсад дар {file_path} ёфт нашуд.")
+              else:
+                  # Агар код аллакай бошад, вале комментҳо нест шуда бошанд, аввал онро тоза карда аз нав мегузорад
+                  print(f"🔄 Файл аллакай коди кӯҳна дорад, онро тоза нигоҳ медорем: {file_path}")
+                  
+              with open(file_path, "w", encoding="utf-8") as f:
+                  f.write(content)
           
-          if [ -f "$CA_FILE" ]; then
-              # АВВАЛ: Тоза кардани ҳама намуди комментҳои кӯҳнаи скриншот
-              sed -i '/TAJGRAM SCREENSHOT/d' "$CA_FILE"
-              sed -i '/^\s*\/$/d' "$CA_FILE"
-              sed -i '/^\s*\/===\s*$/d' "$CA_FILE"
-              
-              # УДАЛИТИ МУТЛАҚ: Тоза кардани тамоми блоки куҳнаи скриншот лок (ҳамаи 3 қавси кушодаву пӯшида)
-              sed -i '/ANTI_SPY_SCREENSHOT_LOCK/,/}/d' "$CA_FILE"
-              sed -i '/getParentActivity().getWindow().addFlags/d' "$CA_FILE"
-              
-              # НАВИШТАН: Гузоштани ягона коди наву тозаи Скриншот Лок
-              CA_CODE='// === TAJGRAM SCREENSHOT LOCK START ===\n        if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {\n            if (getParentActivity() != null) {\n                getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);\n            }\n        }\n        // === TAJGRAM SCREENSHOT LOCK END ==='
-              
-              sed -i "s/super.onResume();/super.onResume();\n        $CA_CODE/" "$CA_FILE"
-              print "✅ ChatActivity бо муваффақият тоза ва патч шуд!"
-          fi
+          bf_code = """// === TAJGRAM SECURITY START ===
+          if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
+              String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
+              if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
+                  return false;
+              }
+          }
+          // === TAJGRAM SECURITY END ==="""
+          
+          ca_code = """    // === TAJGRAM SCREENSHOT LOCK START ===
+              if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
+                  if (getParentActivity() != null) {
+                      getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
+                  }
+              }
+              // === TAJGRAM SCREENSHOT LOCK END ==="""
+          
+          # ИҶРОИ КОР БАРОИ ҲАРДУ ФАЙЛ
+          secure_patch(
+              file_path="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java",
+              start_marker="// === TAJGRAM SECURITY START ===",
+              end_marker="// === TAJGRAM SECURITY END ===",
+              target_func="public boolean onFragmentCreate() {",
+              patch_code=bf_code
+          )
+          
+          secure_patch(
+              file_path="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java",
+              start_marker="// === TAJGRAM SCREENSHOT LOCK START ===",
+              end_marker="// === TAJGRAM SCREENSHOT LOCK END ===",
+              target_func="super.onResume();",
+              patch_code=ca_code
+          )
+          EOF
 
       - name: 📤 Push ба GitHub
         run: |

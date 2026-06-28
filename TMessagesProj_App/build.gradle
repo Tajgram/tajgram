@@ -175,16 +175,6 @@ android {
         targetSdkVersion 35
         versionName APP_VERSION_NAME
         ndkVersion "27.2.12479018"
-        // --- Ҳамин қисматро дар ин ҷо монед ---
-        def props = new Properties()
-        def propFile = rootProject.file('local.properties')
-        if (propFile.exists()) {
-            props.load(new FileInputStream(propFile))
-        }
-        
-        buildConfigField "int", "APP_ID", props.getProperty("appId") ?: "0"
-        buildConfigField "String", "APP_HASH", "\"" + (props.getProperty("appHash") ?: "") + "\""
-        buildConfigField "String", "SHA256_KEY", "\"" + (props.getProperty("sha256") ?: "") + "\""
         
         multiDexEnabled true
 

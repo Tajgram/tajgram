@@ -29514,6 +29514,8 @@ public class ChatActivity extends BaseFragment implements
     }
     // === TAJGRAM SCREENSHOT LOCK END ===
 
+    
+
     // === TAJGRAM SCREENSHOT LOCK START (DO NOT DUPLICATE) ===
     if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
         if (getParentActivity() != null) {

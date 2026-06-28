@@ -46,27 +46,23 @@ jobs:
               with open(bf_path, "r", encoding="utf-8") as f:
                   content = f.read()
               
-              # Тоза кардани ҳама гуна вариантҳои комментҳо ва кодҳои анти-фрауд
               content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*START.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
               content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*END.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
               content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\}\s*\n\s*\}', '', content, flags=re.DOTALL)
               content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?return\s+false;\s*\}\s*\}', '', content, flags=re.DOTALL)
               
-              # Баргардонидани функсия ба ҳолати аслӣ
               content = re.sub(r'public boolean onFragmentCreate\(\)\s*\{\s*', 'public boolean onFragmentCreate() {\n', content)
-              
-              # Гузоштани як нусхаи тоза
               content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code + "\n")
               
               with open(bf_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print("✅ BaseFragment комилан тоза ва патч шуд!")
+              print("✅ BaseFragment бо муваффақият патч шуд!")
           
           # ==========================================
           # 2. ТОЗА КАРДАН ВА ПАТЧИ ChatActivity (СКРИНШОТ)
           # ==========================================
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
-          ca_code = """    // === TAJGRAM SCREENSHOT LOCK START ===
+          ca_code = """\n    // === TAJGRAM SCREENSHOT LOCK START ===
               if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
                   if (getParentActivity() != null) {
                       getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
@@ -78,22 +74,24 @@ jobs:
               with open(ca_path, "r", encoding="utf-8") as f:
                   content = f.read()
               
-              # ТОЗА КУНИИ КАФОЛАТНОК: Тоза кардани ҳама гуна блокҳои комментӣ
+              # УДАЛИТИ АБСОЛЮТӢ: Ҳама гуна комментҳо ва блокҳои скриншот локро пурра нест мекунем
               content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
               content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\)\s*;\s*\}\s*\}', '', content, flags=re.DOTALL)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\}\s*\n\s*\}', '', content, flags=re.DOTALL)
               
-              # УДАЛИТИ МУТЛАҚ: Пурра тоза кардани худи коди скриншот лок (ҳарчанд дубликат ё фосила дошта бошад)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?(?:addFlags.*?FLAG_SECURE\s*\);\s*\}\s*\}|\}\s*\n\s*\})', '', content, flags=re.DOTALL)
-              
-              # Баргардонидани функсияи onResume ба ҳолати аслии заводӣ
-              content = re.sub(r'public void onResume\(\)\s*\{\s*', 'public void onResume() {\n', content)
-              
-              # Гузоштани ягона нусхаи тозаи нави скриншот
-              content = content.replace("public void onResume() {\n", "public void onResume() {\n" + ca_code + "\n")
+              # Ворид кардани код мустақим баъд аз super.onResume(); (ба сатри кушодашавии функсия вобаста нест)
+              if "super.onResume();" in content:
+                  content = content.replace("super.onResume();", "super.onResume();" + ca_code)
+                  print("✅ ChatActivity бо муваффақият ёфт ва патч шуд!")
+              else:
+                  # Агар super.onResume() набошад, ба аввали функсия мегузорем
+                  content = re.sub(r'public void onResume\(\)\s*\{\s*', 'public void onResume() {\n', content)
+                  content = content.replace("public void onResume() {\n", "public void onResume() {\n" + ca_code + "\n")
+                  print("⚠️ super.onResume() ёфт нашуд, ба аввали функсия гузошта шуд.")
               
               with open(ca_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print("✅ ChatActivity комилан тоза ва патч шуд!")
           EOF
 
       - name: 📤 Push ба GitHub

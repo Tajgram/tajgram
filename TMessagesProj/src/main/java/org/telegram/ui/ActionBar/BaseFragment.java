@@ -462,7 +462,6 @@ public abstract class BaseFragment {
     }
 
     public boolean onFragmentCreate() {
-
 // === TAJGRAM SECURITY START ===
 if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
     String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
@@ -471,9 +470,6 @@ if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
     }
 }
 // === TAJGRAM SECURITY END ===
-
-
-
 // === TAJGRAM SECURITY START (DO NOT DUPLICATE) ===
 if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
     String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);

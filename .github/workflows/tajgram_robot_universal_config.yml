@@ -29,43 +29,10 @@ jobs:
           import os
           import re
           
-          def apply_patch(file_path, function_signature, target_code, block_name, regex_patterns):
-              if not os.path.exists(file_path):
-                  print(f"❌ Файл ёфт нашуд: {file_path}")
-                  return
-                  
-              print(f"\n=== КОР БО ФАЙЛ: {file_path} ===")
-              with open(file_path, "r", encoding="utf-8") as f:
-                  content = f.read()
-              
-              # 1. Ҳисоб ва нишон додани дубликатҳо пеш аз тозакунӣ
-              duplicates_found = 0
-              for pattern in regex_patterns:
-                  matches = re.findall(pattern, content, flags=re.DOTALL)
-                  duplicates_found += len(matches)
-              
-              print(f"🔍 Дубликатҳои кӯҳнаи '{block_name}' ёфт шуданд: {duplicates_found} та")
-              
-              # 2. УДАЛИТ КАРДАН: Пурра тоза кардани ҳамаи нусхаҳои кӯҳна
-              for pattern in regex_patterns:
-                  content = re.sub(pattern, '', content, flags=re.DOTALL)
-              
-              # Нормализатсия кардани функсия (тоза кардани сатрҳои холии монда)
-              content = re.sub(rf'{re.escape(function_signature)}\s*\{\s*', f'{function_signature} {{\n', content)
-              
-              # 3. НАВИШТАН: Гузоштани ягона нусхаи тоза
-              old_length = len(content)
-              content = content.replace(f"{function_signature} {{\n", f"{function_signature} {{\n{target_code}\n")
-              
-              if len(content) > old_length:
-                  print(f"✅ Коди нав барои '{block_name}' бо муваффақият НАВИШТА шуд!")
-              else:
-                  print(f"⚠️ Огоҳӣ: Функсияи '{function_signature}' барои гузоштани код ёфт нашуд.")
-                  
-              with open(file_path, "w", encoding="utf-8") as f:
-                  f.write(content)
-          
-          # КОДҲО БАРОИ ИНЪЕКЦИЯ
+          # ==========================================
+          # 1. ИСЛОҲИ BaseFragment (Анти-Фрауд)
+          # ==========================================
+          bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           bf_code = """// === TAJGRAM SECURITY START ===
           if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
               String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
@@ -75,6 +42,27 @@ jobs:
           }
           // === TAJGRAM SECURITY END ==="""
           
+          if os.path.exists(bf_path):
+              with open(bf_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+              
+              # АВВАЛ: Ҳама гуна дубликатҳои кӯҳнаро, ки байни кушодашавии функсия мондаанд, пурра тоза мекунем
+              content = re.sub(r'//\s*===\s*TAJGRAM\s*SECURITY\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SECURITY\s*END\s*===', '', content, flags=re.DOTALL)
+              
+              # БА ҲОЛАТИ АСЛӢ ОВАРДАН: Агар функсия аз сабаби дубликатҳо вайрон шуда бошад, онро тоза ва стандартӣ мекунем
+              content = re.sub(r'public boolean onFragmentCreate\(\)\s*\{\s*', 'public boolean onFragmentCreate() {\n', content)
+              
+              # НАВИШТАН: Акнун бо боварии 100% танҳо ЯК дона коди навро мегузорем
+              content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code + "\n")
+              
+              with open(bf_path, "w", encoding="utf-8") as f:
+                  f.write(content)
+              print("✅ Файли BaseFragment бо муваффақият патч шуд ва дубликатҳо тоза шуданд!")
+          
+          # ==========================================
+          # 2. ИСЛОҲИ ChatActivity (Блоки скриншот)
+          # ==========================================
+          ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           ca_code = """    // === TAJGRAM SCREENSHOT LOCK START ===
               if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
                   if (getParentActivity() != null) {
@@ -82,37 +70,26 @@ jobs:
                   }
               }
               // === TAJGRAM SCREENSHOT LOCK END ==="""
-          
-          # РЕГЕКСҲО БАРОИ ТОЗА КАРДАНИ ДУБЛИКАТҲО
-          bf_patterns = [
-              r'//\s*===\s*TAJGRAM\s*SECURITY\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SECURITY\s*END\s*===',
-              r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\n\s*\}\s*\n\s*\}'
-          ]
-          
-          ca_patterns = [
-              r'//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END\s*===',
-              r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\n\s*\}\s*\n\s*\}'
-          ]
-          
-          # ИҶРОИ КОР
-          apply_patch(
-              file_path="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java",
-              function_signature="public boolean onFragmentCreate()",
-              target_code=bf_code,
-              block_name="TAJGRAM SECURITY",
-              regex_patterns=bf_patterns
-          )
-          
-          apply_patch(
-              file_path="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java",
-              function_signature="public void onResume()",
-              target_code=ca_code,
-              block_name="TAJGRAM SCREENSHOT LOCK",
-              regex_patterns=ca_patterns
-          )
+              
+          if os.path.exists(ca_path):
+              with open(ca_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+              
+              # АВВАЛ: Ҳама гуна блокҳои скриншоти кӯҳнаро пурра тоза мекунем
+              content = re.sub(r'//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END\s*===', '', content, flags=re.DOTALL)
+              
+              # БА ҲОЛАТИ АСЛӢ ОВАРДАН: Функсияи onResume-ро тоза ва стандартӣ мекунем
+              content = re.sub(r'public void onResume\(\)\s*\{\s*', 'public void onResume() {\n', content)
+              
+              # НАВИШТАН: Танҳо ЯК дона коди нави скриншотро мегузорем
+              content = content.replace("public void onResume() {\n", "public void onResume() {\n" + ca_code + "\n")
+              
+              with open(ca_path, "w", encoding="utf-8") as f:
+                  f.write(content)
+              print("✅ Файли ChatActivity бо муваффақият патч шуд ва дубликатҳо тоза шуданд!")
           EOF
 
       - name: 📤 Push ба GitHub
         run: |
           git add .
-          git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API without duplicates" && git push https://${{ secrets.MY_TOKEN }}@://github.com/Tajgram/tajgram.git master)
+          git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master)

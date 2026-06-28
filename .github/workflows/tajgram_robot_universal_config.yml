@@ -29,7 +29,7 @@ jobs:
           import os
           import re
           
-          # 1. ПАТЧИ ДУРУСТ ВА СУҒУРТАВИИ BaseFragment (Анти-Шпион)
+          # 1. ТOЗА КАРДАН ВА ПАТЧИ НАВИ BaseFragment (Мувофиқи сатри 88 ва 98)
           bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           bf_code = """
           // === TAJGRAM SECURITY START ===
@@ -44,14 +44,17 @@ jobs:
           if os.path.exists(bf_path):
               with open(bf_path, "r", encoding="utf-8") as f: content = f.read()
               
-              # Тоза кардани версияи кӯҳна ва хатои бот
-              content = re.sub(r'// === TAJGRAM SECURITY START ===.*?// === TAJGRAM SECURITY END ===', '', content, flags=re.DOTALL)
+              # УДАЛИТИ МУТЛАҚ: Пурра нест кардани ҳама гуна нусхаҳои кӯҳна ва дубликатҳои Таҷграм (ҳам матни аслӣ ва ҳам бо // шарҳшуда)
+              content = re.sub(r'//\s*===\s*TAJGRAM\s*SECURITY\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SECURITY\s*END\s*===', '', content, flags=re.DOTALL)
+              content = re.sub(r'===\s*TAJGRAM\s*SECURITY\s*START\s*===.*?===\s*TAJGRAM\s*SECURITY\s*END\s*===', '', content, flags=re.DOTALL)
+              content = re.sub(r'//\s*if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\n\s*//\s*\}\s*\n', '', content, flags=re.DOTALL)
+              content = re.sub(r'//\s*if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?return\s+false;\s*\}\s*\}', '', content, flags=re.DOTALL)
               
-              # Гузоштани коди наву бехато, ки сатри 88 ва 98-ро дуруст истифода мебарад
+              # Гузоштани ягона нусхаи тоза мустақим дар аввали функсия
               content = content.replace("public boolean onFragmentCreate() {", "public boolean onFragmentCreate() {\n" + bf_code)
               with open(bf_path, "w", encoding="utf-8") as f: f.write(content)
           
-          # 2. ПАТЧИ ДУРУСТ ВА СУҒУРТАВИИ ChatActivity (Блоки скриншот)
+          # 2. ТOЗА КАРДАН ВА ПАТЧИ НАВИ ChatActivity (Блоки скриншот)
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           ca_code = """
               // === TAJGRAM SCREENSHOT LOCK START ===
@@ -65,10 +68,12 @@ jobs:
           if os.path.exists(ca_path):
               with open(ca_path, "r", encoding="utf-8") as f: content = f.read()
               
-              # Тоза кардани версияи кӯҳнаи скриншот
-              content = re.sub(r'// === TAJGRAM SCREENSHOT LOCK START ===.*?// === TAJGRAM SCREENSHOT LOCK END ===', '', content, flags=re.DOTALL)
+              # УДАЛИТИ МУТЛАҚ: Пурра нест кардани ҳама намуди дубликатҳо ва коментҳои кӯҳнаи скриншот
+              content = re.sub(r'//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START\s*===.*?//\s*===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END\s*===', '', content, flags=re.DOTALL)
+              content = re.sub(r'===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START\s*===.*?===\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END\s*===', '', content, flags=re.DOTALL)
+              content = re.sub(r'//\s*if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\n\s*//\s*\}\s*\n', '', content, flags=re.DOTALL)
               
-              # Гузоштани коди нав
+              # Гузоштани ягона нусхаи нави тоза
               content = content.replace("public void onResume() {", "public void onResume() {\n" + ca_code)
               with open(ca_path, "w", encoding="utf-8") as f: f.write(content)
           EOF

@@ -182,8 +182,8 @@ android {
             props.load(new FileInputStream(propFile))
         }
         
-        buildConfigField "int", "APP_ID", props.getProperty("apiId") ?: "0"
-        buildConfigField "String", "APP_HASH", "\"" + (props.getProperty("apiHash") ?: "") + "\""
+        buildConfigField "int", "APP_ID", props.getProperty("appId") ?: "0"
+        buildConfigField "String", "APP_HASH", "\"" + (props.getProperty("appHash") ?: "") + "\""
         buildConfigField "String", "SHA256_KEY", "\"" + (props.getProperty("sha256") ?: "") + "\""
         
         multiDexEnabled true

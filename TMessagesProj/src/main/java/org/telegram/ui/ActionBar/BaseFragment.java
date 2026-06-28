@@ -469,6 +469,7 @@ if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
         return false;
     }
 }
+// === TAJGRAM SECURITY END ===
 # === TAJGRAM SECURITY END ===
 if (org.telegram.messenger.BuildVars.LOWEST_ROLE_SUPPORT_ONLY) {
     org.telegram.messenger.FileLog.d("TAJGRAM SECURITY: Role-based restrictions applied.");

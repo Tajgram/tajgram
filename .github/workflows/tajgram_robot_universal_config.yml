@@ -13,11 +13,6 @@ jobs:
           token: ${{ secrets.MY_TOKEN }}
           branch: master
 
-      - name: 🐍 Насби Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
       - name: 🧹 Танзими Git
         run: |
           git config --global user.name "TajgramRobot"
@@ -25,63 +20,49 @@ jobs:
 
       - name: ⚙️ Иҷрои Патчҳо ва Навсозии API
         run: |
-          python3 - <<EOF
-          import os
-          import re
+          # ==========================================
+          # 1. ИСЛОҲИ БУНЁДИИ BaseFragment.java
+          # ==========================================
+          BF_FILE="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           
-          # 1. BaseFragment
-          bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
-          bf_code = """// === TAJGRAM SECURITY START ===
-          if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
-              String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
-              if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
-                  return false;
-              }
-          }
-          // === TAJGRAM SECURITY END ==="""
+          if [ -f "$BF_FILE" ]; then
+              # АВВАЛ: Тоза кардани ҳама намуди комментҳои хато (бо ===, ---, # ва /)
+              sed -i '/TAJGRAM SECURITY/d' "$BF_FILE"
+              sed -i '/^\s*\/$/d' "$BF_FILE"
+              sed -i '/^\s*\/===\s*$/d' "$BF_FILE"
+              
+              # УДАЛИТИ МУТЛАҚ: Тоза кардани тамоми блоки куҳнаи if аз аввал то охир
+              sed -i '/ANTI_FRAUD_DEVICE_LOCK/,/}/d' "$BF_FILE"
+              sed -i '/currentSignature/,/}/d' "$BF_FILE"
+              
+              # НАВИШТАН: Гузоштани ягона коди наву тозаи Анти-Фрауд
+              BF_CODE='// === TAJGRAM SECURITY START ===\n        if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {\n            String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);\n            if (currentSignature != null \&\& !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {\n                return false;\n            }\n        }\n        // === TAJGRAM SECURITY END ==='
+              
+              sed -i "s/public boolean onFragmentCreate() {/public boolean onFragmentCreate() {\n        $BF_CODE/" "$BF_FILE"
+              print "✅ BaseFragment бо муваффақият тоза ва патч шуд!"
+          fi
+
+          # ==========================================
+          # 2. ИСЛОҲИ БУНЁДИИ ChatActivity.java
+          # ==========================================
+          CA_FILE="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           
-          if os.path.exists(bf_path):
-              with open(bf_path, "r", encoding="utf-8") as f:
-                  content = f.read()
+          if [ -f "$CA_FILE" ]; then
+              # АВВАЛ: Тоза кардани ҳама намуди комментҳои кӯҳнаи скриншот
+              sed -i '/TAJGRAM SCREENSHOT/d' "$CA_FILE"
+              sed -i '/^\s*\/$/d' "$CA_FILE"
+              sed -i '/^\s*\/===\s*$/d' "$CA_FILE"
               
-              # Тоза кардани ҳама намуди комментҳои хатои кӯҳна (ҳам бо #, ҳам бо //, ҳам бо === ва ---)
-              content = re.sub(r'[/#]\s*[-=]+\s*TAJGRAM\s*SECURITY\s*START.*?[-=]*\n', '', content, flags=re.IGNORECASE)
-              content = re.sub(r'[/#]\s*[-=]+\s*TAJGRAM\s*SECURITY\s*END.*?[-=]*\n', '', content, flags=re.IGNORECASE)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\}\s*\}', '', content, flags=re.DOTALL)
+              # УДАЛИТИ МУТЛАҚ: Тоза кардани тамоми блоки куҳнаи скриншот лок (ҳамаи 3 қавси кушодаву пӯшида)
+              sed -i '/ANTI_SPY_SCREENSHOT_LOCK/,/}/d' "$CA_FILE"
+              sed -i '/getParentActivity().getWindow().addFlags/d' "$CA_FILE"
               
-              # Барқарор кардани функсия ба ҳолати аслӣ ва гузоштани коди ягонаи тоза
-              content = re.sub(r'public boolean onFragmentCreate\(\)\s*\{\s*', 'public boolean onFragmentCreate() {\n', content)
-              content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code + "\n")
+              # НАВИШТАН: Гузоштани ягона коди наву тозаи Скриншот Лок
+              CA_CODE='// === TAJGRAM SCREENSHOT LOCK START ===\n        if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {\n            if (getParentActivity() != null) {\n                getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);\n            }\n        }\n        // === TAJGRAM SCREENSHOT LOCK END ==='
               
-              with open(bf_path, "w", encoding="utf-8") as f:
-                  f.write(content)
-          
-          # 2. ChatActivity
-          ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
-          ca_code = """\n    // === TAJGRAM SCREENSHOT LOCK START ===
-              if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
-                  if (getParentActivity() != null) {
-                      getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
-                  }
-              }
-              // === TAJGRAM SCREENSHOT LOCK END ==="""
-              
-          if os.path.exists(ca_path):
-              with open(ca_path, "r", encoding="utf-8") as f:
-                  content = f.read()
-              
-              # Тоза кардани ҳама намуди блокҳои скриншот локи кӯҳна
-              content = re.sub(r'[/#]\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START.*?[-=]*\n', '', content, flags=re.DOTALL | re.IGNORECASE)
-              content = re.sub(r'[/#]\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END.*?[-=]*\n', '', content, flags=re.DOTALL | re.IGNORECASE)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\}\s*\}', '', content, flags=re.DOTALL)
-              
-              # Тоза кардани фосилаҳо дар гирду атрофи super.onResume() ва гузоштани код
-              content = re.sub(r'\s*super\.onResume\(\);\s*', '\n        super.onResume();\n', content)
-              content = content.replace("super.onResume();", "super.onResume();" + ca_code)
-              
-              with open(ca_path, "w", encoding="utf-8") as f:
-                  f.write(content)
-          EOF
+              sed -i "s/super.onResume();/super.onResume();\n        $CA_CODE/" "$CA_FILE"
+              print "✅ ChatActivity бо муваффақият тоза ва патч шуд!"
+          fi
 
       - name: 📤 Push ба GitHub
         run: |

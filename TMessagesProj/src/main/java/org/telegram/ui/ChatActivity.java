@@ -29726,7 +29726,6 @@ public class ChatActivity extends BaseFragment implements
 
     @Override
     public void onResume() {
-
     // === TAJGRAM SCREENSHOT LOCK START ===
     if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
         if (getParentActivity() != null) {
@@ -29734,10 +29733,7 @@ public class ChatActivity extends BaseFragment implements
         }
     }
     // === TAJGRAM SCREENSHOT LOCK END ===
-
-    
-
-    // === TAJGRAM SCREENSHOT LOCK START (DO NOT DUPLICATE) ===
+// === TAJGRAM SCREENSHOT LOCK START (DO NOT DUPLICATE) ===
     if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
         if (getParentActivity() != null) {
             getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);

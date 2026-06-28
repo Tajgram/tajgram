@@ -76,4 +76,4 @@ jobs:
       - name: 📤 Push ба GitHub
         run: |
           git add .
-          git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@://github.com master)
+            git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master)

@@ -40,24 +40,22 @@ jobs:
                   return false;
               }
           }
-          # === TAJGRAM SECURITY END ==="""
+          // === TAJGRAM SECURITY END ==="""
           
           if os.path.exists(bf_path):
               with open(bf_path, "r", encoding="utf-8") as f:
                   content = f.read()
               
-              # ТОЗА КАРДАНИ ҲАМА ГУНА ВАРИАНТҲОИ КОММЕНТҲО (бо ===, бо --- ва бо қавсҳо)
+              # Тоза кардани ҳама гуна вариантҳои комментҳо ва кодҳои анти-фрауд
               content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*START.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
               content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*END.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
-              
-              # ТОЗА КАРДАНИ ХУДИ КОДҲОИ ДУБЛИКАТШУДАИ АНТИ-ФРАУД (тозакунии кафолатдор)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\n\s*\}\s*\n\s*\}', '', content, flags=re.DOTALL)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\}\s*\n\s*\}', '', content, flags=re.DOTALL)
               content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?return\s+false;\s*\}\s*\}', '', content, flags=re.DOTALL)
               
-              # БА ҲОЛАТИ ТОЗАИ АСЛӢ БАРГАРДОНИДАНИ КУШОДАШАВИИ ФУНКСИЯ
+              # Баргардонидани функсия ба ҳолати аслӣ
               content = re.sub(r'public boolean onFragmentCreate\(\)\s*\{\s*', 'public boolean onFragmentCreate() {\n', content)
               
-              # ГУЗОШТАНИ ЯГОНА НУСХАИ НАВ
+              # Гузоштани як нусхаи тоза
               content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code + "\n")
               
               with open(bf_path, "w", encoding="utf-8") as f:
@@ -65,7 +63,7 @@ jobs:
               print("✅ BaseFragment комилан тоза ва патч шуд!")
           
           # ==========================================
-          # 2. ТОЗА КАРДАН ВА ПАТЧИ ChatActivity
+          # 2. ТОЗА КАРДАН ВА ПАТЧИ ChatActivity (СКРИНШОТ)
           # ==========================================
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           ca_code = """    // === TAJGRAM SCREENSHOT LOCK START ===
@@ -80,17 +78,17 @@ jobs:
               with open(ca_path, "r", encoding="utf-8") as f:
                   content = f.read()
               
-              # ТОЗА КАРДАНИ ҲАМА ГУНА ВАРИАНТҲОИ КОММЕНТҲОИ СКРИНШОТ
+              # ТОЗА КУНИИ КАФОЛАТНОК: Тоза кардани ҳама гуна блокҳои комментӣ
               content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
               content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END.*?[-=]+\s*\n', '', content, flags=re.IGNORECASE)
               
-              # ТОЗА КАРДАНИ ХУДИ КОДҲОИ ДУБЛИКАТШУДАИ СКРИНШОТ ЛОК
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\n\s*\}\s*\n\s*\}', '', content, flags=re.DOTALL)
+              # УДАЛИТИ МУТЛАҚ: Пурра тоза кардани худи коди скриншот лок (ҳарчанд дубликат ё фосила дошта бошад)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?(?:addFlags.*?FLAG_SECURE\s*\);\s*\}\s*\}|\}\s*\n\s*\})', '', content, flags=re.DOTALL)
               
-              # БА ҲОЛАТИ ТОЗАИ АСЛӢ БАРГАРДОНИДАНИ ONRESUME
+              # Баргардонидани функсияи onResume ба ҳолати аслии заводӣ
               content = re.sub(r'public void onResume\(\)\s*\{\s*', 'public void onResume() {\n', content)
               
-              # ГУЗОШТАНИ ЯГОНА НУСХАИ НАВ
+              # Гузоштани ягона нусхаи тозаи нави скриншот
               content = content.replace("public void onResume() {\n", "public void onResume() {\n" + ca_code + "\n")
               
               with open(ca_path, "w", encoding="utf-8") as f:

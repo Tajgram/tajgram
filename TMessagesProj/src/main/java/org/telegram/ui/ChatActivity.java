@@ -29512,14 +29512,7 @@ public class ChatActivity extends BaseFragment implements
         }
     }
     // === TAJGRAM SCREENSHOT LOCK END ===
-// === TAJGRAM SCREENSHOT LOCK START (DO NOT DUPLICATE) ===
-    if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
-        if (getParentActivity() != null) {
-            getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
-        }
-    }
-    // === TAJGRAM SCREENSHOT LOCK END ===
-        super.onResume();
+super.onResume();
         checkShowBlur(false);
         activityResumeTime = System.currentTimeMillis();
         if (openImport && getSendMessagesHelper().getImportingHistory(dialog_id) != null) {

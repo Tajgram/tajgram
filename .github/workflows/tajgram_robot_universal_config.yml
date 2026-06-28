@@ -22,18 +22,20 @@ jobs:
         run: |
           git config --global user.name "TajgramRobot"
           git config --global user.email "robot@tajgram.tj"
+
       - name: ⚙️ Иҷрои Патчҳо ва Навсозии API
         run: |
           python3 - <<EOF
           import os
           import re
-          # 1. Патчи BaseFragment
+          
+          # 1. ПАТЧИ ДУРУСТ ВА СУҒУРТАВИИ BaseFragment (Анти-Шпион)
           bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           bf_code = """
           // === TAJGRAM SECURITY START ===
           if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
               String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
-              if (!org.telegram.messenger.BuildVars.SHA256_SECURITY_LOCK.equalsIgnoreCase(currentSignature)) {
+              if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
                   return false;
               }
           }
@@ -41,10 +43,15 @@ jobs:
           
           if os.path.exists(bf_path):
               with open(bf_path, "r", encoding="utf-8") as f: content = f.read()
-              if "TAJGRAM SECURITY START" not in content:
-                  content = content.replace("public boolean onFragmentCreate() {", "public boolean onFragmentCreate() {\n" + bf_code)
-                  with open(bf_path, "w", encoding="utf-8") as f: f.write(content)
-          # 2. Патчи ChatActivity
+              
+              # Тоза кардани версияи кӯҳна ва хатои бот
+              content = re.sub(r'// === TAJGRAM SECURITY START ===.*?// === TAJGRAM SECURITY END ===', '', content, flags=re.DOTALL)
+              
+              # Гузоштани коди наву бехато, ки сатри 88 ва 98-ро дуруст истифода мебарад
+              content = content.replace("public boolean onFragmentCreate() {", "public boolean onFragmentCreate() {\n" + bf_code)
+              with open(bf_path, "w", encoding="utf-8") as f: f.write(content)
+          
+          # 2. ПАТЧИ ДУРУСТ ВА СУҒУРТАВИИ ChatActivity (Блоки скриншот)
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           ca_code = """
               // === TAJGRAM SCREENSHOT LOCK START ===
@@ -57,21 +64,16 @@ jobs:
               
           if os.path.exists(ca_path):
               with open(ca_path, "r", encoding="utf-8") as f: content = f.read()
-              if "TAJGRAM SCREENSHOT LOCK START" not in content:
-                  content = content.replace("public void onResume() {", "public void onResume() {\n" + ca_code)
-                  with open(ca_path, "w", encoding="utf-8") as f: f.write(content)
-          # 3. Навсозии BuildVars.java (Ҷои API_ID ва API_HASH)
-          bv_path = "TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"
-          if os.path.exists(bv_path):
-              with open(bv_path, "r", encoding="utf-8") as f: content = f.read()
-              # Regex барои иваз кардани APP_ID
-              content = re.sub(r'public static int APP_ID = \d+;', 'public static int APP_ID = 39951434;', content)
-              # Regex барои иваз кардани APP_HASH
-              content = re.sub(r'public static String APP_HASH = "[^"]+";', 'public static String APP_HASH = "fcf607bae206cefb2930121a86459c4b";', content)
-              with open(bv_path, "w", encoding="utf-8") as f: f.write(content)
+              
+              # Тоза кардани версияи кӯҳнаи скриншот
+              content = re.sub(r'// === TAJGRAM SCREENSHOT LOCK START ===.*?// === TAJGRAM SCREENSHOT LOCK END ===', '', content, flags=re.DOTALL)
+              
+              # Гузоштани коди нав
+              content = content.replace("public void onResume() {", "public void onResume() {\n" + ca_code)
+              with open(ca_path, "w", encoding="utf-8") as f: f.write(content)
           EOF
+
       - name: 📤 Push ба GitHub
         run: |
           git add .
-          # Танҳо агар тағйирот бошад, Push мекунад
-          git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master)
+          git diff-index --quiet HEAD || (git commit -m "Tajgram: Auto-updated Security & API" && git push https://${{ secrets.MY_TOKEN }}@://github.com master)

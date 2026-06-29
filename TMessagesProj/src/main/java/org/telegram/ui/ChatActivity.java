@@ -29760,6 +29760,7 @@ public class ChatActivity extends BaseFragment implements
         }
     }
     // === TAJGRAM SCREENSHOT LOCK END ===
+===
 checkShowBlur(false);
         activityResumeTime = System.currentTimeMillis();
         if (openImport && getSendMessagesHelper().getImportingHistory(dialog_id) != null) {

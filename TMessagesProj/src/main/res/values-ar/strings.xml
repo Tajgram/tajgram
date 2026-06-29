@@ -443,13 +443,13 @@
     <string name="LanguageUnknownCustomAlert">للأسف، لا تحتوي حزمة اللغة المخصصةُ هذه (**%1$s **) على بيانات لTajgram للأندرويد.</string>
     <string name="AskAQuestionInfo">الدعم الفني في Tajgram يقوم به متطوعون يحاولون الرد سريعًا قدر الإمكان، لكن ذلك قد يستغرق بعض الوقت.\n\nيرجى الاطلاع على<![CDATA[<a href=\"https://Tajgram.org/faq/ar#a\"> الأسئلة الشائعة عن Tajgram</a>]]> فهي تحوي إجابات لمعظم الأسئلة  <![CDATA[<a href=\"https://Tajgram.org/faq/ar#j\">وحلولًا للعديد من المشاكل.</a>]]></string>
     <string name="AskButton">اسأل متطوعًا</string>
-    <string name="TajgramFAQ">الأسئلة الشائعة</string>
-    <string name="TajgramFaq">الأسئلة الشائعة</string>
-    <string name="TajgramFeatures">ميزات Tajgram</string>
-    <string name="TajgramFeaturesUrl">https://t.me/TajgramTipsAR/128</string>
+    <string name="TelegramFAQ">الأسئلة الشائعة</string>
+    <string name="TelegramFaq">الأسئلة الشائعة</string>
+    <string name="TelegramFeatures">ميزات Tajgram</string>
+    <string name="TelegramFeaturesUrl">https://t.me/TajgramTipsAR/128</string>
     <string name="AddAccount">إضافة حساب</string>
     <string name="SelectAccount">اختيار حساب</string>
-    <string name="TajgramFaqUrl">https://Tajgram.org/faq/ar</string>
+    <string name="TelegramFaqUrl">https://Tajgram.org/faq/ar</string>
     <string name="PrivacyPolicy">سياسة الخصوصية</string>
     <string name="TermsOfService">شروط الخدمة</string>
     <string name="TermsOfServiceLogin">تسجيلك يعني موافقتك\nعلى *شروط الخدمة*.</string>
@@ -592,7 +592,7 @@
     <string name="DirectShareInfo">إظهار آخر المحادثات في قائمة المشاركة</string>
     <string name="Emoji">الرموز التعبيرية</string>
     <string name="LargeEmoji">رموز تعبيرية كبيرة</string>
-    <string name="TajgramVersion">Tajgram للأندرويد %1$s</string>
+    <string name="TelegramVersion">Tajgram للأندرويد %1$s</string>
     <string name="ChangeLanguageLater">يمكنك تغيير لغة التطبيق لاحقًا من الإعدادات.</string>
     <string name="ChooseYourLanguage">اختيار اللغة</string>
     <string name="ChooseYourLanguageOther">أخرى</string>
@@ -625,13 +625,13 @@
     <string name="UseProxySecret">السر</string>
     <string name="UseProxyUsername">اسم المستخدم</string>
     <string name="UseProxySocks5">بروكسي SOCKS5</string>
-    <string name="UseProxyTajgram">بروكسي MTProto</string>
-    <string name="UseProxyTajgramError">لم يتم إعداد البروكسي الذي تستخدمه بشكل صحيح وسيتم تعطيله. يرجى العثور على واحد آخر.</string>
+    <string name="UseProxyTelegram">بروكسي MTProto</string>
+    <string name="UseProxyTelegramError">لم يتم إعداد البروكسي الذي تستخدمه بشكل صحيح وسيتم تعطيله. يرجى العثور على واحد آخر.</string>
     <string name="UseProxySponsor">راعي البروكسي</string>
     <string name="UseProxySponsorInfo">تُعرض هذه القناة من قبل البروكسي. يمكنك إزالة هذه القناة من قائمة محادثاتك بتعطيل اتصال البروكسي من إعدادات Tajgram&gt; البيانات والتخزين.</string>
     <string name="UseProxyInfo">إعدادات بروكسي SOCKS5</string>
-    <string name="UseProxyTajgramInfo">إعدادات بروكسي MTProto.</string>
-    <string name="UseProxyTajgramInfo2">قد يعرض هذا البروكسي قناة إعلانية في قائمة محادثاتك.\nلن يكشف هذا عن نشاطك في Tajgram.</string>
+    <string name="UseProxyTelegramInfo">إعدادات بروكسي MTProto.</string>
+    <string name="UseProxyTelegramInfo2">قد يعرض هذا البروكسي قناة إعلانية في قائمة محادثاتك.\nلن يكشف هذا عن نشاطك في Tajgram.</string>
     <string name="UseProxyForCalls">استخدام البروكسي للمكالمات</string>
     <string name="UseProxyForCallsInfo">قد تقلل خوادم البروكسي من جودة مكالماتك.</string>
     <string name="ConnectingToProxyEnable">تفعيل</string>

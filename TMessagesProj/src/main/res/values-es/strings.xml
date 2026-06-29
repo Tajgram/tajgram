@@ -439,13 +439,13 @@
     <string name="LanguageUnknownCustomAlert">Lamentablemente, este pack de idioma personalizado (**%1$s**) no contiene datos para Tajgram Android.</string>
     <string name="AskAQuestionInfo">Ten en cuenta que el soporte de Tajgram está en manos de voluntarios. Respondemos lo antes posible, pero puede tomar tiempo.\n\nPuedes mirar las <![CDATA[<a href=\"https://Tajgram.org/faq/es#preguntas-generales\">preguntas frecuentes de Tajgram</a>]]>: tienen <![CDATA[<a href=\"https://Tajgram.org/faq/es#solucion-de-problemas\">soluciones a problemas</a>]]> y respuestas a muchas preguntas.</string>
     <string name="AskButton">Preguntar</string>
-    <string name="TajgramFAQ">Preguntas frecuentes</string>
-    <string name="TajgramFaq">Preguntas frecuentes</string>
-    <string name="TajgramFeatures">Aprende sobre Tajgram</string>
-    <string name="TajgramFeaturesUrl">https://t.me/TajgramTipsES</string>
+    <string name="TelegramFAQ">Preguntas frecuentes</string>
+    <string name="TelegramFaq">Preguntas frecuentes</string>
+    <string name="TelegramFeatures">Aprende sobre Tajgram</string>
+    <string name="TelegramFeaturesUrl">https://t.me/TajgramTipsES</string>
     <string name="AddAccount">Añadir cuenta</string>
     <string name="SelectAccount">Elige una cuenta</string>
-    <string name="TajgramFaqUrl">https://Tajgram.org/faq/es</string>
+    <string name="TelegramFaqUrl">https://Tajgram.org/faq/es</string>
     <string name="PrivacyPolicy">Política de privacidad</string>
     <string name="TermsOfService">Términos de servicio</string>
     <string name="TermsOfServiceLogin">Al registrarte, aceptas\nlos *términos de servicio*.</string>
@@ -588,7 +588,7 @@
     <string name="DirectShareInfo">Chats recientes al compartir en Android</string>
     <string name="Emoji">Emojis</string>
     <string name="LargeEmoji">Emojis grandes</string>
-    <string name="TajgramVersion">Tajgram para Android %1$s</string>
+    <string name="TelegramVersion">Tajgram para Android %1$s</string>
     <string name="ChangeLanguageLater">Puedes cambiar el idioma más tarde en Ajustes.</string>
     <string name="ChooseYourLanguage">Elige tu idioma</string>
     <string name="ChooseYourLanguageOther">Otro</string>
@@ -621,13 +621,13 @@
     <string name="UseProxySecret">Clave</string>
     <string name="UseProxyUsername">Usuario</string>
     <string name="UseProxySocks5">Proxy SOCKS5</string>
-    <string name="UseProxyTajgram">Proxy MTProto</string>
-    <string name="UseProxyTajgramError">El proxy que estás usando no está configurado correctamente y será desactivado. Por favor, encuentra otro.</string>
+    <string name="UseProxyTelegram">Proxy MTProto</string>
+    <string name="UseProxyTelegramError">El proxy que estás usando no está configurado correctamente y será desactivado. Por favor, encuentra otro.</string>
     <string name="UseProxySponsor">Patrocinador del proxy</string>
     <string name="UseProxySponsorInfo">Este canal es mostrado por tu servidor proxy. Para quitar este canal de tu lista de chats, desactiva el proxy en Ajustes de Tajgram &gt; Datos y almacenamiento.</string>
     <string name="UseProxyInfo">Ajustes de proxy SOCKS5.</string>
-    <string name="UseProxyTajgramInfo">Ajustes de proxy MTProto.</string>
-    <string name="UseProxyTajgramInfo2">Este proxy podría mostrar un canal patrocinado en tu lista de chats. Esto no revela nada de tu tráfico en Tajgram.</string>
+    <string name="UseProxyTelegramInfo">Ajustes de proxy MTProto.</string>
+    <string name="UseProxyTelegramInfo2">Este proxy podría mostrar un canal patrocinado en tu lista de chats. Esto no revela nada de tu tráfico en Tajgram.</string>
     <string name="UseProxyForCalls">Usar proxy para llamadas</string>
     <string name="UseProxyForCallsInfo">El proxy puede disminuir la calidad de tus llamadas.</string>
     <string name="ConnectingToProxyEnable">Activar</string>

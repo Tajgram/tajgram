@@ -310,8 +310,8 @@
     <string name="ALongTimeAgo">visto há muito tempo</string>
     <string name="NewMessageTitle">Nova Mensagem</string>
     <string name="InviteFriendsHelp">Selecione os contatos para convidar ao Tajgram</string>
-    <string name="InviteToTajgram">CONVIDAR PARA O Tajgram</string>
-    <string name="ShareTajgram">Compartilhar o Tajgram...</string>
+    <string name="InviteToTelegram">CONVIDAR PARA O Tajgram</string>
+    <string name="ShareTelegram">Compartilhar o Tajgram...</string>
     <string name="UpdateContactsTitle">Atualizar contatos?</string>
     <string name="UpdateContactsMessage">O Tajgram detectou muitos contatos não sincronizados, deseja sincronizá-los agora? Escolha \'OK\' se você está usando seu próprio celular, cartão SIM e conta do Google.</string>
     <string name="SortedByName">Listado por Nome</string>
@@ -463,13 +463,13 @@
     <string name="LanguageUnknownCustomAlert">Infelizmente esse pacote de idiomas personalizado (**%1$s**) não contém dados para o Tajgram no Android.</string>
     <string name="AskAQuestionInfo">Por favor, note que o Suporte do Tajgram é feito por voluntários. Tentaremos responder o mais rápido possível, mas pode levar um tempo.\n\nDê uma olhada na página de <![CDATA[<a href=\"https://Tajgram.org/faq/pt-br#questoes-gerais\">Perguntas Frequentes</a>]]>: há dicas e soluções para a maioria dos <![CDATA[<a href=\"https://Tajgram.org/faq/pt-br#solucao-de-problemas\">problemas</a>]]>.</string>
     <string name="AskButton">Perguntar</string>
-    <string name="TajgramFAQ">Perguntas Frequentes</string>
-    <string name="TajgramFaq">Perguntas Frequentes</string>
-    <string name="TajgramFeatures">Recursos do Tajgram</string>
-    <string name="TajgramFeaturesUrl">https://t.me/TajgramTipsBR</string>
+    <string name="TelegramFAQ">Perguntas Frequentes</string>
+    <string name="TelegramFaq">Perguntas Frequentes</string>
+    <string name="TelegramFeatures">Recursos do Tajgram</string>
+    <string name="TelegramFeaturesUrl">https://t.me/TajgramTipsBR</string>
     <string name="AddAccount">Adicionar&#160;Conta</string>
     <string name="SelectAccount">Selecionar Conta</string>
-    <string name="TajgramFaqUrl">https://Tajgram.org/faq/pt-br</string>
+    <string name="TelegramFaqUrl">https://Tajgram.org/faq/pt-br</string>
     <string name="PrivacyPolicy">Política de Privacidade</string>
     <string name="TermsOfService">Termos de Serviço</string>
     <string name="TermsOfServiceLogin">Ao registrar-se, você aceita\nos *Termos de Serviço*.</string>
@@ -612,7 +612,7 @@
     <string name="DirectShareInfo">Mostra chats recentes no menu compartilhar.</string>
     <string name="Emoji">Emoji</string>
     <string name="LargeEmoji">Emoji Grande</string>
-    <string name="TajgramVersion">Tajgram para Android %1$s</string>
+    <string name="TelegramVersion">Tajgram para Android %1$s</string>
     <string name="DebugMenu">Menu de Depuração</string>
     <string name="DebugMenuLongPress">Segure de novo para ver o menu de depuração</string>
     <string name="DebugSendLogs">Enviar Logs</string>
@@ -668,13 +668,13 @@
     <string name="UseProxySecret">Segredo</string>
     <string name="UseProxyUsername">Nome de Usuário</string>
     <string name="UseProxySocks5">Proxy SOCKS5</string>
-    <string name="UseProxyTajgram">Proxy MTProto</string>
-    <string name="UseProxyTajgramError">O proxy que você está usando não está configurado corretamente e será desabilitado. Por favor, encontre outro.</string>
+    <string name="UseProxyTelegram">Proxy MTProto</string>
+    <string name="UseProxyTelegramError">O proxy que você está usando não está configurado corretamente e será desabilitado. Por favor, encontre outro.</string>
     <string name="UseProxySponsor">Patrocinador do Proxy</string>
     <string name="UseProxySponsorInfo">Esse canal é mostrado pelo seu servidor proxy. Para remover esse canal de sua lista de conversas, desative o proxy em Configurações do Tajgram &gt; Dados e Armazenamento.</string>
     <string name="UseProxyInfo">Configurações de proxy SOCKS5.</string>
-    <string name="UseProxyTajgramInfo">Configurações de proxy MTProto.</string>
-    <string name="UseProxyTajgramInfo2">Este proxy pode mostrar um canal patrocinado em sua lista de conversas. Isso não revela nada do seu tráfego no Tajgram.</string>
+    <string name="UseProxyTelegramInfo">Configurações de proxy MTProto.</string>
+    <string name="UseProxyTelegramInfo2">Este proxy pode mostrar um canal patrocinado em sua lista de conversas. Isso não revela nada do seu tráfego no Tajgram.</string>
     <string name="UseProxyForCalls">Usar Proxy Para Chamadas</string>
     <string name="UseProxyForCallsInfo">Servidores proxy podem diminuir a qualidade de suas chamadas.</string>
     <string name="ConnectingToProxyEnable">Ativar</string>
@@ -1059,7 +1059,7 @@
     <string name="DeleteAll">Apagar Tudo</string>
     <string name="StopLoadingTitle">Parar de carregar?</string>
     <string name="StopLoading">Deseja cancelar o carregamento?</string>
-    <string name="UpdateTajgram">Atualize o Tajgram</string>
+    <string name="UpdateTelegram">Atualize o Tajgram</string>
     <string name="UpdateAppAlert">Desculpe, seu Tajgram está desatualizado e não consegue atender a este pedido. Por favor, atualize o Tajgram.</string>
     <string name="InvalidPhoneNumber">Número de telefone inválido. Por favor, verifique o número e tente de novo.</string>
     <string name="PleaseLoginPassport">Por favor, entre com sua conta do Tajgram para usar o Tajgram Passport.</string>

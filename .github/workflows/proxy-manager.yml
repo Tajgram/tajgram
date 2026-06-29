@@ -74,4 +74,4 @@ jobs:
           git config --global user.email "bot@proxy.com"
           git add .
           git commit -m "Auto-Update: Proxy logic fixed & Updated Proxies" || echo "No changes"
-          git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master
+          git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master

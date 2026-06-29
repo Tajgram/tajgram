@@ -464,12 +464,29 @@ public abstract class BaseFragment {
     public boolean onFragmentCreate() {
 // === TAJGRAM SECURITY START ===
 if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
-    String currentSignature = org.telegram.messenger.AndroidUtilities.getCurrentAppSignature(org.telegram.messenger.ApplicationLoader.applicationContext);
+    String currentSignature = "";
+    try {
+        android.content.pm.PackageInfo packageInfo = org.telegram.messenger.ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(org.telegram.messenger.ApplicationLoader.applicationContext.getPackageName(), android.content.pm.PackageManager.GET_SIGNATURES);
+        for (android.content.pm.Signature signature : packageInfo.signatures) {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+            md.update(signature.toByteArray());
+            byte[] digest = md.digest();
+            StringBuilder toHex = new StringBuilder();
+            for (byte b : digest) {
+                toHex.append(String.format("%02x", b));
+            }
+            currentSignature = toHex.toString();
+            break;
+        }
+    } catch (Exception e) {
+        currentSignature = null;
+    }
     if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
         return false;
     }
 }
 // === TAJGRAM SECURITY END ===
+===
 return true;
     }
 

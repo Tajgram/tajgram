@@ -101,7 +101,7 @@ jobs:
           
           if ! git diff-index --quiet HEAD --; then
             git commit -m "Auto: Synced and extracted new strings to missing_translations/"
-            git push https://${{ secrets.MY_TOKEN }}@github.com/saidjun/tajgram.git master
+            git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master
           else
             echo "✅ Ягон тағйирот нест, файлҳо аллакай 100% созанд."
           fi

@@ -27,8 +27,9 @@ jobs:
         run: |
           python3 - <<EOF
           import os
+          import sys
 
-          # Кодҳои бехатарии Таҷграм
+          # Кодҳои бехатарии нави Таҷграм
           bf_code = """// === TAJGRAM SECURITY START ===
               if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
                   String currentSignature = "";
@@ -63,7 +64,7 @@ jobs:
               // === TAJGRAM SCREENSHOT LOCK END ===\n"""
 
           # ==========================================
-          # 1. ИСЛОҲИ ТОЗАИ BaseFragment.java
+          # 1. ТОЗАКУНИИ ТОТАЛӢ ВА НАВИШТАНИ ТOЗАИ BaseFragment.java
           # ==========================================
           bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           if os.path.exists(bf_path):
@@ -71,22 +72,34 @@ jobs:
                   lines = f.readlines()
               
               clean_lines = []
-              skip = False
+              skip_block = False
+              
               for line in lines:
-                  # Сатрҳои муноқишаи Гит ва кодҳои кӯҳнаро комилан мепартоем
+                  # Аломатҳои хароби Гит-ро комилан нест мекунем
                   if "<<<<<<<" in line or "=======" in line or ">>>>>>>" in line:
                       continue
-                  if "TAJGRAM SECURITY START" in line or "ANTI_FRAUD_DEVICE_LOCK" in line:
-                      skip = True
+                  # Блокҳои кӯҳнаи Таҷграмро мепартоем
+                  if "TAJGRAM SECURITY START" in line:
+                      skip_block = True
                       continue
                   if "TAJGRAM SECURITY END" in line:
-                      skip = False
+                      skip_block = False
                       continue
-                  if skip:
+                  # Шартҳои изофиро, ки шояд берун аз блок монда буданд, тоза мекунем
+                  if "ANTI_FRAUD_DEVICE_LOCK" in line:
                       continue
+                  if skip_block:
+                      continue
+                      
                   clean_lines.append(line)
-              
-              # Акнун коди тозаро дар ҷои аввали функсия мешинонем
+
+              # САНҶИШИ БЕХАТАРӢ: Тафтиш мекунем, ки ягон аломати хароб намонда бошад
+              full_clean_text = "".join(clean_lines)
+              if "===" in full_clean_text or "<<<" in full_clean_text:
+                  print("❌ ХАТОГӢ: Аломатҳои хароби Гит аз BaseFragment тоза нашуданд! Кор қатъ шуд.")
+                  sys.exit(1)
+
+              # Навиштани коди нав дар файли комилан тозашуда
               final_lines = []
               for line in clean_lines:
                   final_lines.append(line)
@@ -95,10 +108,10 @@ jobs:
               
               with open(bf_path, "w", encoding="utf-8") as f:
                   f.writelines(final_lines)
-              print("✅ BaseFragment ПУРРА ТОЗА ВА АЗ НАВ НАВИШТА ШУД!")
+              print("✅ BaseFragment: Пурра тоза карда шуд ва коди нав бехатар навишта шуд!")
 
           # ==========================================
-          # 2. ИСЛОҲИ ТОЗАИ ChatActivity.java
+          # 2. ТОЗАКУНИИ ТОТАЛӢ ВА НАВИШТАНИ ТOЗАИ ChatActivity.java
           # ==========================================
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           if os.path.exists(ca_path):
@@ -106,36 +119,42 @@ jobs:
                   lines = f.readlines()
               
               clean_lines = []
-              skip = False
+              skip_block = False
+              
               for line in lines:
-                  # Сатрҳои муноқишаи Гит ва кодҳои кӯҳнаро комилан мепартоем
                   if "<<<<<<<" in line or "=======" in line or ">>>>>>>" in line:
                       continue
-                  if "TAJGRAM SCREENSHOT LOCK START" in line or "ANTI_SPY_SCREENSHOT_LOCK" in line:
-                      skip = True
+                  if "TAJGRAM SCREENSHOT LOCK START" in line:
+                      skip_block = True
                       continue
                   if "TAJGRAM SCREENSHOT LOCK END" in line:
-                      skip = False
+                      skip_block = False
                       continue
-                  if skip:
+                  if "ANTI_SPY_SCREENSHOT_LOCK" in line or "FLAG_SECURE" in line:
                       continue
+                  if skip_block:
+                      continue
+                      
                   clean_lines.append(line)
-              
-              # Кодро рост дар зери onResume мешинонем
+
+              # САНҶИШИ БЕХАТАРӢ: Тафтиш дар ChatActivity
+              full_clean_text = "".join(clean_lines)
+              if "===" in full_clean_text or "<<<" in full_clean_text:
+                  print("❌ ХАТОГӢ: Аломатҳои хароби Гит аз ChatActivity тоза нашуданд! Кор қатъ шуд.")
+                  sys.exit(1)
+
+              # Навиштани коди нав
               final_lines = []
               patched = False
               for line in clean_lines:
                   final_lines.append(line)
-                  if "public void onResume()" in line and not patched:
-                      # Ҷустуҷӯи super.onResume() дар сатрҳои наздиктарин
-                      final_lines.append(line) 
                   if "super.onResume();" in line and not patched:
                       final_lines.append(ca_code)
-                      patched = True # Танҳо як маротиба мешинонад
+                      patched = True
               
               with open(ca_path, "w", encoding="utf-8") as f:
                   f.writelines(final_lines)
-              print("✅ ChatActivity ПУРРА ТОЗА ВА АЗ НАВ НАВИШТА ШУД!")
+              print("✅ ChatActivity: Пурра тоза карда шуд ва коди нав бехатар навишта шуд!")
           EOF
 
       - name: 📤 Push ба GitHub
@@ -146,5 +165,6 @@ jobs:
           else
             git commit -m "Tajgram: Hard cleanup of merge conflicts and fresh patch rewrite"
             git pull origin master --rebase || true
-            git push https://${{ secrets.MY_TOKEN }}@://github.com master
-          fi
+            # СУРОҒАИ КОМИЛАН ТОЗА, ДУРУСТ ВА БЕХАТАР
+            git push "https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git" master
+

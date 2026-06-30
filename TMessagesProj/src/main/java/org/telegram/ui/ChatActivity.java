@@ -29506,7 +29506,7 @@ public class ChatActivity extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        // === TAJGRAM SCREENSHOT LOCK START ===
+// === TAJGRAM SCREENSHOT LOCK START ===
     if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
         if (getParentActivity() != null) {
             getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);

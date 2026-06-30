@@ -27,13 +27,8 @@ jobs:
         run: |
           python3 - <<EOF
           import os
-          import re
-          
-          # ==========================================
-          # 1. ПАТЧИ БЕХАТАРИ BaseFragment (Анти-Фрауд)
-          # ==========================================
-          bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
-          
+
+          # Кодҳои бехатарии Таҷграм
           bf_code = """// === TAJGRAM SECURITY START ===
               if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
                   String currentSignature = "";
@@ -57,62 +52,90 @@ jobs:
                       return false;
                   }
               }
-              // === TAJGRAM SECURITY END ==="""
-          
-          if os.path.exists(bf_path):
-              with open(bf_path, "r", encoding="utf-8") as f:
-                  content = f.read()
-              
-              # АВВАЛ САНҶИШ ВА ТОЗА КАРДАНИ АЛОМАТҲОИ ХАРОБИ ГИТ (===, <<<, >>>)
-              content = re.sub(r'<<<<<<<.*?\n', '', content)
-              content = re.sub(r'=======\n', '', content)
-              content = re.sub(r'>>>>>>>.*?\n', '', content)
-              
-              # АГАР КОД АЛЛАКАЙ БОШАД - ОНРО ТОЗА МЕКУНЕМ, КИ ДУБЛИКАТ НАШАВАД (МУҲОФИЗАТИ 100-БОРА)
-              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*START.*?//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*END.*?\n', '', content, flags=re.DOTALL)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\}\s*\}\s*\n', '', content, flags=re.DOTALL)
-              
-              # БА ҲОЛАТИ АСЛӢ БАРГАРДОНИДАН ВА ГУЗОШТАНИ КОДИ НАВ БО ИСТИФОДА АЗ REGEX ДАҚИҚ
-              if "ANTI_FRAUD_DEVICE_LOCK" not in content:
-                  pattern = r'(public\s+boolean\s+onFragmentCreate\s*\(\s*\)\s*\{)'
-                  content = re.sub(pattern, r'\1\n' + bf_code, content, count=1)
-                  print("✅ BaseFragment бо муваффақият ва бехатар патч шуд!")
-              else:
-                  print("ℹ️ BaseFragment аллакай патч шудааст, дубликат сохта нашуд.")
-              
-              with open(bf_path, "w", encoding="utf-8") as f:
-                  f.write(content)
-          
-          # ==========================================
-          # 2. ПАТЧИ БЕХАТАРИ ChatActivity (Скриншот)
-          # ==========================================
-          ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
+              // === TAJGRAM SECURITY END ===\n"""
+
           ca_code = """// === TAJGRAM SCREENSHOT LOCK START ===
               if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
                   if (getParentActivity() != null) {
                       getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
                   }
               }
-              // === TAJGRAM SCREENSHOT LOCK END ==="""
+              // === TAJGRAM SCREENSHOT LOCK END ===\n"""
+
+          # ==========================================
+          # 1. ИСЛОҲИ ТОЗАИ BaseFragment.java
+          # ==========================================
+          bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
+          if os.path.exists(bf_path):
+              with open(bf_path, "r", encoding="utf-8") as f:
+                  lines = f.readlines()
               
+              clean_lines = []
+              skip = False
+              for line in lines:
+                  # Сатрҳои муноқишаи Гит ва кодҳои кӯҳнаро комилан мепартоем
+                  if "<<<<<<<" in line or "=======" in line or ">>>>>>>" in line:
+                      continue
+                  if "TAJGRAM SECURITY START" in line or "ANTI_FRAUD_DEVICE_LOCK" in line:
+                      skip = True
+                      continue
+                  if "TAJGRAM SECURITY END" in line:
+                      skip = False
+                      continue
+                  if skip:
+                      continue
+                  clean_lines.append(line)
+              
+              # Акнун коди тозаро дар ҷои аввали функсия мешинонем
+              final_lines = []
+              for line in clean_lines:
+                  final_lines.append(line)
+                  if "public boolean onFragmentCreate()" in line and "{" in line:
+                      final_lines.append(bf_code)
+              
+              with open(bf_path, "w", encoding="utf-8") as f:
+                  f.writelines(final_lines)
+              print("✅ BaseFragment ПУРРА ТОЗА ВА АЗ НАВ НАВИШТА ШУД!")
+
+          # ==========================================
+          # 2. ИСЛОҲИ ТОЗАИ ChatActivity.java
+          # ==========================================
+          ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           if os.path.exists(ca_path):
               with open(ca_path, "r", encoding="utf-8") as f:
-                  content = f.read()
+                  lines = f.readlines()
               
-              # АГАР КОД АЛЛАКАЙ БОШАД - ОНРО ТОЗА МЕКУНЕМ (МУҲОФИЗАТИ 100-БОРА)
-              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START.*?//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END.*?\n', '', content, flags=re.DOTALL)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\}\s*\}\s*\n', '', content, flags=re.DOTALL)
+              clean_lines = []
+              skip = False
+              for line in lines:
+                  # Сатрҳои муноқишаи Гит ва кодҳои кӯҳнаро комилан мепартоем
+                  if "<<<<<<<" in line or "=======" in line or ">>>>>>>" in line:
+                      continue
+                  if "TAJGRAM SCREENSHOT LOCK START" in line or "ANTI_SPY_SCREENSHOT_LOCK" in line:
+                      skip = True
+                      continue
+                  if "TAJGRAM SCREENSHOT LOCK END" in line:
+                      skip = False
+                      continue
+                  if skip:
+                      continue
+                  clean_lines.append(line)
               
-              # НАВИШТАНИ КОД ТАНҲО ДАР ФУНКСИЯИ АСОСИИ ONRESUME (НЕ ТО ДАР КЛАССҲОИ ДАРУНИ)
-              if "ANTI_SPY_SCREENSHOT_LOCK" not in content:
-                  pattern = r'(@Override\s+public\s+void\s+onResume\s*\(\s*\)\s*\{\s*super\.onResume\s*\(\s*\)\s*;)'
-                  content = re.sub(pattern, r'\1\n        ' + ca_code, content, count=1)
-                  print("✅ ChatActivity бо муваффақият ва бехатар патч шуд!")
-              else:
-                  print("ℹ️ ChatActivity аллакай патч шудааст, дубликат сохта нашуд.")
+              # Кодро рост дар зери onResume мешинонем
+              final_lines = []
+              patched = False
+              for line in clean_lines:
+                  final_lines.append(line)
+                  if "public void onResume()" in line and not patched:
+                      # Ҷустуҷӯи super.onResume() дар сатрҳои наздиктарин
+                      final_lines.append(line) 
+                  if "super.onResume();" in line and not patched:
+                      final_lines.append(ca_code)
+                      patched = True # Танҳо як маротиба мешинонад
               
               with open(ca_path, "w", encoding="utf-8") as f:
-                  f.write(content)
+                  f.writelines(final_lines)
+              print("✅ ChatActivity ПУРРА ТОЗА ВА АЗ НАВ НАВИШТА ШУД!")
           EOF
 
       - name: 📤 Push ба GitHub
@@ -121,7 +144,7 @@ jobs:
           if git diff-index --quiet HEAD --; then
             echo "Ҳеҷ тағйироте нест, ниёз ба пуш нест."
           else
-            git commit -m "Tajgram: Bulletproof auto update without duplicates"
+            git commit -m "Tajgram: Hard cleanup of merge conflicts and fresh patch rewrite"
             git pull origin master --rebase || true
-            git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master
+            git push https://${{ secrets.MY_TOKEN }}@://github.com master
           fi

@@ -1,4 +1,4 @@
-name: Tajgram Auto Update and Patching
+name: Tajgram Pure Java Patching
 
 on:
   workflow_dispatch:
@@ -13,101 +13,34 @@ jobs:
           token: ${{ secrets.MY_TOKEN }}
           branch: master
 
-      - name: 🐍 Насби Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
       - name: 🧹 Танзими Git
         run: |
           git config --global user.name "TajgramRobot"
           git config --global user.email "robot@tajgram.tj"
 
-      - name: ⚙️ Иҷрои Патчҳо ва Навсозии API
+      - name: ⚙️ Иваз ва Патчи Беозор дар BaseFragment
         run: |
-          python3 - <<EOF
-          import os
+          BF_PATH="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
+          if [ -f "$BF_PATH" ]; then
+            # АНТИ-ДУБЛИКАТ: Агар коди шарт аллакай бошад, онро пурра тоза мекунад (Мисли тоза кардани Саид)
+            sed -i '/if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK)/,/^            }/d' "$BF_PATH"
+            
+            # Навиштани коди наву тозаи Java рост дар аввали функсия
+            sed -i '/public boolean onFragmentCreate() {/a\            if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {\n                String currentSignature = "";\n                try {\n                    android.content.pm.PackageInfo packageInfo = org.telegram.messenger.ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(org.telegram.messenger.ApplicationLoader.applicationContext.getPackageName(), android.content.pm.PackageManager.GET_SIGNATURES);\n                    for (android.content.pm.Signature signature : packageInfo.signatures) {\n                        java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");\n                        md.update(signature.toByteArray());\n                        byte[] digest = md.digest();\n                        StringBuilder toHex = new StringBuilder();\n                        for (byte b : digest) {\n                            toHex.append(String.format("%02x", b));\n                        }\n                        currentSignature = toHex.toString();\n                        break;\n                    }\n                } catch (Exception e) {\n                    currentSignature = null;\n                } \n                if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {\n                    return false;\n                }\n            }' "$BF_PATH"
+            echo "✅ BaseFragment ислоҳ шуд!"
+          fi
 
-          # Кодҳои бехатарии нави Таҷграм
-          bf_code = """// === TAJGRAM SECURITY START ===
-              if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
-                  String currentSignature = "";
-                  try {
-                      android.content.pm.PackageInfo packageInfo = org.telegram.messenger.ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(org.telegram.messenger.ApplicationLoader.applicationContext.getPackageName(), android.content.pm.PackageManager.GET_SIGNATURES);
-                      for (android.content.pm.Signature signature : packageInfo.signatures) {
-                          java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
-                          md.update(signature.toByteArray());
-                          byte[] digest = md.digest();
-                          StringBuilder toHex = new StringBuilder();
-                          for (byte b : digest) {
-                              toHex.append(String.format("%02x", b));
-                          }
-                          currentSignature = toHex.toString();
-                          break;
-                      }
-                  } catch (Exception e) {
-                      currentSignature = null;
-                  }
-                  if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
-                      return false;
-                  }
-              }
-              // === TAJGRAM SECURITY END ===\\n"""
-
-          ca_code = """// === TAJGRAM SCREENSHOT LOCK START ===
-              if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
-                  if (getParentActivity() != null) {
-                      getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
-                  }
-              }
-              // === TAJGRAM SCREENSHOT LOCK END ===\\n"""
-
-          # ==========================================
-          # 1. ИСЛОҲИ ТОЗАИ BaseFragment.java
-          # ==========================================
-          bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
-          if os.path.exists(bf_path):
-              with open(bf_path, "r", encoding="utf-8") as f:
-                  content = f.read()
-              
-              # Тозакунии қатъии ҳама гуна аломатҳои конфликт ва блокҳои кӯҳна
-              import re
-              content = re.sub(r'<<<<<<<[\s\S]*?=======[\s\S]*?>>>>>>>.*?\n', '', content)
-              content = re.sub(r'// === TAJGRAM SECURITY START ===[\s\S]*?// === TAJGRAM SECURITY END ===\n', '', content)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK[\s\S]*?\}\s*\}\n', '', content)
-              
-              # Гузоштани коди нав
-              if "ANTI_FRAUD_DEVICE_LOCK" not in content:
-                  content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code)
-              
-              with open(bf_path, "w", encoding="utf-8") as f:
-                  f.write(content)
-              print("✅ BaseFragment тоза ва патч шуд!")
-
-          # ==========================================
-          # 2. ИСЛОҲИ ТОЗАИ ChatActivity.java (30,000 САTР)
-          # ==========================================
-          ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
-          if os.path.exists(ca_path):
-              with open(ca_path, "r", encoding="utf-8") as f:
-                  content = f.read()
-              
-              # Тозакунии мутлақ бо Regex-и пурқувват барои файлҳои калон
-              import re
-              content = re.sub(r'<<<<<<<[\s\S]*?=======[\s\S]*?>>>>>>>.*?\n', '', content)
-              content = re.sub(r'// === TAJGRAM SCREENSHOT LOCK START ===[\s\S]*?// === TAJGRAM SCREENSHOT LOCK END ===\n', '', content)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK[\s\S]*?\}\s*\}\s*\}\n', '', content)
-              
-              # Ҷойгиркунии коди нав маҳз дар ҷои дуруст (танҳо як маротиба)
-              if "ANTI_SPY_SCREENSHOT_LOCK" not in content:
-                  # Меёбем маҳз ҳамон функсияи аслии onResume-ро
-                  target = "@Override\n    public void onResume() {\n        super.onResume();"
-                  content = content.replace(target, target + "\n        " + ca_code)
-              
-              with open(ca_path, "w", encoding="utf-8") as f:
-                  f.write(content)
-              print("✅ ChatActivity тоза ва патч шуд!")
-          EOF
+      - name: ⚙️ Иваз ва Патчи Беозор дар ChatActivity
+        run: |
+          CA_PATH="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
+          if [ -f "$CA_PATH" ]; then
+            # АНТИ-ДУБЛИКАТ: Агар коди шарти скриншот бошад, онро аз реша тоза мекунад
+            sed -i '/if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK)/,/^        }/d' "$CA_PATH"
+            
+            # Коди наву тозаи Java-ро рост дар зери super.onResume(); мешинонад
+            sed -i '/super.onResume();/a\        if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {\n            if (getParentActivity() != null) {\n                getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);\n            }\n        }' "$CA_PATH"
+            echo "✅ ChatActivity ислоҳ шуд!"
+          fi
 
       - name: 📤 Push ба GitHub
         run: |

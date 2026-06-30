@@ -63,77 +63,52 @@ jobs:
               // === TAJGRAM SCREENSHOT LOCK END ===\\n"""
 
           # ==========================================
-          # 1. ТОЗАКУНИИ ОЛИИ BaseFragment.java (БЕ СУРХ ШУДАН)
+          # 1. ИСЛОҲИ ТОЗАИ BaseFragment.java
           # ==========================================
           bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           if os.path.exists(bf_path):
               with open(bf_path, "r", encoding="utf-8") as f:
-                  lines = f.readlines()
+                  content = f.read()
               
-              clean_lines = []
-              skip_block = False
+              # Тозакунии қатъии ҳама гуна аломатҳои конфликт ва блокҳои кӯҳна
+              import re
+              content = re.sub(r'<<<<<<<[\s\S]*?=======[\s\S]*?>>>>>>>.*?\n', '', content)
+              content = re.sub(r'// === TAJGRAM SECURITY START ===[\s\S]*?// === TAJGRAM SECURITY END ===\n', '', content)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK[\s\S]*?\}\s*\}\n', '', content)
               
-              for line in lines:
-                  # Ҳамаи аломатҳои хароби Гит ва шартҳои кӯҳнаро комилан нест мекунем
-                  if "<<<<<<" in line or "======" in line or ">>>>>>" in line:
-                      continue
-                  if "TAJGRAM SECURITY START" in line or "ANTI_FRAUD_DEVICE_LOCK" in line:
-                      skip_block = True
-                      continue
-                  if "TAJGRAM SECURITY END" in line:
-                      skip_block = False
-                      continue
-                  if skip_block:
-                      continue
-                  clean_lines.append(line)
-
-              # Акнун кодро бехатар мешинонем ва ягон санҷиши сахтгир намекунем, ки хатогӣ диҳад
-              final_lines = []
-              for line in clean_lines:
-                  final_lines.append(line)
-                  if "public boolean onFragmentCreate()" in line and "{" in line:
-                      final_lines.append(bf_code)
+              # Гузоштани коди нав
+              if "ANTI_FRAUD_DEVICE_LOCK" not in content:
+                  content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code)
               
               with open(bf_path, "w", encoding="utf-8") as f:
-                  f.writelines(final_lines)
-              print("✅ BaseFragment бо муваффақият аз нав навишта шуд!")
+                  f.write(content)
+              print("✅ BaseFragment тоза ва патч шуд!")
 
           # ==========================================
-          # 2. ТОЗАКУНИИ ОЛИИ ChatActivity.java
+          # 2. ИСЛОҲИ ТОЗАИ ChatActivity.java (30,000 САTР)
           # ==========================================
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
           if os.path.exists(ca_path):
               with open(ca_path, "r", encoding="utf-8") as f:
-                  lines = f.readlines()
+                  content = f.read()
               
-              clean_lines = []
-              skip_block = False
+              # Тозакунии мутлақ бо Regex-и пурқувват барои файлҳои калон
+              import re
+              content = re.sub(r'<<<<<<<[\s\S]*?=======[\s\S]*?>>>>>>>.*?\n', '', content)
+              content = re.sub(r'// === TAJGRAM SCREENSHOT LOCK START ===[\s\S]*?// === TAJGRAM SCREENSHOT LOCK END ===\n', '', content)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK[\s\S]*?\}\s*\}\s*\}\n', '', content)
               
-              for line in lines:
-                  if "<<<<<<" in line or "======" in line or ">>>>>>" in line:
-                      continue
-                  if "TAJGRAM SCREENSHOT LOCK START" in line or "ANTI_SPY_SCREENSHOT_LOCK" in line:
-                      skip_block = True
-                      continue
-                  if "TAJGRAM SCREENSHOT LOCK END" in line:
-                      skip_block = False
-                      continue
-                  if skip_block:
-                      continue
-                  clean_lines.append(line)
-
-              final_lines = []
-              patched = False
-              for line in clean_lines:
-                  final_lines.append(line)
-                  if "super.onResume();" in line and not patched:
-                      final_lines.append(ca_code)
-                      patched = True
+              # Ҷойгиркунии коди нав маҳз дар ҷои дуруст (танҳо як маротиба)
+              if "ANTI_SPY_SCREENSHOT_LOCK" not in content:
+                  # Меёбем маҳз ҳамон функсияи аслии onResume-ро
+                  target = "@Override\n    public void onResume() {\n        super.onResume();"
+                  content = content.replace(target, target + "\n        " + ca_code)
               
               with open(ca_path, "w", encoding="utf-8") as f:
-                  f.writelines(final_lines)
-              print("✅ ChatActivity бо муваффақият аз нав навишта шуд!")
+                  f.write(content)
+              print("✅ ChatActivity тоза ва патч шуд!")
           EOF
+
       - name: 📤 Push ба GitHub
         run: |
           git add .

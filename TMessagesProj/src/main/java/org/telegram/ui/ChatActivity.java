@@ -29506,6 +29506,11 @@ public class ChatActivity extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
+            if (getParentActivity() != null) {
+                getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
+            }
+        }
         checkShowBlur(false);
         activityResumeTime = System.currentTimeMillis();
         if (openImport && getSendMessagesHelper().getImportingHistory(dialog_id) != null) {

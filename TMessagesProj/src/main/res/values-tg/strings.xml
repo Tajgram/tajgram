@@ -2851,7 +2851,7 @@
     <string name="PassportProvidedInformation">Маълумоти пешниҳодшуда</string>
     <string name="PassportInfoTitle">Passport Tajgram чист?</string>
     <string name="PassportInfo2">Бо Tajgram Passport шумо метавонед ба осонӣ ба вебсайтҳо ва хидматҳое, ки тасдиқи шахсиятро талаб мекунанд, сабти ном кунед. Маълумот, маълумоти шахсӣ ва ҳуҷҷатҳои шумо бо рамзгузории охири ба охир ҳифз карда мешаванд. Ҳеҷ кас, аз ҷумла Tajgram, бе иҷозати шумо ба онҳо дастрасӣ пайдо карда наметавонад. Шумо метавонед барои гирифтани маълумоти бештар ба *FAQ*-и мо ташриф оред.</string>
-    <string name="PassportInfoUrl">https://Telegram.org/faq#passport</string>
+    <string name="PassportInfoUrl">https://Tajgram.org/faq#passport</string>
     <string name="TelegramPassportCreatePasswordInfo">Лутфан парол эҷод кунед, то маълумоти шахсии худро бо рамзгузории охири ба охир муҳофизат кунед. Ин парол инчунин ҳангоми ворид шудан ба Tajgram аз дастгоҳи нав талаб карда мешавад.</string>
     <string name="TelegramPassportCreatePassword">КАЛИДВОЖА СОЗЕД</string>
     <string name="TelegramPassportDelete">Паспорти Tajgram-ро нест кунед</string>
@@ -8270,7 +8270,7 @@
     <string name="StarsCountX">%s Ситорахо</string>
     <string name="TonCountX">%s ТОН</string>
     <string name="StarsTOS">Бо идома додан ва харидани Stars, шумо бо **Terms and Conditions** розӣ мешавед.</string>
-    <string name="StarsTOSLink">https://Telegram.org/tos</string>
+    <string name="StarsTOSLink">https://Tajgram.org/tos</string>
     <string name="StarsBalance">Тавозун</string>
     <string name="StarsTransactionsAll">Ҳамаи амалиёт</string>
     <string name="StarsTransactionsIncoming">Даромад</string>

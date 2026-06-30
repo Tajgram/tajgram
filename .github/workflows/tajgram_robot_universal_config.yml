@@ -34,54 +34,60 @@ jobs:
           # ==========================================
           bf_path = "TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
           
-          # КОД КУЛЛИЯТАН МУСТАҚИЛ КАРДА ШУД, ТО ХАТОГИИ ЛОГ ПУРРА ИСЛОҲ ШАВАД
           bf_code = """// === TAJGRAM SECURITY START ===
-          if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
-              String currentSignature = "";
-              try {
-                  android.content.pm.PackageInfo packageInfo = org.telegram.messenger.ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(org.telegram.messenger.ApplicationLoader.applicationContext.getPackageName(), android.content.pm.PackageManager.GET_SIGNATURES);
-                  for (android.content.pm.Signature signature : packageInfo.signatures) {
-                      java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
-                      md.update(signature.toByteArray());
-                      byte[] digest = md.digest();
-                      StringBuilder toHex = new StringBuilder();
-                      for (byte b : digest) {
-                          toHex.append(String.format("%02x", b));
+              if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
+                  String currentSignature = "";
+                  try {
+                      android.content.pm.PackageInfo packageInfo = org.telegram.messenger.ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(org.telegram.messenger.ApplicationLoader.applicationContext.getPackageName(), android.content.pm.PackageManager.GET_SIGNATURES);
+                      for (android.content.pm.Signature signature : packageInfo.signatures) {
+                          java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+                          md.update(signature.toByteArray());
+                          byte[] digest = md.digest();
+                          StringBuilder toHex = new StringBuilder();
+                          for (byte b : digest) {
+                              toHex.append(String.format("%02x", b));
+                          }
+                          currentSignature = toHex.toString();
+                          break;
                       }
-                      currentSignature = toHex.toString();
-                      break;
+                  } catch (Exception e) {
+                      currentSignature = null;
                   }
-              } catch (Exception e) {
-                  currentSignature = null;
+                  if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
+                      return false;
+                  }
               }
-              if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
-                  return false;
-              }
-          }
-          // === TAJGRAM SECURITY END ==="""
+              // === TAJGRAM SECURITY END ==="""
           
           if os.path.exists(bf_path):
               with open(bf_path, "r", encoding="utf-8") as f:
                   content = f.read()
               
-              # АГАР КОД АЛЛАКАЙ БОШАД - ОНРО ТОЗА МЕКУНЕМ, КИ ДУБЛИКАТ НАШАВАД (МУҲОФИЗАТИ 100-БОРА)
-              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*START.*?//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*END.*?[-=]*', '', content, flags=re.DOTALL)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\}\s*\}', '', content, flags=re.DOTALL)
+              # АВВАЛ САНҶИШ ВА ТОЗА КАРДАНИ АЛОМАТҲОИ ХАРОБИ ГИТ (===, <<<, >>>)
+              content = re.sub(r'<<<<<<<.*?\n', '', content)
+              content = re.sub(r'=======\n', '', content)
+              content = re.sub(r'>>>>>>>.*?\n', '', content)
               
-              # БА ҲОЛАТИ АСЛӢ БАРГАРДОНИДАН ВА ГУЗОШТАНИ КОДИ НАВ
-              content = re.sub(r'public boolean onFragmentCreate\(\)\s*\{\s*', 'public boolean onFragmentCreate() {\n', content)
+              # АГАР КОД АЛЛАКАЙ БОШАД - ОНРО ТОЗА МЕКУНЕМ, КИ ДУБЛИКАТ НАШАВАД (МУҲОФИЗАТИ 100-БОРА)
+              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*START.*?//\s*[-=]+\s*TAJGRAM\s*SECURITY\s*END.*?\n', '', content, flags=re.DOTALL)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_FRAUD_DEVICE_LOCK.*?\}\s*\}\s*\n', '', content, flags=re.DOTALL)
+              
+              # БА ҲОЛАТИ АСЛӢ БАРГАРДОНИДАН ВА ГУЗОШТАНИ КОДИ НАВ БО ИСТИФОДА АЗ REGEX ДАҚИҚ
               if "ANTI_FRAUD_DEVICE_LOCK" not in content:
-                  content = content.replace("public boolean onFragmentCreate() {\n", "public boolean onFragmentCreate() {\n" + bf_code + "\n")
+                  pattern = r'(public\s+boolean\s+onFragmentCreate\s*\(\s*\)\s*\{)'
+                  content = re.sub(pattern, r'\1\n' + bf_code, content, count=1)
+                  print("✅ BaseFragment бо муваффақият ва бехатар патч шуд!")
+              else:
+                  print("ℹ️ BaseFragment аллакай патч шудааст, дубликат сохта нашуд.")
               
               with open(bf_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print("✅ BaseFragment бо муваффақият патч шуд!")
           
           # ==========================================
           # 2. ПАТЧИ БЕХАТАРИ ChatActivity (Скриншот)
           # ==========================================
           ca_path = "TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
-          ca_code = """\n    // === TAJGRAM SCREENSHOT LOCK START ===
+          ca_code = """// === TAJGRAM SCREENSHOT LOCK START ===
               if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {
                   if (getParentActivity() != null) {
                       getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
@@ -94,20 +100,28 @@ jobs:
                   content = f.read()
               
               # АГАР КОД АЛЛАКАЙ БОШАД - ОНРО ТОЗА МЕКУНЕМ (МУҲОФИЗАТИ 100-БОРА)
-              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START.*?//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END.*?[-=]*', '', content, flags=re.DOTALL)
-              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\}\s*\}', '', content, flags=re.DOTALL)
+              content = re.sub(r'//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*START.*?//\s*[-=]+\s*TAJGRAM\s*SCREENSHOT\s*LOCK\s*END.*?\n', '', content, flags=re.DOTALL)
+              content = re.sub(r'if\s*\(\s*org\.telegram\.messenger\.BuildVars\.ANTI_SPY_SCREENSHOT_LOCK.*?\}\s*\}\s*\n', '', content, flags=re.DOTALL)
               
-              # БА ҲОЛАТИ АСЛӢ БАРГАРДОНИДАНИ SUPER.ONRESUME ВА НАВИШТАНИ КОД
-              content = re.sub(r'\s*super\.onResume\(\);\s*', '\n        super.onResume();\n', content)
+              # НАВИШТАНИ КОД ТАНҲО ДАР ФУНКСИЯИ АСОСИИ ONRESUME (НЕ ТО ДАР КЛАССҲОИ ДАРУНИ)
               if "ANTI_SPY_SCREENSHOT_LOCK" not in content:
-                  content = content.replace("super.onResume();", "super.onResume();" + ca_code)
+                  pattern = r'(@Override\s+public\s+void\s+onResume\s*\(\s*\)\s*\{\s*super\.onResume\s*\(\s*\)\s*;)'
+                  content = re.sub(pattern, r'\1\n        ' + ca_code, content, count=1)
+                  print("✅ ChatActivity бо муваффақият ва бехатар патч шуд!")
+              else:
+                  print("ℹ️ ChatActivity аллакай патч шудааст, дубликат сохта нашуд.")
               
               with open(ca_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print("✅ ChatActivity бо муваффақият патч шуд!")
           EOF
 
       - name: 📤 Push ба GitHub
         run: |
           git add .
-          git diff-index --quiet HEAD || (git commit -m "Tajgram: Bulletproof auto update without duplicates" && git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master)
+          if git diff-index --quiet HEAD --; then
+            echo "Ҳеҷ тағйироте нест, ниёз ба пуш нест."
+          else
+            git commit -m "Tajgram: Bulletproof auto update without duplicates"
+            git pull origin master --rebase || true
+            git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master
+          fi

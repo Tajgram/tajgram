@@ -134,7 +134,6 @@ jobs:
                   f.writelines(final_lines)
               print("✅ ChatActivity бо муваффақият аз нав навишта шуд!")
           EOF
-
       - name: 📤 Push ба GitHub
         run: |
           git add .
@@ -144,4 +143,4 @@ jobs:
             git commit -m "Tajgram: Hard cleanup of merge conflicts and fresh patch rewrite"
             git pull origin master --rebase || true
             git push "https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git" master
-
+          fi

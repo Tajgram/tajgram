@@ -1,4 +1,4 @@
-name: Tajgram Smart XML Placeholder Fixer
+name: Tajgram Pure XML Fixer Only (Master Branch)
 
 on:
   workflow_dispatch: # Танҳо бо пахши дастӣ аз бахши Actions
@@ -7,85 +7,63 @@ permissions:
   contents: write
 
 jobs:
-  fix_placeholders:
+  fix_xml_only:
     runs-on: ubuntu-latest
     steps:
       - name: 🔄 Клони маҳз бранчи master
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.MY_TOKEN }}
-          ref: master
+          ref: master # Кор ТАНҲО дар бранчи master меравад
 
       - name: 🧹 Танзими профили Гит
         run: |
           git config --global user.name "TajgramRobot"
           git config --global user.email "robot@tajgram.tj"
 
-      - name: ⚙️ Санҷиши Ҳушёрона ва Ислоҳи Фоизҳо мувофиқи Стандарти Заводӣ
+      - name: 🧼 Тафтиши Ҳушёронаи Тамоми Сатрҳо (Аз 0 то 100%) ва Ислоҳи Фоизҳо
         run: |
-          python3 - <<EOF
-          import xml.etree.ElementTree as ET
-          import os
-
-          en_path = "TMessagesProj/src/main/res/values/strings.xml"
-          tg_path = "TMessagesProj/src/main/res/values-tg/strings.xml"
-
-          if not os.path.exists(en_path) or not os.path.exists(tg_path):
-              print("❌ Файлҳо ёфт нашуданд!")
-              exit(1)
-
-          try:
-              en_tree = ET.parse(en_path)
-              tg_tree = ET.parse(tg_path)
-              en_root = en_tree.getroot()
-              tg_root = tg_tree.getroot()
-          except Exception as e:
-              print(f"❌ Хатои сохтори XML: {e}")
-              exit(1)
-
-          en_dict = {item.attrib["name"]: item for item in en_root if "name" in item.attrib}
-          tg_dict = {item.attrib["name"]: item for item in tg_root if "name" in item.attrib}
-
-          # Усули наву 100% бехатар: Танҳо миқдори аломатҳои фоизро мешумарад, бе Regex!
-          def count_placeholders(text):
-              if not text: return 0
-              return text.count('%')
-
-          fixed_count = 0
-
-          # Тафтиши умумии файл аз 0 то 100%
-          for name, tg_item in tg_dict.items():
-              if name in en_dict:
-                  en_item = en_dict[name]
-                  en_text = en_item.text or ""
-                  tg_text = tg_item.text or ""
-
-                  en_count = count_placeholders(en_text)
-                  tg_count = count_placeholders(tg_text)
-
-                  # ХУШМАНДӢ: Агар миқдори фоизҳо дар тоҷикӣ бо англисии заводӣ мувофиқ наояд
-                  if en_count != tg_count:
-                      # Агар фоизҳо канда ё хароб шуда бошанд, барои бехатарии мутлақ ва сурх нашудани Грейдл,
-                      # шарти дурусти заводиро мешинонад, то барнома сохта шавад.
-                      tg_item.text = en_text
-                      tg_item.attrib = en_item.attrib.copy()
-                      fixed_count += 1
-
-          if hasattr(ET, 'indent'):
-              ET.indent(tg_tree, space="    ")
-          tg_tree.write(tg_path, encoding="utf-8", xml_declaration=True)
-          print(f"✅ Тафтиш бомуваффақият иҷро шуд! {fixed_count} сатри хатои фоиздор автоматӣ соз шуд.")
-          EOF
-          print("✅ Файли тоҷикӣ 100% тафтиш ва соз шуд!")
+          TG_XML="TMessagesProj/src/main/res/values-tg/strings.xml"
+          if [ -f "$TG_XML" ]; then
+            echo "Оғози тафтиши куллии 11,000 сатри тоҷикӣ..."
+            
+            # Файли муваққатӣ месозем
+            TEMP_XML="TMessagesProj/src/main/res/values-tg/strings_temp.xml"
+            
+            # Ин фармони оқилонаи awk тамоми файлро аз 0 то 100% сатр ба сатр мехонад:
+            # Агар дар дохили як сатр зиёда аз як аломати фоизи оддии %s ё %d бошад,
+            # вай онҳоро худкор ва бехатар рақамгузорӣ мекунад: %1$s, %2$s, %3$s ва ғайра.
+            # Шарти АНТИ-ДУБЛИКАТ: Агар сатр аллакай дуруст бошад, ба он умуман даст намезанад.
+            awk '
+            {
+              if ($0 ~ /<string[^>]*>.*%[sd].*%[sd].*<\/string>/) {
+                line = $0
+                count = 1
+                while (match(line, /%[sd]/)) {
+                  fmt = substr(line, RSTART, RLENGTH)
+                  sub(/%[sd]/, "%" count "$" substr(fmt, 2, 1), line)
+                  count++
+                }
+                print line
+              } else {
+                print $0
+              }
+            }' "$TG_XML" > "$TEMP_XML"
+            
+            # Файли ислоҳшударо ҷои файли кӯҳна мегузорем
+            mv "$TEMP_XML" "$TG_XML"
+            echo "✅ Тамоми 11,000 сатр аз 0 то 100% тафтиш ва фоизҳои хато автоматӣ ислоҳ шуданд!"
+          fi
 
       - name: 📤 Push тағйироти фоизҳо ба бранчи master
         run: |
           git add TMessagesProj/src/main/res/values-tg/strings.xml 2>/dev/null || true
           
           if git diff-index --quiet HEAD --; then
-            echo "Ҳеҷ тағйироте ёфт нашуд, ҳамаи фоизҳо аллакай 100% дуруст ва заводианд."
+            echo "Ҳеҷ тағйироте ёфт нашуд, тамоми фоизҳо дар лоиҳа аллакай 100% дурустанд."
           else
-            git commit -m "Tajgram: Fix placeholders %d and %s globally [skip ci]"
-            git pull origin master --rebase || truе
+            # Калимаи [skip ci] намегузорад, ки сохтани APK худкор запуск шавад
+            git commit -m "Tajgram: Comprehensive 100% placeholder fix (%d and %s) [skip ci]"
+            git pull origin master --rebase || true
             git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master
           fi

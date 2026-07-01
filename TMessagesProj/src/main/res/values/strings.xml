@@ -6,7 +6,7 @@
 <string name="onboarding_desc_2">Premium features translation.</string>
 <string name="onboarding_title_3">Personal Bell 🔊</string>
 <string name="onboarding_desc_3">Select voices and manage alerts.</string>
-<string name="onboarding_title_4">100% Security 🛡️</string>
+<string name="onboarding_title_4" formatted="false">100% Security 🛡️</string>
 <string name="onboarding_desc_4">Proxy and anti-spy protection.</string>
 <string name="onboarding_title_5">Let’s Go! ✨</string>
 <string name="onboarding_desc_5">Switch to Folk Mode and enjoy!</string>
@@ -1016,9 +1016,9 @@
     <string name="EventLogStopPoll">un1 stopped the poll:</string>
     <string name="EventLogStopQuiz">un1 stopped the quiz:</string>
     <string name="EventLogDeletedMessages">un1 deleted this message:</string>
-    <string name="EventLogDeletedMultipleMessagesToExpand_one">un1 deleted message from %2$s</string>
+    <string name="EventLogDeletedMultipleMessagesToExpand_one" formatted="false">un1 deleted message from %2$s</string>
     <string name="EventLogDeletedMultipleMessagesToExpand_other">un1 deleted %1$d messages from %2$s</string>
-    <string name="EventLogDeletedMultipleMessages_one">un1 deleted message from %2$s:</string>
+    <string name="EventLogDeletedMultipleMessages_one" formatted="false">un1 deleted message from %2$s:</string>
     <string name="EventLogDeletedMultipleMessages_other">un1 deleted %1$d messages from %2$s:</string>
     <string name="EventLogDeletedMultipleMessagesHide">Hide all</string>
     <string name="EventLogDeletedMultipleMessagesShow">Show all</string>
@@ -1144,9 +1144,9 @@
     <string name="EventLogChangedPeerColorIcon">un1 changed channel color and icon from %1$s to %2$s</string>
     <string name="EventLogChangedProfileColorIcon">un1 changed channel profile color and icon from %1$s to %2$s</string>
     <string name="EventLogChangedEmojiStatusFrom">un1 changed channel emoji status from %1$s to %2$s</string>
-    <string name="EventLogChangedEmojiStatus">un1 changed channel emoji status to %2$s</string>
+    <string name="EventLogChangedEmojiStatus" formatted="false">un1 changed channel emoji status to %2$s</string>
     <string name="EventLogChangedEmojiStatusFromFor">un1 changed channel emoji status from %1$s to %2$s (for %3$s)</string>
-    <string name="EventLogChangedEmojiStatusFor">un1 changed channel emoji status to %2$s (for %3$s)</string>
+    <string name="EventLogChangedEmojiStatusFor" formatted="false">un1 changed channel emoji status to %2$s (for %3$s)</string>
     <string name="EventLogChangedWallpaper">un1 changed channel wallpaper</string>
     <string name="EventLogRemovedWallpaper">un1 removed channel wallpaper</string>
     <string name="EventLogChangedColorGroup">un1 changed group color from %1$s to %2$s</string>
@@ -1154,9 +1154,9 @@
     <string name="EventLogChangedPeerColorIconGroup">un1 changed group color and icon from %1$s to %2$s</string>
     <string name="EventLogChangedProfileColorIconGroup">un1 changed group profile color and icon from %1$s to %2$s</string>
     <string name="EventLogChangedEmojiStatusFromGroup">un1 changed group emoji status from %1$s to %2$s</string>
-    <string name="EventLogChangedEmojiStatusGroup">un1 changed group emoji status to %2$s</string>
+    <string name="EventLogChangedEmojiStatusGroup" formatted="false">un1 changed group emoji status to %2$s</string>
     <string name="EventLogChangedEmojiStatusFromForGroup">un1 changed group emoji status from %1$s to %2$s (for %3$s)</string>
-    <string name="EventLogChangedEmojiStatusForGroup">un1 changed group emoji status to %2$s (for %3$s)</string>
+    <string name="EventLogChangedEmojiStatusForGroup" formatted="false">un1 changed group emoji status to %2$s (for %3$s)</string>
     <string name="EventLogChangedWallpaperGroup">un1 changed group wallpaper</string>
     <string name="EventLogRemovedWallpaperGroup">un1 removed group wallpaper</string>
     <string name="EventLogEmojiNone">none</string>
@@ -1262,7 +1262,7 @@
     <string name="RevenueSharingAdsInfo1Title">Respect Your Privacy</string>
     <string name="RevenueSharingAdsInfo1Subtitle">Ads on Tajgram do not use your personal information and are based on the channel in which you see them.</string>
     <string name="RevenueSharingAdsInfo2Title">Help the Channel Creator</string>
-    <string name="RevenueSharingAdsInfo2Subtitle">50% of the revenue from Tajgram Ads goes to the owner of the channel where they are displayed.</string>
+    <string name="RevenueSharingAdsInfo2Subtitle" formatted="false">50% of the revenue from Tajgram Ads goes to the owner of the channel where they are displayed.</string>
     <string name="RevenueSharingAdsInfo3Title">Can Be Removed</string>
     <string name="RevenueSharingAdsInfo3Subtitle">You can turn off ads by subscribing to **Tajgram Premium VIP**, and Level %1$s channels can remove them for their subscribers.</string>
     <string name="RevenueSharingAdsInfo3SubtitleBot">You can turn off ads by subscribing to **Tajgram Premium VIP**.</string>
@@ -1274,7 +1274,7 @@
     <string name="RevenueSharingAdsInfo1TitleBot">Respect Your Privacy</string>
     <string name="RevenueSharingAdsInfo1SubtitleBot">Ads on Tajgram do not use your personal information and are based on the bot in which you see them.</string>
     <string name="RevenueSharingAdsInfo2TitleBot">Help the Bot Creator</string>
-    <string name="RevenueSharingAdsInfo2SubtitleBot">50% of the revenue from Tajgram Ads goes to the owner of the bot where they are displayed.</string>
+    <string name="RevenueSharingAdsInfo2SubtitleBot" formatted="false">50% of the revenue from Tajgram Ads goes to the owner of the bot where they are displayed.</string>
     <string name="RevenueSharingAdsInfo4Subtitle2Bot">Anyone can create an ad to display in this bot — with minimal budgets. Check out the **Tajgram Ad Platform** for details. %1$s</string>
     <string name="PromoteUrl">https://ads.Tajgram.org</string>
     <string name="InstantViewReference">Reference</string>
@@ -3337,8 +3337,8 @@
     <string name="OfS">%1$s of %2$s</string>
     <string name="TaggedMessages_one">%1$d message</string>
     <string name="TaggedMessages_other">%1$d messages</string>
-    <string name="SearchMessagesResultCount_one">%2$s result</string>
-    <string name="SearchMessagesResultCount_other">%2$s results</string>
+    <string name="SearchMessagesResultCount_one" formatted="false">%2$s result</string>
+    <string name="SearchMessagesResultCount_other" formatted="false">%2$s results</string>
     <string name="SearchAsList">Show as List</string>
     <string name="SearchAsChat">Show as Chat</string>
     <string name="Gallery">Gallery</string>
@@ -3992,7 +3992,7 @@
     <string name="AddManyMembersAlertTitle_one">Add member</string>
     <string name="AddManyMembersAlertTitle_other">Add %1$d members</string>
     <string name="AddMembersAlertNamesText">Are you sure you want to add %1$s to **%2$s**?</string>
-    <string name="AddManyMembersAlertNamesText_one">Are you sure you want to add member to **%2$s**?</string>
+    <string name="AddManyMembersAlertNamesText_one" formatted="false">Are you sure you want to add member to **%2$s**?</string>
     <string name="AddManyMembersAlertNamesText_other">Are you sure you want to add %1$d members to **%2$s**?</string>
     <string name="AddMembersForwardMessages">Show the last 100 messages to the new members</string>
     <string name="AddOneMemberForwardMessages">Show the last 100 messages to **%1$s**</string>
@@ -5439,41 +5439,41 @@
     <string name="QrCode">QR Code</string>
 
     <string name="PushReactHidden">New reaction to your message</string>
-    <string name="PushReactText">%2$s to your "%3$s"</string>
-    <string name="PushReactNoText">%2$s to your message</string>
-    <string name="PushReactPhoto">%2$s to your photo</string>
-    <string name="PushReactVideo">%2$s to your video</string>
-    <string name="PushReactRound">%2$s to your video message</string>
-    <string name="PushReactDoc">%2$s to your file</string>
-    <string name="PushReactSticker">%2$s to your %3$s sticker</string>
-    <string name="PushReactAudio">%2$s to your voice message</string>
-    <string name="PushReactContect">%2$s to your contact %3$s</string>
-    <string name="PushReactGeo">%2$s to your map</string>
-    <string name="PushReactGeoLocation">%2$s to your live location</string>
-    <string name="PushReactPoll">%2$s to your poll %3$s</string>
-    <string name="PushReactTodo">%2$s to your checklist %3$s</string>
-    <string name="PushReactQuiz">%2$s to your quiz %3$s</string>
-    <string name="PushReactGame">%2$s to your game</string>
-    <string name="PushReactInvoice">%2$s to your invoice</string>
-    <string name="PushReactGif">%2$s to your GIF</string>
-    <string name="PushChatReactText">%3$s in %2$s to your "%4$s"</string>
-    <string name="PushChatReactNotext">%3$s to your message in %2$s</string>
-    <string name="PushChatReactPhoto">%3$s to your photo in %2$s</string>
-    <string name="PushChatReactVideo">%3$s to your video in %2$s</string>
-    <string name="PushChatReactRound">%3$s to your video message in %2$s</string>
-    <string name="PushChatReactDoc">%3$s to your file in %2$s</string>
-    <string name="PushChatReactSticker">%3$s to your %4$s sticker in %2$s</string>
-    <string name="PushChatReactAudio">%3$s to your voice message in %2$s</string>
-    <string name="PushChatReactContact">%3$s to your contact %4$s in %2$s</string>
-    <string name="PushChatReactGeo">%3$s to your map in %2$s</string>
-    <string name="PushChatReactGeoLive">%3$s to your live location in %2$s</string>
-    <string name="PushChatReactPoll">%3$s to your poll %4$s in %2$s</string>
-    <string name="PushChatReactTodo">%3$s to your checklist %4$s in %2$s</string>
-    <string name="PushChatReactQuiz">%3$s to your quiz %4$s in %2$s</string>
-    <string name="PushChatReactGame">%3$s to your game in %2$s</string>
-    <string name="PushChatReactInvoice">%3$s to your invoice in %2$s</string>
-    <string name="PushChatReactGif">%3$s to your GIF in %2$s</string>
-    <string name="PushReactStory">%2$s to your story</string>
+    <string name="PushReactText" formatted="false">%2$s to your "%3$s"</string>
+    <string name="PushReactNoText" formatted="false">%2$s to your message</string>
+    <string name="PushReactPhoto" formatted="false">%2$s to your photo</string>
+    <string name="PushReactVideo" formatted="false">%2$s to your video</string>
+    <string name="PushReactRound" formatted="false">%2$s to your video message</string>
+    <string name="PushReactDoc" formatted="false">%2$s to your file</string>
+    <string name="PushReactSticker" formatted="false">%2$s to your %3$s sticker</string>
+    <string name="PushReactAudio" formatted="false">%2$s to your voice message</string>
+    <string name="PushReactContect" formatted="false">%2$s to your contact %3$s</string>
+    <string name="PushReactGeo" formatted="false">%2$s to your map</string>
+    <string name="PushReactGeoLocation" formatted="false">%2$s to your live location</string>
+    <string name="PushReactPoll" formatted="false">%2$s to your poll %3$s</string>
+    <string name="PushReactTodo" formatted="false">%2$s to your checklist %3$s</string>
+    <string name="PushReactQuiz" formatted="false">%2$s to your quiz %3$s</string>
+    <string name="PushReactGame" formatted="false">%2$s to your game</string>
+    <string name="PushReactInvoice" formatted="false">%2$s to your invoice</string>
+    <string name="PushReactGif" formatted="false">%2$s to your GIF</string>
+    <string name="PushChatReactText" formatted="false">%3$s in %2$s to your "%4$s"</string>
+    <string name="PushChatReactNotext" formatted="false">%3$s to your message in %2$s</string>
+    <string name="PushChatReactPhoto" formatted="false">%3$s to your photo in %2$s</string>
+    <string name="PushChatReactVideo" formatted="false">%3$s to your video in %2$s</string>
+    <string name="PushChatReactRound" formatted="false">%3$s to your video message in %2$s</string>
+    <string name="PushChatReactDoc" formatted="false">%3$s to your file in %2$s</string>
+    <string name="PushChatReactSticker" formatted="false">%3$s to your %4$s sticker in %2$s</string>
+    <string name="PushChatReactAudio" formatted="false">%3$s to your voice message in %2$s</string>
+    <string name="PushChatReactContact" formatted="false">%3$s to your contact %4$s in %2$s</string>
+    <string name="PushChatReactGeo" formatted="false">%3$s to your map in %2$s</string>
+    <string name="PushChatReactGeoLive" formatted="false">%3$s to your live location in %2$s</string>
+    <string name="PushChatReactPoll" formatted="false">%3$s to your poll %4$s in %2$s</string>
+    <string name="PushChatReactTodo" formatted="false">%3$s to your checklist %4$s in %2$s</string>
+    <string name="PushChatReactQuiz" formatted="false">%3$s to your quiz %4$s in %2$s</string>
+    <string name="PushChatReactGame" formatted="false">%3$s to your game in %2$s</string>
+    <string name="PushChatReactInvoice" formatted="false">%3$s to your invoice in %2$s</string>
+    <string name="PushChatReactGif" formatted="false">%3$s to your GIF in %2$s</string>
+    <string name="PushReactStory" formatted="false">%2$s to your story</string>
     <string name="PushReactStoryHidden">New reaction to your story</string>
     <string name="PushReactStoryHiddenSender">Story Reaction</string>
     <string name="BlurInChat">Blur in chat</string>
@@ -5594,7 +5594,7 @@
     <string name="UnlockPremiumReactionsDescription">Unlock additional reactions by subscribing to Tajgram Premium VIP.</string>
     <string name="SecretChatTimerYears">y</string>
     <string name="IncreaseLimit">Increase Limit</string>
-    <string name="LimitReachedPublicLinks">You have reserved too many public links. Try revoking the link from an older group or channel, or upgrade to **Tajgram Premium VIP** to double the limit to **%2$d** public links.</string>
+    <string name="LimitReachedPublicLinks" formatted="false">You have reserved too many public links. Try revoking the link from an older group or channel, or upgrade to **Tajgram Premium VIP** to double the limit to **%2$d** public links.</string>
     <string name="LimitReachedPublicLinksPremium">You have reserved too many public links. Try revoking the link from an older group or channel.</string>
     <string name="LimitReachedPublicLinksLocked">You have reserved too many public links. Try revoking the link from an older group or channel. We are working to let you increase this limit in the future.</string>
     <string name="YourPublicCommunities">Your public communities</string>
@@ -5945,8 +5945,8 @@
     <string name="TopicClosedByAdmin">The topic is closed</string>
     <string name="AlmostDone">Almost done</string>
     <string name="TopicEmptyViewDescription">Send first message to start the topic</string>
-    <string name="NotificationTopicExceptionsDesctription_one">%s, %d exception</string>
-    <string name="NotificationTopicExceptionsDesctription_other">%s, %d exceptions</string>
+    <string name="NotificationTopicExceptionsDesctription_one">%1$s, %2$d exception</string>
+    <string name="NotificationTopicExceptionsDesctription_other">%1$s, %2$d exceptions</string>
     <string name="FloatingDebugEnable">Enable floating debug</string>
     <string name="FloatingDebugDisable">Disable floating debug</string>
     <string name="DebugClearLocalDatabaseSuccess">Cleared local database.</string>
@@ -6615,10 +6615,10 @@
     <string name="StorySave">Save to profile</string>
     <string name="StorySavedTitle_one">%d story saved to your profile</string>
     <string name="StorySavedTitle_other">%d stories saved to your profile</string>
-    <string name="StoryAddedToAlbumTitle_one">%d story saved to **%s**</string>
-    <string name="StoryAddedToAlbumTitle_other">%d stories saved to **%s**</string>
-    <string name="StoryRemovedFromAlbumTitle_one">%d story removed from **%s**</string>
-    <string name="StoryRemovedFromAlbumTitle_other">%d stories removed from**%s**</string>
+    <string name="StoryAddedToAlbumTitle_one">%1$d story saved to **%2$s**</string>
+    <string name="StoryAddedToAlbumTitle_other">%1$d stories saved to **%2$s**</string>
+    <string name="StoryRemovedFromAlbumTitle_one">%1$d story removed from **%2$s**</string>
+    <string name="StoryRemovedFromAlbumTitle_other">%1$d stories removed from**%2$s**</string>
     <string name="StorySavedSubtitle">Saved stories can be viewed by others on your profile until you remove them.</string>
     <string name="StoryArchived_one">%d story is hidden from your profile</string>
     <string name="StoryArchived_other">%d stories are hidden from your profile</string>
@@ -7006,8 +7006,8 @@
     <string name="BoostingBoostsChannelByYouServiceMsgCount_other">You boosted the channel %1$d times</string>
     <string name="BoostingBoostsCountTitle_one">%d boost</string>
     <string name="BoostingBoostsCountTitle_other">%d boosts</string>
-    <string name="BoostingSubscriptionsCountPlural_one">%2$s subscription</string>
-    <string name="BoostingSubscriptionsCountPlural_other">%2$s subscriptions</string>
+    <string name="BoostingSubscriptionsCountPlural_one" formatted="false">%2$s subscription</string>
+    <string name="BoostingSubscriptionsCountPlural_other" formatted="false">%2$s subscriptions</string>
     <string name="BoostingStarsCountPlural_one">%1$d Star</string>
     <string name="BoostingStarsCountPlural_other">%1$d Stars</string>
     <string name="BoostingTelegramPremiumCountPlural_one">%1$d Tajgram Premium VIP</string>
@@ -7150,44 +7150,44 @@
     <string name="BoostingStarsGiveawayAdditionPrizeCountNameHint_other">All prizes: **%2$d** %3$s with **%1$d Stars**.</string>
     <string name="BoostingStarsGiveawayAdditionPrizeCountHint_one">All prizes: **%1$d Star**.</string>
     <string name="BoostingStarsGiveawayAdditionPrizeCountHint_other">All prizes: **%1$d Stars**.</string>
-    <string name="BoostingGiveawayHowItWorksText_one">This giveaway is sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscription for %4$s for its followers.</string>
-    <string name="BoostingGiveawayHowItWorksText_other">This giveaway is sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscriptions for %4$s for its followers.</string>
+    <string name="BoostingGiveawayHowItWorksText_one" formatted="false">This giveaway is sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscription for %4$s for its followers.</string>
+    <string name="BoostingGiveawayHowItWorksText_other" formatted="false">This giveaway is sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscriptions for %4$s for its followers.</string>
     <string name="BoostingStarsGiveawayHowItWorksText_one">This giveaway is sponsored by the admins of **%2$s**, who acquired **%1$d Star** for its followers.</string>
     <string name="BoostingStarsGiveawayHowItWorksText_other">This giveaway is sponsored by the admins of **%2$s**, who acquired **%1$d Stars** for its followers.</string>
-    <string name="BoostingGiveawayHowItWorksTextGroup_one">This giveaway is sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscription for %4$s for its members.</string>
-    <string name="BoostingGiveawayHowItWorksTextGroup_other">This giveaway is sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscriptions for %4$s for its members.</string>
+    <string name="BoostingGiveawayHowItWorksTextGroup_one" formatted="false">This giveaway is sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscription for %4$s for its members.</string>
+    <string name="BoostingGiveawayHowItWorksTextGroup_other" formatted="false">This giveaway is sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscriptions for %4$s for its members.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextGroup_one">This giveaway is sponsored by the admins of **%2$s**, who acquired **%1$d Star** for its members.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextGroup_other">This giveaway is sponsored by the admins of **%2$s**, who acquired **%1$d Stars** for its members.</string>
     <string name="BoostingGiveawayHowItWorksIncludeText_one">**%2$s** also included **%1$d** **%3$s** in the prizes. Admins of the channel are responsible for delivering these prizes.</string>
     <string name="BoostingGiveawayHowItWorksIncludeText_other">**%2$s** also included **%1$d** **%3$s** in the prizes. Admins of the channel are responsible for delivering these prizes.</string>
-    <string name="BoostingGiveawayHowItWorksSubText_one">On **%2$s**, Tajgram will automatically select **%3$s** random user that joined **%4$s**.</string>
-    <string name="BoostingGiveawayHowItWorksSubText_other">On **%2$s**, Tajgram will automatically select **%3$s** random users that joined **%4$s**.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextSeveral1_one">On **%2$s**, Tajgram will automatically select **%3$s** random user that joined **%4$s** %5$s.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextSeveral1_other">On **%2$s**, Tajgram will automatically select **%3$s** random users that joined **%4$s** %5$s.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextSeveralEnd1_one">On **%2$s**, Tajgram automatically selected **%3$s** random user that joined **%4$s** %5$s.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextSeveralEnd1_other">On **%2$s**, Tajgram automatically selected **%3$s** random users that joined **%4$s** %5$s.</string>
+    <string name="BoostingGiveawayHowItWorksSubText_one" formatted="false">On **%2$s**, Tajgram will automatically select **%3$s** random user that joined **%4$s**.</string>
+    <string name="BoostingGiveawayHowItWorksSubText_other" formatted="false">On **%2$s**, Tajgram will automatically select **%3$s** random users that joined **%4$s**.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextSeveral1_one" formatted="false">On **%2$s**, Tajgram will automatically select **%3$s** random user that joined **%4$s** %5$s.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextSeveral1_other" formatted="false">On **%2$s**, Tajgram will automatically select **%3$s** random users that joined **%4$s** %5$s.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextSeveralEnd1_one" formatted="false">On **%2$s**, Tajgram automatically selected **%3$s** random user that joined **%4$s** %5$s.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextSeveralEnd1_other" formatted="false">On **%2$s**, Tajgram automatically selected **%3$s** random users that joined **%4$s** %5$s.</string>
     <string name="BoostingGiveawayHowItWorksSubTextSeveral2_one">and **%1$d** other listed channel</string>
     <string name="BoostingGiveawayHowItWorksSubTextSeveral2_other">and **%1$d** other listed channels</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateSeveral1_one">On **%2$s**, Tajgram will automatically select **%3$s** random user that joined **%4$s** %5$s.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateSeveral1_other">On **%2$s**, Tajgram will automatically select **%3$s** random users that joined **%4$s** %5$s.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateSeveralEnd1_one">On **%2$s**, Tajgram automatically selected **%3$s** random user that joined **%4$s** %5$s.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateSeveralEnd1_other">On **%2$s**, Tajgram automatically selected **%3$s** random users that joined **%4$s** %5$s.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateSeveral1_one" formatted="false">On **%2$s**, Tajgram will automatically select **%3$s** random user that joined **%4$s** %5$s.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateSeveral1_other" formatted="false">On **%2$s**, Tajgram will automatically select **%3$s** random users that joined **%4$s** %5$s.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateSeveralEnd1_one" formatted="false">On **%2$s**, Tajgram automatically selected **%3$s** random user that joined **%4$s** %5$s.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateSeveralEnd1_other" formatted="false">On **%2$s**, Tajgram automatically selected **%3$s** random users that joined **%4$s** %5$s.</string>
     <string name="BoostingGiveawayHowItWorksSubTextDateSeveral2_one">and **%1$d** other listed channel after **%2$s** on **%3$s**</string>
     <string name="BoostingGiveawayHowItWorksSubTextDateSeveral2_other">and **%1$d** other listed channels after **%2$s** on **%3$s**</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDate_one">On **%2$s**, Tajgram will automatically select **%3$s** random user that joined **%4$s** after **%5$s** on **%6$s**.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDate_other">On **%2$s**, Tajgram will automatically select **%3$s** random users that joined **%4$s** after **%5$s** on **%6$s**.</string>
-    <string name="BoostingGiveawayHowItWorksTextEnd_one">This giveaway was sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscription for %4$s for its followers.</string>
-    <string name="BoostingGiveawayHowItWorksTextEnd_other">This giveaway was sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscriptions for %4$s for its followers.</string>
-    <string name="BoostingGiveawayHowItWorksTextEndGroup_one">This giveaway was sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscription for %4$s for its members.</string>
-    <string name="BoostingGiveawayHowItWorksTextEndGroup_other">This giveaway was sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscriptions for %4$s for its members.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDate_one" formatted="false">On **%2$s**, Tajgram will automatically select **%3$s** random user that joined **%4$s** after **%5$s** on **%6$s**.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDate_other" formatted="false">On **%2$s**, Tajgram will automatically select **%3$s** random users that joined **%4$s** after **%5$s** on **%6$s**.</string>
+    <string name="BoostingGiveawayHowItWorksTextEnd_one" formatted="false">This giveaway was sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscription for %4$s for its followers.</string>
+    <string name="BoostingGiveawayHowItWorksTextEnd_other" formatted="false">This giveaway was sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscriptions for %4$s for its followers.</string>
+    <string name="BoostingGiveawayHowItWorksTextEndGroup_one" formatted="false">This giveaway was sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscription for %4$s for its members.</string>
+    <string name="BoostingGiveawayHowItWorksTextEndGroup_other" formatted="false">This giveaway was sponsored by the admins of **%2$s**, who acquired **%3$s Tajgram Premium VIP** subscriptions for %4$s for its members.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextEnd_one">This giveaway was sponsored by the admins of **%2$s**, who acquired **%1$d Star** for its followers.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextEnd_other">This giveaway was sponsored by the admins of **%2$s**, who acquired **%1$d Stars** for its followers.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextEndGroup_one">This giveaway was sponsored by the admins of **%2$s**, who acquired **%1$d Star** for its members.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextEndGroup_other">This giveaway was sponsored by the admins of **%2$s**, who acquired **%1$d Stars** for its members.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextEnd_one">On **%2$s**, Tajgram automatically selected **%3$s** random user that joined **%4$s**.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextEnd_other">On **%2$s**, Tajgram automatically selected **%3$s** random users that joined **%4$s**.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateEnd_one">On **%2$s**, Tajgram automatically selected **%3$s** random user that joined **%4$s** after **%5$s** on **%6$s**.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateEnd_other">On **%2$s**, Tajgram automatically selected **%3$s** random users that joined **%4$s** after **%5$s** on **%6$s**.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextEnd_one" formatted="false">On **%2$s**, Tajgram automatically selected **%3$s** random user that joined **%4$s**.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextEnd_other" formatted="false">On **%2$s**, Tajgram automatically selected **%3$s** random users that joined **%4$s**.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateEnd_one" formatted="false">On **%2$s**, Tajgram automatically selected **%3$s** random user that joined **%4$s** after **%5$s** on **%6$s**.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateEnd_other" formatted="false">On **%2$s**, Tajgram automatically selected **%3$s** random users that joined **%4$s** after **%5$s** on **%6$s**.</string>
     <string name="BoostingReduceQuantity">Reduce Quantity</string>
     <string name="BoostingGiveawayEnd">Giveaway ended</string>
     <string name="BoostingGiveawayPrivateChannel">Channel is Private</string>
@@ -7270,8 +7270,8 @@
     <string name="BoostingGiveawayResultsMsgWinnersTitle_other">%1$d winners of the **Giveaway** were randomly selected by Tajgram.</string>
     <string name="BoostingGiveawayMsgInfoPlural1_one">**%1$d** Tajgram Premium VIP</string>
     <string name="BoostingGiveawayMsgInfoPlural1_other">**%1$d** Tajgram Premium VIP</string>
-    <string name="BoostingGiveawayMsgInfoPlural2_one">Subscription for %2$s.</string>
-    <string name="BoostingGiveawayMsgInfoPlural2_other">Subscriptions for %2$s.</string>
+    <string name="BoostingGiveawayMsgInfoPlural2_one" formatted="false">Subscription for %2$s.</string>
+    <string name="BoostingGiveawayMsgInfoPlural2_other" formatted="false">Subscriptions for %2$s.</string>
     <string name="BoostingStarsGiveawayMsgInfoPlural1_one">**%1$d Star** will be distributed</string>
     <string name="BoostingStarsGiveawayMsgInfoPlural1_other">**%1$d Stars** will be distributed</string>
     <string name="BoostingStarsGiveawayMsgInfoPlural2_one">to the **%1$d** winner.</string>
@@ -7297,8 +7297,8 @@
     <string name="UnconfirmedAuthSingleBot">%1$s connected to your account from %2$s. Was this you?</string>
     <string name="UnconfirmedAuthMultiple_one">We detected new %d login to your account. Is it you?</string>
     <string name="UnconfirmedAuthMultiple_other">We detected new %d logins to your account. Is it you?</string>
-    <string name="UnconfirmedAuthMultipleFrom_one">We detected new %d login to your account from %s. Is it you?</string>
-    <string name="UnconfirmedAuthMultipleFrom_other">We detected new %d logins to your account from %s. Is it you?</string>
+    <string name="UnconfirmedAuthMultipleFrom_one">We detected new %1$d login to your account from %2$s. Is it you?</string>
+    <string name="UnconfirmedAuthMultipleFrom_other">We detected new %1$d logins to your account from %2$s. Is it you?</string>
     <string name="UnconfirmedAuthDeniedTitle_one">New Login Prevented</string>
     <string name="UnconfirmedAuthDeniedTitle_other">New Logins Prevented</string>
     <string name="UnconfirmedAuthDeniedMessageSingle">We have terminated the login attempt from %s.</string>
@@ -7988,7 +7988,7 @@
     <string name="MonetizationInfoFeature1Name">Tajgram Ads</string>
     <string name="MonetizationInfoFeature1Text">Tajgram can display ads in your channel.</string>
     <string name="MonetizationInfoFeature2Name">50:50 revenue split</string>
-    <string name="MonetizationInfoFeature2Text">You can receive 50% of the ad revenue in TON.</string>
+    <string name="MonetizationInfoFeature2Text" formatted="false">You can receive 50% of the ad revenue in TON.</string>
     <string name="MonetizationInfoFeature3Name">Flexible withdrawals</string>
     <string name="MonetizationInfoFeature3Text">You can withdraw your TON any time.</string>
     <string name="MonetizationInfoTONTitle">What is 💎 TON?</string>
@@ -8874,12 +8874,12 @@
     <string name="Gift2HideChannelInfo">You can hide your name and message from all visitors of this channel except its admins.</string>
     <string name="Gift2HideSelf">Hide My Name</string>
     <string name="Gift2HideSelfInfo">Hide my name and message from visitors to my profile</string>
-    <string name="Gift2AuctionInfo_one">%d gift is dropped at varying intervals to the top %d bidder by bid amount.</string>
-    <string name="Gift2AuctionInfo_other">%d gifts are dropped at varying intervals to the top %d bidders by bid amount.</string>
-    <string name="Gift2AuctionInfoLearnMore2_one">%d gift is dropped at varying intervals to the top %d bidder by bid amount. **Learn More >**</string>
-    <string name="Gift2AuctionInfoLearnMore2_other">%d gifts are dropped at varying intervals to the top %d bidders by bid amount. **Learn More >**</string>
-    <string name="Gift2AuctionInfo2_one">Top **%d** bidder will get an **%s**\nthis round.</string>
-    <string name="Gift2AuctionInfo2_other">Top **%d** bidders will get an **%s**\nthis round.</string>
+    <string name="Gift2AuctionInfo_one">%1$d gift is dropped at varying intervals to the top %2$d bidder by bid amount.</string>
+    <string name="Gift2AuctionInfo_other">%1$d gifts are dropped at varying intervals to the top %2$d bidders by bid amount.</string>
+    <string name="Gift2AuctionInfoLearnMore2_one">%1$d gift is dropped at varying intervals to the top %2$d bidder by bid amount. **Learn More >**</string>
+    <string name="Gift2AuctionInfoLearnMore2_other">%1$d gifts are dropped at varying intervals to the top %2$d bidders by bid amount. **Learn More >**</string>
+    <string name="Gift2AuctionInfo2_one">Top **%1$d** bidder will get an **%2$s**\nthis round.</string>
+    <string name="Gift2AuctionInfo2_other">Top **%1$d** bidders will get an **%2$s**\nthis round.</string>
     <string name="Gift2AuctionInfo3">**%1$s** gifts are dropped in **%2$d** rounds\nto the top **%3$d** bidders. %4$s</string>
     <string name="Gift2AuctionTableStarted">Started</string>
     <string name="Gift2AuctionTableEnded">Ended</string>
@@ -8946,7 +8946,7 @@
     <string name="Gift2SendYourBalance_other">Your balance is %d Stars</string>
     <string name="Gift2ActionTitle">Gift from </string>
     <string name="Gift2ActionTitleTo">Gift for </string>
-    <string name="Gift2AveragePriceHint">**%d Stars** is the average sale price for **%s** gifts.</string>
+    <string name="Gift2AveragePriceHint">**%1$d Stars** is the average sale price for **%2$s** gifts.</string>
     <string name="Gift2ActionWonActionText">You bought this gift at auction for %s Stars.</string>
     <string name="Gift2ActionUpgradeTitle">Upgrade from </string>
     <string name="Gift2ActionUpgradeUnknownTitle">Upgrade from unknown</string>
@@ -9200,7 +9200,7 @@
     <string name="BotMonetizationInfoFeature1Name">Tajgram Ads</string>
     <string name="BotMonetizationInfoFeature1Text">Tajgram can display ads in your bot.</string>
     <string name="BotMonetizationInfoFeature2Name">50:50 revenue split</string>
-    <string name="BotMonetizationInfoFeature2Text">You can receive 50% of the ad revenue in TON.</string>
+    <string name="BotMonetizationInfoFeature2Text" formatted="false">You can receive 50% of the ad revenue in TON.</string>
     <string name="BotMonetizationInfoFeature3Name">Flexible withdrawals</string>
     <string name="BotMonetizationInfoFeature3Text">You can withdraw your TON any time.</string>
     <string name="BotMonetizationInfoTONTitle">What is 💎 TON?</string>
@@ -9877,30 +9877,30 @@
     <string name="SuggestAPostBelowHint">Tap here to suggest a post for %s</string>
     <string name="SuggestAPostBelowSubtitle">Tap to offer a price for publishing</string>
     <string name="SuggestAPostBelowSubtitleStars">⭐️ %s for publishing anytime</string>
-    <string name="SuggestAPostBelowSubtitleStarsAndTime">⭐️ %s %s</string>
+    <string name="SuggestAPostBelowSubtitleStarsAndTime">⭐️ %1$s %2$s</string>
     <string name="SuggestAPostTooMuch">You can offer maximum %s</string>
     <string name="SuggestAPostTooSmall">You must offer minimum %s</string>
 
     <string name="SuggestionAgreementReached">🤝 **Agreement Reached!**</string>
 
-    <string name="SuggestionAgreementReachedUser1">📆 Your post will be automatically published on **%s** **%s**</string>
+    <string name="SuggestionAgreementReachedUser1">📆 Your post will be automatically published on **%1$s** **%2$s**</string>
     <string name="SuggestionAgreementReachedUser1PresentPerfect">📆 Your post has been published on **%s**</string>
-    <string name="SuggestionAgreementReachedUser1PastSimple">📆 Your post was automatically published on **%s** **%s**</string>
-    <string name="SuggestionAgreementReachedAdmin1">📆 This post will be automatically published **%s** **%s**</string>
+    <string name="SuggestionAgreementReachedUser1PastSimple">📆 Your post was automatically published on **%1$s** **%2$s**</string>
+    <string name="SuggestionAgreementReachedAdmin1">📆 This post will be automatically published **%1$s** **%2$s**</string>
     <string name="SuggestionAgreementReachedAdmin1PresentPerfect">📆 This post has been published on **%s**</string>
-    <string name="SuggestionAgreementReachedAdmin1PastSimple">📆 This post was automatically published on **%s** **%s**</string>
+    <string name="SuggestionAgreementReachedAdmin1PastSimple">📆 This post was automatically published on **%1$s** **%2$s**</string>
 
     <string name="SuggestionAgreementReachedUser2">💰 You have been charged ⭐️ **%s**.</string>
-    <string name="SuggestionAgreementReachedAdmin2">💰 **%s** has been charged ⭐️ **%s**.</string>
-    <string name="SuggestionAgreementReachedUser3Stars">⏳ **%s** will receive your **Stars** once the post has been live for **%d** hours.</string>
-    <string name="SuggestionAgreementReachedAdmin3Stars">⏳ **%s** will receive the **Stars** once the post has been live for **%d** hours.</string>
-    <string name="SuggestionAgreementReachedUser4Stars">🔁 If **%s** removes the post before it has been live for **%d** hours, your **Stars** will be refunded.</string>
-    <string name="SuggestionAgreementReachedAdmin4Stars">🔁 If **%s** removes the post before it has been live for **%d** hours, **Stars** will be refunded to user.</string>
+    <string name="SuggestionAgreementReachedAdmin2">💰 **%1$s** has been charged ⭐️ **%2$s**.</string>
+    <string name="SuggestionAgreementReachedUser3Stars">⏳ **%1$s** will receive your **Stars** once the post has been live for **%2$d** hours.</string>
+    <string name="SuggestionAgreementReachedAdmin3Stars">⏳ **%1$s** will receive the **Stars** once the post has been live for **%2$d** hours.</string>
+    <string name="SuggestionAgreementReachedUser4Stars">🔁 If **%1$s** removes the post before it has been live for **%2$d** hours, your **Stars** will be refunded.</string>
+    <string name="SuggestionAgreementReachedAdmin4Stars">🔁 If **%1$s** removes the post before it has been live for **%2$d** hours, **Stars** will be refunded to user.</string>
 
-    <string name="SuggestionAgreementReachedUser3TON">⏳ **%s** will receive your **TON** once the post has been live for **%d** hours.</string>
-    <string name="SuggestionAgreementReachedAdmin3TON">⏳ **%s** will receive the **TON** once the post has been live for **%d** hours.</string>
-    <string name="SuggestionAgreementReachedUser4TON">🔁 If **%s** removes the post before it has been live for **%d** hours, your **TON** will be refunded.</string>
-    <string name="SuggestionAgreementReachedAdmin4TON">🔁 If **%s** removes the post before it has been live for **%d** hours, **TON** will be refunded to user.</string>
+    <string name="SuggestionAgreementReachedUser3TON">⏳ **%1$s** will receive your **TON** once the post has been live for **%2$d** hours.</string>
+    <string name="SuggestionAgreementReachedAdmin3TON">⏳ **%1$s** will receive the **TON** once the post has been live for **%2$d** hours.</string>
+    <string name="SuggestionAgreementReachedUser4TON">🔁 If **%1$s** removes the post before it has been live for **%2$d** hours, your **TON** will be refunded.</string>
+    <string name="SuggestionAgreementReachedAdmin4TON">🔁 If **%1$s** removes the post before it has been live for **%2$d** hours, **TON** will be refunded to user.</string>
 
     <string name="SuggestionAgreementDeclinedYou">❌ **%s** rejected your message.</string>
     <string name="SuggestionAgreementDeclinedThis">❌ **%s** rejected this message.</string>
@@ -10233,8 +10233,8 @@
     <string name="GiftAuctionInfoText">Join the battle for exclusive gifts.</string>
     <string name="GiftAuctionInfo1Header_one">Top %d Bidder</string>
     <string name="GiftAuctionInfo1Header_other">Top %d Bidders</string>
-    <string name="GiftAuctionInfo1Text_one">%d gift is dropped at varying intervals to the top %d bidder by bid amount.</string>
-    <string name="GiftAuctionInfo1Text_other">%d gifts are dropped at varying intervals to the top %d bidders by bid amount.</string>
+    <string name="GiftAuctionInfo1Text_one">%1$d gift is dropped at varying intervals to the top %2$d bidder by bid amount.</string>
+    <string name="GiftAuctionInfo1Text_other">%1$d gifts are dropped at varying intervals to the top %2$d bidders by bid amount.</string>
     <string name="GiftAuctionInfo2Header">Bid Carryover</string>
     <string name="GiftAuctionInfo2Text_one">If your bid leaves the top %d, it will automatically join the next round.</string>
     <string name="GiftAuctionInfo2Text_other">If your bid leaves the top %d, it will automatically join the next round.</string>
@@ -10375,9 +10375,9 @@
     <string name="Gift2ActiveAuctionsActiveStatusOutbid">You\'ve been outbid.</string>
     <string name="Gift2ActiveAuctionsActiveStatusEarly">You\'ve placed an early bid.</string>
 
-    <string name="Gift2ActiveAuctionsActiveRound">Round %s of %s</string>
+    <string name="Gift2ActiveAuctionsActiveRound">Round %1$s of %2$s</string>
     <string name="Gift2ActiveAuctionsActiveRaiseBid">Raise Bid</string>
-    <string name="Gift2ActiveAuctionsActiveBidActive">Your bid **%s** is ranked **#%d**</string>
+    <string name="Gift2ActiveAuctionsActiveBidActive">Your bid **%1$s** is ranked **#%2$d**</string>
     <string name="Gift2ActiveAuctionsActiveBidOutbid">Your bid **%s** is outbid</string>
     <string name="Gift2AuctionsItemsBought2_one">%1$d %2$s item bought ></string>
     <string name="Gift2AuctionsItemsBought2_other">%1$d %2$s items bought ></string>
@@ -10392,7 +10392,7 @@
     <string name="Gift2AuctionsBidHasBeenPlaced">Your bid has been placed</string>
     <string name="Gift2AuctionsBidHasBeenIncreased">Your bid has been increased</string>
     <string name="Gift2AuctionsChangeRecipient">Change Recipient</string>
-    <string name="Gift2AuctionsChangeRecipient2">You’ve already placed a bid on this gift for **%s.** Do you want to raise your bid and change the recipient to **%s?**</string>
+    <string name="Gift2AuctionsChangeRecipient2">You’ve already placed a bid on this gift for **%1$s.** Do you want to raise your bid and change the recipient to **%2$s?**</string>
     <string name="Passkey">Passkeys</string>
     <string name="PasskeyDeleteTitle">Delete Passkey</string>
     <string name="PasskeyDeleteText">Once deleted, this passkey can\'t be used to log in.\n\nDon\'t forget to remove it from your password manager too.</string>
@@ -10451,7 +10451,7 @@
     <string name="GiftOfferRowValue">Value</string>
     <string name="GiftOfferRowDuration">Duration</string>
     <string name="GiftOfferPay">Pay ⭐️%s</string>
-    <string name="GiftOfferPayMulti">Pay %s and %s</string>
+    <string name="GiftOfferPayMulti">Pay %1$s and %2$s</string>
     <string name="GiftOfferPayMultiPart">⭐️%s</string>
     <string name="GiftOfferSellFor">Sell for ⭐️%s</string>
     <string name="GiftOfferAmount">⭐️ %s</string>
@@ -10476,8 +10476,8 @@
     <string name="GiftOfferTransferInfoTextSellTON">Do you want to sell **%3$s** to **%2$s** for **%1$s TON**?\n\nYou will receive **%4$s TON** after fees.</string>
     <string name="GiftOfferOfferedTextStarsOut">You offered **%1$s** **%2$s Stars** for **%3$s**.</string>
     <string name="GiftOfferOfferedTextTONOut">You offered **%1$s** **%2$s TON** for **%3$s**.</string>
-    <string name="GiftOfferOfferedTextStars2">This user offered you **%2$s Stars** for **%3$s**.</string>
-    <string name="GiftOfferOfferedTextTON2">This user offered you **%2$s TON** for **%3$s**.</string>
+    <string name="GiftOfferOfferedTextStars2" formatted="false">This user offered you **%2$s Stars** for **%3$s**.</string>
+    <string name="GiftOfferOfferedTextTON2" formatted="false">This user offered you **%2$s TON** for **%3$s**.</string>
     <string name="GiftOfferSentTitle">Gift offer sent</string>
     <string name="GiftOfferSentText">You have successfully sent offer **%1$s** for **%2$s**.</string>
     <string name="GiftOfferOfferedTextStarsRejectedOut">You rejected **%1$s\'s** offer to buy your **%3$s** for **%2$s Stars**.</string>

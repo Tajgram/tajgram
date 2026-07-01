@@ -6,7 +6,7 @@
 <string name="onboarding_desc_2">Имкониятҳои VIP ва тарҷума.</string>
 <string name="onboarding_title_3">Зангулаи шахсӣ 🔊</string>
 <string name="onboarding_desc_3">Интихоби овозҳо ва танзими огоҳиҳо.</string>
-<string name="onboarding_title_4">100% Бехатарӣ 🛡️</string>
+<string name="onboarding_title_4" formatted="false">100% Бехатарӣ 🛡️</string>
 <string name="onboarding_desc_4">Ҳимояи прокси ва зидди ҷосусӣ.</string>
 <string name="onboarding_title_5">Куҷо рафтем! ✨</string>
 <string name="onboarding_desc_5">Ба Ҳолати мардумӣ гузаред ва лаззат баред!</string>
@@ -1012,9 +1012,9 @@
     <string name="EventLogStopPoll">un1 раъйпурсиро қатъ кард:</string>
     <string name="EventLogStopQuiz">un1 викторинаро қатъ кард:</string>
     <string name="EventLogDeletedMessages">un1 ин паёмро нест кард:</string>
-    <string name="EventLogDeletedMultipleMessagesToExpand_one">un1 паёми ҳазфшуда аз %2$s</string>
+    <string name="EventLogDeletedMultipleMessagesToExpand_one" formatted="false">un1 паёми ҳазфшуда аз %2$s</string>
     <string name="EventLogDeletedMultipleMessagesToExpand_other">un1 %1$d паёмро аз %2$s нест кард</string>
-    <string name="EventLogDeletedMultipleMessages_one">un1 паёми ҳазфшуда аз %2$s:</string>
+    <string name="EventLogDeletedMultipleMessages_one" formatted="false">un1 паёми ҳазфшуда аз %2$s:</string>
     <string name="EventLogDeletedMultipleMessages_other">un1 %1$d паёмҳоро аз %2$s нест кард:</string>
     <string name="EventLogDeletedMultipleMessagesHide">Ҳамаашро пинҳон кунед</string>
     <string name="EventLogDeletedMultipleMessagesShow">Ҳама нишон диҳед</string>
@@ -1140,9 +1140,9 @@
     <string name="EventLogChangedPeerColorIcon">un1 ранг ва нишонаи каналро аз %1$s ба %2$s иваз кард</string>
     <string name="EventLogChangedProfileColorIcon">un1 ранг ва нишонаи профили каналро аз %1$s ба %2$s иваз кард</string>
     <string name="EventLogChangedEmojiStatusFrom">un1 ҳолати эмодзии каналро аз %1$s ба %2$s иваз кард</string>
-    <string name="EventLogChangedEmojiStatus">un1 ҳолати эмодзии каналро ба %2$s иваз кард</string>
+    <string name="EventLogChangedEmojiStatus" formatted="false">un1 ҳолати эмодзии каналро ба %2$s иваз кард</string>
     <string name="EventLogChangedEmojiStatusFromFor">un1 ҳолати эмодзии каналро аз %1$s ба %2$s иваз кард (барои %3$s )</string>
-    <string name="EventLogChangedEmojiStatusFor">un1 ҳолати эмодзии каналро ба %2$s иваз кард (барои %3$s )</string>
+    <string name="EventLogChangedEmojiStatusFor" formatted="false">un1 ҳолати эмодзии каналро ба %2$s иваз кард (барои %3$s )</string>
     <string name="EventLogChangedWallpaper">un1 обои каналро иваз кард</string>
     <string name="EventLogRemovedWallpaper">un1 обои канал хориҷ</string>
     <string name="EventLogChangedColorGroup">un1 ранги гурӯҳро аз %1$s ба %2$s иваз кард</string>
@@ -1150,9 +1150,9 @@
     <string name="EventLogChangedPeerColorIconGroup">un1 ранг ва нишонаи гурӯҳро аз %1$s ба %2$s иваз кард</string>
     <string name="EventLogChangedProfileColorIconGroup">un1 ранг ва нишонаи профили гурӯҳро аз %1$s ба %2$s иваз кард</string>
     <string name="EventLogChangedEmojiStatusFromGroup">un1 ҳолати эмодзии гурӯҳро аз %1$s ба %2$s иваз кард</string>
-    <string name="EventLogChangedEmojiStatusGroup">un1 ҳолати эмодзии гурӯҳро ба %2$s иваз кард</string>
+    <string name="EventLogChangedEmojiStatusGroup" formatted="false">un1 ҳолати эмодзии гурӯҳро ба %2$s иваз кард</string>
     <string name="EventLogChangedEmojiStatusFromForGroup">un1 ҳолати эмодзии гурӯҳро аз %1$s ба %2$s иваз кард (барои %3$s )</string>
-    <string name="EventLogChangedEmojiStatusForGroup">un1 ҳолати эмодзии гурӯҳро ба %2$s иваз кард (барои %3$s )</string>
+    <string name="EventLogChangedEmojiStatusForGroup" formatted="false">un1 ҳолати эмодзии гурӯҳро ба %2$s иваз кард (барои %3$s )</string>
     <string name="EventLogChangedWallpaperGroup">un1 обои гурӯҳро иваз кард</string>
     <string name="EventLogRemovedWallpaperGroup">un1 обои гурӯҳ хориҷ карда шуд</string>
     <string name="EventLogEmojiNone">ҳеҷ</string>
@@ -1258,7 +1258,7 @@
     <string name="RevenueSharingAdsInfo1Title">Махфияти худро эҳтиром кунед</string>
     <string name="RevenueSharingAdsInfo1Subtitle">Таблиғ дар Tajgram маълумоти шахсии шуморо истифода намебарад ва дар асоси канале, ки шумо онҳоро мебинед, асос ёфтааст.</string>
     <string name="RevenueSharingAdsInfo2Title">Ба Созандаи канал кумак кунед</string>
-    <string name="RevenueSharingAdsInfo2Subtitle">50% даромад аз таблиғоти Tajgram ба соҳиби канале меравад, ки дар он ҷо онҳо намоиш дода мешаванд.</string>
+    <string name="RevenueSharingAdsInfo2Subtitle" formatted="false">50% даромад аз таблиғоти Tajgram ба соҳиби канале меравад, ки дар он ҷо онҳо намоиш дода мешаванд.</string>
     <string name="RevenueSharingAdsInfo3Title">Хориҷ кардан мумкин аст</string>
     <string name="RevenueSharingAdsInfo3Subtitle">Шумо метавонед тавассути обуна шудан ба **Tajgram Premium VIP** таблиғҳоро хомӯш кунед ва каналҳои сатҳи %1$s метавонанд онҳоро барои муштариёни худ тоза кунанд.</string>
     <string name="RevenueSharingAdsInfo3SubtitleBot">Шумо метавонед тавассути обуна шудан ба **Tajgram Premium VIP** таблиғро хомӯш кунед.</string>
@@ -1270,7 +1270,7 @@
     <string name="RevenueSharingAdsInfo1TitleBot">Махфияти худро эҳтиром кунед</string>
     <string name="RevenueSharingAdsInfo1SubtitleBot">Таблиғҳо дар Tajgram маълумоти шахсии шуморо истифода намебаранд ва дар асоси бот, ки дар он шумо онҳоро мебинед, асос ёфтааст.</string>
     <string name="RevenueSharingAdsInfo2TitleBot">Ба Офаридгори бот кӯмак кунед</string>
-    <string name="RevenueSharingAdsInfo2SubtitleBot">50% даромад аз таблиғоти Tajgram ба соҳиби бот, ки дар он намоиш дода мешавад, меравад.</string>
+    <string name="RevenueSharingAdsInfo2SubtitleBot" formatted="false">50% даромад аз таблиғоти Tajgram ба соҳиби бот, ки дар он намоиш дода мешавад, меравад.</string>
     <string name="RevenueSharingAdsInfo4Subtitle2Bot">Ҳар касе метавонад таблиғе эҷод кунад, то дар ин бот намоиш диҳад - бо буҷаи ҳадди ақал. Барои тафсилот **Tajgram Ad Platform**-ро санҷед.  %1$s</string>
     <string name="PromoteUrl">https://ads.Tajgram.org</string>
     <string name="InstantViewReference">Истинод</string>
@@ -3328,8 +3328,8 @@
     <string name="OfS">%1$s аз %2$s</string>
     <string name="TaggedMessages_one">%1$d паём</string>
     <string name="TaggedMessages_other">%1$d паёмҳо</string>
-    <string name="SearchMessagesResultCount_one">%2$s натиҷа</string>
-    <string name="SearchMessagesResultCount_other">%2$s натиҷаҳо</string>
+    <string name="SearchMessagesResultCount_one" formatted="false">%2$s натиҷа</string>
+    <string name="SearchMessagesResultCount_other" formatted="false">%2$s натиҷаҳо</string>
     <string name="SearchAsList">Ҳамчун рӯйхат нишон диҳед</string>
     <string name="SearchAsChat">Ҳамчун чат нишон диҳед</string>
     <string name="Gallery">Галерея</string>
@@ -3979,7 +3979,7 @@
     <string name="AddManyMembersAlertTitle_one">Иловаи аъзо</string>
     <string name="AddManyMembersAlertTitle_other">%1$d аъзо илова кунед</string>
     <string name="AddMembersAlertNamesText">Шумо мутмаин ҳастед, ки мехоҳед %1$s-ро ба **%2$s** илова кунед?</string>
-    <string name="AddManyMembersAlertNamesText_one">Шумо мутмаин ҳастед, ки мехоҳед ба **%2$s** аъзо илова кунед?</string>
+    <string name="AddManyMembersAlertNamesText_one" formatted="false">Шумо мутмаин ҳастед, ки мехоҳед ба **%2$s** аъзо илова кунед?</string>
     <string name="AddManyMembersAlertNamesText_other">Оё мутмаин ҳастед, ки мехоҳед аъзои %1$d ба **%2$s** илова кунед?</string>
     <string name="AddMembersForwardMessages">100 паёми охиринро ба аъзоёни нав нишон диҳед</string>
     <string name="AddOneMemberForwardMessages">100 паёми охиринро ба **%1$s** нишон диҳед</string>
@@ -5401,41 +5401,41 @@
     <string name="NobodyViewed">Ҳеҷ кас надид</string>
     <string name="QrCode">Кодекси QR</string>
     <string name="PushReactHidden">Вокуниши нав ба паёми шумо</string>
-    <string name="PushReactText">%2$s ба \" %3$s \"-и шумо</string>
-    <string name="PushReactNoText">%2$s ба паёми шумо</string>
-    <string name="PushReactPhoto">%2$s ба сурати худ</string>
-    <string name="PushReactVideo">%2$s ба видеои шумо</string>
-    <string name="PushReactRound">%2$s ба паёми видеоии шумо</string>
-    <string name="PushReactDoc">%2$s ба файли шумо</string>
-    <string name="PushReactSticker">%2$s ба стикери %3$s-и худ</string>
-    <string name="PushReactAudio">%2$s ба паёми овозии худ</string>
-    <string name="PushReactContect">%2$s ба тамоси шумо %3$s</string>
-    <string name="PushReactGeo">%2$s ба харитаи худ</string>
-    <string name="PushReactGeoLocation">%2$s ба макони зиндаи шумо</string>
-    <string name="PushReactPoll">%2$s ба назарсанҷии шумо %3$s</string>
-    <string name="PushReactTodo">%2$s ба рӯйхати тафтиши шумо %3$s</string>
-    <string name="PushReactQuiz">%2$s ба викторинаи шумо %3$s</string>
-    <string name="PushReactGame">%2$s ба бозии шумо</string>
-    <string name="PushReactInvoice">%2$s ба ҳисобнома-фактураи шумо</string>
-    <string name="PushReactGif">%2$s ба GIF-и худ</string>
-    <string name="PushChatReactText">%3$s дар %2$s ба \" %4$s \"-и худ</string>
-    <string name="PushChatReactNotext">%3$s ба паёми шумо дар %2$s</string>
-    <string name="PushChatReactPhoto">%3$s ба акси шумо дар %2$s</string>
-    <string name="PushChatReactVideo">%3$s ба видеои шумо дар %2$s</string>
-    <string name="PushChatReactRound">%3$s ба паёми видеоии шумо дар %2$s</string>
-    <string name="PushChatReactDoc">%3$s ба файли шумо дар %2$s</string>
-    <string name="PushChatReactSticker">%3$s ба стикери %4$s худ дар %2$s</string>
-    <string name="PushChatReactAudio">%3$s ба паёми овозии шумо дар %2$s</string>
-    <string name="PushChatReactContact">%3$s ба мухотиби шумо %4$s дар %2$s</string>
-    <string name="PushChatReactGeo">%3$s ба харитаи худ дар %2$s</string>
-    <string name="PushChatReactGeoLive">%3$s ба макони зиндаи шумо дар %2$s</string>
-    <string name="PushChatReactPoll">%3$s ба назарсанҷии шумо %4$s дар %2$s</string>
-    <string name="PushChatReactTodo">%3$s ба рӯйхати тафтиши шумо %4$s дар %2$s</string>
-    <string name="PushChatReactQuiz">%3$s ба викторинаи шумо %4$s дар %2$s</string>
-    <string name="PushChatReactGame">%3$s ба бозии шумо дар %2$s</string>
-    <string name="PushChatReactInvoice">%3$s ба ҳисобномаи шумо дар %2$s</string>
-    <string name="PushChatReactGif">%3$s ба GIF-и худ дар %2$s</string>
-    <string name="PushReactStory">%2$s ба ҳикояи шумо</string>
+    <string name="PushReactText" formatted="false">%2$s ба \" %3$s \"-и шумо</string>
+    <string name="PushReactNoText" formatted="false">%2$s ба паёми шумо</string>
+    <string name="PushReactPhoto" formatted="false">%2$s ба сурати худ</string>
+    <string name="PushReactVideo" formatted="false">%2$s ба видеои шумо</string>
+    <string name="PushReactRound" formatted="false">%2$s ба паёми видеоии шумо</string>
+    <string name="PushReactDoc" formatted="false">%2$s ба файли шумо</string>
+    <string name="PushReactSticker" formatted="false">%2$s ба стикери %3$s-и худ</string>
+    <string name="PushReactAudio" formatted="false">%2$s ба паёми овозии худ</string>
+    <string name="PushReactContect" formatted="false">%2$s ба тамоси шумо %3$s</string>
+    <string name="PushReactGeo" formatted="false">%2$s ба харитаи худ</string>
+    <string name="PushReactGeoLocation" formatted="false">%2$s ба макони зиндаи шумо</string>
+    <string name="PushReactPoll" formatted="false">%2$s ба назарсанҷии шумо %3$s</string>
+    <string name="PushReactTodo" formatted="false">%2$s ба рӯйхати тафтиши шумо %3$s</string>
+    <string name="PushReactQuiz" formatted="false">%2$s ба викторинаи шумо %3$s</string>
+    <string name="PushReactGame" formatted="false">%2$s ба бозии шумо</string>
+    <string name="PushReactInvoice" formatted="false">%2$s ба ҳисобнома-фактураи шумо</string>
+    <string name="PushReactGif" formatted="false">%2$s ба GIF-и худ</string>
+    <string name="PushChatReactText" formatted="false">%3$s дар %2$s ба \" %4$s \"-и худ</string>
+    <string name="PushChatReactNotext" formatted="false">%3$s ба паёми шумо дар %2$s</string>
+    <string name="PushChatReactPhoto" formatted="false">%3$s ба акси шумо дар %2$s</string>
+    <string name="PushChatReactVideo" formatted="false">%3$s ба видеои шумо дар %2$s</string>
+    <string name="PushChatReactRound" formatted="false">%3$s ба паёми видеоии шумо дар %2$s</string>
+    <string name="PushChatReactDoc" formatted="false">%3$s ба файли шумо дар %2$s</string>
+    <string name="PushChatReactSticker" formatted="false">%3$s ба стикери %4$s худ дар %2$s</string>
+    <string name="PushChatReactAudio" formatted="false">%3$s ба паёми овозии шумо дар %2$s</string>
+    <string name="PushChatReactContact" formatted="false">%3$s ба мухотиби шумо %4$s дар %2$s</string>
+    <string name="PushChatReactGeo" formatted="false">%3$s ба харитаи худ дар %2$s</string>
+    <string name="PushChatReactGeoLive" formatted="false">%3$s ба макони зиндаи шумо дар %2$s</string>
+    <string name="PushChatReactPoll" formatted="false">%3$s ба назарсанҷии шумо %4$s дар %2$s</string>
+    <string name="PushChatReactTodo" formatted="false">%3$s ба рӯйхати тафтиши шумо %4$s дар %2$s</string>
+    <string name="PushChatReactQuiz" formatted="false">%3$s ба викторинаи шумо %4$s дар %2$s</string>
+    <string name="PushChatReactGame" formatted="false">%3$s ба бозии шумо дар %2$s</string>
+    <string name="PushChatReactInvoice" formatted="false">%3$s ба ҳисобномаи шумо дар %2$s</string>
+    <string name="PushChatReactGif" formatted="false">%3$s ба GIF-и худ дар %2$s</string>
+    <string name="PushReactStory" formatted="false">%2$s ба ҳикояи шумо</string>
     <string name="PushReactStoryHidden">Вокуниши нав ба ҳикояи шумо</string>
     <string name="PushReactStoryHiddenSender">Реаксияи ҳикоя</string>
     <string name="BlurInChat">Норавшан дар чат</string>
@@ -5552,7 +5552,7 @@
     <string name="UnlockPremiumReactionsDescription">Бо обуна шудан ба Tajgram Premium VIP аксуламалҳои иловагиро кушоед.</string>
     <string name="SecretChatTimerYears">й</string>
     <string name="IncreaseLimit">Лимитро зиёд кунед</string>
-    <string name="LimitReachedPublicLinks">Шумо истинодҳои оммавии аз ҳад зиёд захира кардаед. Кӯшиш кунед, ки истинодро аз гурӯҳ ё канали кӯҳна бозхонед ё ба **Tajgram Premium VIP** навсозӣ кунед, то маҳдудиятро ба **%2$d** истинодҳои ҷамъиятӣ дучанд кунед.</string>
+    <string name="LimitReachedPublicLinks" formatted="false">Шумо истинодҳои оммавии аз ҳад зиёд захира кардаед. Кӯшиш кунед, ки истинодро аз гурӯҳ ё канали кӯҳна бозхонед ё ба **Tajgram Premium VIP** навсозӣ кунед, то маҳдудиятро ба **%2$d** истинодҳои ҷамъиятӣ дучанд кунед.</string>
     <string name="LimitReachedPublicLinksPremium">Шумо истинодҳои оммавии аз ҳад зиёд захира кардаед. Кӯшиш кунед, ки истинодро аз гурӯҳ ё канали кӯҳна бозхонед.</string>
     <string name="LimitReachedPublicLinksLocked">Шумо истинодҳои оммавии аз ҳад зиёд захира кардаед. Кӯшиш кунед, ки истинодро аз гурӯҳ ё канали кӯҳна бозхонед. Мо кӯшиш карда истодаем, ки ба шумо имкон диҳед, ки ин маҳдудиятро дар оянда зиёд кунед.</string>
     <string name="YourPublicCommunities">Ҷамъиятҳои ҷамъиятии шумо</string>
@@ -6961,8 +6961,8 @@
     <string name="BoostingBoostsChannelByYouServiceMsgCount_other">Шумо каналро %1$d маротиба афзоиш додед</string>
     <string name="BoostingBoostsCountTitle_one">%d баланд бардоштани</string>
     <string name="BoostingBoostsCountTitle_other">%d меафзояд</string>
-    <string name="BoostingSubscriptionsCountPlural_one">%2$s обуна</string>
-    <string name="BoostingSubscriptionsCountPlural_other">%2$s обуна</string>
+    <string name="BoostingSubscriptionsCountPlural_one" formatted="false">%2$s обуна</string>
+    <string name="BoostingSubscriptionsCountPlural_other" formatted="false">%2$s обуна</string>
     <string name="BoostingStarsCountPlural_one">%1$d Ситора</string>
     <string name="BoostingStarsCountPlural_other">%1$d Ситорахо</string>
     <string name="BoostingTelegramPremiumCountPlural_one">%1$d Premium Tajgram</string>
@@ -7105,44 +7105,44 @@
     <string name="BoostingStarsGiveawayAdditionPrizeCountNameHint_other">Ҳама мукофотҳо: **%2$d** %3$s бо **%1$d Stars** .</string>
     <string name="BoostingStarsGiveawayAdditionPrizeCountHint_one">Ҳама мукофотҳо: **%1$d Star** .</string>
     <string name="BoostingStarsGiveawayAdditionPrizeCountHint_other">Ҳама мукофотҳо: **%1$d Stars** .</string>
-    <string name="BoostingGiveawayHowItWorksText_one">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда мешавад, ки барои пайравони он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
-    <string name="BoostingGiveawayHowItWorksText_other">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда мешавад, ки барои пайравони он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
+    <string name="BoostingGiveawayHowItWorksText_one" formatted="false">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда мешавад, ки барои пайравони он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
+    <string name="BoostingGiveawayHowItWorksText_other" formatted="false">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда мешавад, ки барои пайравони он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
     <string name="BoostingStarsGiveawayHowItWorksText_one">Ин тӯҳфа аз ҷониби маъмурони **%2$s**, ки **%1$d Star**-ро барои пайравонаш ба даст овардаанд, сарпарастӣ мекунанд.</string>
     <string name="BoostingStarsGiveawayHowItWorksText_other">Ин тӯҳфа аз ҷониби маъмурони **%2$s**, ки **%1$d Stars**-ро барои пайравонаш ба даст овардаанд, сарпарастӣ мекунанд.</string>
-    <string name="BoostingGiveawayHowItWorksTextGroup_one">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда мешавад, ки барои аъзоёни он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
-    <string name="BoostingGiveawayHowItWorksTextGroup_other">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда мешавад, ки барои аъзоёни он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
+    <string name="BoostingGiveawayHowItWorksTextGroup_one" formatted="false">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда мешавад, ки барои аъзоёни он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
+    <string name="BoostingGiveawayHowItWorksTextGroup_other" formatted="false">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда мешавад, ки барои аъзоёни он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextGroup_one">Ин тӯҳфа аз ҷониби маъмурони **%2$s**, ки **%1$d Star**-ро барои аъзоёни он ба даст овардаанд, сарпарастӣ мекунанд.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextGroup_other">Ин тӯҳфа аз ҷониби маъмурони **%2$s**, ки **%1$d Stars**-ро барои аъзоёни он ба даст овардаанд, сарпарастӣ мекунанд.</string>
     <string name="BoostingGiveawayHowItWorksIncludeText_one">**%2$s** инчунин **%1$d** **%3$s**-ро ба ҷоизаҳо дохил кард. Администраторони канал барои расонидани ин мукофотҳо масъуланд.</string>
     <string name="BoostingGiveawayHowItWorksIncludeText_other">**%2$s** инчунин **%1$d** **%3$s**-ро ба ҷоизаҳо дохил кард. Администраторони канал барои расонидани ин мукофотҳо масъуланд.</string>
-    <string name="BoostingGiveawayHowItWorksSubText_one">Дар **%2$s** , Tajgram ба таври худкор **%3$s** корбари тасодуфиро, ки ба **%4$s** пайваст, интихоб мекунад.</string>
-    <string name="BoostingGiveawayHowItWorksSubText_other">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро, ки ба **%4$s** пайвастанд, интихоб мекунад.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextSeveral1_one">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбари тасодуфиро, ки ба **%4$s** %5$s пайваст шудааст, интихоб мекунад.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextSeveral1_other">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро, ки ба **%4$s** %5$s пайвастанд, интихоб мекунад.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextSeveralEnd1_one">Рӯзи **%2$s** Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб кард, ки ба **%4$s** %5$s пайваст.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextSeveralEnd1_other">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро интихоб кард, ки ба **%4$s** %5$s пайвастанд.</string>
+    <string name="BoostingGiveawayHowItWorksSubText_one" formatted="false">Дар **%2$s** , Tajgram ба таври худкор **%3$s** корбари тасодуфиро, ки ба **%4$s** пайваст, интихоб мекунад.</string>
+    <string name="BoostingGiveawayHowItWorksSubText_other" formatted="false">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро, ки ба **%4$s** пайвастанд, интихоб мекунад.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextSeveral1_one" formatted="false">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбари тасодуфиро, ки ба **%4$s** %5$s пайваст шудааст, интихоб мекунад.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextSeveral1_other" formatted="false">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро, ки ба **%4$s** %5$s пайвастанд, интихоб мекунад.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextSeveralEnd1_one" formatted="false">Рӯзи **%2$s** Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб кард, ки ба **%4$s** %5$s пайваст.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextSeveralEnd1_other" formatted="false">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро интихоб кард, ки ба **%4$s** %5$s пайвастанд.</string>
     <string name="BoostingGiveawayHowItWorksSubTextSeveral2_one">ва **%1$d** канали дигари номбаршуда</string>
     <string name="BoostingGiveawayHowItWorksSubTextSeveral2_other">ва **%1$d** дигар каналҳои номбаршуда</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateSeveral1_one">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбари тасодуфиро, ки ба **%4$s** %5$s пайваст шудааст, интихоб мекунад.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateSeveral1_other">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро, ки ба **%4$s** %5$s пайвастанд, интихоб мекунад.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateSeveralEnd1_one">Рӯзи **%2$s** Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб кард, ки ба **%4$s** %5$s пайваст.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateSeveralEnd1_other">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро интихоб кард, ки ба **%4$s** %5$s пайвастанд.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateSeveral1_one" formatted="false">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбари тасодуфиро, ки ба **%4$s** %5$s пайваст шудааст, интихоб мекунад.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateSeveral1_other" formatted="false">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро, ки ба **%4$s** %5$s пайвастанд, интихоб мекунад.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateSeveralEnd1_one" formatted="false">Рӯзи **%2$s** Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб кард, ки ба **%4$s** %5$s пайваст.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateSeveralEnd1_other" formatted="false">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро интихоб кард, ки ба **%4$s** %5$s пайвастанд.</string>
     <string name="BoostingGiveawayHowItWorksSubTextDateSeveral2_one">ва **%1$d** канали дигари рӯйхатшуда пас аз **%2$s** дар **%3$s**</string>
     <string name="BoostingGiveawayHowItWorksSubTextDateSeveral2_other">ва **%1$d** дигар каналҳои номбаршуда пас аз **%2$s** дар **%3$s**</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDate_one">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб мекунад, ки пас аз **%5$s** дар **%6$s** ба **%4$s** пайваст.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDate_other">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро, ки баъд аз **%5$s** дар **%6$s** ба **%4$s** пайвастанд, интихоб мекунад.</string>
-    <string name="BoostingGiveawayHowItWorksTextEnd_one">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда шуд, ки барои пайравони он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
-    <string name="BoostingGiveawayHowItWorksTextEnd_other">Ин тӯҳфаро маъмурони **%2$s** сарпарастӣ карданд, ки барои пайравони он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
-    <string name="BoostingGiveawayHowItWorksTextEndGroup_one">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда шуд, ки барои аъзоёни он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
-    <string name="BoostingGiveawayHowItWorksTextEndGroup_other">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда шуд, ки барои аъзоёни он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDate_one" formatted="false">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб мекунад, ки пас аз **%5$s** дар **%6$s** ба **%4$s** пайваст.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDate_other" formatted="false">Дар **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро, ки баъд аз **%5$s** дар **%6$s** ба **%4$s** пайвастанд, интихоб мекунад.</string>
+    <string name="BoostingGiveawayHowItWorksTextEnd_one" formatted="false">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда шуд, ки барои пайравони он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
+    <string name="BoostingGiveawayHowItWorksTextEnd_other" formatted="false">Ин тӯҳфаро маъмурони **%2$s** сарпарастӣ карданд, ки барои пайравони он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
+    <string name="BoostingGiveawayHowItWorksTextEndGroup_one" formatted="false">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда шуд, ки барои аъзоёни он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
+    <string name="BoostingGiveawayHowItWorksTextEndGroup_other" formatted="false">Ин тӯҳфа аз ҷониби маъмурони **%2$s** сарпарастӣ карда шуд, ки барои аъзоёни он **%3$s Tajgram Premium VIP** обуна барои %4$s гирифтаанд.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextEnd_one">Ин тӯҳфа аз ҷониби маъмурони **%2$s**, ки **%1$d Star**-ро барои пайравонаш ба даст овардаанд, сарпарастӣ карданд.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextEnd_other">Ин тӯҳфа аз ҷониби маъмурони **%2$s**, ки **%1$d Stars**-ро барои пайравонаш ба даст овардаанд, сарпарастӣ карданд.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextEndGroup_one">Ин тӯҳфа аз ҷониби маъмурони **%2$s**, ки **%1$d Star**-ро барои аъзоёни он ба даст овардаанд, сарпарастӣ карданд.</string>
     <string name="BoostingStarsGiveawayHowItWorksTextEndGroup_other">Ин тӯҳфа аз ҷониби маъмурони **%2$s**, ки **%1$d Stars**-ро барои аъзоёни он ба даст овардаанд, сарпарастӣ карданд.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextEnd_one">Рӯзи **%2$s** Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб кард, ки ба **%4$s** пайваст.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextEnd_other">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро интихоб кард, ки ба **%4$s** пайвастанд.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateEnd_one">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб кард, ки пас аз **%5$s** дар **%6$s** ба **%4$s** пайваст.</string>
-    <string name="BoostingGiveawayHowItWorksSubTextDateEnd_other">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро интихоб кард, ки пас аз **%5$s** дар **%6$s** ба **%4$s** пайвастанд.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextEnd_one" formatted="false">Рӯзи **%2$s** Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб кард, ки ба **%4$s** пайваст.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextEnd_other" formatted="false">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро интихоб кард, ки ба **%4$s** пайвастанд.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateEnd_one" formatted="false">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбари тасодуфиро интихоб кард, ки пас аз **%5$s** дар **%6$s** ба **%4$s** пайваст.</string>
+    <string name="BoostingGiveawayHowItWorksSubTextDateEnd_other" formatted="false">Рӯзи **%2$s**, Tajgram ба таври худкор **%3$s** корбарони тасодуфиро интихоб кард, ки пас аз **%5$s** дар **%6$s** ба **%4$s** пайвастанд.</string>
     <string name="BoostingReduceQuantity">Коҳиш додани миқдор</string>
     <string name="BoostingGiveawayEnd">Тӯҳфа ба охир расид</string>
     <string name="BoostingGiveawayPrivateChannel">Канал хусусӣ аст</string>
@@ -7225,8 +7225,8 @@
     <string name="BoostingGiveawayResultsMsgWinnersTitle_other">%1$d ғолибони **Giveaway** тавассути Tajgram ба таври тасодуфӣ интихоб карда шуданд.</string>
     <string name="BoostingGiveawayMsgInfoPlural1_one">**%1$d** Premium Tajgram</string>
     <string name="BoostingGiveawayMsgInfoPlural1_other">**%1$d** Premium Tajgram</string>
-    <string name="BoostingGiveawayMsgInfoPlural2_one">Обуна барои %2$s .</string>
-    <string name="BoostingGiveawayMsgInfoPlural2_other">Обунаҳо барои %2$s .</string>
+    <string name="BoostingGiveawayMsgInfoPlural2_one" formatted="false">Обуна барои %2$s .</string>
+    <string name="BoostingGiveawayMsgInfoPlural2_other" formatted="false">Обунаҳо барои %2$s .</string>
     <string name="BoostingStarsGiveawayMsgInfoPlural1_one">**%1$d Star** тақсим карда мешавад</string>
     <string name="BoostingStarsGiveawayMsgInfoPlural1_other">**%1$d Stars** тақсим карда мешавад</string>
     <string name="BoostingStarsGiveawayMsgInfoPlural2_one">ба ғолиби **%1$d**.</string>
@@ -7937,7 +7937,7 @@
     <string name="MonetizationInfoFeature1Name">Рекламаҳои Tajgram</string>
     <string name="MonetizationInfoFeature1Text">Tajgram метавонад дар канали шумо таблиғ нишон диҳад.</string>
     <string name="MonetizationInfoFeature2Name">50:50 тақсимоти даромад</string>
-    <string name="MonetizationInfoFeature2Text">Шумо метавонед 50% даромади таблиғро бо TON гиред.</string>
+    <string name="MonetizationInfoFeature2Text" formatted="false">Шумо метавонед 50% даромади таблиғро бо TON гиред.</string>
     <string name="MonetizationInfoFeature3Name">Интиқоли чандир</string>
     <string name="MonetizationInfoFeature3Text">Шумо метавонед TON-и худро ҳар вақт бозпас гиред.</string>
     <string name="MonetizationInfoTONTitle">💎 ТОН чист?</string>
@@ -9126,7 +9126,7 @@
     <string name="BotMonetizationInfoFeature1Name">Рекламаҳои Tajgram</string>
     <string name="BotMonetizationInfoFeature1Text">Tajgram метавонад дар боти шумо таблиғ нишон диҳад.</string>
     <string name="BotMonetizationInfoFeature2Name">50:50 тақсимоти даромад</string>
-    <string name="BotMonetizationInfoFeature2Text">Шумо метавонед 50% даромади таблиғро бо TON гиред.</string>
+    <string name="BotMonetizationInfoFeature2Text" formatted="false">Шумо метавонед 50% даромади таблиғро бо TON гиред.</string>
     <string name="BotMonetizationInfoFeature3Name">Интиқоли чандир</string>
     <string name="BotMonetizationInfoFeature3Text">Шумо метавонед TON-и худро ҳар вақт бозпас гиред.</string>
     <string name="BotMonetizationInfoTONTitle">💎 ТОН чист?</string>
@@ -10374,8 +10374,8 @@
     <string name="GiftOfferTransferInfoTextSellTON">Оё шумо мехоҳед **%3$s**-ро ба **%2$s** барои **%1$s TON** фурӯшед? Шумо пас аз пардохтҳо **%4$s TON** мегиред.</string>
     <string name="GiftOfferOfferedTextStarsOut">Шумо **%1$s** **%2$s Stars**-ро барои **%3$s** пешниҳод кардаед.</string>
     <string name="GiftOfferOfferedTextTONOut">Шумо **%1$s** **%2$s TON**-ро барои **%3$s** пешниҳод кардаед.</string>
-    <string name="GiftOfferOfferedTextStars2">Ин корбар ба шумо **%2$s Stars** барои **%3$s** пешниҳод кардааст.</string>
-    <string name="GiftOfferOfferedTextTON2">Ин корбар ба шумо **%2$s TON** барои **%3$s** пешниҳод кардааст.</string>
+    <string name="GiftOfferOfferedTextStars2" formatted="false">Ин корбар ба шумо **%2$s Stars** барои **%3$s** пешниҳод кардааст.</string>
+    <string name="GiftOfferOfferedTextTON2" formatted="false">Ин корбар ба шумо **%2$s TON** барои **%3$s** пешниҳод кардааст.</string>
     <string name="GiftOfferSentTitle">Пешниҳоди тӯҳфа фиристода шуд</string>
     <string name="GiftOfferSentText">Шумо бомуваффақият пешниҳоди **%1$s** барои **%2$s** фиристодед.</string>
     <string name="GiftOfferOfferedTextStarsRejectedOut">Шумо пешниҳоди **%1$s\'s**-ро барои харидани **%3$s**-и худ барои **%2$s Stars** рад кардед.</string>

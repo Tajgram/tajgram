@@ -78,11 +78,10 @@ jobs:
               string_pattern = re.compile(r'(<string[^>]*name="([^"]+)"[^>]*>)(.*?)(</string>)', re.DOTALL)
               
               seen_names = set()
-              duplicates_removed = 0
-              fixed_count = 0
+              # Барои гурехтан аз хатои синтаксисии nonlocal, ҳисобкунакро дар массив месозем
+              stats = {"duplicates_removed": 0, "fixed_count": 0}
 
               def replacer(match):
-                  nonlocal duplicates_removed, fixed_count
                   full_open_tag = match.group(1)
                   string_name = match.group(2)
                   inner_text = match.group(3)
@@ -90,7 +89,7 @@ jobs:
 
                   # ШАРТИ АНТИ-ДУБЛИКАТ: Агар номи сатр такрорӣ ояд, онро тоза мекунем
                   if string_name in seen_names:
-                      duplicates_removed += 1
+                      stats["duplicates_removed"] += 1
                       return ""
                   seen_names.add(string_name)
 
@@ -98,7 +97,7 @@ jobs:
                   fixed_text = fix_placeholders_smart(inner_text)
                   
                   if fixed_text != inner_text:
-                      fixed_count += 1
+                      stats["fixed_count"] += 1
 
                   # Агар дар матн фоизи оддии '%' бошад (масалан 100%) ва он формат набошад, 
                   # ба тег formatted="false" илова мекунем, то Gradle хато надиҳад
@@ -113,7 +112,7 @@ jobs:
               with open(file_path, 'w', encoding='utf-8') as f:
                   f.write(fixed_content)
                   
-              print(f"✅ Готово! Файл пурра тафтиш шуд. Ислоҳ шуд: {fixed_count}, Дубликатҳо: {duplicates_removed}")
+              print(f"✅ Готово! Файл пурра тафтиш шуд. Ислоҳ шуд: {stats['fixed_count']}, Дубликатҳо: {stats['duplicates_removed']}")
 
       - name: 📤 Push тағйироти фоизҳо ба бранчи master
         run: |

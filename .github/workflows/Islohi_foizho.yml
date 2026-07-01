@@ -21,41 +21,46 @@ jobs:
           git config --global user.name "TajgramRobot"
           git config --global user.email "robot@tajgram.tj"
 
-      - name: 🐍 Тафтиши Ҳушёрона ва Профессионалии Тамоми Сатрҳо (Python Core)
+      - name: 🐍 Тафтиши Ҳушёрона ва Рақамгузории Тартибӣ (1, 2, 3...)
         shell: python
         run: |
           import os
           import re
-          import xml.etree.ElementTree as ET
 
-          # Рӯйхати файлҳо барои тафтиши садфоиза (Ҳам тоҷикӣ, ҳам англисӣ)
           files_to_fix = [
               "TMessagesProj/src/main/res/values-tg/strings.xml",
               "TMessagesProj/src/main/res/values/strings.xml"
           ]
 
-          def fix_placeholders(text):
+          def fix_placeholders_smart(text):
               if not text:
                   return text
-              # Меёбем ҳамаи %s, %d, %f, ва ғайраҳоеро, ки рақами тартибӣ надоранд
-              pattern = re.compile(r'(?<!%)(%[a-zA-Z])')
-              matches = pattern.findall(text)
               
-              # Агар танҳо як аломат бошад ё умуман набошад, даст намезанем
-              if len(matches) <= 1:
+              # Регекси касбӣ: Ҳам форматҳои оддии %s, %d ва ҳам форматҳои аллакай нумеронии %1$s, %2$d-ро меёбад
+              pattern = re.compile(r'%([0-9]+\$)?([a-zA-Z])')
+              matches = list(pattern.finditer(text))
+              
+              # ШАРТИ ТУ: Агар дар сатр умуман тағйирёбанда НАБОШАД, аз пеши худ ҳеҷ чиз намекунем ва мегузарем
+              if not matches:
                   return text
-                  
-              # Агар зиёда аз як аломат бошад, дона ба дона рақамгузории касбӣ мекунем (%1$s, %2$s)
-              counter = 1
+              
+              # Агар тағйирёбандаҳо бошанд (1, 2, 3 ё зиёда аз он), онҳоро қатъӣ сатр ба сатр рақам мегузорем
               output = []
               last_end = 0
-              for match in pattern.finditer(text):
+              counter = 1
+              
+              for match in matches:
                   start, end = match.start(), match.end()
                   output.append(text[last_end:start])
-                  fmt_char = text[end-1]
+                  
+                  # Ҳарфи тағйирёбандаро мегирем (s, d, f ва ғайра)
+                  fmt_char = match.group(2)
+                  
+                  # Рақамгузории автоматӣ ва дақиқ: %1$s, %2$s, %3$s ё %1$d, %2$d, %3$d...
                   output.append(f"%{counter}${fmt_char}")
                   counter += 1
                   last_end = end
+                  
               output.append(text[last_end:])
               return "".join(output)
 
@@ -66,35 +71,38 @@ jobs:
 
               print(f"🚀 Оғози тафтиши куллии 11,000 сатр дар: {file_path}")
               
-              # Барои он ки аломатҳои махсус мисли & і &lt; нашикананд, файлро бо матни оддӣ мехонем
               with open(file_path, 'r', encoding='utf-8') as f:
                   content = f.read()
 
-              # Зашита аз дубликатҳо ва ислоҳи сатр ба сатр
-              # Ин регекс тамоми тегҳои <string> ... </string>-ро ҳатто дар чанд сатр бошанд, дақиқ мехонад
+              # Регекс барои пурра гирифтани тегҳои <string>...</string> ҳатто агар чанд сатр бошанд
               string_pattern = re.compile(r'(<string[^>]*name="([^"]+)"[^>]*>)(.*?)(</string>)', re.DOTALL)
               
               seen_names = set()
               duplicates_removed = 0
+              fixed_count = 0
 
               def replacer(match):
-                  global duplicates_removed
+                  nonlocal duplicates_removed, fixed_count
                   full_open_tag = match.group(1)
                   string_name = match.group(2)
                   inner_text = match.group(3)
                   close_tag = match.group(4)
 
-                  # Шарти АНТИ-ДУБЛИКАТ: Агар ин ном аллакай омада бошад, ин сатри такрориро партов мекунем
+                  # ШАРТИ АНТИ-ДУБЛИКАТ: Агар номи сатр такрорӣ ояд, онро тоза мекунем
                   if string_name in seen_names:
                       duplicates_removed += 1
-                      return "" # Нест кардани дубликат
+                      return ""
                   seen_names.add(string_name)
 
-                  # Тафтиш ва ислоҳи фоизҳо ва форматҳо
-                  fixed_text = fix_placeholders(inner_text)
+                  # Тафтиш ва рақамгузории соф (1-2-3) танҳо барои ҳамонҳое, ки тағйирёбанда доранд
+                  fixed_text = fix_placeholders_smart(inner_text)
                   
-                  # Агар дар матн фоизи оддии % бошад ва вай формат набошад, formatted="false" илова мекунем
-                  if "%" in fixed_text and not "%1$" in fixed_text and not "%s" in fixed_text and not "%d" in fixed_text:
+                  if fixed_text != inner_text:
+                      fixed_count += 1
+
+                  # Агар дар матн фоизи оддии '%' бошад (масалан 100%) ва он формат набошад, 
+                  # ба тег formatted="false" илова мекунем, то Gradle хато надиҳад
+                  if "%" in fixed_text and not "$" in fixed_text:
                       if 'formatted="false"' not in full_open_tag:
                           full_open_tag = full_open_tag.replace('>', ' formatted="false">')
 
@@ -105,7 +113,7 @@ jobs:
               with open(file_path, 'w', encoding='utf-8') as f:
                   f.write(fixed_content)
                   
-              print(f"✅ Файл 100% тоза шуд. Дубликатҳои нестшуда: {duplicates_removed}")
+              print(f"✅ Готово! Файл пурра тафтиш шуд. Ислоҳ шуд: {fixed_count}, Дубликатҳо: {duplicates_removed}")
 
       - name: 📤 Push тағйироти фоизҳо ба бранчи master
         run: |
@@ -113,9 +121,9 @@ jobs:
           git add TMessagesProj/src/main/res/values/strings.xml 2>/dev/null || true
           
           if git diff-index --quiet HEAD --; then
-            echo "Ҳеҷ тағйироте ёфт нашуд, тамоми фоизҳо ва дубликатҳо 100% тоза ва созанд."
+            echo "Ҳеҷ тағйироте ёфт нашуд, тамоми сатрҳо аллакай 100% дуруст ва созанд."
           else
-            git commit -m "Tajgram: Comprehensive 100% Python placeholder fixed and duplicates removed [skip ci]"
+            git commit -m "Tajgram: Sequential format fixed (1-2-3) and strings verified [skip ci]"
             git pull origin master --rebase || true
             git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master
           fi

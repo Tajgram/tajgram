@@ -14,56 +14,108 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.MY_TOKEN }}
-          ref: master # Кор ТАНҲО дар бранчи master меравад
+          ref: master
 
       - name: 🧹 Танзими профили Гит
         run: |
           git config --global user.name "TajgramRobot"
           git config --global user.email "robot@tajgram.tj"
 
-      - name: 🧼 Тафтиши Ҳушёронаи Тамоми Сатрҳо (Аз 0 то 100%) ва Ислоҳи Фоизҳо
+      - name: 🐍 Тафтиши Ҳушёрона ва Профессионалии Тамоми Сатрҳо (Python Core)
+        shell: python
         run: |
-          TG_XML="TMessagesProj/src/main/res/values-tg/strings.xml"
-          if [ -f "$TG_XML" ]; then
-            echo "Оғози тафтиши куллии 11,000 сатри тоҷикӣ..."
-            
-            # Файли муваққатӣ месозем
-            TEMP_XML="TMessagesProj/src/main/res/values-tg/strings_temp.xml"
-            
-            # Ин фармони оқилонаи awk тамоми файлро аз 0 то 100% сатр ба сатр мехонад:
-            # Агар дар дохили як сатр зиёда аз як аломати фоизи оддии %s ё %d бошад,
-            # вай онҳоро худкор ва бехатар рақамгузорӣ мекунад: %1$s, %2$s, %3$s ва ғайра.
-            # Шарти АНТИ-ДУБЛИКАТ: Агар сатр аллакай дуруст бошад, ба он умуман даст намезанад.
-            awk '
-            {
-              if ($0 ~ /<string[^>]*>.*%[sd].*%[sd].*<\/string>/) {
-                line = $0
-                count = 1
-                while (match(line, /%[sd]/)) {
-                  fmt = substr(line, RSTART, RLENGTH)
-                  sub(/%[sd]/, "%" count "$" substr(fmt, 2, 1), line)
-                  count++
-                }
-                print line
-              } else {
-                print $0
-              }
-            }' "$TG_XML" > "$TEMP_XML"
-            
-            # Файли ислоҳшударо ҷои файли кӯҳна мегузорем
-            mv "$TEMP_XML" "$TG_XML"
-            echo "✅ Тамоми 11,000 сатр аз 0 то 100% тафтиш ва фоизҳои хато автоматӣ ислоҳ шуданд!"
-          fi
+          import os
+          import re
+          import xml.etree.ElementTree as ET
+
+          # Рӯйхати файлҳо барои тафтиши садфоиза (Ҳам тоҷикӣ, ҳам англисӣ)
+          files_to_fix = [
+              "TMessagesProj/src/main/res/values-tg/strings.xml",
+              "TMessagesProj/src/main/res/values/strings.xml"
+          ]
+
+          def fix_placeholders(text):
+              if not text:
+                  return text
+              # Меёбем ҳамаи %s, %d, %f, ва ғайраҳоеро, ки рақами тартибӣ надоранд
+              pattern = re.compile(r'(?<!%)(%[a-zA-Z])')
+              matches = pattern.findall(text)
+              
+              # Агар танҳо як аломат бошад ё умуман набошад, даст намезанем
+              if len(matches) <= 1:
+                  return text
+                  
+              # Агар зиёда аз як аломат бошад, дона ба дона рақамгузории касбӣ мекунем (%1$s, %2$s)
+              counter = 1
+              output = []
+              last_end = 0
+              for match in pattern.finditer(text):
+                  start, end = match.start(), match.end()
+                  output.append(text[last_end:start])
+                  fmt_char = text[end-1]
+                  output.append(f"%{counter}${fmt_char}")
+                  counter += 1
+                  last_end = end
+              output.append(text[last_end:])
+              return "".join(output)
+
+          for file_path in files_to_fix:
+              if not os.path.exists(file_path):
+                  print(f"⚠️ Файл ёфт нашуд, гузаштем: {file_path}")
+                  continue
+
+              print(f"🚀 Оғози тафтиши куллии 11,000 сатр дар: {file_path}")
+              
+              # Барои он ки аломатҳои махсус мисли & і &lt; нашикананд, файлро бо матни оддӣ мехонем
+              with open(file_path, 'r', encoding='utf-8') as f:
+                  content = f.read()
+
+              # Зашита аз дубликатҳо ва ислоҳи сатр ба сатр
+              # Ин регекс тамоми тегҳои <string> ... </string>-ро ҳатто дар чанд сатр бошанд, дақиқ мехонад
+              string_pattern = re.compile(r'(<string[^>]*name="([^"]+)"[^>]*>)(.*?)(</string>)', re.DOTALL)
+              
+              seen_names = set()
+              duplicates_removed = 0
+
+              def replacer(match):
+                  global duplicates_removed
+                  full_open_tag = match.group(1)
+                  string_name = match.group(2)
+                  inner_text = match.group(3)
+                  close_tag = match.group(4)
+
+                  # Шарти АНТИ-ДУБЛИКАТ: Агар ин ном аллакай омада бошад, ин сатри такрориро партов мекунем
+                  if string_name in seen_names:
+                      duplicates_removed += 1
+                      return "" # Нест кардани дубликат
+                  seen_names.add(string_name)
+
+                  # Тафтиш ва ислоҳи фоизҳо ва форматҳо
+                  fixed_text = fix_placeholders(inner_text)
+                  
+                  # Агар дар матн фоизи оддии % бошад ва вай формат набошад, formatted="false" илова мекунем
+                  if "%" in fixed_text and not "%1$" in fixed_text and not "%s" in fixed_text and not "%d" in fixed_text:
+                      if 'formatted="false"' not in full_open_tag:
+                          full_open_tag = full_open_tag.replace('>', ' formatted="false">')
+
+                  return f"{full_open_tag}{fixed_text}{close_tag}"
+
+              fixed_content = string_pattern.sub(replacer, content)
+
+              with open(file_path, 'w', encoding='utf-8') as f:
+                  f.write(fixed_content)
+                  
+              print(f"✅ Файл 100% тоза шуд. Дубликатҳои нестшуда: {duplicates_removed}")
 
       - name: 📤 Push тағйироти фоизҳо ба бранчи master
         run: |
           git add TMessagesProj/src/main/res/values-tg/strings.xml 2>/dev/null || true
+          git add TMessagesProj/src/main/res/values/strings.xml 2>/dev/null || true
           
           if git diff-index --quiet HEAD --; then
-            echo "Ҳеҷ тағйироте ёфт нашуд, тамоми фоизҳо дар лоиҳа аллакай 100% дурустанд."
+            echo "Ҳеҷ тағйироте ёфт нашуд, тамоми фоизҳо ва дубликатҳо 100% тоза ва созанд."
           else
-            # Калимаи [skip ci] намегузорад, ки сохтани APK худкор запуск шавад
-            git commit -m "Tajgram: Comprehensive 100% placeholder fix (%d and %s) [skip ci]"
+            git commit -m "Tajgram: Comprehensive 100% Python placeholder fixed and duplicates removed [skip ci]"
             git pull origin master --rebase || true
             git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master
           fi

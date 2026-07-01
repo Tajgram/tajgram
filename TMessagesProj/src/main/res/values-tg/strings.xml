@@ -1,4 +1,4 @@
-<!-- 👑 TAJGRAM VIP OFFICIAL TAJIK LANGUAGE SYSTEM - DEVELOPED BY CHIEF DEVELOPER SAIDJUN (2025-2030) -->
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string name="onboarding_title_1">Хуш омадед! 🌍</string>
 <string name="onboarding_desc_1">Суръат ва амният.</string>
@@ -43,7 +43,7 @@
     <string name="English">англисӣ</string>
     <string name="LanguageNameInEnglish">Tajik</string>
     <string name="LanguageCode">tg</string>
-    <string name="ContinueOnThisLanguage">Бо забони англисӣ идома диҳед</string>
+    <string name="ContinueOnThisLanguage">Бо забони Тоҷики идома диҳед</string>
     <!--signin view-->
     <string name="YourPhone">Телефони шумо</string>
     <string name="StartText">Лутфан рамзи кишвари худро тасдиқ кунед ва рақами телефони худро ворид кунед.</string>
@@ -6434,9 +6434,9 @@
     <string name="FolderLinkShareButton">Эҷоди пайванди даъват</string>
     <string name="CreateNewInviteLink">Истиноди нави даъватро эҷод кунед</string>
     <string name="FolderLinkAddedChats_one">Чат ба ҷузвдон илова карда шуд</string>
-    <string name="FolderLinkAddedChats_other">%d чат ба ҷузвдон илова карда шуд</string>
+    <string name="FolderLinkAddedChats_other">%1$d чат ба ҷузвдон илова карда шуд</string>
     <string name="FolderLinkRemovedChats_one">Чат аз ҷузвдон хориҷ карда шуд</string>
-    <string name="FolderLinkRemovedChats_other">%d чатҳо аз ҷузвдон хориҷ карда шуданд</string>
+    <string name="FolderLinkRemovedChats_other">%1$d чатҳо аз ҷузвдон хориҷ карда шуданд</string>
     <string name="FolderLinkChatlistUpdate">Он ба рӯйхати чатҳои истинодҳои ин ҷузвдон таъсир намерасонад.</string>
     <string name="FolderLinkNoChatsError">Шумо барои мубодилаи ҳеҷ яке аз ин чатҳо дастрасӣ надоред.</string>
     <string name="FolderLinkOtherAdminLimitError">Яке аз гурӯҳҳоро дар ин ҷузвдон илова кардан мумкин нест, зеро яке аз маъмурони он гурӯҳҳо ва каналҳои аз ҳад зиёд дорад.</string>
@@ -6537,15 +6537,15 @@
     <string name="StoryPhoto">Сурат</string>
     <string name="StoryVideo">Видео</string>
     <string name="StoryPrivacyNone">Ҳеҷ</string>
-    <string name="StoryPrivacyRecipients_one">%d гирандаи</string>
-    <string name="StoryPrivacyRecipients_other">%d гиранда</string>
+    <string name="StoryPrivacyRecipients_one">%1$d гирандаи</string>
+    <string name="StoryPrivacyRecipients_other">%1$d гиранда</string>
     <string name="StoryPrivacyEveryone">Ҳама</string>
-    <string name="StoryPrivacyEveryoneExclude_one">Ҳама (-%d)</string>
-    <string name="StoryPrivacyEveryoneExclude_other">Ҳама (-%d)</string>
+    <string name="StoryPrivacyEveryoneExclude_one">Ҳама (-%1$d)</string>
+    <string name="StoryPrivacyEveryoneExclude_other">Ҳама (-%1$d)</string>
     <string name="StoryPrivacyCloseFriends">Дӯстони наздик</string>
     <string name="StoryPrivacyAllContacts">Тамос</string>
-    <string name="StoryPrivacyContacts_one">%d тамос</string>
-    <string name="StoryPrivacyContacts_other">%d мухотибон</string>
+    <string name="StoryPrivacyContacts_one">%1$d тамос</string>
+    <string name="StoryPrivacyContacts_other">%1$d мухотибон</string>
     <string name="StoryPrivacyContactsExclude_one">Тамос (-%d)</string>
     <string name="StoryPrivacyContactsExclude_other">Тамос (-%d)</string>
     <string name="StoryPrivacyAlertTitle">Ҳикояро мубодила кунед</string>
@@ -6567,8 +6567,8 @@
     <string name="StoryPrivacyAlertBlocklistSubtitle">Одамонро интихоб кунед</string>
     <string name="StoryPrivacyAlertExcludeFromEveryoneTitle">Ҳама ба ҷуз…</string>
     <string name="StoryPrivacyAlertExcludeFromEveryoneSubtitle">Тамосҳоро истисно кунед</string>
-    <string name="StoryHideFrom">Ҳикояҳои маро аз %s пинҳон кунед</string>
-    <string name="StoryShowBackTo">Ҳикояҳои маро аз %s пинҳон накунед</string>
+    <string name="StoryHideFrom">Ҳикояҳои маро аз %1$s пинҳон кунед</string>
+    <string name="StoryShowBackTo">Ҳикояҳои маро аз %1$s пинҳон накунед</string>
     <string name="StoryPrivacyButtonSave">Танзимотҳоро захира кунед</string>
     <string name="StoryPrivacyButtonPost">Ҳикояи пост</string>
     <string name="StoryLivePrivacyButtonPost">Ҷараёни мустақимро оғоз кунед</string>

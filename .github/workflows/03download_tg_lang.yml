@@ -1,6 +1,6 @@
 name: Tajgram Intelligent Language Auto-Translator
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Ту метавонӣ инро дар кодом бранче, ки хоҳӣ, аз сайти GitHub запуск кунӣ
 
 permissions:
   contents: write
@@ -13,8 +13,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         clean: false
-        ref: master
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.MY_TOKEN }} # Истифодаи токени ту барои ҳамаи бранчҳо
 
     - name: Set up Python Environment
       uses: actions/setup-python@v5
@@ -43,7 +42,8 @@ jobs:
 
         translator = GoogleTranslator(source='en', target='tg')
 
-        # Луғати Грамматикаи Боқуввати Саидҷон (Англисӣ -> Тоҷикӣ)
+        translation_cache = {}
+
         grammar_dictionary = {
             "your phone number": "Рақами телефони шумо",
             "phone number": "рақами телефон",
@@ -68,7 +68,6 @@ jobs:
         for elem in root.findall('string'):
             attr_name = elem.get('name')
             
-            # АВТОМАТИКӢ КАРДАНИ ЗАБОН АЗ РӮИ МИНТАҚА (Системавӣ)
             if attr_name == "LanguageCode":
                 elem.text = "tg"
                 continue
@@ -81,53 +80,54 @@ jobs:
                 
             if elem.text and len(elem.text.strip()) > 0:
                 original_text = elem.text
+                clean_lower_text = original_text.lower().strip()
                 
-                # Ислоҳи Луғати Грамматика мустақим аз матни аслии Англисӣ
-                matched_grammar = False
-                for en_phrase, tg_phrase in grammar_dictionary.items():
-                    if en_phrase in original_text.lower():
-                        elem.text = tg_phrase
-                        matched_grammar = True
-                        break
-                
-                if matched_grammar:
+                if clean_lower_text in grammar_dictionary:
+                    elem.text = grammar_dictionary[clean_lower_text]
                     continue
 
-                # СИПАРӢ АБРӢ: Пинҳон кардани кодҳои %1$s, \n, %d дар қуттии махсус
-                placeholders = re.findall(r'(%[0-9]\$\s*[a-zA-Z]|%[d-s]|\n|\\n|\\t|\\\'|\\\"|\*\*.*?\*\*)', original_text)
+                placeholder_pattern = re.compile(r'(%[0-9]+\$[a-zA-Z]|%[a-zA-Z]|\n|\\n|\\t|\\\'|\\\"|\*\*.*?\*\*)')
+                placeholders = placeholder_pattern.findall(original_text)
+                
                 protected_text = original_text
+                mapping = {}
                 for i, ph in enumerate(placeholders):
-                    protected_text = protected_text.replace(ph, f" _PH_{i}_ ")
+                    ph_key = f"_PH{i}_"
+                    mapping[ph_key] = ph
+                    protected_text = protected_text.replace(ph, ph_key, 1)
 
-                try:
-                    # Тарҷумаи 100% пурраи матн
-                    translated = translator.translate(protected_text)
-                    if not translated:
-                        translated = protected_text
-                    
-                    # Барқарор кардани кодҳои заводӣ даруни нохунак бе хатогӣ
-                    for i, ph in enumerate(placeholders):
-                        translated = re.sub(r'_\s*PH_\s*' + str(i) + r'\s*_', ph, translated)
-                        translated = translated.replace(f"_PH_{i}_", ph)
-                        translated = translated.replace(f" _PH_{i}_ ", ph)
+                if protected_text in translation_cache:
+                    translated = translation_cache[protected_text]
+                else:
+                    try:
+                        translated = translator.translate(protected_text)
+                        if not translated:
+                            translated = protected_text
+                        translation_cache[protected_text] = translated
+                        time.sleep(0.02)
+                    except Exception as e:
+                        print(f"⚠️ Google Limit Warning, waiting... Line: {attr_name}")
+                        time.sleep(2)
+                        try:
+                            translated = translator.translate(protected_text)
+                        except:
+                            translated = protected_text
 
-                    # БРЕНДИНГИ ЗИРЕҲПӮШ: Иваз кардани ҳамаи шаклҳои номи Telegram ба Tajgram
-                    translated = re.sub(r'Telegram(ma|ro|бо|хо)?', 'Tajgram', translated, flags=re.IGNORECASE)
-                    translated = re.sub(r'Телеграм(ма|ro|бо|хо)?', 'Таҷграм', translated, flags=re.IGNORECASE)
-                    
-                    # Танзими ниҳонии нохунакҳо барои синтаксиси Android
-                    translated = translated.replace("'", "\\'")
-                    elem.text = translated
-                    
-                except Exception:
-                    elem.text = original_text
+                for ph_key, ph_val in mapping.items():
+                    translated = re.sub(r'_\s*PH\s*' + re.escape(ph_key[3:-1]) + r'\s*_', ph_key, translated)
+                    translated = translated.replace(ph_key, ph_val)
+
+                if not any(x in translated.lower() for x in ['telegram.org', 'tg://', 't.me', 'telegramshort', 'telegram_']):
+                    translated = re.sub(r'\bTelegram\b', 'Tajgram', translated, flags=re.IGNORECASE)
+                    translated = re.sub(r'\bТелеграм\b', 'Таҷграм', translated, flags=re.IGNORECASE)
+                
+                translated = re.sub(r"(?<!\\)'", r"\'", translated)
+                elem.text = translated
                 
             count += 1
             if count % 500 == 0:
-                print(f"📦 Verified and Translated: {count} strings...")
-                time.sleep(0.1)
+                print(f"📦 Verified and Auto-Translated: {count} strings...")
 
-        # Сабти файл бо заменаи комил
         header_comment = "<!-- 👑 TAJGRAM VIP OFFICIAL TAJIK LANGUAGE SYSTEM - DEVELOPED BY CHIEF DEVELOPER SAIDJUN (2025-2030) -->\n"
         with open(target_file, 'wb') as f:
             f.write(header_comment.encode('utf-8'))
@@ -140,5 +140,12 @@ jobs:
         git config --global user.name "Saidjun Chief Developer"
         git config --global user.email "saidjun@tajgram.messenger"
         git add TMessagesProj/src/main/res/values-tg/strings.xml
-        git commit -m "👑 TAJGRAM LANGUAGE: Created 100% full Tajik base from factory blueprint" || echo "No changes"
-        git push origin HEAD:master --force
+        
+        if git diff-index --quiet HEAD --; then
+          echo "No changes in translation."
+        else
+          git commit -m "👑 TAJGRAM LANGUAGE: Created 100% full Tajik base from factory blueprint"
+          # ПУШ КАРДАН БА ҲАМОН БРАНЧЕ, КИ ЗАПУСК ШУД (АВТОМАТИКӢ)
+          git push origin HEAD
+        fi
+

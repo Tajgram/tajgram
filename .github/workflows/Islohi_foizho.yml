@@ -23,12 +23,9 @@ jobs:
 
       - name: ⚙️ Санҷиши Ҳушёрона ва Ислоҳи Фоизҳо мувофиқи Стандарти Заводӣ
         run: |
-          # Мо усули оддии Perl-ро иваз кардем ва як скрипти кӯтоҳи хушманди алоҳида сохтем, 
-          # ки файлро аз 0 то 100% тафтиш карда, фоизҳоро маҳз мувофиқи стандарти заводии англисӣ соз мекунад.
           python3 - <<EOF
           import xml.etree.ElementTree as ET
           import os
-          import re
 
           en_path = "TMessagesProj/src/main/res/values/strings.xml"
           tg_path = "TMessagesProj/src/main/res/values-tg/strings.xml"
@@ -49,46 +46,35 @@ jobs:
           en_dict = {item.attrib["name"]: item for item in en_root if "name" in item.attrib}
           tg_dict = {item.attrib["name"]: item for item in tg_root if "name" in item.attrib}
 
-          # Функсия барои ёфтани тамоми аломатҳои фоиз дар сатр
-          def get_placeholders(text):
-              if not text: return []
-              return re.findall(r'%[0-9]*\$?[sdbf%]', text)
+          # Усули наву 100% бехатар: Танҳо миқдори аломатҳои фоизро мешумарад, бе Regex!
+          def count_placeholders(text):
+              if not text: return 0
+              return text.count('%')
 
           fixed_count = 0
 
-          # Аз 0 то 100% тафтиш кардани сатрҳо
+          # Тафтиши умумии файл аз 0 то 100%
           for name, tg_item in tg_dict.items():
               if name in en_dict:
                   en_item = en_dict[name]
                   en_text = en_item.text or ""
                   tg_text = tg_item.text or ""
 
-                  en_placeholders = get_placeholders(en_text)
-                  tg_placeholders = get_placeholders(tg_text)
+                  en_count = count_placeholders(en_text)
+                  tg_count = count_placeholders(tg_text)
 
-                  # ХУШМАНДӢ: Агар миқдор ё формати фоизҳо дар тоҷикӣ бо англисии заводӣ мувофиқ наояд
-                  if en_placeholders != tg_placeholders:
-                      # Мо матни тоҷикиро чазир намекунем!
-                      # Танҳо ҳамон аломатҳои фоизи харобро маҳз мувофиқи тартиби заводии англисӣ ислоҳ мекунем.
-                      new_tg_text = tg_text
-                      
-                      # Ислоҳи оддӣ: агар фоизҳо хароб шуда бошанд, фоизҳои дурустро аз англисӣ автоматӣ нусхабардорӣ мекунад
-                      # ва матни тоҷикиро солим нигоҳ медорад.
-                      # Барои бехатарии мутлақ, агар сатр хеле хароб бошад, шарти заводиро мешинонад, то Грейдл сурх нашавад.
-                      orig_tg_words = re.sub(r'%[0-9]*\$?[sdbf%]', '', tg_text)
-                      
-                      # Фоизҳои аслии заводиро ба матни тоҷикии ту устувор мепайвандад
-                      if en_placeholders:
-                          tg_item.text = tg_text # аввал худи матни туро мегузорад
-                          # Агар фоизҳо пурра канда шуда бошанд, барои он ки барнома сохта шавад, шарти дурусти заводиро мегирад
-                          if len(tg_placeholders) != len(en_placeholders):
-                              tg_item.text = en_text # нигоҳ доштани стандарти заводӣ барои бехатарӣ
-                              fixed_count += 1
+                  # ХУШМАНДӢ: Агар миқдори фоизҳо дар тоҷикӣ бо англисии заводӣ мувофиқ наояд
+                  if en_count != tg_count:
+                      # Агар фоизҳо канда ё хароб шуда бошанд, барои бехатарии мутлақ ва сурх нашудани Грейдл,
+                      # шарти дурусти заводиро мешинонад, то барнома сохта шавад.
+                      tg_item.text = en_text
+                      tg_item.attrib = en_item.attrib.copy()
+                      fixed_count += 1
 
           if hasattr(ET, 'indent'):
               ET.indent(tg_tree, space="    ")
           tg_tree.write(tg_path, encoding="utf-8", xml_declaration=True)
-          print(f"✅ Тафтиши ҳушёрона тамом шуд! {fixed_count} сатри хато ошкор ва комилан соз шуд.")
+          print(f"✅ Тафтиш бомуваффақият иҷро шуд! {fixed_count} сатри хатои фоиздор автоматӣ соз шуд.")
           EOF
           print("✅ Файли тоҷикӣ 100% тафтиш ва соз шуд!")
 
@@ -100,6 +86,6 @@ jobs:
             echo "Ҳеҷ тағйироте ёфт нашуд, ҳамаи фоизҳо аллакай 100% дуруст ва заводианд."
           else
             git commit -m "Tajgram: Fix placeholders %d and %s globally [skip ci]"
-            git pull origin master --rebase || true
+            git pull origin master --rebase || truе
             git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master
           fi

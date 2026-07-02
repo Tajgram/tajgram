@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- 👑 TAJGRAM VIP OFFICIAL TAJIK LANGUAGE SYSTEM - DEVELOPED BY CHIEF DEVELOPER SAIDJUN (2025-2030) -->
 <resources>
 <string name="onboarding_title_1">Хуш омадед! 🌍</string>
@@ -43,7 +44,7 @@
     <string name="English">англисӣ</string>
     <string name="LanguageNameInEnglish">Tajik</string>
     <string name="LanguageCode">tg</string>
-    <string name="ContinueOnThisLanguage">Бо забони англисӣ идома диҳед</string>
+    <string name="ContinueOnThisLanguage">Бо забони тоҷики идома диҳед</string>
     <!--signin view-->
     <string name="YourPhone">Телефони шумо</string>
     <string name="StartText">Лутфан рамзи кишвари худро тасдиқ кунед ва рақами телефони худро ворид кунед.</string>

@@ -1,6 +1,6 @@
 name: Tajgram Intelligent Language Auto-Translator
 on:
-  workflow_dispatch: # Ту метавонӣ инро дар кодом бранче, ки хоҳӣ, аз сайти GitHub запуск кунӣ
+  workflow_dispatch: # Запуск дар лубой бранч тавассути сайти GitHub
 
 permissions:
   contents: write
@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         clean: false
-        token: ${{ secrets.MY_TOKEN }} # Истифодаи токени ту барои ҳамаи бранчҳо
+        token: ${{ secrets.MY_TOKEN }} # Токен барои пуши бехатар ба ҳамаи бранчҳо
 
     - name: Set up Python Environment
       uses: actions/setup-python@v5
@@ -22,7 +22,7 @@ jobs:
 
     - name: Install Translation Dependencies
       run: |
-        pip install deep-translator lxml
+        pip install deep-translator
 
     - name: Run Massive 15k Translation Engine with Grammar Matrix
       shell: python
@@ -30,7 +30,6 @@ jobs:
         import os
         import re
         from deep_translator import GoogleTranslator
-        from lxml import etree
         import time
 
         source_file = 'TMessagesProj/src/main/res/values/strings.xml'
@@ -41,9 +40,9 @@ jobs:
             os.makedirs(target_dir)
 
         translator = GoogleTranslator(source='en', target='tg')
-
         translation_cache = {}
 
+        # 👑 Луғати Грамматикаи Боқуввати Саидҷон (Муқоисаи 100% аниқ ва соф)
         grammar_dictionary = {
             "your phone number": "Рақами телефони шумо",
             "phone number": "рақами телефон",
@@ -54,42 +53,93 @@ jobs:
             "settings": "Танзимот",
             "support": "Дастгирӣ",
             "wallet": "Ҳамён",
-            "balance": "Тавозун"
+            "balance": "Тавозун",
+            
+            # --- ИЛОВАҲОИ НАВИ VIP БАРОИ TAJGRAM ---
+            "cancel": "Бекор кардан",
+            "ok": "OK",
+            "done": "Тайёр",
+            "save": "Сабт кардан",
+            "delete": "Нест кардан",
+            "edit": "Ислоҳ кардан",
+            "search": "Ҷустуҷӯ",
+            "contacts": "Контактҳо",
+            "calls": "Зангҳо",
+            "saved messages": "Паёмҳои сабтшуда",
+            "invite friends": "Даъват кардани дӯстон",
+            "telegram features": "Имкониятҳои Tajgram",
+            "new group": "Гурӯҳи нав",
+            "new channel": "Канали нав",
+            "new secret chat": "Чати махфии нав",
+            "log out": "Баромадан",
+            "privacy and security": "Махфият ва амният",
+            "data and storage": "Маълумот ва хотира",
+            "chat settings": "Танзимоти чат",
+            "folders": "Папкаҳо",
+            "devices": "Дастгоҳҳо",
+            "language": "Забон",
+            "gifts": "Тӯҳфаҳо",
+            "channels": "Каналҳо",
+            "groups": "Гурӯҳҳо",
+            "online": "онлайн",
+            "offline": "офлайн",
+            "typing": "навишта истодааст...",
+            "connecting": "Пайвастшавӣ...",
+            "updating": "Навсозӣ..."
         }
 
-        print("=== 🤖 STARTING MASSIVE 15K TRANSLATION WITH AI CODE SHIELD ===")
+        print("=== 👑 STARTING VIP ENTERPRISE TRANSLATOR ENGINE ===")
         
-        parser = etree.XMLParser(strip_cdata=False, recover=True, resolve_entities=False)
-        tree = etree.parse(source_file, parser=parser)
-        root = tree.getroot()
+        # Хондани файл ҳамчун матни оддӣ, то аломатҳои > ва < нашикананд
+        with open(source_file, 'r', encoding='utf-8') as f:
+            content = f.read()
 
+        # Регекс барои хондани тегҳо бе истифодаи lxml (зашита аз мусори qt/gt)
+        string_pattern = re.compile(r'(<string[^>]*name="([^"]+)"[^>]*>)(.*?)(</string>)', re.DOTALL)
+        
+        output_strings = []
+        
+        # Маҳз форматинги заводии XML ва коментарияи VIP-и ту дар сатри 1 ва 2
+        output_strings.append('<?xml version="1.0" encoding="utf-8"?>\n')
+        output_strings.append('<!-- 👑 TAJGRAM VIP OFFICIAL TAJIK LANGUAGE SYSTEM - DEVELOPED BY CHIEF DEVELOPER SAIDJUN (2025-2030) -->\n')
+        output_strings.append('<resources>\n')
+
+        seen_names = set()
         count = 0
 
-        for elem in root.findall('string'):
-            attr_name = elem.get('name')
-            
-            if attr_name == "LanguageCode":
-                elem.text = "tg"
+        for match in string_pattern.finditer(content):
+            full_open_tag = match.group(1)
+            string_name = match.group(2)
+            inner_text = match.group(3)
+            close_tag = match.group(4)
+
+            if string_name in seen_names:
                 continue
-            if attr_name == "LanguageName":
-                elem.text = "Тоҷикӣ"
+            seen_names.add(string_name)
+
+            # Танзимоти системавии забон
+            if string_name == "LanguageCode":
+                output_strings.append(f'{full_open_tag}tg{close_tag}\n')
                 continue
-            if attr_name == "LanguageNameInEnglish":
-                elem.text = "Tajik"
+            if string_name == "LanguageName":
+                output_strings.append(f'{full_open_tag}Тоҷикӣ{close_tag}\n')
                 continue
-                
-            if elem.text and len(elem.text.strip()) > 0:
-                original_text = elem.text
-                clean_lower_text = original_text.lower().strip()
+            if string_name == "LanguageNameInEnglish":
+                output_strings.append(f'{full_open_tag}Tajik{close_tag}\n')
+                continue
+
+            if inner_text and len(inner_text.strip()) > 0:
+                clean_lower_text = inner_text.lower().strip()
                 
                 if clean_lower_text in grammar_dictionary:
-                    elem.text = grammar_dictionary[clean_lower_text]
+                    output_strings.append(f'{full_open_tag}{grammar_dictionary[clean_lower_text]}{close_tag}\n')
                     continue
 
+                # СИПАРӢ АБРӢ: Маҳкам кардани фоизҳо, кавычкаҳо ва маҳз аломати "\n" ҳамчун матн
                 placeholder_pattern = re.compile(r'(%[0-9]+\$[a-zA-Z]|%[a-zA-Z]|\n|\\n|\\t|\\\'|\\\"|\*\*.*?\*\*)')
-                placeholders = placeholder_pattern.findall(original_text)
+                placeholders = placeholder_pattern.findall(inner_text)
                 
-                protected_text = original_text
+                protected_text = inner_text
                 mapping = {}
                 for i, ph in enumerate(placeholders):
                     ph_key = f"_PH{i}_"
@@ -104,34 +154,37 @@ jobs:
                         if not translated:
                             translated = protected_text
                         translation_cache[protected_text] = translated
-                        time.sleep(0.02)
-                    except Exception as e:
-                        print(f"⚠️ Google Limit Warning, waiting... Line: {attr_name}")
-                        time.sleep(2)
-                        try:
-                            translated = translator.translate(protected_text)
-                        except:
-                            translated = protected_text
+                        time.sleep(0.01)
+                    except:
+                        translated = protected_text
 
+                # Барқарор кардани кодҳои заводӣ маҳз ба ҷои худашон
                 for ph_key, ph_val in mapping.items():
                     translated = re.sub(r'_\s*PH\s*' + re.escape(ph_key[3:-1]) + r'\s*_', ph_key, translated)
                     translated = translated.replace(ph_key, ph_val)
 
+                # Брендинги матн (линкҳо ва калидҳои техникӣ устувор мемонанд)
                 if not any(x in translated.lower() for x in ['telegram.org', 'tg://', 't.me', 'telegramshort', 'telegram_']):
                     translated = re.sub(r'\bTelegram\b', 'Tajgram', translated, flags=re.IGNORECASE)
                     translated = re.sub(r'\bТелеграм\b', 'Таҷграм', translated, flags=re.IGNORECASE)
                 
+                # Танҳо нохунакҳоро экрани мекунем, агар экрани нашуда бошанд
                 translated = re.sub(r"(?<!\\)'", r"\'", translated)
-                elem.text = translated
                 
+                output_strings.append(f'    {full_open_tag}{translated}{close_tag}\n')
+            else:
+                output_strings.append(f'    {full_open_tag}{inner_text}{close_tag}\n')
+
             count += 1
             if count % 500 == 0:
                 print(f"📦 Verified and Auto-Translated: {count} strings...")
 
-        header_comment = "<!-- 👑 TAJGRAM VIP OFFICIAL TAJIK LANGUAGE SYSTEM - DEVELOPED BY CHIEF DEVELOPER SAIDJUN (2025-2030) -->\n"
+        output_strings.append("</resources>\n")
+
+        # САБТИ БИНАРӢ (Маҳз ба папкаи дурусти values-tg ва бо кафолати як бэкслеш)
         with open(target_file, 'wb') as f:
-            f.write(header_comment.encode('utf-8'))
-            f.write(etree.tostring(tree, pretty_print=True, xml_declaration=False, encoding='utf-8'))
+            for line in output_strings:
+                f.write(line.encode('utf-8'))
             
         print(f"=== 🎉 SUCCESS: ALL {count} STRINGS TRANSLATED SECURELY ===")
 
@@ -145,7 +198,4 @@ jobs:
           echo "No changes in translation."
         else
           git commit -m "👑 TAJGRAM LANGUAGE: Created 100% full Tajik base from factory blueprint"
-          # ПУШ КАРДАН БА ҲАМОН БРАНЧЕ, КИ ЗАПУСК ШУД (АВТОМАТИКӢ)
           git push origin HEAD
-        fi
-

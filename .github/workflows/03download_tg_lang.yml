@@ -90,16 +90,12 @@ jobs:
 
         print("=== 👑 STARTING VIP ENTERPRISE TRANSLATOR ENGINE ===")
         
-        # Хондани файл ҳамчун матни оддӣ, то аломатҳои > ва < нашикананд
         with open(source_file, 'r', encoding='utf-8') as f:
             content = f.read()
 
-        # Регекс барои хондани тегҳо бе истифодаи lxml (зашита аз мусори qt/gt)
         string_pattern = re.compile(r'(<string[^>]*name="([^"]+)"[^>]*>)(.*?)(</string>)', re.DOTALL)
-        
         output_strings = []
         
-        # Маҳз форматинги заводии XML ва коментарияи VIP-и ту дар сатри 1 ва 2
         output_strings.append('<?xml version="1.0" encoding="utf-8"?>\n')
         output_strings.append('<!-- 👑 TAJGRAM VIP OFFICIAL TAJIK LANGUAGE SYSTEM - DEVELOPED BY CHIEF DEVELOPER SAIDJUN (2025-2030) -->\n')
         output_strings.append('<resources>\n')
@@ -117,7 +113,6 @@ jobs:
                 continue
             seen_names.add(string_name)
 
-            # Танзимоти системавии забон
             if string_name == "LanguageCode":
                 output_strings.append(f'{full_open_tag}tg{close_tag}\n')
                 continue
@@ -135,7 +130,6 @@ jobs:
                     output_strings.append(f'{full_open_tag}{grammar_dictionary[clean_lower_text]}{close_tag}\n')
                     continue
 
-                # СИПАРӢ АБРӢ: Маҳкам кардани фоизҳо, кавычкаҳо ва маҳз аломати "\n" ҳамчун матн
                 placeholder_pattern = re.compile(r'(%[0-9]+\$[a-zA-Z]|%[a-zA-Z]|\n|\\n|\\t|\\\'|\\\"|\*\*.*?\*\*)')
                 placeholders = placeholder_pattern.findall(inner_text)
                 
@@ -158,19 +152,15 @@ jobs:
                     except:
                         translated = protected_text
 
-                # Барқарор кардани кодҳои заводӣ маҳз ба ҷои худашон
                 for ph_key, ph_val in mapping.items():
                     translated = re.sub(r'_\s*PH\s*' + re.escape(ph_key[3:-1]) + r'\s*_', ph_key, translated)
                     translated = translated.replace(ph_key, ph_val)
 
-                # Брендинги матн (линкҳо ва калидҳои техникӣ устувор мемонанд)
                 if not any(x in translated.lower() for x in ['telegram.org', 'tg://', 't.me', 'telegramshort', 'telegram_']):
                     translated = re.sub(r'\bTelegram\b', 'Tajgram', translated, flags=re.IGNORECASE)
                     translated = re.sub(r'\bТелеграм\b', 'Таҷграм', translated, flags=re.IGNORECASE)
                 
-                # Танҳо нохунакҳоро экрани мекунем, агар экрани нашуда бошанд
                 translated = re.sub(r"(?<!\\)'", r"\'", translated)
-                
                 output_strings.append(f'    {full_open_tag}{translated}{close_tag}\n')
             else:
                 output_strings.append(f'    {full_open_tag}{inner_text}{close_tag}\n')
@@ -181,7 +171,6 @@ jobs:
 
         output_strings.append("</resources>\n")
 
-        # САБТИ БИНАРӢ (Маҳз ба папкаи дурусти values-tg ва бо кафолати як бэкслеш)
         with open(target_file, 'wb') as f:
             for line in output_strings:
                 f.write(line.encode('utf-8'))

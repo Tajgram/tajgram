@@ -1,4 +1,4 @@
-Name: Inject Tajgram Walkthrough Module
+name: Inject Tajgram Walkthrough Module
 on:
   workflow_dispatch:
 permissions:

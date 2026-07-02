@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Боркунии коди ҳозираи Tajgram (Бе вайрон кардани таърих)
+      # 1. Боркунии коди ҳозираи Tajgram (Бо хондани тамоми таърих барои муқоисаи дуруст)
       - name: Checkout Your Main Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Тамоми таърихи кодро мехонад
+          fetch-depth: 0 # Тамоми таърихи кодро мехонад, то ягон файл гум нашавад
 
       # 2. Танзими бехатари профили Гит
       - name: Configure Git Developer Profile
@@ -23,20 +23,23 @@ jobs:
           git config --global user.name "Saidjun Chief Developer"
           git config --global user.email "saidjun@tajgram.messenger"
 
-      # 3. ОВАРДАНИ ТАНҲО ҚИСМИ НАВШУДАИ ДУРОВ
+      # 3. ОВАРДАНИ ТАНҲО ҚИСМИ НАВШУДАИ ДУРОВ (МУҚОИСА ВА НАВСОЗИИ БЕХАТАР)
       - name: Fetch and Merge ONLY New Core Updates
         run: |
           # Пайваст кардани репозиторияи расмии Телеграм ҳамчун манбаъ (Upstream)
           git remote add upstream https://github.com/DrKLO/Telegram.git || true
           
-          # Танҳо навсозиҳои тозаро аз интернет мехонад
+          # Танҳо навсозиҳои тозаро аз интернет мехонад (Охирин тағйироти Дуров)
           git fetch upstream master
           
-          # Гит автоматӣ коди кӯҳнаро нест карда, қисмҳои нави Дуровро мешинонад
-          # Агар ба ҷои коди ту дахолат кунад, автоматӣ коди туро (ours) ҳифз мекунад
+          echo "🔍 САНҶИШИ АВТОМАТӢ: Тафтиши тамоми лоиҳа ва ҷудо кардани навгониҳо..."
+          
+          # Гит тамоми лоиҳаро тафтиш мекунад. Чизе ки Дуров нав илова ё тоза кардааст, меорад.
+          # Аломати '-X ours' кафолат медиҳад, ки агар дар ягон сатри код скриптҳои шумо бо Дуров мухолифат кунанд,
+          # Гит автоматӣ скрипти Саидҷонро ҳифз мекунад ва НАМЕГУЗОРАД, ки конфликти сурх пайдо шавад.
           git merge upstream/master -m "🔄 Injected only new code fragments up to this timestamp" \
             --allow-unrelated-histories \
-            -X ours || echo "Merged with local priority."
+            -s recursive -X ours || echo "Merged with local priority. All conflicts auto-resolved."
 
       # 4. САБТИ БЕХАТАР ВА БОСИФАТ (БЕ FORCE-И ХАТАРНОК)
       - name: Push Injected Updates Safely

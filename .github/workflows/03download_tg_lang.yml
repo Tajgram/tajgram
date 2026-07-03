@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   translate_lang:
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout Tajgram Repository
       uses: actions/checkout@v4
@@ -195,4 +195,4 @@ jobs:
         else
           git commit -m "👑 TAJGRAM LANGUAGE: Created 100% full Tajik base from factory blueprint"
           git push origin HEAD
-      fi
+        fi

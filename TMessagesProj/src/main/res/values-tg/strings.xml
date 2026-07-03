@@ -175,7 +175,7 @@
     <string name="PaymentConfirmationError">Ҳангоми тасдиқи пардохт хатогӣ рух дод.</string>
     <string name="PaymentWarning">Огоҳӣ</string>
     <string name="PaymentWarningText">На Tajgram ва на %1$s ба маълумоти корти кредитии шумо дастрасӣ надоранд. Тафсилоти корти кредитӣ танҳо аз ҷониби системаи пардохт коркард карда мешавад, %2$s.\n\nПардохтҳо мустақиман ба таҳиягари %1$s фиристода мешаванд. Tajgram ҳеҷ гуна кафолат дода наметавонад, бинобар ин, бо хатари худ идома диҳед. Дар ҳолати мушкилот, лутфан бо таҳиягари %1$s ё бонки худ тамос гиред.</string>
-    <string name="PaymentPassword">Рамз & amp; Почтаи электронӣ</string>
+    <string name="PaymentPassword">Рамз &amp; Почтаи электронӣ</string>
     <string name="PaymentPasswordTitle">Рамз</string>
     <string name="PaymentPasswordEnter">Парол ворид кунед</string>
     <string name="PaymentPasswordReEnter">Рамзи худро дубора ворид кунед</string>

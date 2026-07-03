@@ -784,7 +784,7 @@
     <string name="UserRestrictionsSendText">Паёмҳои матнӣ фиристед</string>
     <string name="UserRestrictionsSendMedia">Медиа фиристед</string>
     <string name="UserRestrictionsSendPolls">Пурсишҳоро фиристед</string>
-    <string name="UserRestrictionsSendStickers">Ирсол стикерҳо & amp; GIFs</string>
+    <string name="UserRestrictionsSendStickers">Ирсол стикерҳо &amp; GIFs</string>
     <string name="UserRestrictionsEmbedLinks">Ҷойгир кардани пайвандҳо</string>
     <string name="UserRestrictionsChangeInfo">Тағир додани маълумоти чат</string>
     <string name="UserRestrictionsPinMessages">Паёмҳои Pin</string>
@@ -802,7 +802,7 @@
     <string name="UserRestrictionsNoSendDocs">файл нест</string>
     <string name="UserRestrictionsNoSendVoice">овоз нест</string>
     <string name="UserRestrictionsNoSendRound">давр нест</string>
-    <string name="UserRestrictionsNoSendStickers">нест часпанда & amp; GIFs</string>
+    <string name="UserRestrictionsNoSendStickers">нест часпанда &amp; GIFs</string>
     <string name="UserRestrictionsNoEmbedLinks">ҳеҷ гуна истинодҳо</string>
     <string name="UserRestrictionsNoChangeInfo">маълумотро тағир дода наметавонад</string>
     <string name="UserRestrictionsNoPinMessages">пинҳо нест</string>

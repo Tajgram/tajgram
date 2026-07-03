@@ -54,8 +54,6 @@ jobs:
             "support": "Дастгирӣ",
             "wallet": "Ҳамён",
             "balance": "Тавозун",
-            
-            # --- ИЛОВАҲОИ НАВИ VIP БАРОИ TAJGRAM ---
             "cancel": "Бекор кардан",
             "ok": "OK",
             "done": "Тайёр",
@@ -88,94 +86,103 @@ jobs:
             "updating": "Навсозӣ..."
         }
 
-        print("=== 👑 STARTING VIP ENTERPRISE TRANSLATOR ENGINE ===")
+        print("=== 👑 STARTING 100% FACTORY MIRROR TRANSLATOR ENGINE ===")
         
+        # Хондани файли англисӣ сатр ба сатр
         with open(source_file, 'r', encoding='utf-8') as f:
-            content = f.read()
+            lines = f.readlines()
 
-        string_pattern = re.compile(r'(<string[^>]*name="([^"]+)"[^>]*>)(.*?)(</string>)', re.DOTALL)
-        output_strings = []
+        output_lines = []
         
-        output_strings.append('<?xml version="1.0" encoding="utf-8"?>\n')
-        output_strings.append('<!-- 👑 TAJGRAM VIP OFFICIAL TAJIK LANGUAGE SYSTEM - DEVELOPED BY CHIEF DEVELOPER SAIDJUN (2025-2030) -->\n')
-        output_strings.append('<resources>\n')
+        # Регекс барои ёфтани тегҳо дар дохили сатр
+        string_re = re.compile(r'(.*<string[^>]*name="([^"]+)"[^>]*>)(.*?)(</string>.*)', re.DOTALL)
 
-        seen_names = set()
-        count = 0
-
-        for match in string_pattern.finditer(content):
-            full_open_tag = match.group(1)
-            string_name = match.group(2)
-            inner_text = match.group(3)
-            close_tag = match.group(4)
-
-            if string_name in seen_names:
+        for line in lines:
+            # Агар сатр теги кушодашавӣ ё коментарияи аввали файл бошад, онро дастӣ иваз мекунем
+            if '<?xml' in line:
+                output_lines.append('<?xml version="1.0" encoding="utf-8"?>\n')
                 continue
-            seen_names.add(string_name)
-
-            if string_name == "LanguageCode":
-                output_strings.append(f'{full_open_tag}tg{close_tag}\n')
+            if '<!-- 👑 TAJGRAM' in line or '<!--' in line and 'SAIDJUN' in line:
+                output_lines.append('<!-- 👑 TAJGRAM VIP OFFICIAL TAJIK LANGUAGE SYSTEM - DEVELOPED BY CHIEF DEVELOPER SAIDJUN (2025-2030) -->\n')
                 continue
-            if string_name == "LanguageName":
-                output_strings.append(f'{full_open_tag}Тоҷикӣ{close_tag}\n')
-                continue
-            if string_name == "LanguageNameInEnglish":
-                output_strings.append(f'{full_open_tag}Tajik{close_tag}\n')
-                continue
-
-            if inner_text and len(inner_text.strip()) > 0:
-                clean_lower_text = inner_text.lower().strip()
                 
-                if clean_lower_text in grammar_dictionary:
-                    output_strings.append(f'{full_open_tag}{grammar_dictionary[clean_lower_text]}{close_tag}\n')
+            match = string_re.match(line)
+            if match:
+                full_open_tag = match.group(1)
+                string_name = match.group(2)
+                inner_text = match.group(3)
+                close_tag = match.group(4)
+
+                # Танзимоти системавии забон
+                if string_name == "LanguageCode":
+                    output_lines.append(f'{full_open_tag}tg{close_tag}')
+                    continue
+                if string_name == "LanguageName":
+                    output_lines.append(f'{full_open_tag}Тоҷикӣ{close_tag}')
+                    continue
+                if string_name == "LanguageNameInEnglish":
+                    output_lines.append(f'{full_open_tag}Tajik{close_tag}')
                     continue
 
-                placeholder_pattern = re.compile(r'(%[0-9]+\$[a-zA-Z]|%[a-zA-Z]|\n|\\n|\\t|\\\'|\\\"|\*\*.*?\*\*)')
-                placeholders = placeholder_pattern.findall(inner_text)
-                
-                protected_text = inner_text
-                mapping = {}
-                for i, ph in enumerate(placeholders):
-                    ph_key = f"_PH{i}_"
-                    mapping[ph_key] = ph
-                    protected_text = protected_text.replace(ph, ph_key, 1)
+                if inner_text and len(inner_text.strip()) > 0:
+                    clean_lower_text = inner_text.lower().strip()
+                    
+                    if clean_lower_text in grammar_dictionary:
+                        output_lines.append(f'{full_open_tag}{grammar_dictionary[clean_lower_text]}{close_tag}')
+                        continue
 
-                if protected_text in translation_cache:
-                    translated = translation_cache[protected_text]
-                else:
-                    try:
-                        translated = translator.translate(protected_text)
-                        if not translated:
-                            translated = protected_text
-                        translation_cache[protected_text] = translated
-                        time.sleep(0.01)
-                    except:
+                    # СИПАРӢ АБРӢ: Маҳкам кардани фоизҳо, кодҳои техникӣ, \n ва кавычкаҳо
+                    placeholder_pattern = re.compile(r'(%[0-9]+\$[a-zA-Z]|%[a-zA-Z]|\n|\\n|\\t|\\\'|\\\"|&amp;|&#[0-9]+;)')
+                    placeholders = placeholder_pattern.findall(inner_text)
+                    
+                    protected_text = inner_text
+                    mapping = {}
+                    for i, ph in enumerate(placeholders):
+                        ph_key = f"_PH{i}_"
+                        mapping[ph_key] = ph
+                        protected_text = protected_text.replace(ph, ph_key, 1)
+
+                    # БРЕНДИНГИ ПРЕМИУМ
+                    if "tajgram premium vip" in protected_text.lower() or "telegram premium" in protected_text.lower():
                         translated = protected_text
+                    elif protected_text in translation_cache:
+                        translated = translation_cache[protected_text]
+                    else:
+                        try:
+                            translated = translator.translate(protected_text)
+                            if not translated:
+                                translated = protected_text
+                            translation_cache[protected_text] = translated
+                            time.sleep(0.01)
+                        except:
+                            translated = protected_text
 
-                for ph_key, ph_val in mapping.items():
-                    translated = re.sub(r'_\s*PH\s*' + re.escape(ph_key[3:-1]) + r'\s*_', ph_key, translated)
-                    translated = translated.replace(ph_key, ph_val)
+                    # Ворид кардани кодҳои заводӣ ба ҷои худ
+                    for ph_key, ph_val in mapping.items():
+                        translated = re.sub(r'_\s*PH\s*' + re.escape(ph_key[3:-1]) + r'\s*_', ph_key, translated)
+                        translated = translated.replace(ph_key, ph_val)
 
-                if not any(x in translated.lower() for x in ['telegram.org', 'tg://', 't.me', 'telegramshort', 'telegram_']):
-                    translated = re.sub(r'\bTelegram\b', 'Tajgram', translated, flags=re.IGNORECASE)
-                    translated = re.sub(r'\bТелеграм\b', 'Таҷграм', translated, flags=re.IGNORECASE)
-                
-                translated = re.sub(r"(?<!\\)'", r"\'", translated)
-                output_strings.append(f'    {full_open_tag}{translated}{close_tag}\n')
+                    # Брендинг
+                    if not any(x in translated.lower() for x in ['telegram.org', 'tg://', 't.me', 'telegramshort', 'telegram_']):
+                        translated = re.sub(r'\bTelegram\b', 'Tajgram', translated, flags=re.IGNORECASE)
+                        translated = re.sub(r'\bТелеграм\b', 'Таҷграм', translated, flags=re.IGNORECASE)
+                    
+                    translated = translated.replace("\n ", "\n").replace(" \n", "\n")
+                    translated = re.sub(r"(?<!\\)'", r"\'", translated)
+                    
+                    output_lines.append(f'{full_open_tag}{translated}{close_tag}')
+                else:
+                    output_lines.append(line)
             else:
-                output_strings.append(f'    {full_open_tag}{inner_text}{close_tag}\n')
+                # Агар сатр холӣ бошад ё коментария бошад, онро айнан нусхабардорӣ мекунад
+                output_lines.append(line)
 
-            count += 1
-            if count % 500 == 0:
-                print(f"📦 Verified and Auto-Translated: {count} strings...")
-
-        output_strings.append("</resources>\n")
-
+        # Сабти бинарии соф сатр ба сатр
         with open(target_file, 'wb') as f:
-            for line in output_strings:
+            for line in output_lines:
                 f.write(line.encode('utf-8'))
             
-        print(f"=== 🎉 SUCCESS: ALL {count} STRINGS TRANSLATED SECURELY ===")
+        print(f"=== 🎉 SUCCESS: ALL STRINGS MIRRORED AND TRANSLATED SECURELY ===")
 
     - name: Commit and Secure Push Tajgram Language
       run: |
@@ -188,4 +195,3 @@ jobs:
         else
           git commit -m "👑 TAJGRAM LANGUAGE: Created 100% full Tajik base from factory blueprint"
           git push origin HEAD
-        fi

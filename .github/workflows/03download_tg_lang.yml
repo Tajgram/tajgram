@@ -24,7 +24,7 @@ jobs:
       run: |
         pip install deep-translator
 
-    - name: Run Massive 15k Translation Engine with Grammar Matrix
+    - name: Run Massive 15k Translation Engine with CDATA Shield
       shell: python
       run: |
         import os
@@ -93,12 +93,9 @@ jobs:
             lines = f.readlines()
 
         output_lines = []
-        
-        # Регекс барои ёфтани тегҳо дар дохили сатр
         string_re = re.compile(r'(.*<string[^>]*name="([^"]+)"[^>]*>)(.*?)(</string>.*)', re.DOTALL)
 
         for line in lines:
-            # Агар сатр теги кушодашавӣ ё коментарияи аввали файл бошад, онро дастӣ иваз мекунем
             if '<?xml' in line:
                 output_lines.append('<?xml version="1.0" encoding="utf-8"?>\n')
                 continue
@@ -124,6 +121,12 @@ jobs:
                     output_lines.append(f'{full_open_tag}Tajik{close_tag}')
                     continue
 
+                # 👑 МAҲДУДИЯТИ СAХТ: АГАР САТР CDATA, ТЕГИ ЛИНК Ё СУРОҒАИ КУШОДА ДОШТА БОШАД - ОНРО АЗ ПЕРЕВОД ХОРИҶ МЕКУНЕМ!
+                # Нусхаи аслии англисии туро (ки аллакай Tajgram аст) соф мегузаронад, то лоиҳа хатои AAPT2 надиҳад
+                if "<![CDATA[" in inner_text or "<a href=" in inner_text or "http" in inner_text or "t.me" in inner_text:
+                    output_lines.append(f'{full_open_tag}{inner_text}{close_tag}')
+                    continue
+
                 if inner_text and len(inner_text.strip()) > 0:
                     clean_lower_text = inner_text.lower().strip()
                     
@@ -131,8 +134,8 @@ jobs:
                         output_lines.append(f'{full_open_tag}{grammar_dictionary[clean_lower_text]}{close_tag}')
                         continue
 
-                    # СИПАРӢ АБРӢ: Маҳкам кардани фоизҳо, кодҳои техникӣ, \n ва кавычкаҳо
-                    placeholder_pattern = re.compile(r'(%[0-9]+\$[a-zA-Z]|%[a-zA-Z]|\n|\\n|\\t|\\\'|\\\"|&amp;|&#[0-9]+;)')
+                    # СИПАРӢ СAХТИ ФОРМАТҲО, ФОИЗҲО ВА СИТОРАЧАҲО
+                    placeholder_pattern = re.compile(r'(%[0-9]+\$[a-zA-Z]|%[a-zA-Z]|\n|\\n|\\t|\\\'|\\\"|&amp;|&#[0-9]+;|\*\*.*?\*\*)')
                     placeholders = placeholder_pattern.findall(inner_text)
                     
                     protected_text = inner_text
@@ -142,10 +145,7 @@ jobs:
                         mapping[ph_key] = ph
                         protected_text = protected_text.replace(ph, ph_key, 1)
 
-                    # БРЕНДИНГИ ПРЕМИУМ
-                    if "tajgram premium vip" in protected_text.lower() or "telegram premium" in protected_text.lower():
-                        translated = protected_text
-                    elif protected_text in translation_cache:
+                    if protected_text in translation_cache:
                         translated = translation_cache[protected_text]
                     else:
                         try:
@@ -157,16 +157,11 @@ jobs:
                         except:
                             translated = protected_text
 
-                    # Ворид кардани кодҳои заводӣ ба ҷои худ
+                    # Барқарор кардани форматҳо, фоизҳо ва ситорачаҳо маҳз ба ҷои худ аз англисӣ
                     for ph_key, ph_val in mapping.items():
                         translated = re.sub(r'_\s*PH\s*' + re.escape(ph_key[3:-1]) + r'\s*_', ph_key, translated)
                         translated = translated.replace(ph_key, ph_val)
 
-                    # Брендинг
-                    if not any(x in translated.lower() for x in ['telegram.org', 'tg://', 't.me', 'telegramshort', 'telegram_']):
-                        translated = re.sub(r'\bTelegram\b', 'Tajgram', translated, flags=re.IGNORECASE)
-                        translated = re.sub(r'\bТелеграм\b', 'Таҷграм', translated, flags=re.IGNORECASE)
-                    
                     translated = translated.replace("\n ", "\n").replace(" \n", "\n")
                     translated = re.sub(r"(?<!\\)'", r"\'", translated)
                     
@@ -174,7 +169,6 @@ jobs:
                 else:
                     output_lines.append(line)
             else:
-                # Агар сатр холӣ бошад ё коментария бошад, онро айнан нусхабардорӣ мекунад
                 output_lines.append(line)
 
         # Сабти бинарии соф сатр ба сатр

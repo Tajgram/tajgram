@@ -1,11 +1,11 @@
 name: Tajgram Intelligent Joke Engine Injector
 
-# 👑 ТАНҲО ЗАПУСКИ ДАСТӢ БО ИНТИХОБИ БРАНЧ — ЗАШИТАИ ПӮЛОДӢ АЗ ДУБЛИКАТ ВА ХАТОГИҲО
+# 👑 БОРИ АВВАЛ СОХТАН — ТАНҲО ЗАШИТА АЗ ДУБЛИКАТ ВА ФАЪОЛ КАРДАНИ МУҲАРРИК БЕ МУСРҲО
 on:
   workflow_dispatch:
 
 jobs:
-  inject_and_verify:
+  inject_fresh_engine:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -13,14 +13,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 📦 ҚАДАМИ 1: Тафтиши папкаи бисёрзабонаи ту ва файлҳои strings_joke.xml БЕ омехта кардан
-      - name: Verify Joke XML Location
-        run: |
-          if [ -d "src/main/res_joke" ]; then
-            echo "✅ Папкаи аслии res_joke дар ҷояш ҳаст ва барнома мустақим аз ҳамин ҷо мехонад!"
-          fi
-
-      # 📦 ҚАДАМИ 2: РОБОТ ХУДAШ ФАЙЛИ МАРКАЗИИ JOKEMANAGER.JAVA-РО МЕСОЗАД (ҚИСМИ АВВАЛ)
+      # 📦 ҚАДАМИ 1: РОБОТ ХУДAШ ФАЙЛИ МАРКАЗИИ JOKEMANAGER.JAVA-РО МЕСОЗАД (ҚИСМИ АВВАЛ)
       - name: Create JokeManager Class Part 1
         run: |
           OUTPUT_DIR="TMessagesProj/src/main/java/org/telegram/messenger"
@@ -42,27 +35,27 @@ jobs:
           echo "    private static DatabaseReference getDatabase() { if (databaseRef == null) { try { databaseRef = FirebaseDatabase.getInstance().getReference(\"tajgram_app_substitutions\"); } catch (Exception e) {} } return databaseRef; }" >> "$OUTPUT_DIR/JokeManager.java"
           echo "    public static int getChangedCount(Context context) { return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getInt(\"changed_strings_count\", 0); }" >> "$OUTPUT_DIR/JokeManager.java"
           echo "    public static boolean isLocked24h(Context context) { SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); long lockTime = prefs.getLong(\"lock_timestamp\", 0); if (lockTime == 0) return false; if (System.currentTimeMillis() - lockTime < 86400000) return true; else { prefs.edit().putLong(\"lock_timestamp\", 0).putInt(\"bad_attempts\", 0).apply(); return false; } }" >> "$OUTPUT_DIR/JokeManager.java"
-      # 📦 ҚАДАМИ 3: ДАВОМИ КОД: ФИЛТРИ МИНТАҚАҲО, АВТО-ГЕНЕРАТОРИ СОЧНО ВА ТАЛАБИ ПРЕМИУМ ДАР САТРИ 101
+      # 📦 ҚАДАМИ 2: ДАВОМИ КОД: МИНТАҚАҲОИ ТУРКИЯ/ОСИЁ ДАР ХМЛ ВА БАЗА, ЛИМИТИ 101 ПРЕМИУМ
       - name: Create JokeManager Class Part 2
         run: |
           OUTPUT_DIR="TMessagesProj/src/main/java/org/telegram/messenger"
           echo "    public static String handleSubstitutions(Context context, String userText, String userLanguage) { SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE); String cleanedText = userText.toLowerCase().trim(); if (cleanedText.contains(\"хақорат\") || cleanedText.contains(\"мат\") || cleanedText.contains(\"безеб\")) { int attempts = prefs.getInt(\"bad_attempts\", 0) + 1; prefs.edit().putInt(\"bad_attempts\", attempts).apply(); if (attempts >= 3) { prefs.edit().putLong(\"lock_timestamp\", System.currentTimeMillis()).apply(); return \"BLOCK_24H\"; } return \"Warning!\"; } ArrayList<String> jokesList = new ArrayList<>(); try { String targetLang = userLanguage != null ? userLanguage.toLowerCase() : \"values\"; List<String> supportedLangs = Arrays.asList(\"ar\", \"be\", \"fa\", \"kk\", \"ky\", \"ru\", \"tg\", \"uz\"); if (!supportedLangs.contains(targetLang)) { List<String> euroLangs = Arrays.asList(\"en\", \"fr\", \"de\", \"es\", \"it\", \"pl\", \"uk\"); List<String> sssrLangs = Arrays.asList(\"hy\", \"az\", \"ka\", \"lv\", \"lt\", \"md\", \"tk\"); if (euroLangs.contains(targetLang)) targetLang = \"values\"; else if (sssrLangs.contains(targetLang)) targetLang = \"ru\"; else targetLang = \"uz\"; } File file = \"values\".equals(targetLang) ? new File(\"src/main/res_joke/values/strings_joke.xml\") : new File(\"src/main/res_joke/values-\" + targetLang + \"/strings_joke.xml\"); if (!file.exists()) file = new File(\"src/main/res_joke/values/strings_joke.xml\"); if (file.exists()) { FileInputStream fis = new FileInputStream(file); XmlPullParser parser = Xml.newPullParser(); parser.setInput(fis, \"UTF-8\"); int eventType = parser.getEventType(); while (eventType != XmlPullParser.END_DOCUMENT) { if (eventType == XmlPullParser.START_TAG && \"string\".equals(parser.getName())) { String nameAttr = parser.getAttributeValue(null, \"name\"); if (nameAttr != null && nameAttr.startsWith(\"joke_c\") && nameAttr.endsWith(\"_desc\")) jokesList.add(parser.nextText()); } eventType = parser.next(); } fis.close(); } } catch (Exception e) {} if (!jokesList.isEmpty()) { Random random = new Random(); return jokesList.get(random.nextInt(jokesList.size())); } return \"Normal\"; }" >> "$OUTPUT_DIR/JokeManager.java"
-          echo "    public static void generateAppStringOnline(final Context context, final String stringKey, final String userLanguage, final boolean isCheckboxChecked, final JokeCallback callback) { if (!isCheckboxChecked || getDatabase() == null) { callback.onResult(null); return; } getDatabase().child(userLanguage).child(stringKey).addListenerForSingleValueEvent(new ValueEventListener() { @Override public void onDataChange(DataSnapshot snapshot) { String bestText = null; long maxTimestamp = 0; for (DataSnapshot child : snapshot.getChildren()) { String text = child.child(\"text\").getValue(String.class); Long ts = child.child(\"timestamp\").getValue(Long.class); if (text != null && ts != null && ts > maxTimestamp) { maxTimestamp = ts; bestText = text; } } callback.onResult(bestText); } @Override public void onCancelled(DatabaseError error) { callback.onResult(null); } }); }" >> "$OUTPUT_DIR/JokeManager.java"
-          echo "    public static boolean saveUserSubstitution(Context context, final String stringKey, final String userText, final String userLanguage, boolean isPremiumUser) { if (isLocked24h(context) || userText == null) return false; String cleanText = userText.trim(); int currentCount = getChangedCount(context); if (!isPremiumUser) { if (currentCount == 70) { Toast.makeText(context, \"🎁 Лимити шумо тамом шуд! Вале барои хушҳолии ... 30 сатри дигар ТӮҲФА! Шумо метавонед Premium пайваст карда то 500 сатр иваз кунед бо табъи дилатон!\", Toast.LENGTH_LONG).show(); } if (currentCount >= 100) { Toast.makeText(context, \"👑 Сатри 101! Лимити ройгон тамом шуд! Барои ивази 500 сатр, Премиумро фаол кунед!\", Toast.LENGTH_LONG).show(); return false; } } else { if (currentCount >= 500) { Toast.makeText(context, \"🛑 Лимити максималии Премиум (500 сатр) ба охир расид!\", Toast.LENGTH_LONG).show(); return false; } } context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putInt(\"changed_strings_count\", currentCount + 1).apply(); if (getDatabase() != null) { HashMap<String, Object> stringData = new HashMap<>(); stringData.put(\"text\", cleanText); stringData.put(\"timestamp\", System.currentTimeMillis()); db.child(userLanguage).child(stringKey).setValue(stringData); } return true; }" >> "$OUTPUT_DIR/JokeManager.java"
+          echo "    public static void generateAppStringOnline(final Context context, final String stringKey, final String userLanguage, final boolean isCheckboxChecked, final JokeCallback callback) { if (!isCheckboxChecked || getDatabase() == null) { callback.onResult(null); return; } String targetLang = userLanguage != null ? userLanguage.toLowerCase() : \"values\"; List<String> supportedLangs = Arrays.asList(\"ar\", \"be\", \"fa\", \"kk\", \"ky\", \"ru\", \"tg\", \"uz\"); if (!supportedLangs.contains(targetLang)) { if (Arrays.asList(\"en\", \"fr\", \"de\", \"es\", \"it\", \"pl\", \"uk\").contains(targetLang)) targetLang = \"values\"; else if (Arrays.asList(\"hy\", \"az\", \"ka\", \"lv\", \"lt\", \"md\", \"tk\").contains(targetLang)) targetLang = \"ru\"; else targetLang = \"uz\"; } getDatabase().child(targetLang).child(stringKey).addListenerForSingleValueEvent(new ValueEventListener() { @Override public void onDataChange(DataSnapshot snapshot) { String bestText = null; long maxTimestamp = 0; for (DataSnapshot child : snapshot.getChildren()) { String text = child.child(\"text\").getValue(String.class); Long ts = child.child(\"timestamp\").getValue(Long.class); if (text != null && ts != null && ts > maxTimestamp) { maxTimestamp = ts; bestText = text; } } callback.onResult(bestText); } @Override public void onCancelled(DatabaseError error) { callback.onResult(null); } }); }" >> "$OUTPUT_DIR/JokeManager.java"
+          echo "    public static boolean saveUserSubstitution(Context context, final String stringKey, final String userText, final String userLanguage, boolean isPremiumUser) { if (isLocked24h(context) || userText == null) return false; String cleanText = userText.trim(); int currentCount = getChangedCount(context); if (!isPremiumUser) { if (currentCount == 70) { Toast.makeText(context, \"🎁 Лимити шумо тамом шуд! Вале барои хушҳолии ... 30 сатри дигар ТӮҲФА! Шумо метавонед Premium пайваст карда то 500 сатр иваз кунед бо табъи дилатон!\", Toast.LENGTH_LONG).show(); } if (currentCount >= 100) { Toast.makeText(context, \"👑 Сатри 101! Лимити ройгон тамом шуд! Барои ивази 500 сатр, Премиумро фаол кунед!\", Toast.LENGTH_LONG).show(); return false; } } else { if (currentCount >= 500) { Toast.makeText(context, \"🛑 Лимити максималии Премиум (500 сатр) ба охир расид!\", Toast.LENGTH_LONG).show(); return false; } } context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit().putInt(\"changed_strings_count\", currentCount + 1).apply(); if (getDatabase() != null) { String targetLang = userLanguage != null ? userLanguage.toLowerCase() : \"values\"; List<String> supportedLangs = Arrays.asList(\"ar\", \"be\", \"fa\", \"kk\", \"ky\", \"ru\", \"tg\", \"uz\"); if (!supportedLangs.contains(targetLang)) { if (Arrays.asList(\"en\", \"fr\", \"de\", \"es\", \"it\", \"pl\", \"uk\").contains(targetLang)) targetLang = \"values\"; else if (Arrays.asList(\"hy\", \"az\", \"ka\", \"lv\", \"lt\", \"md\", \"tk\").contains(targetLang)) targetLang = \"ru\"; else targetLang = \"uz\"; } HashMap<String, Object> stringData = new HashMap<>(); stringData.put(\"text\", cleanText); stringData.put(\"timestamp\", System.currentTimeMillis()); getDatabase().child(targetLang).child(stringKey).setValue(stringData); } return true; }" >> "$OUTPUT_DIR/JokeManager.java"
           echo "    public interface JokeCallback { void onResult(String resultText); }" >> "$OUTPUT_DIR/JokeManager.java"
           echo "}" >> "$OUTPUT_DIR/JokeManager.java"
-          echo "🎉 Муҳаррики марказии Java мукаммал сохта шуд!"
+          echo "🎉 Муҳаррики тоза сохта шуд!"
 
-      # 📦 ҚАДАМИ 4: БЕХАТАРӢ: ПУШ КАРДАНИ ТАМОМИ ТАҒЙИРОТҲО БЕ ХАТОИ ДУБЛИКАТ БО СИПАРӢ FORCE PUSH
+      # 📦 ҚАДАМИ 3: ЗАШИТАИ ПӮЛОДӢ АЗ ДУБЛИКАТ БО СИПАРӢ FORCE PUSH (ФАҚАТ ПУШИ JOKEMANAGER)
       - name: Commit and Push Changes Safely to Current Branch
         run: |
           git config --global user.name "Saidjun Chief Developer"
           git config --global user.email "saidjun@tajgram.tj"
           
-          # ФАҚАТ ҳамин як файлро илова мекунад! Папкаи res соф тоза монд
+          # ФАҚАТ ҳамин як файлро илова мекунад! Папкаи res ва дигар файлҳо 100% заводиву тоза монданд
           git add TMessagesProj/src/main/java/org/telegram/messenger/JokeManager.java
           
           CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           echo "🚀 Назорат: Сабт мустақим ба бранчи '$CURRENT_BRANCH' пуш мешавад."
-          git diff-index --quiet HEAD || git commit -m "Engine: Setup Regional Core Brain v7.0 [skip ci]"
+          git diff-index --quiet HEAD || git commit -m "Engine: Setup Fresh Core Brain and Firebase Filter v9.0 [skip ci]"
           git push origin HEAD:$CURRENT_BRANCH --force

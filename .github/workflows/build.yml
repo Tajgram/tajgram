@@ -80,9 +80,10 @@ jobs:
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj_App/google-services.json
          
-          REAL_ID=$(echo '${{ secrets.API_ID_BASE64 }}' | base64 --decode)
-          REAL_HASH=$(echo '${{ secrets.API_HASH_BASE64 }}' | base64 --decode)
-          REAL_SHA256=$(echo '${{ secrets.SHA256_BASE64 }}' | base64 --decode)
+          REAL_ID=$(echo "${{ secrets.API_ID_BASE64 }}" | base64 --decode)
+          REAL_HASH=$(echo "${{ secrets.API_HASH_BASE64 }}" | base64 --decode)
+          REAL_SHA256=$(echo "${{ secrets.SHA256_BASE64 }}" | base64 --decode)
+
           
           BV_FILE="TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"
           sed -i "s/APP_ID = 999999/APP_ID = $REAL_ID/g" $BV_FILE

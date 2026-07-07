@@ -107,7 +107,7 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew clean
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --split-per-abi
           ./gradlew bundleAfatRelease
 
       - name: Attest

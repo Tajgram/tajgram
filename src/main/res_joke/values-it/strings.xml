@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ CREATO AUTOMATICAMENTE - PROTEZIONE DUPLICATI ATTIVA -->
+<resources>
+    <string name="prank_instruction_title">Istruzioni per la modalità scherzo 🎭</string>
+    <string name="prank_instruction_desc">Puoi personalizzare l'interfaccia a tuo piacimento o per fare scherzi! Tuttavia, insulti e parole inappropriate verranno bloccati. La tua felicità è il successo della nostra app!</string>
+    <string name="prank_accept_btn">Capito, accetto 👍</string>
+    <string name="prank_warning_bad_word">Spiacenti, hai violato le regole dell'app con queste parole. Se si ripete, l'accesso sarà parzialmente limitato per un giorno.</string>
+    <string name="prank_blocked_title">Accesso limitato 🚫</string>
+    <string name="prank_blocked_desc">Hai violato le regole 3 volte. La modalità scherzo è bloccata per 24 ore. Torna domani con parole migliori!</string>
+    <string name="prank_generation_empty">Spiacenti, non abbiamo trovato nulla che soddisfi i tuoi gusti. Puoi cambiare le impostazioni come vuoi! 😊</string>
+    <string name="prank_btn_replace">Sostituisci</string>
+    <string name="prank_btn_force">Mantieni comunque!</string>
+    <string name="prank_btn_cool">Scriverò qualcosa di più figo</string>
+
+    <!-- 20 CATEGORIE DI SCHERZI -->
+    <string name="joke_c1_title">Ehi, piantagrane!</string>
+    <string name="joke_c1_desc">Temi Dio! Cambia il testo, o chiamerò i ragazzi! 😡</string>
+    <string name="joke_c2_title">Ehi, testa di legno!</string>
+    <string name="joke_c2_desc">Non hai trovato altre parole? 🤣🤣 Non è intelligente né divertente! Cambiala!</string>
+    <string name="joke_c3_title">Piano!</string>
+    <string name="joke_c3_desc">Siamo solo amici! 😂 Mettiti al lavoro, scrivi le impostazioni!</string>
+    <string name="joke_c4_title">Ehi, Tolstoj!</string>
+    <string name="joke_c4_desc">Stai scrivendo un romanzo? 📝 Queste sono impostazioni di menu, non Guerra e Pace! Accorcia il testo!</string>
+    <string name="joke_c5_title">Ehi, uomo d'affari!</string>
+    <string name="joke_c5_desc">Fai pubblicità nelle impostazioni della mia app? 🤑 Non è un mercatino! Rimuovi il link!</string>
+    <string name="joke_c6_title">Ehi, critico!</string>
+    <string name="joke_c6_desc">Prima di lamentarti, hai scritto almeno una riga di codice? 😉 Lo sviluppatore è rimasto sveglio per questo!</string>
+    <string name="joke_c7_title">Ehi, Hacker!</string>
+    <string name="joke_c7_desc">Allora, hai craccato il sistema? 💻 Non siamo nella Silicon Valley, questo è Tajgram! Lascia i codici per il Terminale!</string>
+    <string name="joke_c8_title">Ehi, Capo!</string>
+    <string name="joke_c8_desc">Stai tenendo una riunione ufficiale nel mio menu? 🏛️ Il codice dell'app non può reggerlo!</string>
+    <string name="joke_c9_title">Ehi, Cripto-Milionario!</string>
+    <string name="joke_c9_desc">L'odore dei tuoi dollari virtuali mi ha fatto venire le vertigini! 💰 Compra prima una chiave Premium! 🤣</string>
+    <string name="joke_c10_title">Ehi, Fantasma!</string>
+    <string name="joke_c10_desc">Cosa nascondi lì? 👻 Non lasciare la riga vuota, metti almeno un emoji!</string>
+    <string name="joke_c11_title">Ehi, non urlare!</string>
+    <string name="joke_c11_desc">Sono diventato sordo! 📢 Scrivi in minuscolo, il maiuscolo non va di moda qui! 😂</string>
+    <string name="joke_c12_title">Ehi, Pushkin!</string>
+    <string name="joke_c12_desc">Sei passato alla poesia? 📜 Questo è un menu di un'app, non una serata di poesia! Scrivi più semplice!</string>
+    <string name="joke_c13_title">Ehi, pigrone!</string>
+    <string name="joke_c13_desc">Scrivi almeno una parola intera! 🐌 Risparmi le lettere? Rifletti!</string>
+    <string name="joke_c14_title">Ehi, Spia!</string>
+    <string name="joke_c14_desc">È apparso l'Agente 007? 🕵️‍♂️ Abbiamo inviato le tue coordinate! Togliti la maschera! 🤣</string>
+    <string name="joke_c15_title">Ehi, gourmet!</string>
+    <string name="joke_c15_desc">Mi è venuta l'acquolina in bocca! 🍔 Il server ha fame a causa dei tuoi kebab! Configura prima, poi mangiamo!</string>
+    <string name="joke_c16_title">Ehi, viaggiatore!</string>
+    <string name="joke_c16_desc">Siamo nel XXI secolo! 🧙‍♂️ Questo è un telefono touch, non una carrozza a cavalli!</string>
+    <string name="joke_c17_title">Sua Maestà!</string>
+    <string name="joke_c17_desc">Attento a non far cadere la corona! 👑 Comanda nel tuo palazzo, su Tajgram tutti gli utenti sono uguali!</string>
+    <string name="joke_c18_title">Ehi, malinconico!</string>
+    <string name="joke_c18_desc">Niente drammi, tutto andrà bene! 😭 Non inondare il server di lacrime, causerai un cortocircuito! ✨</string>
+    <string name="joke_c19_title">Ehi, alieno!</string>
+    <string name="joke_c19_desc">In che lingua marziana scrivi? 🤪 Abbi pietà della tastiera, è innocente!</string>
+    <string name="joke_c20_title">Copia di Durov!</string>
+    <string name="joke_c20_desc">Il creatore di Tajgram è unico e sta guardando il tuo schermo proprio ora! 🕶️ Non fingere di essere l'amministratore! 🤣</string>
+</resources>

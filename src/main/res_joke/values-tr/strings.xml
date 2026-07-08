@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ OTOMATİK OLUŞTURULDU - KOPYA KORUMASI AKTİF -->
+<resources>
+    <string name="prank_instruction_title">Şaka modu talimatları 🎭</string>
+    <string name="prank_instruction_desc">Arayüzü kendi zevkinize veya şakalarınıza göre özelleştirebilirsiniz! Ancak, küfür ve uygunsuz kelimeler engellenir. Sizin mutluluğunuz uygulamamızın başarısıdır!</string>
+    <string name="prank_accept_btn">Anladım, kabul ediyorum 👍</string>
+    <string name="prank_warning_bad_word">Üzgünüm, bu kelimelerle uygulama kurallarını ihlal ettiniz. Bu tekrarlanırsa, erişiminiz bir günlüğüne kısmen kısıtlanacaktır.</string>
+    <string name="prank_blocked_title">Erişim kısıtlandı 🚫</string>
+    <string name="prank_blocked_desc">Kuralları 3 kez ihlal ettiniz. Şaka modu sizin için 24 saatliğine engellendi. Yarın güzel kelimelerle geri gelin!</string>
+    <string name="prank_generation_empty">Üzgünüm, zevkinize uygun bir şey bulunamadı. Ayarları istediğiniz gibi değiştirebilirsiniz! 😊</string>
+    <string name="prank_btn_replace">Değiştir</string>
+    <string name="prank_btn_force">Yine de kalsın!</string>
+    <string name="prank_btn_cool">Daha havalı bir şey yazacağım</string>
+
+    <!-- 20 ŞAKA KATEGORİSİ -->
+    <string name="joke_c1_title">Hey, zorba!</string>
+    <string name="joke_c1_desc">Allah'tan kork! Metni değiştir, yoksa çocukları çağırırım! 😡</string>
+    <string name="joke_c2_title">Hey, kafasız!</string>
+    <string name="joke_c2_desc">Başka kelime bulamadın mı? 🤣🤣 Ne akla ne de kalbe hitap ediyor! Değiştir!</string>
+    <string name="joke_c3_title">Yavaş ol!</string>
+    <string name="joke_c3_desc">Biz sadece arkadaşız! 😂 İşe koyul, ayarları yaz!</string>
+    <string name="joke_c4_title">Hey, Tolstoy!</string>
+    <string name="joke_c4_desc">Roman mı yazıyorsun? 📝 Burası menü ayarları, Savaş ve Barış değil! Metni kısalt!</string>
+    <string name="joke_c5_title">Hey, iş adamı!</string>
+    <string name="joke_c5_desc">Uygulamamın ayarlarında reklam mı yapıyorsun? 🤑 Burası Avito değil! Bağlantıyı kaldır!</string>
+    <string name="joke_c6_title">Hey, eleştirmen!</string>
+    <string name="joke_c6_desc">Şikayet etmeden önce kendin bir satır kod yazdın mı? 😉 Geliştirici bunun için uykusuz kaldı!</string>
+    <string name="joke_c7_title">Hey, Hacker!</string>
+    <string name="joke_c7_desc">Ee, kırdın mı? 💻 Silikon Vadisi'nde değiliz, burası Tajgram! Kodları Terminal'e bırak!</string>
+    <string name="joke_c8_title">Hey, Başkan!</string>
+    <string name="joke_c8_desc">Benim menümde resmi toplantı mı yapıyorsun? 🏛️ Uygulama kodu bunu kaldıramaz!</string>
+    <string name="joke_c9_title">Hey, Kripto-Milyoner!</string>
+    <string name="joke_c9_desc">Sanal dolarlarının kokusu başımı döndürdü! 💰 Önce Premium anahtarı satın al! 🤣</string>
+    <string name="joke_c10_title">Hey, Hayalet!</string>
+    <string name="joke_c10_desc">Orada ne saklıyorsun? 👻 Satırı boş bırakma, en azından bir emoji koy!</string>
+    <string name="joke_c11_title">Hey, bağırma!</string>
+    <string name="joke_c11_desc">Kulaklarım sağır oldu! 📢 Küçük harflerle yaz, büyük harf burada moda değil! 😂</string>
+    <string name="joke_c12_title">Hey, Puşkin!</string>
+    <string name="joke_c12_desc">Şiire mi geçtin? 📜 Burası uygulama menüsü, şiir gecesi değil! Basit yaz!</string>
+    <string name="joke_c13_title">Hey, tembel!</string>
+    <string name="joke_c13_desc">En azından bir tane tam kelime yaz! 🐌 Harfleri mi kıskanıyorsun? Düşün!</string>
+    <string name="joke_c14_title">Hey, Casus!</string>
+    <string name="joke_c14_desc">Ajan 007 bulundu mu? 🕵️‍♂️ Koordinatlarını gönderdik! Maskeyi çıkar! 🤣</string>
+    <string name="joke_c15_title">Hey, gurme!</string>
+    <string name="joke_c15_desc">Ağzımın suyu aktı! 🍔 Kebaplarından sunucu acıktı! Önce ayarla, sonra yeriz!</string>
+    <string name="joke_c16_title">Hey, gezgin!</string>
+    <string name="joke_c16_desc">Biz 21. yüzyıldayız! 🧙‍♂️ Bu dokunmatik telefon, at arabası değil!</string>
+    <string name="joke_c17_title">Haşmetli Majesteleri!</string>
+    <string name="joke_c17_desc">Bak, tacın düşmesin! 👑 Sarayda hüküm sür, Tajgram'da kullanıcılar eşittir!</string>
+    <string name="joke_c18_title">Hey, melankolik!</string>
+    <string name="joke_c18_desc">Dramaya gerek yok, her şey harika olacak! 😭 Sunucuyu gözyaşlarıyla doldurma, kısa devre olur! ✨</string>
+    <string name="joke_c19_title">Hey, uzaylı!</string>
+    <string name="joke_c19_desc">Hangi Mars dilinde yazıyorsun? 🤪 Klavyeye acı, o masum!</string>
+    <string name="joke_c20_title">Durov'un kopyası!</string>
+    <string name="joke_c20_desc">Tajgram'ın yaratıcısı tek ve o şu an ekranını görüyor! 🕶️ Admin gibi görünme! 🤣</string>
+</resources>

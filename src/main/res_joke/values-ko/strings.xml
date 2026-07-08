@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ 자동으로 생성됨 - 중복 방지 활성화됨 -->
+<resources>
+    <string name="prank_instruction_title">장난 모드 지침 🎭</string>
+    <string name="prank_instruction_desc">취향이나 장난에 맞춰 인터페이스를 사용자 정의할 수 있습니다! 하지만 욕설이나 부적절한 단어는 차단됩니다. 여러분의 즐거움이 곧 우리 앱의 성공입니다!</string>
+    <string name="prank_accept_btn">알겠습니다, 동의합니다 👍</string>
+    <string name="prank_warning_bad_word">죄송합니다. 이 단어들로 앱 규칙을 위반하셨습니다. 반복될 경우 하루 동안 일부 기능 접근이 제한됩니다.</string>
+    <string name="prank_blocked_title">접근 제한됨 🚫</string>
+    <string name="prank_blocked_desc">규칙을 3번 위반하셨습니다. 장난 모드가 24시간 동안 차단되었습니다. 내일 더 좋은 단어를 가지고 돌아오세요!</string>
+    <string name="prank_generation_empty">죄송합니다. 취향에 맞는 것을 찾을 수 없습니다. 설정을 마음대로 변경해보세요! 😊</string>
+    <string name="prank_btn_replace">교체</string>
+    <string name="prank_btn_force">그대로 유지!</string>
+    <string name="prank_btn_cool">더 멋진 것을 쓸게요</string>
+
+    <!-- 20가지 장난 카테고리 -->
+    <string name="joke_c1_title">야, 문제아!</string>
+    <string name="joke_c1_desc">하느님을 두려워해! 텍스트를 바꾸지 않으면 친구들을 부를 거야! 😡</string>
+    <string name="joke_c2_title">야, 멍청아!</string>
+    <string name="joke_c2_desc">다른 단어를 못 찾았어? 🤣🤣 지능도 없고 감동도 없어! 바꿔!</string>
+    <string name="joke_c3_title">천천히 해!</string>
+    <string name="joke_c3_desc">우린 그냥 친구잖아! 😂 일해, 설정부터 써!</string>
+    <string name="joke_c4_title">야, 톨스토이!</string>
+    <string name="joke_c4_desc">소설 써? 📝 이건 메뉴 설정이지 '전쟁과 평화'가 아니야! 텍스트 좀 줄여!</string>
+    <string name="joke_c5_title">야, 사업가!</string>
+    <string name="joke_c5_desc">내 앱 설정에 광고를 넣어? 🤑 여긴 아비토(Avito)가 아니야! 링크 지워!</string>
+    <string name="joke_c6_title">야, 비평가!</string>
+    <string name="joke_c6_desc">불평하기 전에 코드 한 줄이라도 써봤어? 😉 개발자가 이거 때문에 밤을 샜어!</string>
+    <string name="joke_c7_title">야, 해커!</string>
+    <string name="joke_c7_desc">그래서, 시스템을 해킹했어? 💻 여긴 실리콘밸리가 아니라 타즈그램(Tajgram)이야! 코드는 터미널에나 써!</string>
+    <string name="joke_c8_title">야, 대장!</string>
+    <string name="joke_c8_desc">내 메뉴에서 공식 회의를 해? 🏛️ 앱 코드가 견딜 수 없어!</string>
+    <string name="joke_c9_title">야, 암호화폐 부자!</string>
+    <string name="joke_c9_desc">가상 달러 냄새 때문에 어지러워! 💰 먼저 프리미엄 키부터 사! 🤣</string>
+    <string name="joke_c10_title">야, 유령!</string>
+    <string name="joke_c10_desc">거기 뭐 숨겨? 👻 줄을 비워두지 말고, 적어도 이모지라도 넣어!</string>
+    <string name="joke_c11_title">야, 소리치지 마!</string>
+    <string name="joke_c11_desc">귀 먹겠어! 📢 소문자로 써, 대문자는 여기서 유행이 아니야! 😂</string>
+    <string name="joke_c12_title">야, 푸시킨!</string>
+    <string name="joke_c12_desc">시인으로 전향했어? 📜 이건 앱 메뉴지 시 낭송회가 아니야! 간단히 써!</string>
+    <string name="joke_c13_title">야, 게으름뱅이!</string>
+    <string name="joke_c13_desc">적어도 한 단어는 제대로 써! 🐌 글자 아껴? 생각 좀 해!</string>
+    <string name="joke_c14_title">야, 스파이!</string>
+    <string name="joke_c14_desc">007 요원 나타났어? 🕵️‍♂️ 좌표 보냈어! 가면 벗어! 🤣</string>
+    <string name="joke_c15_title">야, 미식가!</string>
+    <string name="joke_c15_desc">군침 돌아! 🍔 너의 케밥 때문에 서버가 배고파해! 먼저 설정하고, 나중에 먹자!</string>
+    <string name="joke_c16_title">야, 여행가!</string>
+    <string name="joke_c16_desc">지금은 21세기야! 🧙‍♂️ 이건 터치스크린 폰이지 마차가 아니라고!</string>
+    <string name="joke_c17_title">폐하!</string>
+    <string name="joke_c17_desc">왕관 떨어지지 않게 조심해! 👑 궁전에서나 통치해, 타즈그램에선 모든 사용자가 평등해!</string>
+    <string name="joke_c18_title">야, 우울해!</string>
+    <string name="joke_c18_desc">드라마 찍지 마, 다 잘 될 거야! 😭 서버를 눈물로 채우지 마, 합선되면 어떡해! ✨</string>
+    <string name="joke_c19_title">야, 외계인!</string>
+    <string name="joke_c19_desc">어느 화성 언어로 쓰는 거야? 🤪 키보드 좀 살려줘, 걔는 죄가 없어!</string>
+    <string name="joke_c20_title">두로프 복제본!</string>
+    <string name="joke_c20_desc">타즈그램 창립자는 단 한 명이고 지금 너의 화면을 보고 있어! 🕶️ 관리자인 척하지 마! 🤣</string>
+</resources>

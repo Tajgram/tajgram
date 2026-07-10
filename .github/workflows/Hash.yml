@@ -1,39 +1,46 @@
-name: Saidjon_Ai Build Workflow
-# Ин қисм барои он аст, ки ту дастӣ (manual) сар кунӣ
+name: Test Secrets Connection
+
 on:
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: false
-        default: 'warning'
 
 jobs:
-  build:
+  check-secrets:
     runs-on: ubuntu-latest
     steps:
-      - name: Saidjon_Ai Diagnostic
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Debug and Test Secrets
         run: |
-          echo "--- Saidjon_Ai Security Check Started ---"
-          # Санҷиши вуҷуд доштани Secret
-          if [ -z "${{ secrets.APP_HASH_BASE64 }}" ]; then
-            echo "STATUS: [BLOCKED] - APP_HASH дар Secret пайдо нашуд!"
+          echo "--- Саиди Кушониён: Сар кардани санҷиши секретҳо ---"
+          
+          # Декод кардан бо санҷиши хатогӣ
+          if ! REAL_ID=$(echo "${{ secrets.API_ID_BASE64 }}" | base64 --decode); then
+            echo "ХАТО: API_ID_BASE64 декод нашуд!"
+            exit 1
+          fi
+          
+          if ! REAL_HASH=$(echo "${{ secrets.API_HASH_BASE64 }}" | base64 --decode); then
+            echo "ХАТО: API_HASH_BASE64 декод нашуд!"
+            exit 1
+          fi
+          
+          if ! REAL_SHA256=$(echo "${{ secrets.SHA256_BASE64 }}" | base64 --decode); then
+            echo "ХАТО: SHA256_BASE64 декод нашуд!"
             exit 1
           fi
 
-          # Декод кардан ва санҷиш
-          echo "${{ secrets.APP_HASH_BASE64 }}" | base64 --decode > decoded_temp.txt
+          # Нишон додани натиҷа барои санҷиш
+          echo "Секретҳо бомуваффақият хонда шуданд!"
+          echo "API_ID: $REAL_ID"
+          echo "API_HASH: $REAL_HASH"
+          echo "SHA256: $REAL_SHA256"
           
-          # Нишон додани натиҷа (бидуни нишон додани худи калид)
-          SIZE=$(wc -c < decoded_temp.txt)
-          echo "STATUS: [ACTIVE]"
-          echo "Decoded Hash Size: $SIZE bytes"
-          
-          # Тасдиқи ниҳоӣ
-          if [ $SIZE -gt 0 ]; then
-            echo "RESULT: Success - Hash декод шуд ва барои Build омода аст."
+          # Санҷиши мавҷудияти файл
+          BV_FILE="TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"
+          if [ -f "$BV_FILE" ]; then
+            echo "Файли $BV_FILE ёфт шуд. Омода барои тағйирдиҳӣ."
           else
-            echo "RESULT: [FAILED] - Декод шуд, аммо холӣ аст."
+            echo "ХАТО: Файли $BV_FILE дар репозитория нест!"
             exit 1
           fi
-          echo "--- Saidjon_Ai Security Check Finished ---"

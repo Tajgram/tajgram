@@ -1,5 +1,4 @@
 name: Saidjon_Ai Build Workflow
-
 # Ин қисм барои он аст, ки ту дастӣ (manual) сар кунӣ
 on:
   workflow_dispatch:

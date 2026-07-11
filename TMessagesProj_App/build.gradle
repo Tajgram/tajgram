@@ -27,19 +27,36 @@ android {
     compileSdkVersion 36
     buildToolsVersion '36.0.0'
 
-    defaultConfig.applicationId = APP_PACKAGE
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 35
+        versionName APP_VERSION_NAME
+        versionCode Integer.parseInt(APP_VERSION_CODE)
+        ndkVersion "27.2.12479018"
+        applicationId = APP_PACKAGE
+        multiDexEnabled true
+
+        vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
+
+        externalNativeBuild {
+            cmake {
+                version '3.10.2'
+                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-21'
+            }
+        }
+    }
 
 
     lintOptions {
         disable 'MissingTranslation'
         disable 'ExtraTranslation'
         disable 'BlockedPrivateApi'
+        checkReleaseBuilds false
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-
         coreLibraryDesugaringEnabled true
     }
 
@@ -107,18 +124,6 @@ android {
         }
     }
 
-    sourceSets.debug {
-        manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest.xml'
-    }
-
-    sourceSets.standalone {
-        manifest.srcFile '../TMessagesProj/config/release/AndroidManifest.xml'
-    }
-
-    sourceSets.release {
-        manifest.srcFile '../TMessagesProj/config/release/AndroidManifest.xml'
-    }
-
     flavorDimensions "minApi"
 
     productFlavors {
@@ -135,15 +140,6 @@ android {
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
             }
-            sourceSets.debug {
-                manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest_SDK23.xml'
-            }
-            sourceSets.release {
-                manifest.srcFile '../TMessagesProj/config/release/AndroidManifest_SDK23.xml'
-            }
-            sourceSets.standalone {
-                manifest.srcFile '../TMessagesProj/config/release/AndroidManifest_standalone.xml'
-            }
             ext {
                 abiVersionCode = 9
             }
@@ -151,16 +147,13 @@ android {
         }
     }
 
-    defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
-
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            // Гирифтани номи ABI барои он ки файлҳо якдигарро зер накунанд (Конфликт нашавад)
             def abi = output.getFilter(com.android.build.OutputFile.ABI)
             def abiName = abi ?: "universal"
             def baseVersionCode = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
             
-            outputFileName = "Nekogram-${variant.versionName}-${baseVersionCode}-${abiName}.apk"
+            outputFileName = "Tajgram-${variant.versionName}-${baseVersionCode}-${abiName}.apk"
             output.versionCodeOverride = baseVersionCode
         }
     }
@@ -203,11 +196,6 @@ android {
     buildFeatures {
         buildConfig = true
     }
+    
     namespace 'org.telegram.messenger.regular'
-
-    lintOptions {
-        checkReleaseBuilds false
-    }
 }
-
-apply plugin: 'com.google.gms.google-services'

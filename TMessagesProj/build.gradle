@@ -153,6 +153,9 @@ android {
             buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+            buildConfigField("int", "API_ID", "${localProperties.get("apiId", 0)}")
+            buildConfigField("String", "API_HASH", "\"${localProperties.get("apiHash")}\"")
+            buildConfigField("String", "SHA_256", "\"${localProperties.get("sha256")}\"")
             buildConfigField "String", "APP_CENTER_HASH", "\"\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PRIVATE_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
@@ -172,6 +175,9 @@ android {
             buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+            buildConfigField("int", "API_ID", "${localProperties.get("apiId", 0)}")
+            buildConfigField("String", "API_HASH", "\"${localProperties.get("apiHash")}\"")
+            buildConfigField("String", "SHA_256", "\"${localProperties.get("sha256")}\"")
             buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_PRIVATE") + "\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PRIVATE_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
@@ -191,6 +197,9 @@ android {
             buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+            buildConfigField("int", "API_ID", "${localProperties.get("apiId", 0)}")
+            buildConfigField("String", "API_HASH", "\"${localProperties.get("apiHash")}\"")
+            buildConfigField("String", "SHA_256", "\"${localProperties.get("sha256")}\"")
             buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_PUBLIC") + "\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PUBLIC_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
@@ -210,6 +219,9 @@ android {
             buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+            buildConfigField("int", "API_ID", "${localProperties.get("apiId", 0)}")
+            buildConfigField("String", "API_HASH", "\"${localProperties.get("apiHash")}\"")
+            buildConfigField("String", "SHA_256", "\"${localProperties.get("sha256")}\"")
             buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_HARDCORE") + "\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_HARDCORE_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
@@ -229,6 +241,9 @@ android {
             buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+            buildConfigField("int", "API_ID", "${localProperties.get("apiId", 0)}")
+            buildConfigField("String", "API_HASH", "\"${localProperties.get("apiHash")}\"")
+            buildConfigField("String", "SHA_256", "\"${localProperties.get("sha256")}\"")
             buildConfigField "String", "APP_CENTER_HASH", "\"\""
             buildConfigField "String", "BETA_URL", "\"\""
             buildConfigField "boolean", "DEBUG_VERSION", "false"
@@ -248,6 +263,9 @@ android {
             buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+            buildConfigField("int", "API_ID", "${localProperties.get("apiId", 0)}")
+            buildConfigField("String", "API_HASH", "\"${localProperties.get("apiHash")}\"")
+            buildConfigField("String", "SHA_256", "\"${localProperties.get("sha256")}\"")
             buildConfigField "String", "APP_CENTER_HASH", "\"\""
             buildConfigField "String", "BETA_URL", "\"\""
             buildConfigField "boolean", "DEBUG_VERSION", "false"

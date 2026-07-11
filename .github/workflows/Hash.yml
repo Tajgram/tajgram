@@ -77,3 +77,26 @@ jobs:
           else
             echo "ИСПАТ: APP_ID бомуваффақият иваз шуд (дарозии нав: $LEN_ID)"
           fi
+          
+          # 1. Декод ва маска кардани секретҳо
+          REAL_ID=$(echo "${{ secrets.API_ID_BASE64 }}" | base64 --decode)
+          REAL_HASH=$(echo "${{ secrets.API_HASH_BASE64 }}" | base64 --decode)
+          REAL_SHA256=$(echo "${{ secrets.SHA256_BASE64 }}" | base64 --decode)
+          
+          echo "::add-mask::$REAL_ID"
+          echo "::add-mask::$REAL_HASH"
+          echo "::add-mask::$REAL_SHA256"
+
+          BV_FILE="TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"
+          
+          # 2. Иваз кардани сатрҳо ба таври пурра (барои пешгирии омехташавӣ)
+          sed -i "s/public static int APP_ID = .*/public static int APP_ID = $REAL_ID;/g" $BV_FILE
+          sed -i "s/public static String APP_HASH = .*/public static String APP_HASH = \"$REAL_HASH\";/g" $BV_FILE
+          sed -i "s/public static String SHA256_KEY = .*/public static String SHA256_KEY = \"$REAL_SHA256\";/g" $BV_FILE
+
+          # 3. Санҷиши дақиқи дарозӣ
+          LINE_ID=$(grep "APP_ID =" $BV_FILE)
+          LINE_HASH=$(grep "APP_HASH =" $BV_FILE)
+          
+          echo "Дарозии умумии сатри APP_ID-и нав: ${#LINE_ID} символ"
+          echo "Дарозии умумии сатри APP_HASH-и нав: ${#LINE_HASH} символ"

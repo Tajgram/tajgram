@@ -73,7 +73,10 @@ jobs:
           echo "RELEASE_STORE_PASSWORD=${{ secrets.RELEASE_STORE_PASSWORD }}" >> gradle.properties
           echo "RELEASE_KEY_ALIAS=${{ secrets.RELEASE_KEY_ALIAS }}" >> gradle.properties
           echo "RELEASE_KEY_PASSWORD=${{ secrets.RELEASE_KEY_PASSWORD }}" >> gradle.properties
-          
+          echo "apiId=${{ secrets.API_ID }}" >> local.properties
+          echo "apiHash=${{ secrets.API_HASH }}" >> local.properties
+          echo "sha256=${{ secrets.SHA256 }}" >> local.properties
+
           echo "EXPO_PUBLIC_CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> .env
           echo "cryptoBotToken=${{ secrets.CRYPTO_BOT_TOKEN }}" >> local.properties
 
@@ -83,34 +86,9 @@ jobs:
       - name: Configure BuildVars with Secrets
         run: |
           # 1. Декод ва маска кардани секретҳо
-          REAL_ID=$(echo "${{ secrets.API_ID_BASE64 }}" | base64 --decode)
-          REAL_HASH=$(echo "${{ secrets.API_HASH_BASE64 }}" | base64 --decode)
-          REAL_SHA256=$(echo "${{ secrets.SHA256_BASE64 }}" | base64 --decode)
-          
-          echo "::add-mask::$REAL_ID"
-          echo "::add-mask::$REAL_HASH"
-          echo "::add-mask::$REAL_SHA256"
-
-          BV_FILE="TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java"
-          
-         
-          # Ивазкунии қатъӣ мувофиқи синтаксиси аслии файл
-          sed -i "s/public static int APP_ID = 999999;/public static int APP_ID = $REAL_ID;/g" $BV_FILE
-          sed -i "s/public static String APP_HASH = \"SECRET_HASH_PLACEHOLDER\";/public static String APP_HASH = \"$REAL_HASH\";/g" $BV_FILE
-          sed -i "s/public static String SHA256_KEY = \"SECRET_SHA256_PLACEHOLDER\";/public static String SHA256_KEY = \"$REAL_SHA256\";/g" $BV_FILE
-
-
-          # 3. Санҷиши дақиқи 1 сатр барои оромии хотир
-          echo "--- САНҶИШИ НИҲОИИ БУЛДВАРС ---"
-          LINE_ID=$(grep -E "public static int APP_ID =" $BV_FILE)
-          LINE_HASH=$(grep -E "public static String APP_HASH =" $BV_FILE)
-          
-          echo "Дарозии сатри аслии APP_ID: ${#LINE_ID} символ"
-          echo "Дарозии сатри аслии APP_HASH: ${#LINE_HASH} символ"
-          echo "Натиҷа: $LINE_ID"
-          echo "Натиҷа: $LINE_HASH"
-    
-
+          echo "${{ secrets.API_ID_BASE64 }}" | base64 --decode)
+          echo "${{ secrets.API_HASH_BASE64 }}" | base64 --decode)
+          echo "${{ secrets.SHA256_BASE64 }}" | base64 --decode)
           
       # 📦 ҚАДАМИ МАХСУС: ИЛОВА КАРДАНИ КИТОБХОНАИ FIREBASE БА ГРАДЛ БАРОИ НЕСТ КАРДАНИ ХАТОГИҲОИ JAVA
       - name: Injected Firebase Database dependency

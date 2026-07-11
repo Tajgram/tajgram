@@ -126,56 +126,50 @@ jobs:
       #    CURRENT_KEYSTORE=$(grep "storeFile=" local.properties | cut -d'=' -f2)
       #    keytool -list -v -keystore "$CURRENT_KEYSTORE" -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
       
-      - name: Build with Gradle
-        run: |
-          ./gradlew clean
-          ./gradlew assembleRelease
-          ./gradlew bundleAfatRelease
-
       - name: Attest
         uses: actions/attest@v4
         with:
           subject-path: '${{ github.workspace }}/TMessagesProj_App/build/outputs'
 
-      - name: Upload arm64-v8a build apk
+      - name: Upload build artifact
         uses: actions/upload-artifact@v7
         with:
-          name: TajGram-arm64-v8a
+          name: outputs
+          path: TMessagesProj_App/build/outputs
+
+      - name: Tajgram arm64-v8a build apk
+        uses: actions/upload-artifact@v7
+        with:
           path: TMessagesProj_App/build/outputs/apk/release/*-arm64-v8a.apk
-          if-no-files-found: ignore
+          archive: false
 
-      - name: Upload armeabi-v7a build apk
+      - name: Tajgram armeabi-v7a build apk
         uses: actions/upload-artifact@v7
         with:
-          name: TajGram-armeabi-v7a
           path: TMessagesProj_App/build/outputs/apk/release/*-armeabi-v7a.apk
-          if-no-files-found: ignore
+          archive: false
 
-      - name: Upload universal build apk
+      - name: Tajgram universal build apk
         uses: actions/upload-artifact@v7
         with:
-          name: TajGram-universal
           path: TMessagesProj_App/build/outputs/apk/release/*-universal.apk
-          if-no-files-found: ignore
+          archive: false
 
-      - name: Upload x86 build apk
+      - name: Tajgram x86 build apk
         uses: actions/upload-artifact@v7
         with:
-          name: TajGram-x86
           path: TMessagesProj_App/build/outputs/apk/release/*-x86.apk
-          if-no-files-found: ignore
+          archive: false
 
-      - name: Upload x86_64 build apk
+      - name: Tajgram x86_64 build apk
         uses: actions/upload-artifact@v7
         with:
-          name: TajGram-x86_64
           path: TMessagesProj_App/build/outputs/apk/release/*-x86_64.apk
-          if-no-files-found: ignore
+          archive: false
 
-      - name: Upload build bundle
+      - name: Tajgram build bundle
         uses: actions/upload-artifact@v7
         with:
-          name: TajGram-Bundle
-          path: TMessagesProj_App/build/outputs/bundle/**/*-*.aab
-          if-no-files-found: ignore
+          path: TMessagesProj_App/build/outputs/bundle/play/*-play.aab
+          archive: false
 

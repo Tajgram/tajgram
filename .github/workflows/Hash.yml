@@ -100,3 +100,22 @@ jobs:
           
           echo "Дарозии умумии сатри APP_ID-и нав: ${#LINE_ID} символ"
           echo "Дарозии умумии сатри APP_HASH-и нав: ${#LINE_HASH} символ"
+
+                    # 3. Санҷиши қатъӣ танҳо барои 1 сатр бе омехташавӣ
+          echo "--- САНҶИШИ ДАҚИҚИ БУЛДВАРС (ТАНҲО 1 САТР) ---"
+          
+          # Ҷустуҷӯи дақиқ бо калимаи 'int ' то сатри Huawei-ро партояд
+          LINE_ID=$(grep -E "public static int APP_ID =" $BV_FILE)
+          LINE_HASH=$(grep -E "public static String APP_HASH =" $BV_FILE)
+          
+          # Ҳисоб кардани дарозии аслии ҳамин як сатр
+          LEN_ID=${#LINE_ID}
+          LEN_HASH=${#LINE_HASH}
+          
+          echo "Дарозии сатри аслии APP_ID (танҳо 1 сатр): $LEN_ID символ"
+          echo "Дарозии сатри аслии APP_HASH (танҳо 1 сатр): $LEN_HASH символ"
+          
+          # Намоиши худи сатрҳо барои тасдиқи визуалӣ
+          echo "Натиҷаи сатри APP_ID: $LINE_ID"
+          echo "Натиҷаи сатри APP_HASH: $LINE_HASH"
+

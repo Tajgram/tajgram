@@ -1,3 +1,5 @@
+import com.android.build.api.variant.FilterConfiguration
+
 apply plugin: 'com.android.application'
 
 repositories {
@@ -158,8 +160,13 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            outputFileName = "app.apk"
-            output.versionCodeOverride = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
+            // Гирифтани номи ABI барои он ки файлҳо якдигарро зер накунанд (Конфликт нашавад)
+            def abi = output.getFilter(com.android.build.OutputFile.ABI)
+            def abiName = abi ?: "universal"
+            def baseVersionCode = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
+            
+            outputFileName = "Nekogram-${variant.versionName}-${baseVersionCode}-${abiName}.apk"
+            output.versionCodeOverride = baseVersionCode
         }
     }
 
@@ -187,6 +194,15 @@ android {
                 targets 'tmessages.49'
             }
         }
+    }
+
+    // Илова кардани блок барои алоҳида сохтани APK-ҳо мувофиқи архитектура
+    splits.abi {
+        def buildingBundle = gradle.startParameter.taskNames.any { it.startsWith("bundle") }
+        enable !buildingBundle
+        universalApk true
+        reset()
+        include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
     }
 
     buildFeatures {

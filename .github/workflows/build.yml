@@ -137,44 +137,45 @@ jobs:
         with:
           subject-path: '${{ github.workspace }}/TMessagesProj_App/build/outputs'
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: outputs
-          path: TMessagesProj_App/build/outputs
-
       - name: Upload arm64-v8a build apk
         uses: actions/upload-artifact@v7
         with:
+          name: TajGram-arm64-v8a
           path: TMessagesProj_App/build/outputs/apk/release/*-arm64-v8a.apk
-          archive: false
+          if-no-files-found: ignore
 
       - name: Upload armeabi-v7a build apk
         uses: actions/upload-artifact@v7
         with:
+          name: TajGram-armeabi-v7a
           path: TMessagesProj_App/build/outputs/apk/release/*-armeabi-v7a.apk
-          archive: false
+          if-no-files-found: ignore
 
       - name: Upload universal build apk
         uses: actions/upload-artifact@v7
         with:
+          name: TajGram-universal
           path: TMessagesProj_App/build/outputs/apk/release/*-universal.apk
-          archive: false
+          if-no-files-found: ignore
 
       - name: Upload x86 build apk
         uses: actions/upload-artifact@v7
         with:
+          name: TajGram-x86
           path: TMessagesProj_App/build/outputs/apk/release/*-x86.apk
-          archive: false
+          if-no-files-found: ignore
 
       - name: Upload x86_64 build apk
         uses: actions/upload-artifact@v7
         with:
+          name: TajGram-x86_64
           path: TMessagesProj_App/build/outputs/apk/release/*-x86_64.apk
-          archive: false
+          if-no-files-found: ignore
 
       - name: Upload build bundle
         uses: actions/upload-artifact@v7
         with:
-          path: TMessagesProj_App/build/outputs/bundle/play/*-play.aab
-          archive: false
+          name: TajGram-Bundle
+          path: TMessagesProj_App/build/outputs/bundle/**/*-*.aab
+          if-no-files-found: ignore
+

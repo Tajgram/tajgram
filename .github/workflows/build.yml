@@ -130,7 +130,7 @@ jobs:
         run: |
           ./gradlew clean
           ./gradlew assembleRelease
-          ./gradlew bundleAfatRelease
+          ./gradlew bundlePlay
           
       - name: Attest
         uses: actions/attest@v4

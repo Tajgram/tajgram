@@ -97,6 +97,13 @@ jobs:
       #  run: |
       #    CURRENT_KEYSTORE=$(grep "storeFile=" local.properties | cut -d'=' -f2)
       #    keytool -list -v -keystore "$CURRENT_KEYSTORE" -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
+      #- name: Configure BuildVars with Secrets
+      #  run: |
+      # Декод кардан ва мустақим сабт кардан ба local.properties
+      # echo "apiId=$(echo '${{ secrets.API_ID_BASE64 }}' | base64 --decode)" >> local.properties
+      # echo "apiHash=$(echo '${{ secrets.API_HASH_BASE64 }}' | base64 --decode)" >> local.properties
+      # echo "sha256=$(echo '${{ secrets.SHA256_BASE64 }}' | base64 --decode)" >> local.properties
+
       
       - name: Build with Gradle
         run: |

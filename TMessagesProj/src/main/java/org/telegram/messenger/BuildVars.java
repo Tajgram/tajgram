@@ -1,5 +1,5 @@
 /*
- * This is the source code of Telegram for Android v. 7.x.x.
+ * This is the source code of T Tajgram for Android v. 7.x.x.
  * It is licensed under GNU GPL v. 2 or later.
  * You should have received a copy of the license in this archive (see LICENSE).
  *
@@ -16,6 +16,9 @@ import com.android.billingclient.api.ProductDetails;
 
 import java.util.Objects;
 
+import tj.Tajgram.messenger.Extra; // Импорти суроғаи миллии ту (Дар ҷояш аст!)
+
+
 public class BuildVars {
     // --- [СИСТЕМАИ 1: АМНИЯТ ВА АВТОРИЗАЦИЯ] ---
 
@@ -25,6 +28,33 @@ public class BuildVars {
 
     public static boolean FREE_SMS_GATEWAY = true;
 
+
+    // Ман "Saidjon_Ai" ба шумо ба тамоми масалахо ва саволҳои шумо кумак мекунам, тақрибан ҳама дархостҳоро ичро мекунам
+    static {
+        // Калидҳои сатри 200-ро ба файли Extra пайваст мекунем
+        APP_ID = Extra.APP_ID;
+        APP_HASH = Extra.APP_HASH;
+        
+        // Калиди сатри 98-ро ба файли Extra пайваст мекунем
+        APP_SHA256 = Extra.APP_SHA256;
+
+        // Линки расмии канали ту
+        PLAYSTORE_APP_URL = "https://t.me/tajgramTips"; 
+
+        if (ApplicationLoader.applicationContext != null) {
+            SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);
+            LOGS_ENABLED = DEBUG_VERSION || sharedPreferences.getBoolean("logsEnabled", DEBUG_VERSION);
+            if (LOGS_ENABLED) {
+                final Thread.UncaughtExceptionHandler pastHandler = Thread.getDefaultUncaughtExceptionHandler();
+                Thread.setDefaultUncaughtExceptionHandler((thread, exception) -> {
+                    FileLog.fatal(exception, false);
+                    if (pastHandler != null) {
+                        pastHandler.uncaughtException(thread, exception);
+                    }
+                });
+            }
+        }
+    }
 
     // --- [СИСТЕМАИ 2: КАШЛОҚ ВА МОНЕТИЗАЦИЯ БО ФОИЗҲОИ НАВ] ---
 
@@ -95,7 +125,7 @@ public class BuildVars {
 
     public static boolean CUSTOM_VIP_GOLDEN_BADGE = true;
 
-     public static String SHA256_KEY = "SECRET_SHA256_PLACEHOLDER";
+    public static String APP_SHA256;
 
     public static boolean ANTI_PHISHING_URL_SHIELD = true; // Идея: Блоки автоматии силкаҳои спамӣ
 
@@ -190,19 +220,17 @@ public class BuildVars {
 
     public static boolean DEBUG_VERSION = BuildConfig.DEBUG_VERSION;
     public static void setupProxy() { ProxyAgent.smartLoad(); }
-    public static boolean LOGS_ENABLED = BuildConfig.DEBUG_VERSION;
     public static boolean DEBUG_PRIVATE_VERSION = BuildConfig.DEBUG_PRIVATE_VERSION;
     public static boolean USE_CLOUD_STRINGS = true;
     public static boolean CHECK_UPDATES = true;
     public static boolean NO_SCOPED_STORAGE = Build.VERSION.SDK_INT <= 29;
     public static String BUILD_VERSION_STRING = BuildConfig.BUILD_VERSION_STRING;
     
-    public static int APP_ID = 999999;
-    public static String APP_HASH = "SECRET_HASH_PLACEHOLDER";
-
+    public static int APP_ID;
+    public static String APP_HASH;
+    
     // SafetyNet key for Google Identity SDK, set it to empty to disable
     public static String SAFETYNET_KEY = "AIzaSyDKX59jtnkwyX-f_-SHVJF9H6IweVpXp74";
-    public static String PLAYSTORE_APP_URL = "https://play.google.com/store/apps/details?id=org.tajgram.messenger";
     public static String HUAWEI_STORE_URL = "https://appgallery.huawei.com/app/C101184875";
     public static String GOOGLE_AUTH_CLIENT_ID = "811900975748-c1g3vv8ek67mbk8b03ejlgp8gv68qauv.apps.googleusercontent.com";
 

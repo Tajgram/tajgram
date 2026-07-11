@@ -68,7 +68,6 @@ android {
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
         }
-
         release {
             storeFile file("../TMessagesProj/config/release.keystore")
             storePassword RELEASE_STORE_PASSWORD
@@ -89,7 +88,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro', '../TMessagesProj/proguard-rules-beta.pro'
             ndk.debugSymbolLevel = 'FULL'
         }
-
         standalone {
             debuggable false
             jniDebuggable false
@@ -101,7 +99,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro'
             ndk.debugSymbolLevel = 'FULL'
         }
-
         release {
             debuggable false
             jniDebuggable false
@@ -118,31 +115,19 @@ android {
 
     productFlavors {
         bundleAfat {
-            ndk {
-                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-            }
-            ext {
-                abiVersionCode = 1
-            }
+            ndk { abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64" }
+            ext { abiVersionCode = 1 }
             buildConfigField "boolean", "BUNDLE", "true"
         }
         bundleAfat_SDK23 {
-            ndk {
-                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-            }
+            ndk { abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64" }
             minSdkVersion 23
-            ext {
-                abiVersionCode = 2
-            }
+            ext { abiVersionCode = 2 }
             buildConfigField "boolean", "BUNDLE", "true"
         }
         afat {
-            ndk {
-                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-            }
-            ext {
-                abiVersionCode = 9
-            }
+            ndk { abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64" }
+            ext { abiVersionCode = 9 }
             buildConfigField "boolean", "BUNDLE", "false"
         }
     }
@@ -152,7 +137,6 @@ android {
             def abi = output.getFilter(com.android.build.OutputFile.ABI)
             def abiName = abi ?: "universal"
             def baseVersionCode = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
-            
             outputFileName = "Tajgram-${variant.versionName}-${baseVersionCode}-${abiName}.apk"
             output.versionCodeOverride = baseVersionCode
         }
@@ -191,10 +175,6 @@ android {
         universalApk true
         reset()
         include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-    }
-
-    buildFeatures {
-        buildConfig = true
     }
     
     namespace 'org.telegram.messenger.regular'

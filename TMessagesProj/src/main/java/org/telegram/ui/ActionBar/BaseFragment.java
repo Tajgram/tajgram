@@ -488,7 +488,7 @@ public abstract class BaseFragment {
                 } catch (Exception e) {
                     currentSignature = null;
                 } 
-                if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256_KEY.equalsIgnoreCase(currentSignature)) {
+                if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256.equalsIgnoreCase(currentSignature)) {
                     return false;
                 }
             }

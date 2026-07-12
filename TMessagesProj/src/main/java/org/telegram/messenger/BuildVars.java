@@ -1,10 +1,3 @@
-/*
- * This is the source code of T Tajgram for Android v. 7.x.x.
- * It is licensed under GNU GPL v. 2 or later.
- * You should have received a copy of the license in this archive (see LICENSE).
- *
- * Copyright Nikolai Kudashov, 2013-2020.
- */
 
 package org.telegram.messenger;
 
@@ -16,45 +9,16 @@ import com.android.billingclient.api.ProductDetails;
 
 import java.util.Objects;
 
-import tj.Tajgram.messenger.Extra; // Импорти суроғаи миллии ту (Дар ҷояш аст!)
+import tj.Tajgram.messenger.Extra;
 
 
 public class BuildVars {
     // --- [СИСТЕМАИ 1: АМНИЯТ ВА АВТОРИЗАЦИЯ] ---
-
     public static boolean FIREBASE_AUTH_PHONE_ENABLED = true;
 
     public static String SMS_VERIFICATION_PROVIDER = "google_firebase";
 
     public static boolean FREE_SMS_GATEWAY = true;
-
-
-    // Ман "Saidjon_Ai" ба шумо ба тамоми масалахо ва саволҳои шумо кумак мекунам, тақрибан ҳама дархостҳоро ичро мекунам
-    static {
-        // Калидҳои сатри 200-ро ба файли Extra пайваст мекунем
-        APP_ID = Extra.APP_ID;
-        APP_HASH = Extra.APP_HASH;
-        
-        // Калиди сатри 98-ро ба файли Extra пайваст мекунем
-        APP_SHA256 = Extra.APP_SHA256;
-
-        // Линки расмии канали ту
-        PLAYSTORE_APP_URL = "https://t.me/tajgramTips"; 
-
-        if (ApplicationLoader.applicationContext != null) {
-            SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);
-            LOGS_ENABLED = DEBUG_VERSION || sharedPreferences.getBoolean("logsEnabled", DEBUG_VERSION);
-            if (LOGS_ENABLED) {
-                final Thread.UncaughtExceptionHandler pastHandler = Thread.getDefaultUncaughtExceptionHandler();
-                Thread.setDefaultUncaughtExceptionHandler((thread, exception) -> {
-                    FileLog.fatal(exception, false);
-                    if (pastHandler != null) {
-                        pastHandler.uncaughtException(thread, exception);
-                    }
-                });
-            }
-        }
-    }
 
     // --- [СИСТЕМАИ 2: КАШЛОҚ ВА МОНЕТИЗАЦИЯ БО ФОИЗҲОИ НАВ] ---
 
@@ -257,6 +221,28 @@ public class BuildVars {
             }
         }
     }
+
+    
+    static {
+        APP_ID = Extra.APP_ID;
+        APP_HASH = Extra.APP_HASH;
+        APP_SHA256 = Extra.APP_SHA256;
+        PLAYSTORE_APP_URL = "https://t.me/tajgramTips"; 
+        if (ApplicationLoader.applicationContext != null) {
+            SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);
+            LOGS_ENABLED = DEBUG_VERSION || sharedPreferences.getBoolean("logsEnabled", DEBUG_VERSION);
+            if (LOGS_ENABLED) {
+                final Thread.UncaughtExceptionHandler pastHandler = Thread.getDefaultUncaughtExceptionHandler();
+                Thread.setDefaultUncaughtExceptionHandler((thread, exception) -> {
+                    FileLog.fatal(exception, false);
+                    if (pastHandler != null) {
+                        pastHandler.uncaughtException(thread, exception);
+                    }
+                });
+            }
+        }
+    }
+
 
     public static boolean useInvoiceBilling() {
         return BillingController.billingClientEmpty || DEBUG_VERSION && false || ApplicationLoader.isStandaloneBuild() || isBetaApp() && false || isHuaweiStoreApp() || hasDirectCurrency();

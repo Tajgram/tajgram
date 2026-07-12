@@ -1,7 +1,4 @@
-import com.android.build.api.variant.FilterConfiguration
-
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 repositories {
     mavenCentral()
@@ -26,30 +23,8 @@ dependencies {
 android {
     compileSdkVersion 35
     buildToolsVersion '35.0.0'
-    
-    // Ислоҳи муҳим: buildFeatures танҳо як бор дар сатҳи android бояд бошад
-    buildFeatures {
-        buildConfig = true
-    }
 
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 35
-        versionName APP_VERSION_NAME
-        versionCode Integer.parseInt(APP_VERSION_CODE)
-        ndkVersion "27.2.12479018"
-        applicationId = APP_PACKAGE
-        multiDexEnabled true
-
-        vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
-
-        externalNativeBuild {
-            cmake {
-                version '3.10.2'
-                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-21'
-            }
-        }
-    }
+    defaultConfig.applicationId = APP_PACKAGE
 
     sourceSets.main.jniLibs.srcDirs = ['../TMessagesProj/jni/']
 
@@ -57,12 +32,12 @@ android {
         disable 'MissingTranslation'
         disable 'ExtraTranslation'
         disable 'BlockedPrivateApi'
-        checkReleaseBuilds false
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
         coreLibraryDesugaringEnabled true
     }
 
@@ -73,6 +48,7 @@ android {
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
         }
+
         release {
             storeFile file("../TMessagesProj/config/release.keystore")
             storePassword RELEASE_STORE_PASSWORD
@@ -93,6 +69,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro', '../TMessagesProj/proguard-rules-beta.pro'
             ndk.debugSymbolLevel = 'FULL'
         }
+
         standalone {
             debuggable false
             jniDebuggable false
@@ -104,6 +81,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro'
             ndk.debugSymbolLevel = 'FULL'
         }
+
         release {
             debuggable false
             jniDebuggable false
@@ -116,34 +94,72 @@ android {
         }
     }
 
+    sourceSets.debug {
+        manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest.xml'
+    }
+
+    sourceSets.standalone {
+        manifest.srcFile '../TMessagesProj/config/release/AndroidManifest.xml'
+    }
+
+    sourceSets.release {
+        manifest.srcFile '../TMessagesProj/config/release/AndroidManifest.xml'
+    }
+
     flavorDimensions "minApi"
 
     productFlavors {
         bundleAfat {
-            ndk { abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64" }
-            ext { abiVersionCode = 1 }
+            ndk {
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
+            ext {
+                abiVersionCode = 1
+            }
             buildConfigField "boolean", "BUNDLE", "true"
         }
         bundleAfat_SDK23 {
-            ndk { abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64" }
+            ndk {
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
+            sourceSets.debug {
+                manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest_SDK23.xml'
+            }
+            sourceSets.release {
+                manifest.srcFile '../TMessagesProj/config/release/AndroidManifest_SDK23.xml'
+            }
             minSdkVersion 23
-            ext { abiVersionCode = 2 }
+            ext {
+                abiVersionCode = 2
+            }
             buildConfigField "boolean", "BUNDLE", "true"
         }
         afat {
-            ndk { abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64" }
-            ext { abiVersionCode = 9 }
+            ndk {
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            }
+            sourceSets.debug {
+                manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest_SDK23.xml'
+            }
+            sourceSets.release {
+                manifest.srcFile '../TMessagesProj/config/release/AndroidManifest_SDK23.xml'
+            }
+            sourceSets.standalone {
+                manifest.srcFile '../TMessagesProj/config/release/AndroidManifest_standalone.xml'
+            }
+            ext {
+                abiVersionCode = 9
+            }
             buildConfigField "boolean", "BUNDLE", "false"
         }
     }
 
+    defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
+
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            def abi = output.getFilter(com.android.build.OutputFile.ABI)
-            def abiName = abi ?: "universal"
-            def baseVersionCode = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
-            outputFileName = "Tajgram-${variant.versionName}-${baseVersionCode}-${abiName}.apk"
-            output.versionCodeOverride = baseVersionCode
+            outputFileName = "app.apk"
+            output.versionCodeOverride = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
         }
     }
 
@@ -154,13 +170,32 @@ android {
         }
     }
 
-    splits.abi {
-        def buildingBundle = gradle.startParameter.taskNames.any { it.startsWith("bundle") }
-        enable !buildingBundle
-        universalApk true
-        reset()
-        include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 35
+        versionName APP_VERSION_NAME
+        ndkVersion "27.2.12479018"
+
+        multiDexEnabled true
+
+        vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
+
+        externalNativeBuild {
+            cmake {
+                version '3.10.2'
+                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-21' // , '-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON'
+            }
+        }
     }
-    
+
+    buildFeatures {
+        buildConfig = true
+    }
     namespace 'org.telegram.messenger.regular'
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
+
+apply plugin: 'com.google.gms.google-services'

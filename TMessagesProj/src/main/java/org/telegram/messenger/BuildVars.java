@@ -92,9 +92,8 @@ public class BuildVars {
     public static boolean NO_SCOPED_STORAGE = Build.VERSION.SDK_INT <= 29;
     public static String BUILD_VERSION_STRING = BuildConfig.BUILD_VERSION_STRING;
 
-    
-    public static int APP_ID = 39951434;
-    public static String APP_HASH = "fcf607bae206cefb2930121a86459c4b";
+    public static int APP_ID = 4;
+    public static String APP_HASH = "014b35b6184100b085b0d0572f9b5103";
     
     // SafetyNet key for Google Identity SDK, set it to empty to disable
     public static String SAFETYNET_KEY = "AIzaSyDKX59jtnkwyX-f_-SHVJF9H6IweVpXp74";
@@ -127,8 +126,8 @@ public class BuildVars {
     }
 
     static {
-        //APP_ID = Extra.APP_ID;
-        //APP_HASH = Extra.APP_HASH;
+        APP_ID = Extra.APP_ID;
+        APP_HASH = Extra.APP_HASH;
         APP_SHA256 = Extra.APP_SHA256;
         PLAYSTORE_APP_URL = "https://t.me/tajgramTips";
         if (ApplicationLoader.applicationContext != null) {

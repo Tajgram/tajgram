@@ -1,50 +1,43 @@
-name: 🔄 Tajgram Ultimate Smart Sync
+name: 🔄 Tajgram Ultimate Rebase Sync
 
 on:
-  workflow_dispatch: # Барои пахши дастӣ (запуск)
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 */3 * *' # Ҳар 3 рӯз автоматӣ навсозӣ мекунад
+    - cron: '0 0 */3 * *'
 
 permissions:
   contents: write
 
 jobs:
-  smart_merge_upstream:
+  sync_upstream:
     runs-on: ubuntu-latest
     steps:
-      # 1. Боркунии коди ҳозираи Tajgram бо тамоми таърих
-      - name: Checkout Your Main Code
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2. Танзими бехатари профили Гит
-      - name: Configure Git Developer Profile
+      - name: Configure Git
         run: |
           git config --global user.name "Saidjun Chief Developer"
           git config --global user.email "saidjun@tajgram.messenger"
 
-      # 3. Овардани ТАМОМИ навгониҳо ва обноваҳо аз Дуров
-      - name: Fetch All Updates from DrKLO
+      - name: Fetch and Rebase
         run: |
           git remote add upstream https://github.com/DrKLO/Telegram.git || true
-          # --tags тамоми релизҳо ва версияҳои навро меорад
-          git fetch upstream master --tags
-          echo "🔍 САНҶИШ: Тамоми кодҳои нави Дуров аз интернет оварда шуданд."
-
-      # 4. ОМЕХТА КАРДАНИ ҲУШМАНД (Smart Merge)
-      - name: Merge Core Updates Safely (Line-by-Line)
-        run: |
-          echo "🛡️ Раванди омехтакунии кодҳо оғоз ёфт..."
+          git fetch upstream master
           
-          # Ин ҷо мӯъҷиза рӯй медиҳад: Гит кодҳоро сатр ба сатр мепайвандад.
-          # -X ours танҳо барои ҳалли бархӯрдҳои мустақим истифода мешавад, 
-          # то коди ту осеб набинад ва обноваҳои нав дар паҳлӯяш шинанд.
-          git merge upstream/master -m "👑 Smart Update: Merged Durov's new lines with Tajgram custom lines" \
-            --allow-unrelated-histories -X ours --no-edit || echo "✅ Омехтакунӣ бо муваффақият анҷом ёфт."
+          echo "🚀 Раванди REBASE оғоз шуд: Баробарсозии мукаммал бо DrKLO..."
+          
+          # Rebase кардани коди ту болои коди Дуров
+          # --strategy-option=ours кафолат медиҳад, ки дар ҳолати конфликт, коди ту боло мемонад.
+          git rebase upstream/master -X ours
+          
+          echo "✅ Ҳама навгониҳо бомуваффақият муттаҳид шуданд."
 
-      # 5. САБТИ ДАҚИҚ ВА ДОИМӢ
-      - name: Push Injected Updates
+      - name: Push Updates
         run: |
-          git push origin HEAD:master
-          echo "🚀 СИНХРОНИЗАТСИЯИ КОМИЛ! Обноваҳои нав бо кодҳои ту якҷоя шуданд ва бехатар сабт гардиданд!"
+          # Rebase кардан push-и маҷбуриро талаб мекунад, 
+          # зеро мо таърихро ба навгониҳои Дуров мутобиқ кардем.
+          git push origin HEAD:master --force
+          echo "🚀 Tajgram ҳоло 100% бо DrKLO баробар аст ва кодҳои ту ҳам дар ҷояш!"

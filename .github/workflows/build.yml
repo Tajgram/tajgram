@@ -83,7 +83,7 @@ jobs:
           echo "EXPO_PUBLIC_CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> .env
           echo "cryptoBotToken=${{ secrets.CRYPTO_BOT_TOKEN }}" >> local.properties
 
-          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
+          #echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj_App/google-services.json
           
       # 📦 ҚАДАМИ МАХСУС: ИЛОВА КАРДАНИ КИТОБХОНАИ FIREBASE БА ГРАДЛ БАРОИ НЕСТ КАРДАНИ ХАТОГИҲОИ JAVA
@@ -116,40 +116,46 @@ jobs:
       - name: Attest
         uses: actions/attest@v4
         with:
-          subject-path: '${{ github.workspace }}/TMessagesProj/build/outputs'
+          subject-path: '${{ github.workspace }}/TMessagesProj_App/build/outputs'
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: outputs
+          path: TMessagesProj_App/build/outputs
 
       - name: Upload arm64-v8a build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-arm64-v8a
-          path: TMessagesProj/build/outputs/apk/release/*-arm64-v8a.apk
+          path: TMessagesProj_App/build/outputs/apk/release/*-arm64-v8a.apk
+          archive: false
 
       - name: Upload armeabi-v7a build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-armeabi-v7a
-          path: TMessagesProj/build/outputs/apk/release/*-armeabi-v7a.apk
+          path: TMessagesProj_App/build/outputs/apk/release/*-armeabi-v7a.apk
+          archive: false
 
       - name: Upload universal build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-universal
-          path: TMessagesProj/build/outputs/apk/release/*-universal.apk
+          path: TMessagesProj_App/build/outputs/apk/release/*-universal.apk
+          archive: false
 
       - name: Upload x86 build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-x86
-          path: TMessagesProj/build/outputs/apk/release/*-x86.apk
+          path: TMessagesProj_App/build/outputs/apk/release/*-x86.apk
+          archive: false
 
       - name: Upload x86_64 build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-x86_64
-          path: TMessagesProj/build/outputs/apk/release/*-x86_64.apk
+          path: TMessagesProj_App/build/outputs/apk/release/*-x86_64.apk
+          archive: false
 
       - name: Upload build bundle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-bundle
-          path: TMessagesProj/build/outputs/bundle/afatRelease/*.aab
+          path: TMessagesProj_App/build/outputs/bundle/afatRelease/*.aab
+          archive: false

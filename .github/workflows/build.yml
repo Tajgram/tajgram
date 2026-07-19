@@ -42,7 +42,7 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
-          packages: "build-tools;36.1.0 ndk;27.3.13750724 platforms;android-36"
+          packages: "build-tools;37.0.0 ndk;27.3.13750724 platforms;android-37.0"
 
       - name: Configure Gradle
         run: |
@@ -74,6 +74,8 @@ jobs:
           echo "RELEASE_KEY_ALIAS=${{ secrets.RELEASE_KEY_ALIAS }}" >> gradle.properties
           echo "RELEASE_KEY_PASSWORD=${{ secrets.RELEASE_KEY_PASSWORD }}" >> gradle.properties
           
+      - name: Configure Secrets
+        run: |
           echo "apiId=${{ secrets.API_ID }}" >> local.properties
           echo "apiHash=${{ secrets.API_HASH }}" >> local.properties
           echo "sha256=${{ secrets.SHA256 }}" >> local.properties
@@ -81,7 +83,7 @@ jobs:
           echo "EXPO_PUBLIC_CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> .env
           echo "cryptoBotToken=${{ secrets.CRYPTO_BOT_TOKEN }}" >> local.properties
 
-          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
+          #echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj_App/google-services.json
           
       # 📦 ҚАДАМИ МАХСУС: ИЛОВА КАРДАНИ КИТОБХОНАИ FIREBASE БА ГРАДЛ БАРОИ НЕСТ КАРДАНИ ХАТОГИҲОИ JAVA

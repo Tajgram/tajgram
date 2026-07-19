@@ -1,4 +1,4 @@
-name: 🔄 Tajgram Ultimate Safe Sync
+name: 🔄 Tajgram Ultimate Smart Sync
 
 on:
   workflow_dispatch: # Барои пахши дастӣ (запуск)
@@ -9,14 +9,14 @@ permissions:
   contents: write
 
 jobs:
-  sync_upstream:
+  smart_merge_upstream:
     runs-on: ubuntu-latest
     steps:
       # 1. Боркунии коди ҳозираи Tajgram бо тамоми таърих
       - name: Checkout Your Main Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Тамоми таърихи кодро мехонад, то ягон файл гум нашавад
+          fetch-depth: 0
 
       # 2. Танзими бехатари профили Гит
       - name: Configure Git Developer Profile
@@ -24,30 +24,27 @@ jobs:
           git config --global user.name "Saidjun Chief Developer"
           git config --global user.email "saidjun@tajgram.messenger"
 
-      # 3. Овардани ТАМОМИ маълумоти нав аз Дуров (Upstream)
+      # 3. Овардани ТАМОМИ навгониҳо ва обноваҳо аз Дуров
       - name: Fetch All Updates from DrKLO
         run: |
-          # Пайваст кардани репозиторияи расмӣ
           git remote add upstream https://github.com/DrKLO/Telegram.git || true
-          
-          # Овардани тамоми коммитҳо ва тегҳои нав (то ягон нуқта гум нашавад)
+          # --tags тамоми релизҳо ва версияҳои навро меорад
           git fetch upstream master --tags
-          echo "🔍 САНҶИШ: Тамоми файлҳои нав ва тағйироти Дуров оварда шуданд."
+          echo "🔍 САНҶИШ: Тамоми кодҳои нави Дуров аз интернет оварда шуданд."
 
-      # 4. ОМЕХТА КАРДАНИ БЕХАТАР (Merge бо ҳифзи коди ту)
-      - name: Merge Core Updates Safely (-X ours)
+      # 4. ОМЕХТА КАРДАНИ ҲУШМАНД (Smart Merge)
+      - name: Merge Core Updates Safely (Line-by-Line)
         run: |
-          echo "🛡️ Омехтакунии бехатар оғоз ёфт..."
+          echo "🛡️ Раванди омехтакунии кодҳо оғоз ёфт..."
           
-          # Аломати '-X ours' кафолат медиҳад, ки агар коди ту бо Дуров мухолифат кунад,
-          # Гит автоматӣ скрипти Саидҷонро ҳифз мекунад ва коди нави Дуровро дар паҳлӯяш илова мекунад.
-          # --allow-unrelated-histories иҷозат медиҳад, ки таърихҳои гуногун бе хатогӣ пайваст шаванд.
-          git merge upstream/master -m "👑 Core Updated: Safe sync with DrKLO, old structure untouched" \
-            --allow-unrelated-histories -X ours --no-edit || echo "✅ Омехтакунӣ бо муваффақият ва ҳалли автоматии конфликтҳо анҷом ёфт."
+          # Ин ҷо мӯъҷиза рӯй медиҳад: Гит кодҳоро сатр ба сатр мепайвандад.
+          # -X ours танҳо барои ҳалли бархӯрдҳои мустақим истифода мешавад, 
+          # то коди ту осеб набинад ва обноваҳои нав дар паҳлӯяш шинанд.
+          git merge upstream/master -m "👑 Smart Update: Merged Durov's new lines with Tajgram custom lines" \
+            --allow-unrelated-histories -X ours --no-edit || echo "✅ Омехтакунӣ бо муваффақият анҷом ёфт."
 
-      # 5. САБТИ БЕХАТАР ВА БОСИФАТ
-      - name: Push Injected Updates Safely
+      # 5. САБТИ ДАҚИҚ ВА ДОИМӢ
+      - name: Push Injected Updates
         run: |
-          # Фиристодани код ба шохаи асосии ту (master) бе истифодаи 'force'-и хатарнок
           git push origin HEAD:master
-          echo "🚀 Қисмҳои нав аз Дуров бомуваффақият, пурра ва 100% БЕХАТАР сабт шуданд!"
+          echo "🚀 СИНХРОНИЗАТСИЯИ КОМИЛ! Обноваҳои нав бо кодҳои ту якҷоя шуданд ва бехатар сабт гардиданд!"

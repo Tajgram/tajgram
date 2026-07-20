@@ -110,53 +110,31 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew clean
-          ./gradlew assembleRelease
-          #./gradlew bundleAfatRelease
-          ./gradlew bundlePlayAfat
-          
-      - name: Attest
-        uses: actions/attest@v4
-        with:
-          subject-path: '${{ github.workspace }}/TMessagesProj_App/build/outputs'
+          ./gradlew assembleAfatRelease
+          ./gradlew assembleAfat_SDK23Release
+          ./gradlew bundleAfatRelease
+          ./gradlew bundleAfat_SDK23Release
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v7
+      - name: Upload Afat Release APK
+        uses: actions/upload-artifact@v4
         with:
-          name: outputs
-          path: TMessagesProj_App/build/outputs
+          name: Tajgram-Afat-Release-APK
+          path: TMessagesProj_App/build/outputs/apk/afat/release/*.apk
 
-      - name: Upload arm64-v8a build apk
-        uses: actions/upload-artifact@v7
+      - name: Upload Afat SDK23 Release APK
+        uses: actions/upload-artifact@v4
         with:
-          path: TMessagesProj_App/build/outputs/apk/release/*-arm64-v8a.apk
-          archive: false
+          name: Tajgram-AfatSDK23-Release-APK
+          path: TMessagesProj_App/build/outputs/apk/afat_SDK23/release/*.apk
 
-      - name: Upload armeabi-v7a build apk
-        uses: actions/upload-artifact@v7
+      - name: Upload Afat Bundle
+        uses: actions/upload-artifact@v4
         with:
-          path: TMessagesProj_App/build/outputs/apk/release/*-armeabi-v7a.apk
-          archive: false
+          name: Tajgram-Afat-Bundle
+          path: TMessagesProj_App/build/outputs/bundle/afat/release/*.aab
 
-      - name: Upload universal build apk
-        uses: actions/upload-artifact@v7
+      - name: Upload Afat SDK23 Bundle
+        uses: actions/upload-artifact@v4
         with:
-          path: TMessagesProj_App/build/outputs/apk/release/*-universal.apk
-          archive: false
-
-      - name: Upload x86 build apk
-        uses: actions/upload-artifact@v7
-        with:
-          path: TMessagesProj_App/build/outputs/apk/release/*-x86.apk
-          archive: false
-
-      - name: Upload x86_64 build apk
-        uses: actions/upload-artifact@v7
-        with:
-          path: TMessagesProj_App/build/outputs/apk/release/*-x86_64.apk
-          archive: false
-
-      - name: Upload build bundle
-        uses: actions/upload-artifact@v7
-        with:
-          path: TMessagesProj_App/build/outputs/bundle/play/*-Afat.aab
-          archive: false
+          name: Tajgram-AfatSDK23-Bundle
+          path: TMessagesProj_App/build/outputs/bundle/afat_SDK23/release/*.aab

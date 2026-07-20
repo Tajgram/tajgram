@@ -126,36 +126,41 @@ jobs:
       - name: Upload arm64-v8a build apk
         uses: actions/upload-artifact@v7
         with:
-          path: TMessagesProj_App/build/outputs/apk/afat/release/*-arm64-v8a.apk
+          name: arm64-v8a-release
+          path: "**/outputs/apk/**/*-arm64-v8a.apk"
           archive: false
 
       - name: Upload armeabi-v7a build apk
         uses: actions/upload-artifact@v7
         with:
-          path: TMessagesProj_App/build/outputs/apk/afat/release/*-armeabi-v7a.apk
+          name: armeabi-v7a-release
+          path: "**/outputs/apk/**/*-armeabi-v7a.apk"
           archive: false
 
       - name: Upload universal build apk
         uses: actions/upload-artifact@v7
         with:
-          path: TMessagesProj_App/build/outputs/apk/afat/release/*-universal.apk
+          name: universal-release
+          path: "**/outputs/apk/**/*-universal.apk"
           archive: false
 
       - name: Upload x86 build apk
         uses: actions/upload-artifact@v7
         with:
-          path: TMessagesProj_App/build/outputs/apk/afat/release/*-x86.apk
+          name: x86-release
+          path: "**/outputs/apk/**/*-x86.apk"
           archive: false
 
       - name: Upload x86_64 build apk
         uses: actions/upload-artifact@v7
         with:
-          path: TMessagesProj_App/build/outputs/apk/afat/release/*-x86_64.apk
+          name: x86_64-release
+          path: "**/outputs/apk/**/*-x86_64.apk"
           archive: false
 
       - name: Upload build bundle
         uses: actions/upload-artifact@v7
         with:
           name: outputs-bundle
-          path: TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/*.aab
+          path: "**/outputs/bundle/**/*.aab"
           archive: false

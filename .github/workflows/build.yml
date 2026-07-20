@@ -112,7 +112,7 @@ jobs:
           ./gradlew clean
           ./gradlew assembleRelease
           #./gradlew bundleAfatRelease
-          ./gradlew bundleAfatPlay
+          ./gradlew bundlePlayAfat
       - name: Attest
         uses: actions/attest@v4
         with:

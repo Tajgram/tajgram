@@ -105,36 +105,45 @@ jobs:
       # echo "apiId=$(echo '${{ secrets.API_ID_BASE64 }}' | base64 --decode)" >> local.properties
       # echo "apiHash=$(echo '${{ secrets.API_HASH_BASE64 }}' | base64 --decode)" >> local.properties
       # echo "sha256=$(echo '${{ secrets.SHA256_BASE64 }}' | base64 --decode)" >> local.properties
-
-      
+    
       - name: Build with Gradle
         run: |
           ./gradlew clean
           ./gradlew assembleAfatRelease
-          ./gradlew assembleAfat_SDK23Release
           ./gradlew bundleAfatRelease
-          ./gradlew bundleAfat_SDK23Release
 
-      - name: Upload Afat Release APK
+      - name: Upload arm64-v8a build apk
         uses: actions/upload-artifact@v4
         with:
-          name: Tajgram-Afat-Release-APK
-          path: TMessagesProj_App/build/outputs/apk/afat/release/*.apk
+          name: Tajgram-Afat-arm64-v8a
+          path: TMessagesProj_App/build/outputs/apk/afat/release/*-arm64-v8a.apk
 
-      - name: Upload Afat SDK23 Release APK
+      - name: Upload armeabi-v7a build apk
         uses: actions/upload-artifact@v4
         with:
-          name: Tajgram-AfatSDK23-Release-APK
-          path: TMessagesProj_App/build/outputs/apk/afat_SDK23/release/*.apk
+          name: Tajgram-Afat-armeabi-v7a
+          path: TMessagesProj_App/build/outputs/apk/afat/release/*-armeabi-v7a.apk
 
-      - name: Upload Afat Bundle
+      - name: Upload universal build apk
         uses: actions/upload-artifact@v4
         with:
-          name: Tajgram-Afat-Bundle
-          path: TMessagesProj_App/build/outputs/bundle/afat/release/*.aab
+          name: Tajgram-Afat-universal
+          path: TMessagesProj_App/build/outputs/apk/afat/release/*-universal.apk
 
-      - name: Upload Afat SDK23 Bundle
+      - name: Upload x86 build apk
         uses: actions/upload-artifact@v4
         with:
-          name: Tajgram-AfatSDK23-Bundle
-          path: TMessagesProj_App/build/outputs/bundle/afat_SDK23/release/*.aab
+          name: Tajgram-Afat-x86
+          path: TMessagesProj_App/build/outputs/apk/afat/release/*-x86.apk
+
+      - name: Upload x86_64 build apk
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tajgram-Afat-x86_64
+          path: TMessagesProj_App/build/outputs/apk/afat/release/*-x86_64.apk
+
+      - name: Upload build bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tajgram-Bundle-Afat
+          path: TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/*.aab

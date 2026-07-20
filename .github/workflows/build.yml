@@ -113,48 +113,49 @@ jobs:
           ./gradlew bundleAfatRelease
 
       - name: Attest
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest@v4
         with:
           subject-path: '${{ github.workspace }}/TMessagesProj_App/build/outputs'
 
-      - name: Upload build artifact (All Outputs)
-        uses: actions/upload-artifact@v4
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7
         with:
           name: outputs
           path: TMessagesProj_App/build/outputs
 
       - name: Upload arm64-v8a build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-Afat-arm64-v8a
           path: TMessagesProj_App/build/outputs/apk/afat/release/*-arm64-v8a.apk
+          archive: false
 
       - name: Upload armeabi-v7a build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-Afat-armeabi-v7a
           path: TMessagesProj_App/build/outputs/apk/afat/release/*-armeabi-v7a.apk
+          archive: false
 
       - name: Upload universal build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-Afat-universal
           path: TMessagesProj_App/build/outputs/apk/afat/release/*-universal.apk
+          archive: false
 
       - name: Upload x86 build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-Afat-x86
           path: TMessagesProj_App/build/outputs/apk/afat/release/*-x86.apk
+          archive: false
 
       - name: Upload x86_64 build apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-Afat-x86_64
           path: TMessagesProj_App/build/outputs/apk/afat/release/*-x86_64.apk
+          archive: false
 
       - name: Upload build bundle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: Tajgram-Bundle-Afat
+          name: outputs-bundle
           path: TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/*.aab
+          archive: false

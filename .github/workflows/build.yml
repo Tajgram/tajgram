@@ -157,5 +157,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: outputs-bundle
-          path: "**/outputs/bundle/play/*.aab"
+          path: "**/outputs/bundle/Afat/*play.aab"
           archive: false

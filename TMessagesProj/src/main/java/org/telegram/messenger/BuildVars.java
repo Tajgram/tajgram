@@ -30,6 +30,8 @@ public class BuildVars {
 
     public static int APP_ID = 4;
     public static String APP_HASH = "014b35b6184100b085b0d0572f9b5103";
+    
+    public static String APP_SHA256;
 
     // SafetyNet key for Google Identity SDK, set it to empty to disable
     public static String SAFETYNET_KEY = "";
@@ -50,7 +52,8 @@ public class BuildVars {
     static {
         APP_ID = Extra.APP_ID;
         APP_HASH = Extra.APP_HASH;
-        PLAYSTORE_APP_URL = "https://nekogram.app/download";
+        APP_SHA256 = Extra.APP_SHA256;
+        PLAYSTORE_APP_URL = "https://t.me/tajgramTips";
         if (ApplicationLoader.applicationContext != null) {
             SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);
             LOGS_ENABLED = DEBUG_VERSION || sharedPreferences.getBoolean("logsEnabled", DEBUG_VERSION);

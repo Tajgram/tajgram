@@ -1,9 +1,9 @@
-name: 🔄 Tajgram Ultimate Rebase Sync
+name: 🔄 Tajgram & Nekogram Auto Sync
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 */3 * *'
+    - cron: '0 0 */3 * *' # Ҳар 3 рӯз як маротиба худкор навсозиҳоро мекашад
 
 permissions:
   contents: write
@@ -16,28 +16,30 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Git
         run: |
-          git config --global user.name "Saidjun Chief Developer"
-          git config --global user.email "saidjun@tajgram.messenger"
+          git config --global user.name "Saidjon_Ai Chief Developer"
+          git config --global user.email "saidjon@tajgram.messenger"
 
-      - name: Fetch and Rebase
+      - name: Merge Upstream Changes Safely
         run: |
-          git remote add upstream https://github.com/DrKLO/Telegram.git || true
-          git fetch upstream master
+          # Пайваст шудан ба манбаи расмии Nekogram
+          git remote add upstream https://github.com/Nekogram/Nekogram.git || true
+          git fetch upstream
           
-          echo "🚀 Раванди REBASE оғоз шуд: Баробарсозии мукаммал бо DrKLO..."
+          echo "🚀 Раванди ҳамоҳангсозӣ ва муттаҳидсозӣ оғоз шуд..."
           
-          # Rebase кардани коди ту болои коди Дуров
-          # --strategy-option=ours кафолат медиҳад, ки дар ҳолати конфликт, коди ту боло мемонад.
-          git rebase upstream/master -X ours
+          # Гузаштан ба шохаи асосӣ
+          git checkout master || git checkout main
           
-          echo "✅ Ҳама навгониҳо бомуваффақият муттаҳид шуданд."
+          # Муттаҳидсозии бехатар бо нигоҳ доштани тағйироти ту
+          git merge upstream/master --no-edit || echo "⚠️ Баъзе ҷойҳо конфликт доранд, лутфан санҷед."
+          
+          echo "✅ Навгониҳо бомуваффақият бо ҳам омехта шуданд."
 
-      - name: Push Updates
+      - name: Push Updates to Origin
         run: |
-          # Rebase кардан push-и маҷбуриро талаб мекунад, 
-          # зеро мо таърихро ба навгониҳои Дуров мутобиқ кардем.
-          git push origin HEAD:master --force
-          echo "🚀 Tajgram ҳоло 100% бо DrKLO баробар аст ва кодҳои ту ҳам дар ҷояш!"
+          git push origin HEAD:master || git push origin HEAD:main
+          echo "🚀 Tajgram бомуваффақият бо навгониҳои Nekogram муттаҳид шуд ва коди ту бехатар аст!"

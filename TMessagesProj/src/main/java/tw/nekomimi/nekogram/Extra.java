@@ -8,10 +8,13 @@ public class Extra {
 
     public static int APP_ID = BuildConfig.API_ID;
     public static String APP_HASH = BuildConfig.API_HASH;
-    public static String SENTRY_DSN = BuildConfig.SENTRY_DSN;
+    public static String APP_SHA256 = BuildConfig.SHA_256;
+
+    //public static String SENTRY_DSN = BuildConfig.SENTRY_DSN;
 
     public static boolean FORCE_ANALYTICS = "play".equals(BuildConfig.BUILD_TYPE);
 
+    /*
     private static final UserHelper.BotInfo HELPER_BOT = new UserHelper.BotInfo() {
         @Override
         public long getId() {
@@ -23,12 +26,16 @@ public class Extra {
             return BuildConfig.HELPER_BOT_USERNAME;
         }
     };
+    */
 
     public static UserHelper.BotInfo getHelperBot() {
+        /*
         if (BuildConfig.HELPER_BOT_USERNAME == null) {
             return null;
         }
         return HELPER_BOT;
+        */
+        return null;
     }
 
     public static boolean isDirectApp() {
@@ -36,6 +43,7 @@ public class Extra {
     }
 
     public static boolean isTrustedBot(long id) {
-        return id == BuildConfig.HELPER_BOT_ID;
+        // return id == BuildConfig.HELPER_BOT_ID;
+        return false;
     }
 }

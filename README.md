@@ -1,29 +1,26 @@
-# 🐾 Nekogram
-[![Crowdin](https://badges.crowdin.net/e/a094217ac83905ae1625526d59bba8dc/localized.svg)](https://neko.crowdin.com/nekogram)  
-Nekogram is a third-party Telegram client with not many but useful modifications.
+# 🐾 Tajgram
 
-- Website: https://nekogram.app
-- Telegram channel: https://t.me/nekoupdates
-- Downloads: https://nekogram.app/download
-- Feedback: https://github.com/Nekogram/Nekogram/issues
+Tajgram is a specialized client for decentralized communication networks, designed for high-end privacy and secure messaging operations.
 
-## API, Protocol documentation
+- **Official Channel:** https://t.me/tajgramTops
+- **Support/Issues:** https://github.com/Tajgram/tajgram/issues
 
-Telegram API manuals: https://core.telegram.org/api
+## API & Protocol Documentation
 
-MTProto protocol manuals: https://core.telegram.org/mtproto
+*   **Telegram API manuals:** https://core.telegram.org/api
+*   **MTProto protocol manuals:** https://core.telegram.org/mtproto
 
 ## Compilation Guide
 
-1. Download the Nekogram source code ( `git clone https://github.com/Nekogram/Nekogram.git` )
-1. Fill out storeFile, storePassword, keyAlias, keyPassword in local.properties to access your release.keystore
-1. Go to https://console.firebase.google.com/, create two android apps with application IDs tw.nekomimi.nekogram and tw.nekomimi.nekogram.beta, turn on firebase messaging and download `google-services.json`, which should be copied into `TMessagesProj` folder.
-1. Open the project in the Studio (note that it should be opened, NOT imported).
-1. Fill out values in `TMessagesProj/src/main/java/tw/nekomimi/nekogram/Extra.java` – there’s a link for each of the variables showing where and which data to obtain.
-1. You are ready to compile Nekogram.
+1. **Clone the source:** `git clone https://github.com/Tajgram/tajgram.git`
+2. **Configure credentials:** Fill out `storeFile`, `storePassword`, `keyAlias`, and `keyPassword` in `local.properties` to access your `release.keystore`.
+3. **Firebase Setup:** Go to [Firebase Console](https://console.firebase.google.com/), create your Android application with your unique Application ID, enable Firebase Messaging, and download the `google-services.json` file. Copy this file into the `TMessagesProj` directory.
+4. **Open in IDE:** Open the project in Android Studio (Note: Open the project directly, do not import it).
+5. **Environment Variables:** Fill out the values in `TMessagesProj/src/main/java/tj/Tajgram/messenger/Extra.java`. Follow the links provided in the file to obtain the required variables.
+6. **Build:** You are now ready to compile Tajgram.
 
 ## Localization
 
-Nekogram is forked from Telegram, thus most locales follows the translations of Telegram for Android, checkout https://translations.telegram.org/en/android/.
+Tajgram is built upon the Telegram Android architecture, utilizing established translation protocols. You can view or contribute to translations at [translations.telegram.org](https://translations.telegram.org/Tg/android/).
 
-As for the Nekogram specialized strings, we use Crowdin to translate Nekogram. Join project at https://neko.crowdin.com/nekogram. Help us bring Nekogram to the world!
+Users can switch their interface to the Beta Tajik version via this link: https://t.me/setlanguage/tg-beta

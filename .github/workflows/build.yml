@@ -156,5 +156,6 @@ jobs:
       - name: Upload build bundle
         uses: actions/upload-artifact@v7
         with:
-          path: TMessagesProj_App/build/outputs/bundle/play/*-play.aab
+          name: outputs-bundle
+          path: "**/outputs/bundle/play/*.aab"
           archive: false

@@ -19,7 +19,7 @@ import io.sentry.Breadcrumb;
 import io.sentry.Sentry;
 import io.sentry.SentryLevel;
 import io.sentry.android.core.SentryAndroid;
-import io.sentry.protocol.User;
+//import io.sentry.protocol.User;
 import tw.nekomimi.nekogram.Extra;
 
 public class AnalyticsHelper {
@@ -46,8 +46,13 @@ public class AnalyticsHelper {
         firebaseAnalytics = FirebaseAnalytics.getInstance(application);
         firebaseAnalytics.setAnalyticsCollectionEnabled(true);
         firebaseAnalytics.setUserId(userId);
+        
         SentryAndroid.init(application, options -> {
-            options.setDsn(Extra.SENTRY_DSN);
+            // ==========================================
+            // ИН ҶО КОМЕНТ ШУД (Чунки SENTRY_DSN надорем)
+            // ==========================================
+            //options.setDsn(Extra.SENTRY_DSN);
+            
             options.setEnvironment(BuildConfig.BUILD_TYPE);
             options.setPrintUncaughtStackTrace(true);
             options.setSendDefaultPii(true);
@@ -56,9 +61,15 @@ public class AnalyticsHelper {
             options.setEnableSystemEventBreadcrumbsExtras(true);
             options.setTracesSampleRate(0.01);
         });
+
+        // ========================================================
+        // ИН БЛОКИ ПОЁНӢ НИЗ ПУРРА КОМЕНТ ШУД (Барои пешгирии хатогӣ)
+        // ========================================================
+        /*
         var user = new User();
         user.setId(userId);
         Sentry.setUser(user);
+        */
 
         if (BuildVars.LOGS_ENABLED) {
             FileLog.d("Analytics: userId = " + userId);

@@ -35,8 +35,8 @@ jobs:
             apk/**/*.apk
             bundle/**/*.aab
 
-      - name: Upload to Telegram
-        uses: nekogram/upload-with-mtcute@4ef471af101913322285bad4e391339428169291
+      - name: Upload to Tajgram
+        uses: Tajgram/upload-with-mtcute@30b80abcc00205e4b65ece8d0460a8ea6d5019bd
         with:
           api-id: ${{ secrets.API_ID }}
           api-hash: ${{ secrets.API_HASH }}

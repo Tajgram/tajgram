@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="Tajgram">Tajgram</string>
     <string name="AppNameNeko" translatable="false">@string/Tajgram</string>
     <string name="Nekogram" translatable="false">Tajgram</string>
     <string name="NekogramBeta" translatable="false">Tajgram Beta</string>
-    <string name="NekoSettings">Neko Settings</string>
+    <string name="NekoSettings">Tajgram Settings</string>
     <string name="PreferIPv6">Prefer connecting through IPv6</string>
     <string name="MessageMenu">Message menu</string>
     <string name="HidePhone">Hide my phone number</string>
@@ -71,7 +72,7 @@
     <string name="Translation">Translate Tajgram</string>
     <string name="GooglePlay">Google Play</string>
     <string name="ResetStickerSize">Reset sticker size</string>
-    <string name="OfficialChannelUsername">nekoupdates</string>
+    <string name="OfficialChannelUsername">tajgramupdates</string>
     <string name="RestartAppToTakeEffect">Restart the app to take effect.</string>
     <string name="DisableAppBarShadow">Disable title bar shadow</string>
     <string name="MediaPreview">Media preview in dialog list</string>
@@ -188,14 +189,14 @@
     <string name="TabletMode">Tablet mode</string>
     <string name="TabletModeAuto">Auto</string>
     <string name="DeleteAllFromSelfDone">All your messages are deleted</string>
-    <string name="UnknownNekoSettingsOption">There is no such Neko Settings option.</string>
+    <string name="UnknownNekoSettingsOption">There is no such Tajgram Settings option.</string>
     <string name="ProviderYouDaoTranslate">YouDao Translator</string>
     <string name="ProviderBaiduTranslate">Baidu Translate</string>
     <string name="ProviderSogouTranslate">Sogou Translate</string>
     <string name="Translated">translated</string>
     <string name="PasscodeNeeded">You have to enable passcode lock first</string>
     <string name="PasscodeNeko">Passcode</string>
-    <string name="PasscodeShowInSettings">Show in Neko Settings</string>
+    <string name="PasscodeShowInSettings">Show in Tajgram Settings</string>
     <string name="PasscodeShowInSettingsAbout">After hiding, you can **ONLY** open this page by link:</string>
     <string name="PasscodeSet">Set passcode</string>
     <string name="PasscodeEdit">Change passcode</string>
@@ -277,7 +278,7 @@
     <string name="NavigationAnimationBezier">Classic</string>
     <string name="NavigationAnimationSpring">Natural</string>
     <string name="CloudConfig">Cloud Settings</string>
-    <string name="CloudConfigDesc">Save your Neko Settings to Telegram cloud.</string>
+    <string name="CloudConfigDesc">Save your Tajgram Settings to Telegram cloud.</string>
     <string name="CloudConfigSyncDate">Last synced: %s, cloud: %s</string>
     <string name="CloudConfigSyncDateNever">never</string>
     <string name="CloudConfigSync">Sync to cloud</string>
@@ -286,7 +287,7 @@
     <string name="CloudConfigRestoreShort">Restore</string>
     <string name="CloudConfigSyncing">Syncing...</string>
     <string name="CloudConfigAutoSync">Auto sync</string>
-    <string name="CloudConfigAutoSyncDesc">Sync to cloud automatically after making changes to Neko Settings.</string>
+    <string name="CloudConfigAutoSyncDesc">Sync to cloud automatically after making changes to Tajgram Settings.</string>
     <string name="CloudConfigSyncFailed">Failed to sync settings to cloud.</string>
     <string name="CloudConfigRestoreFailed">Failed to restore settings from cloud.</string>
     <string name="ReducedColors">Reduce colors</string>

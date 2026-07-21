@@ -1,0 +1,102 @@
+name: Tajgram Smart Sync
+
+on:
+  workflow_dispatch: # Иҷроиши дастӣ аз бахши Actions
+
+jobs:
+  check_translation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Клони лоиҳа (Checkout)
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MY_TOKEN }}
+          branch: main
+
+      - name: 🐍 Насби Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 🔍 Муқоиса ва Ислоҳи Хатогиҳои XML
+        run: |
+          python3 - <<EOF
+          import xml.etree.ElementTree as ET
+          import os
+          import re
+
+          en_path = "TMessagesProj/src/main/res/values/strings.xml"
+          tg_path = "TMessagesProj/src/main/res/values-tg/strings.xml"
+          
+          output_folder = "missing_translations"
+          output_file = os.path.join(output_folder, "strings.xml")
+
+          if not os.path.exists(en_path):
+              print(f"❌ ХАТОИ СИСТЕМА: Файли англисӣ дар суроғаи {en_path} ёфт нашуд!")
+              exit(1)
+
+          if not os.path.exists(tg_path):
+              os.makedirs(os.path.dirname(tg_path), exist_ok=True)
+              with open(tg_path, "w", encoding="utf-8") as f:
+                  f.write('<resources>\n</resources>')
+
+          # Санҷиши синтаксис (Танҳо барои ёфтани ID-ҳо)
+          try:
+              en_root = ET.parse(en_path).getroot()
+              tg_root = ET.parse(tg_path).getroot()
+          except ET.ParseError as e:
+              print(f"❌ ХАТОИ СИНТАКСИСӢ ДАР ФАЙЛҲО: {e}")
+              exit(1)
+
+          en_keys = [item.attrib["name"] for item in en_root if "name" in item.attrib]
+          tg_keys = {item.attrib["name"] for item in tg_root if "name" in item.attrib}
+
+          missing_keys = [key for key in en_keys if key not in tg_keys]
+
+          if missing_keys:
+              os.makedirs(output_folder, exist_ok=True)
+              
+              # Хондани файли англисӣ ҳамчун матни оддӣ (барои нусхабардории чиста)
+              with open(en_path, "r", encoding="utf-8") as f:
+                  en_raw_content = f.read()
+
+              print(f"\n=== ЁФТ ШУД: {len(missing_keys)} САТРИ НАВ ===")
+              
+              # Сохтани файли нави XML бо матни чиста
+              with open(output_file, "w", encoding="utf-8") as out:
+                  out.write('<?xml version="1.0" encoding="utf-8"?>\n')
+                  out.write('<resources>\n')
+                  
+                  for key in missing_keys:
+                      # Регекс барои ёфтани элемент айнан бо сохтори аслиаш
+                      match = re.search(rf'<[^>]*name="{re.escape(key)}"[^>]*>.*?</[^>]+>', en_raw_content, re.DOTALL)
+                      
+                      if match:
+                          exact_raw_line = match.group(0)
+                          out.write(f"    {exact_raw_line}\n")
+                          print(f"➕ Чиста нусха шуд -> {key}")
+                  
+                  out.write('</resources>\n')
+              print("=========================================\n")
+              print(f"✅ Муваффақият: Сатрҳо БЕ ТАҒИРОТ ба '{output_folder}/strings.xml' ҷудо шуданд.")
+          else:
+              if os.path.exists(output_file):
+                  os.remove(output_file)
+              if os.path.exists(output_folder) and not os.listdir(output_folder):
+                  os.rmdir(output_folder)
+              print("🎉 Ҳамаи сатрҳо тарҷума шудаанд. Ҳеҷ сатри нав нест.")
+          EOF
+
+      - name: 📤 Push Натиҷа ба GitHub
+        run: |
+          git config --global user.name "TajgramRobot"
+          git config --global user.email "robot@tajgram.tj"
+          
+          git add missing_translations/ 2>/dev/null || true
+          
+          if ! git diff-index --quiet HEAD --; then
+            git commit -m "Auto: Synced and extracted clean raw strings to missing_translations/"
+            git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git main
+          else
+            echo "✅ Ягон тағйирот нест, файлҳо аллакай 100% созанд."
+          fi

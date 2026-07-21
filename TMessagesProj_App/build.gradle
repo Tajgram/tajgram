@@ -64,7 +64,7 @@ android {
 
         multiDexEnabled true
 
-        //manifestPlaceholders = [MAPS_API_KEY: localProperties.get("mapsApiKey")]
+        manifestPlaceholders = [MAPS_API_KEY: localProperties.get("mapsApiKey")]
     }
 
     bundle {

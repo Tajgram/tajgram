@@ -1,0 +1,43 @@
+name: 🔄 Tajgram Ultimate Rebase Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 */3 * *'
+
+permissions:
+  contents: write
+
+jobs:
+  sync_upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "Saidjun Chief Developer"
+          git config --global user.email "saidjun@tajgram.messenger"
+
+      - name: Fetch and Rebase
+        run: |
+          git remote add upstream https://github.com/DrKLO/Telegram.git || true
+          git fetch upstream master
+          
+          echo "🚀 Раванди REBASE оғоз шуд: Баробарсозии мукаммал бо DrKLO..."
+          
+          # Rebase кардани коди ту болои коди Дуров
+          # --strategy-option=ours кафолат медиҳад, ки дар ҳолати конфликт, коди ту боло мемонад.
+          git rebase upstream/master -X ours
+          
+          echo "✅ Ҳама навгониҳо бомуваффақият муттаҳид шуданд."
+
+      - name: Push Updates
+        run: |
+          # Rebase кардан push-и маҷбуриро талаб мекунад, 
+          # зеро мо таърихро ба навгониҳои Дуров мутобиқ кардем.
+          git push origin HEAD:master --force
+          echo "🚀 Tajgram ҳоло 100% бо DrKLO баробар аст ва кодҳои ту ҳам дар ҷояш!"

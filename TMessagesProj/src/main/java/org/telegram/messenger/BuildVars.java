@@ -96,7 +96,7 @@ public class BuildVars {
     public static String APP_HASH = "014b35b6184100b085b0d0572f9b5103";
     
     // SafetyNet key for Google Identity SDK, set it to empty to disable
-    public static String SAFETYNET_KEY = "AIzaSyDKX59jtnkwyX-f_-SHVJF9H6IweVpXp74";
+    public static String SAFETYNET_KEY = "A";
     public static String PLAYSTORE_APP_URL = "https://play.google.com/store/apps/details?id=org.telegram.messenger";
     public static String HUAWEI_STORE_URL = "https://appgallery.huawei.com/app/C101184875";
     public static String GOOGLE_AUTH_CLIENT_ID = "11900975748-c1g3vv8ek67mbk8b03ejlgp8gv68qauv.apps.googleusercontent.com";

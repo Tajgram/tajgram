@@ -84,18 +84,8 @@ dependencies {
 
 def isWindows = String.valueOf(DefaultNativePlatform.currentOperatingSystem.toFamilyName() == OperatingSystemFamily.WINDOWS)
 
-// ИН ҶОРО ИЛОВА КУН:
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localProperties.load(new FileInputStream(localPropertiesFile))
-} else {
-    // Барои он ки билд дар GitHub Actions наафтад, агар local.properties нест:
-    localProperties.put("apiId", System.getenv("API_ID") ?: "0")
-    localProperties.put("apiHash", System.getenv("API_HASH") ?: "")
-    localProperties.put("sha256", System.getenv("SHA_256") ?: "")
-}
 
+}
 android {
     compileSdkVersion 35
     buildToolsVersion '35.0.0'
@@ -109,6 +99,11 @@ android {
         }
     }
 
+    Properties localProperties = new Properties()
+    if (project.rootProject.file('local.properties').exists()) {
+        localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+    }
+    
     lintOptions {
         disable 'MissingTranslation'
         disable 'ExtraTranslation'

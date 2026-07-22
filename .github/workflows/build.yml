@@ -82,6 +82,7 @@ jobs:
           echo "apiId=${{ secrets.API_ID }}" >> local.properties
           echo "apiHash=${{ secrets.API_HASH }}" >> local.properties
           echo "sha256=${{ secrets.SHA256 }}" >> local.properties
+          echo "SHA256=${{ secrets.SHA256 }}" >> local.properties
           echo "mapsApiKey=${{ secrets.MAPS_API_KEY }}" >> local.properties
 
 

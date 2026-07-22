@@ -112,6 +112,11 @@ android {
         }
     }
 
+    Properties localProperties = new Properties()
+    if (project.rootProject.file('local.properties').exists()) {
+        localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+    }
+    
     lintOptions {
         disable 'MissingTranslation'
         disable 'ExtraTranslation'

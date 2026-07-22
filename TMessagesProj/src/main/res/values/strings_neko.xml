@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppNameNeko" translatable="false">@string/Tajgram</string>
+    <string name="AppNameNeko" translatable="false">Tajgram</string>
     <string name="Nekogram" translatable="false">Tajgram</string>
     <string name="NekogramBeta" translatable="false">Tajgram Beta</string>
     <string name="NekoSettings">Tajgram Settings</string>

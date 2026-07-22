@@ -32,7 +32,7 @@ jobs:
           echo "🚀 Раванди ҳамоҳангсозӣ ва муттаҳидсозӣ оғоз шуд..."
           
           # Гузаштан ба шохаи асосӣ
-          git checkout master || git checkout main
+          git checkout main || git checkout main
           
           # Муттаҳидсозии бехатар бо нигоҳ доштани тағйироти ту
           git merge upstream/master --no-edit || echo "⚠️ Баъзе ҷойҳо конфликт доранд, лутфан санҷед."
@@ -41,5 +41,5 @@ jobs:
 
       - name: Push Updates to Origin
         run: |
-          git push origin HEAD:master || git push origin HEAD:main
+          git push origin HEAD:main || git push origin HEAD:main
           echo "🚀 Tajgram бомуваффақият бо навгониҳои Nekogram муттаҳид шуд ва коди ту бехатар аст!"

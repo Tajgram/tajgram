@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "main" ]
     paths-ignore:
       - '**.md'
       - '.github/**'
@@ -43,7 +43,6 @@ jobs:
         uses: android-actions/setup-android@v4
         with:
           packages: "build-tools;37.0.0 ndk;27.3.13750724 platforms;android-37.0"
-
       - name: Configure Gradle
         run: |
           mkdir -p ~/.gradle
@@ -53,7 +52,7 @@ jobs:
           echo 'android.native.buildOutput=verbose' >> ~/.gradle/gradle.properties
       - name: Configure Signing
         run: |
-          # ИСЛОҲИ СУРОҒАИ КЕЙСТОР БЕ  WORKSPACE
+          # ИСЛОҲИ СУРОҒАИ КЕЙСТОР БЕ ДУБЛИКАТИ WORKSPACE
           REPO_KEYSTORE="TMessagesProj/config/release.keystore"
           
           if [ -f "$REPO_KEYSTORE" ]; then
@@ -69,21 +68,27 @@ jobs:
           echo "storePassword=${{ secrets.RELEASE_STORE_PASSWORD }}" >> local.properties
           echo "keyAlias=${{ secrets.RELEASE_KEY_ALIAS }}" >> local.properties
           echo "keyPassword=${{ secrets.RELEASE_KEY_PASSWORD }}" >> local.properties
+
+          echo "RELEASE_STORE_PASSWORD=${{ secrets.RELEASE_STORE_PASSWORD }}" >> local.properties
+          echo "RELEASE_KEY_ALIAS=${{ secrets.RELEASE_KEY_ALIAS }}" >> local.properties
+          echo "RELEASE_KEY_PASSWORD=${{ secrets.RELEASE_KEY_PASSWORD }}" >> local.properties
           
           echo "RELEASE_STORE_PASSWORD=${{ secrets.RELEASE_STORE_PASSWORD }}" >> gradle.properties
           echo "RELEASE_KEY_ALIAS=${{ secrets.RELEASE_KEY_ALIAS }}" >> gradle.properties
           echo "RELEASE_KEY_PASSWORD=${{ secrets.RELEASE_KEY_PASSWORD }}" >> gradle.properties
           
-      - name: Configure Secrets
-        run: |
+          echo "APP_ID=${{ secrets.API_ID }}" >> local.properties
+          echo "APP_HASH=${{ secrets.API_HASH }}" >> local.properties
           echo "apiId=${{ secrets.API_ID }}" >> local.properties
           echo "apiHash=${{ secrets.API_HASH }}" >> local.properties
           echo "sha256=${{ secrets.SHA256 }}" >> local.properties
+          echo "SHA256=${{ secrets.SHA256 }}" >> local.properties
+          echo "mapsApiKey=${{ secrets.MAPS_API_KEY }}" >> local.properties
+
 
           echo "EXPO_PUBLIC_CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> .env
           echo "cryptoBotToken=${{ secrets.CRYPTO_BOT_TOKEN }}" >> local.properties
 
-          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj_App/google-services.json
           
       # 📦 ҚАДАМИ МАХСУС: ИЛОВА КАРДАНИ КИТОБХОНАИ FIREBASE БА ГРАДЛ БАРОИ НЕСТ КАРДАНИ ХАТОГИҲОИ JAVA
@@ -105,11 +110,12 @@ jobs:
       # echo "apiId=$(echo '${{ secrets.API_ID_BASE64 }}' | base64 --decode)" >> local.properties
       # echo "apiHash=$(echo '${{ secrets.API_HASH_BASE64 }}' | base64 --decode)" >> local.properties
       # echo "sha256=$(echo '${{ secrets.SHA256_BASE64 }}' | base64 --decode)" >> local.properties
-    
+
+      
       - name: Build with Gradle
         run: |
           ./gradlew clean
-          ./gradlew assembleAfatRelease
+          ./gradlew assembleRelease
           ./gradlew bundleAfatRelease
           
       - name: Attest
@@ -156,6 +162,5 @@ jobs:
       - name: Upload build bundle
         uses: actions/upload-artifact@v7
         with:
-          name: outputs-bundle
-          path: "**/outputs/bundle/Afat/*Release.aab"
+          path: TMessagesProj_App/build/outputs/bundle/Afat/*-Release.aab
           archive: false

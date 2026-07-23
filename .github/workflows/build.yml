@@ -42,7 +42,9 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
-          packages: "build-tools;37.0.0 ndk;27.3.13750724 platforms;android-37.0"
+         packages: "build-tools;35.0.0 ndk;27.2.12479018 platforms;android-35"
+
+          
       - name: Configure Gradle
         run: |
           mkdir -p ~/.gradle
@@ -83,7 +85,7 @@ jobs:
           echo "apiHash=${{ secrets.API_HASH }}" >> local.properties
           echo "sha256=${{ secrets.SHA256 }}" >> local.properties
           echo "SHA256=${{ secrets.SHA256 }}" >> local.properties
-          echo "mapsApiKey=${{ secrets.MAPS_API_KEY }}" >> local.properties
+          #echo "mapsApiKey=${{ secrets.MAPS_API_KEY }}" >> local.properties
 
 
           echo "EXPO_PUBLIC_CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> .env

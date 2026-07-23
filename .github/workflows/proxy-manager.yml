@@ -47,7 +47,7 @@ jobs:
             exit 1
           fi
           
-          # 3. Боргирии проксиҳо, санҷиши алоқа (Socket Check) ва сохтани JSON & Java
+          # 3. Боргирии проксиҳо ва сабт (бо Fallback)
           echo "Боргирии проксиҳо ва санҷиши фаъолияти онҳо..."
           python3 -c "
           import requests, json, socket
@@ -58,7 +58,7 @@ jobs:
           def check_proxy(ip, port):
               try:
                   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                  s.settimeout(2) # 2 сония вақти интизорӣ
+                  s.settimeout(4) # Вақти интизорӣ ба 4 сония боло бурда шуд
                   s.connect((ip, int(port)))
                   s.close()
                   return True
@@ -66,7 +66,7 @@ jobs:
                   return False
 
           try:
-              res = requests.get('https://api.proxyscrape.com/v2/?request=getproxies&protocol=mtproto&timeout=5000', timeout=10)
+              res = requests.get('https://api.proxyscrape.com/v2/?request=getproxies&protocol=mtproto&timeout=10000', timeout=10)
               raw_proxies = [p.strip() for p in res.text.split('\r\n') if p.strip()]
               
               working_proxies = []
@@ -82,13 +82,19 @@ jobs:
                       if len(working_proxies) >= 10:
                           break
 
-              # Агар проксиҳои коргар ёфт шаванд:
+              # Агар санҷиш проксиро наёбад, 5 проксии аввалинро ҳамчун запаси худкор мегирад:
+              if not working_proxies and raw_proxies:
+                  print('Огоҳӣ: Санҷиши алоқа гузашта натавонист, проксиҳои захиравӣ (Fallback) истифода мешаванд...')
+                  for p in raw_proxies[:5]:
+                      parts = p.split(':')
+                      if len(parts) >= 3:
+                          working_proxies.append((parts[0], parts[1], parts[2], p))
+
               if working_proxies:
                   # А) Сохтани файли proxies.json
                   json_list = [item[3] for item in working_proxies]
                   with open(json_file, 'w', encoding='utf-8') as f:
                       json.dump({'list': json_list}, f, indent=2)
-                  print('файли proxies.json сохта ва нав карда шуд.')
 
                   # Б) Сохтани файли ProxyAgent.java
                   java_code = '''package org.telegram.messenger;
@@ -113,9 +119,7 @@ jobs:
           '''
                   with open(proxy_file, 'w', encoding='utf-8') as f:
                       f.write(java_code)
-                  print(f'Муваффақият: {len(working_proxies)} проксии санҷидашуда ба ProxyAgent.java илова шуд.')
-              else:
-                  print('Ҳеҷ як аз проксиҳо дар санҷиш фаъол набаромаданд.')
+                  print(f'Муваффақият: {len(working_proxies)} прокси ба ProxyAgent.java сабт шуд.')
 
           except Exception as e:
               print('Хатогӣ дар раванди боргирӣ ва санҷиш:', e)

@@ -16,40 +16,29 @@ jobs:
 
       - name: Self-Cleaning & Auto-Fetch
         run: |
-          # 1. Санҷиш ва сохтани ProxyAgent.java (агар мавҷуд набошад)
+          # 1. Санҷиш ва сохтани ProxyAgent.java
           PROXY_FILE="TMessagesProj/src/main/java/org/telegram/messenger/ProxyAgent.java"
           if [ ! -f "$PROXY_FILE" ]; then
-            echo "Файли ProxyAgent ёфт нашуд, сохта истодаам..."
             mkdir -p "$(dirname "$PROXY_FILE")"
-            cat <<EOF > "$PROXY_FILE"
-package org.telegram.messenger;
-
-public class ProxyAgent {
-    public static void smartLoad() {
-        // Танзимот ё хондани прокси аз proxies.json
-    }
-}
-EOF
-            echo "ProxyAgent.java сохта шуд."
-          else
-            echo "ProxyAgent.java аллакай мавҷуд аст, даст намезанам."
+            echo "package org.telegram.messenger;" > "$PROXY_FILE"
+            echo "" >> "$PROXY_FILE"
+            echo "public class ProxyAgent {" >> "$PROXY_FILE"
+            echo "    public static void smartLoad() {" >> "$PROXY_FILE"
+            echo "        // Auto-generated agent" >> "$PROXY_FILE"
+            echo "    }" >> "$PROXY_FILE"
+            echo "}" >> "$PROXY_FILE"
           fi
 
-          # 2. Тозакунии шаффоф дар BuildVars.java
-          echo "Ҷустуҷӯи файли BuildVars.java..."
+          # 2. Тозакунии BuildVars.java
           FILE=$(find . -name "BuildVars.java" | head -n 1)
           if [ -f "$FILE" ]; then
-            echo "Файл ёфт шуд: $FILE"
-            echo "Тоза кардани проксиҳои кӯҳна..."
             sed -i '/PROXY_ADDRESS/d; /PROXY_PORT/d; /PROXY_SECRET/d' "$FILE"
-            echo "Проксиҳои кӯҳна тоза шуданд."
           else
-            echo "Хатогӣ: BuildVars.java ёфт нашуд!"
+            echo "BuildVars.java ёфт нашуд!"
             exit 1
           fi
 
-          # 3. Боргирӣ ва навсозии 10 проксии ТОЗА дар proxies.json
-          echo "Боргирии проксиҳои нав ва сабт дар proxies.json..."
+          # 3. Боргирии проксиҳо
           python3 -c "
           import requests, json, os, re
 
@@ -76,7 +65,7 @@ EOF
                           if len(clean_proxies) >= 10:
                               break
               except Exception as e:
-                  print(f'Мушкил дар манбаъ ({url}):', e)
+                  print(e)
               
               if len(clean_proxies) >= 10:
                   break
@@ -91,28 +80,23 @@ EOF
               os.makedirs(assets_dir, exist_ok=True)
               with open(os.path.join(assets_dir, 'proxies.json'), 'w', encoding='utf-8') as f:
                   json.dump(data, f, indent=2)
-              
-              print(f'Муваффақият: {len(clean_proxies)} проксии ТОЗА сабт ва нав карда шуд.')
-          else:
-              print('Огоҳӣ: Ҳеҷ проксии дуруст ёфт нашуд.')
           "
 
-          # 4. Насби Агент дар BuildVars.java (Муҳофизат аз дубликат)
+          # 4. Насби setupProxy
           if ! grep -q "setupProxy" "$FILE"; then
             sed -i '/public static boolean DEBUG_VERSION/a \    public static void setupProxy() { ProxyAgent.smartLoad(); }' "$FILE"
-            echo "Агенти хушманд (setupProxy) бомуваффақият илова шуд."
-          else
-            echo "Агенти хушманд аллакай дар файл мавҷуд аст."
           fi
 
-          - name: Push Auto-Update
-          run: |
+      - name: Push Auto-Update
+        run: |
           git config --global user.name "Auto-Proxy-Bot"
           git config --global user.email "bot@proxy.com"
           
-          #ТАНҲО ФАЙЛҲОИ PROXIES.JSON-РО АДД МЕКУНАД (НА ВЕС ФАЙЛҲОРО)
           git add proxies.json TMessagesProj/src/main/assets/proxies.json
+          git add TMessagesProj/src/main/java/org/telegram/messenger/ProxyAgent.java || true
           
-          #[skip ci] ИЛОВА ШУД ТО БИЛДИ АВТОМАТӢ (BUILD.YML) САР НАНАШОДАД
-          git commit -m "Auto-Update: 10 valid proxies updated [skip ci]" || echo "No changes"
+          FILE=$(find . -name "BuildVars.java" | head -n 1)
+          if [ -n "$FILE" ]; then git add "$FILE"; fi
+          
+          git commit -m "Auto-Update: 10 valid proxies updated & core restored [skip ci]" || echo "No changes"
           git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master

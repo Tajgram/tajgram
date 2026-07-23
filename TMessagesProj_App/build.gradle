@@ -156,12 +156,12 @@ android {
 
     defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
 
-    // 🔹 НОМГУЗОРИИ ДИНАМИКИИ АПК-ҲО БО НОМ, ВЕРСИЯ ВА АРХИТЕКТУРА (ABI)
+    // 🔹 ЯК НАМУД НОМГУЗОРИИ СТАНДАРТӢ БАРОИ GITHUB ACTIONS
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def abi = output.getFilter(com.android.build.OutputFile.ABI)
             def abiName = abi ?: "universal"
-            outputFileName = "Tajgram-v${APP_VERSION_NAME}-${variant.flavorName}-${abiName}.apk"
+            outputFileName = "Tajgram-${abiName}.apk"
             output.versionCodeOverride = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
         }
     }
@@ -200,7 +200,6 @@ android {
         checkReleaseBuilds false
     }
 
-    // 🔹 ҶУДОКУНИИ АПК-ҲО АЗ РӮИ АРХИТЕКТУРАИ ПРОЦЕССОР (SPLITS)
     splits {
         abi {
             def buildingBundle = gradle.startParameter.taskNames.any { it.startsWith("bundle") }
@@ -211,7 +210,6 @@ android {
         }
     }
 
-    // 🔹 БУФЕРИ МУҲОФИЗАТӢ АЗ ХАТОГИИ ДУБЛИКАТИ МЕТА-ФАЙЛҲО
     packagingOptions {
         resources {
             excludes += [

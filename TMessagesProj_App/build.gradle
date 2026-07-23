@@ -156,9 +156,12 @@ android {
 
     defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
 
+    // 🔹 НОМГУЗОРИИ ДИНАМИКИИ АПК-ҲО БО НОМ, ВЕРСИЯ ВА АРХИТЕКТУРА (ABI)
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            outputFileName = "Tajgram.apk"
+            def abi = output.getFilter(com.android.build.OutputFile.ABI)
+            def abiName = abi ?: "universal"
+            outputFileName = "Tajgram-v${APP_VERSION_NAME}-${variant.flavorName}-${abiName}.apk"
             output.versionCodeOverride = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
         }
     }
@@ -188,7 +191,16 @@ android {
         }
     }
 
-    // 🔹 ИЛОВАШУДА БЕХАТАР (ҶУДОКУНИИ АПК-ҲО ВА БУНДЛ)
+    buildFeatures {
+        buildConfig = true
+    }
+    namespace 'org.telegram.messenger.regular'
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    // 🔹 ҶУДОКУНИИ АПК-ҲО АЗ РӮИ АРХИТЕКТУРАИ ПРОЦЕССОР (SPLITS)
     splits {
         abi {
             def buildingBundle = gradle.startParameter.taskNames.any { it.startsWith("bundle") }
@@ -199,24 +211,15 @@ android {
         }
     }
 
-    bundle {
-        language {
-            enableSplit = false
+    // 🔹 БУФЕРИ МУҲОФИЗАТӢ АЗ ХАТОГИИ ДУБЛИКАТИ МЕТА-ФАЙЛҲО
+    packagingOptions {
+        resources {
+            excludes += [
+                'META-INF/com/android/build/gradle/app-metadata.properties',
+                'META-INF/INDEX.LIST',
+                'META-INF/DEPENDENCIES'
+            ]
         }
-    }
-
-    dependenciesInfo {
-        includeInApk false
-        includeInBundle false
-    }
-
-    buildFeatures {
-        buildConfig = true
-    }
-    namespace 'org.telegram.messenger.regular'
-
-    lintOptions {
-        checkReleaseBuilds false
     }
 }
 

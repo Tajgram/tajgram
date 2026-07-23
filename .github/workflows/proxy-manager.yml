@@ -16,7 +16,7 @@ jobs:
 
       - name: Self-Cleaning & Auto-Fetch
         run: |
-          # 1. Санҷиш ва Сохтани ProxyAgent (Иловаи нав барои ислоҳи хатогӣ)
+          # 1. Санҷиш ва Сохтани ProxyAgent (пешакӣ)
           PROXY_FILE="TMessagesProj/src/main/java/org/telegram/messenger/ProxyAgent.java"
           if [ ! -f "$PROXY_FILE" ]; then
             echo "Файли ProxyAgent ёфт нашуд, сохта истодаам..."
@@ -31,7 +31,7 @@ jobs:
           EOF
             echo "ProxyAgent.java сохта шуд."
           else
-            echo "ProxyAgent.java аллакай мавҷуд аст, даст намезанам."
+            echo "ProxyAgent.java аллакай мавҷуд аст."
           fi
 
           # 2. Тозакунии шаффоф
@@ -47,20 +47,81 @@ jobs:
             exit 1
           fi
           
-          # 3. Ҷустуҷӯи проксиҳои нав
-          echo "Боргирии проксиҳои нав..."
-          python3 -c "import requests, json;
+          # 3. Боргирии проксиҳо, санҷиши алоқа (Socket Check) ва сохтани JSON & Java
+          echo "Боргирии проксиҳо ва санҷиши фаъолияти онҳо..."
+          python3 -c "
+          import requests, json, socket
+
+          proxy_file = '$PROXY_FILE'
+          json_file = 'proxies.json'
+
+          def check_proxy(ip, port):
+              try:
+                  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                  s.settimeout(2) # 2 сония вақти интизорӣ
+                  s.connect((ip, int(port)))
+                  s.close()
+                  return True
+              except:
+                  return False
+
           try:
-              res = requests.get('https://api.proxyscrape.com/v2/?request=getproxies&protocol=mtproto&timeout=10000', timeout=10);
-              proxies = [p for p in res.text.split('\r\n') if p];
-              with open('proxies.json', 'w') as f:
-                  json.dump({'list': proxies[:10]}, f)
-              print('OK')
+              res = requests.get('https://api.proxyscrape.com/v2/?request=getproxies&protocol=mtproto&timeout=5000', timeout=10)
+              raw_proxies = [p.strip() for p in res.text.split('\r\n') if p.strip()]
+              
+              working_proxies = []
+              print('Санҷиши фаъолияти проксиҳо огоз шуд...')
+              
+              for p in raw_proxies:
+                  parts = p.split(':')
+                  if len(parts) >= 3:
+                      ip, port, secret = parts[0], parts[1], parts[2]
+                      if check_proxy(ip, port):
+                          working_proxies.append((ip, port, secret, p))
+                          print(f'Прокси коргар ёфт шуд: {ip}:{port}')
+                      if len(working_proxies) >= 10:
+                          break
+
+              # Агар проксиҳои коргар ёфт шаванд:
+              if working_proxies:
+                  # А) Сохтани файли proxies.json
+                  json_list = [item[3] for item in working_proxies]
+                  with open(json_file, 'w', encoding='utf-8') as f:
+                      json.dump({'list': json_list}, f, indent=2)
+                  print('файли proxies.json сохта ва нав карда шуд.')
+
+                  # Б) Сохтани файли ProxyAgent.java
+                  java_code = '''package org.telegram.messenger;
+
+          public class ProxyAgent {
+              public static void smartLoad() {
+                  try {
+          '''
+                  for ip, port, secret, _ in working_proxies:
+                      java_code += f'            SharedConfig.addProxy(new SharedConfig.ProxyInfo(\"{ip}\", {port}, \"\", \"\", \"{secret}\"));\n'
+
+                  java_code += '''            if (!SharedConfig.proxyList.isEmpty()) {
+                          SharedConfig.currentProxy = SharedConfig.proxyList.get(0);
+                          SharedConfig.isProxyEnabled = true;
+                          SharedConfig.saveProxyList();
+                      }
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  }
+              }
+          }
+          '''
+                  with open(proxy_file, 'w', encoding='utf-8') as f:
+                      f.write(java_code)
+                  print(f'Муваффақият: {len(working_proxies)} проксии санҷидашуда ба ProxyAgent.java илова шуд.')
+              else:
+                  print('Ҳеҷ як аз проксиҳо дар санҷиш фаъол набаромаданд.')
+
           except Exception as e:
-              print(e)"
-          echo "Проксиҳои нав дар proxies.json сабт шуданд."
+              print('Хатогӣ дар раванди боргирӣ ва санҷиш:', e)
+          "
           
-          # 4. Насби Agent (Муҳофизат аз дубликат боқӣ монд)
+          # 4. Насби Agent (Муҳофизат аз дубликат)
           if ! grep -q "setupProxy" "$FILE"; then
             sed -i '/public static boolean DEBUG_VERSION/a \    public static void setupProxy() { ProxyAgent.smartLoad(); }' "$FILE"
             echo "Агенти хушманд (setupProxy) бомуваффақият илова шуд."
@@ -73,5 +134,5 @@ jobs:
           git config --global user.name "Auto-Proxy-Bot"
           git config --global user.email "bot@proxy.com"
           git add .
-          git commit -m "Auto-Update: Proxy logic fixed & Updated Proxies" || echo "No changes"
+          git commit -m "Auto-Update: Tested working proxies updated" || echo "No changes"
           git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master

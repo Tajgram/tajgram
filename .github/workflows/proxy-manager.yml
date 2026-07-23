@@ -48,43 +48,58 @@ jobs:
             exit 1
           fi
 
-          # 3. Боргирӣ ва навсозии 10 прокси дар proxies.json
+          # 3. Боргирӣ ва навсозии 10 проксии ТОЗА дар proxies.json
           echo "Боргирии проксиҳои нав ва сабт дар proxies.json..."
           python3 -c "
-          import requests, json, os
+          import requests, json, os, re
 
-          url = 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=mtproto&timeout=10000'
-          try:
-              res = requests.get(url, timeout=10)
-              lines = [l.strip() for l in res.text.splitlines() if l.strip()]
+          # Шаблони санҷиши IP:PORT
+          proxy_pattern = re.compile(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d+')
+
+          # Манбаъҳои эътимоднок
+          sources = [
+              'https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks5&timeout=10000',
+              'https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt',
+              'https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt',
+              'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000'
+          ]
+
+          clean_proxies = []
+
+          for url in sources:
+              try:
+                  res = requests.get(url, timeout=10)
+                  if res.status_code == 200:
+                      lines = [l.strip() for l in res.text.splitlines() if l.strip()]
+                      for line in lines:
+                          # Танҳо IP:PORT-и дуруст (бе HTML ва бе хатогӣ)
+                          if proxy_pattern.match(line) and '<' not in line and 'Invalid' not in line:
+                              if line not in clean_proxies:
+                                  clean_proxies.append(line)
+                          if len(clean_proxies) >= 10:
+                              break
+              except Exception as e:
+                  print(f'Мушкил дар манбаъ ({url}):', e)
               
-              # Танҳо сатрҳои дурустро мегирад (IP:PORT)
-              clean_proxies = []
-              for l in lines:
-                  parts = l.split(':')
-                  if len(parts) >= 2:
-                      clean_proxies.append(l)
-                  if len(clean_proxies) >= 10:
-                      break
+              if len(clean_proxies) >= 10:
+                  break
 
-              if clean_proxies:
-                  data = {'list': clean_proxies}
-                  
-                  # А) Сабт дар решаи лоиҳа (Root)
-                  with open('proxies.json', 'w', encoding='utf-8') as f:
-                      json.dump(data, f, indent=2)
-                  
-                  # Б) Агар папкаи assets мавҷуд бошад, ба он ҷо ҳам менавасад
-                  assets_dir = 'TMessagesProj/src/main/assets'
-                  if os.path.exists(assets_dir):
-                      with open(os.path.join(assets_dir, 'proxies.json'), 'w', encoding='utf-8') as f:
-                          json.dump(data, f, indent=2)
-                  
-                  print('Муваффақият: 10 прокси ба proxies.json сабт ва нав карда шуд.')
-              else:
-                  print('Огоҳӣ: Прокси ёфт нашуд.')
-          except Exception as e:
-              print('Хатогӣ дар раванди API:', e)
+          if clean_proxies:
+              data = {'list': clean_proxies}
+              
+              # А) Сабт дар решаи лоиҳа (Root)
+              with open('proxies.json', 'w', encoding='utf-8') as f:
+                  json.dump(data, f, indent=2)
+              
+              # Б) Сабт дар папкаи assets (сохтани папка агар набошад)
+              assets_dir = 'TMessagesProj/src/main/assets'
+              os.makedirs(assets_dir, exist_ok=True)
+              with open(os.path.join(assets_dir, 'proxies.json'), 'w', encoding='utf-8') as f:
+                  json.dump(data, f, indent=2)
+              
+              print(f'Муваффақият: {len(clean_proxies)} проксии ТОЗА сабт ва нав карда шуд.')
+          else:
+              print('Огоҳӣ: Ҳеҷ проксии дуруст ёфт нашуд.')
           "
 
           # 4. Насби Агент дар BuildVars.java (Муҳофизат аз дубликат)
@@ -100,5 +115,5 @@ jobs:
           git config --global user.name "Auto-Proxy-Bot"
           git config --global user.email "bot@proxy.com"
           git add .
-          git commit -m "Auto-Update: proxies.json refreshed" || echo "No changes"
+          git commit -m "Auto-Update: 10 valid proxies updated" || echo "No changes"
           git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master

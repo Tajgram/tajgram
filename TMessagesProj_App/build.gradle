@@ -188,6 +188,28 @@ android {
         }
     }
 
+    // 🔹 ИЛОВАШУДА БЕХАТАР (ҶУДОКУНИИ АПК-ҲО ВА БУНДЛ)
+    splits {
+        abi {
+            def buildingBundle = gradle.startParameter.taskNames.any { it.startsWith("bundle") }
+            enable !buildingBundle
+            universalApk true
+            reset()
+            include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
+    dependenciesInfo {
+        includeInApk false
+        includeInBundle false
+    }
+
     buildFeatures {
         buildConfig = true
     }

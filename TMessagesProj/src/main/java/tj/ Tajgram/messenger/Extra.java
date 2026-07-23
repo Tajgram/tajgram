@@ -10,5 +10,10 @@ public class Extra {
     // Нишон додани намуди билд (Debug ё Release) барои ядрои барнома
     public static boolean isDirectApp() {
         return "release".equals(BuildConfig.BUILD_TYPE) || "debug".equals(BuildConfig.BUILD_TYPE);
+        }
+
+    // Санҷиши аслияти калид
+    public static boolean isKeyValid() {
+        return APP_SHA256 != null && !APP_SHA256.isEmpty();
     }
 }

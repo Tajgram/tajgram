@@ -156,7 +156,7 @@ android {
 
     defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
 
-    // 🔹 ЯК НАМУД НОМГУЗОРИИ СТАНДАРТӢ БАРОИ GITHUB ACTIONS
+    // 🔹 ҶУДО КАРДАНИ АПК-ҲО ВА БЕРОУН ВАЙРОН НАКАРДАНИ НОМҲО
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def abi = output.getFilter(com.android.build.OutputFile.ABI)
@@ -186,7 +186,7 @@ android {
         externalNativeBuild {
             cmake {
                 version '3.10.2'
-                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-21' // , '-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON'
+                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-21'
             }
         }
     }
@@ -200,10 +200,10 @@ android {
         checkReleaseBuilds false
     }
 
+    // 🔹 ФАРМОНИ МАҶБУРИИ ҶУДОКУНИИ APK АЗ ZIP (SPLITS)
     splits {
         abi {
-            def buildingBundle = gradle.startParameter.taskNames.any { it.startsWith("bundle") }
-            enable !buildingBundle
+            enable true
             universalApk true
             reset()
             include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"

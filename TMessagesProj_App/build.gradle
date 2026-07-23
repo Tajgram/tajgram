@@ -156,12 +156,12 @@ android {
 
     defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
 
-    // 🔹 НОМГУЗОРИИ ДИНАМИКИИ АПК-ҲО БО НОМ, ВЕРСИЯ ВА АРХИТЕКТУРА (ABI)
+    // 🔹 ЯК НАМУД НОМГУЗОРИИ СТАНДАРТӢ БАРОИ GITHUB ACTIONS
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def abi = output.getFilter(com.android.build.OutputFile.ABI)
             def abiName = abi ?: "universal"
-            outputFileName = "Tajgram-v${APP_VERSION_NAME}-${variant.flavorName}-${abiName}.apk"
+            outputFileName = "Tajgram-${abiName}.apk"
             output.versionCodeOverride = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
         }
     }

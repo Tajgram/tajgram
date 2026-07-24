@@ -28,6 +28,17 @@ android {
 
     defaultConfig.applicationId = APP_PACKAGE
 
+    packagingOptions {
+        resources {
+            excludes += '**'
+        }
+    }
+
+    Properties localProperties = new Properties()
+    if (project.rootProject.file('local.properties').exists()) {
+        localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+    }
+
     sourceSets.main.jniLibs.srcDirs = ['../TMessagesProj/jni/']
 
     lintOptions {
@@ -167,3 +178,4 @@ androidComponents {
 }
 
 apply plugin: 'com.google.gms.google-services'
+

@@ -13,7 +13,7 @@ public class Extra {
         }
 
     // Санҷиши аслияти калид
-    public static boolean isKeyValid() {
-        return APP_SHA256 != null && !APP_SHA256.isEmpty();
+  public static boolean isKeyValid() {
+        return APP_ID != 0 && APP_HASH != null && !APP_HASH.isEmpty();
     }
 }

@@ -85,7 +85,6 @@ jobs:
           echo "apiHash=${{ secrets.API_HASH }}" >> local.properties
           echo "sha256=${{ secrets.SHA256 }}" >> local.properties
           echo "SHA256=${{ secrets.SHA256 }}" >> local.properties
-          #echo "mapsApiKey=${{ secrets.MAPS_API_KEY }}" >> local.properties
 
 
           echo "EXPO_PUBLIC_CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> .env
@@ -113,14 +112,14 @@ jobs:
       # echo "apiId=$(echo '${{ secrets.API_ID_BASE64 }}' | base64 --decode)" >> local.properties
       # echo "apiHash=$(echo '${{ secrets.API_HASH_BASE64 }}' | base64 --decode)" >> local.properties
       # echo "sha256=$(echo '${{ secrets.SHA256_BASE64 }}' | base64 --decode)" >> local.properties
+      # echo "mapsApiKey=${{ secrets.MAPS_API_KEY }}" >> local.properties
 
       
       - name: Build with Gradle
         run: |
-          ./gradlew clean
           ./gradlew assembleRelease
-          ./gradlew bundleAfatRelease
-          
+          ./gradlew bundlePlay
+
       - name: Attest
         uses: actions/attest@v4
         with:
@@ -165,5 +164,5 @@ jobs:
       - name: Upload build bundle
         uses: actions/upload-artifact@v7
         with:
-          path: TMessagesProj_App/build/outputs/bundle/Afat/*-Release.aab
+          path: TMessagesProj_App/build/outputs/bundle/play/*-play.aab
           archive: false

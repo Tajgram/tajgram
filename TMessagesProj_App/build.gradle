@@ -1,17 +1,8 @@
-apply plugin: 'com.android.application'
+import com.android.build.api.variant.FilterConfiguration
 
-repositories {
-    mavenCentral()
-    google()
-}
-
-configurations {
-    compile.exclude module: 'support-v4'
-}
-
-configurations.all {
-    exclude group: 'com.google.firebase', module: 'firebase-core'
-    exclude group: 'androidx.recyclerview', module: 'recyclerview'
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 dependencies {
@@ -28,17 +19,21 @@ android {
 
     sourceSets.main.jniLibs.srcDirs = ['../TMessagesProj/jni/']
 
-    lintOptions {
-        disable 'MissingTranslation'
-        disable 'ExtraTranslation'
-        disable 'BlockedPrivateApi'
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-
         coreLibraryDesugaringEnabled true
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '**'
+        }
+    }
+
+    Properties localProperties = new Properties()
+    if (project.rootProject.file('local.properties').exists()) {
+        localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
     }
 
     signingConfigs {
@@ -48,7 +43,6 @@ android {
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
         }
-
         release {
             storeFile file("../TMessagesProj/config/release.keystore")
             storePassword RELEASE_STORE_PASSWORD
@@ -59,129 +53,30 @@ android {
 
     buildTypes {
         debug {
-            debuggable true
-            jniDebuggable true
             signingConfig signingConfigs.debug
             applicationIdSuffix ".beta"
             minifyEnabled false
             shrinkResources false
-            multiDexEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro', '../TMessagesProj/proguard-rules-beta.pro'
-            ndk.debugSymbolLevel = 'FULL'
-        }
-
-        standalone {
-            debuggable false
-            jniDebuggable false
-            signingConfig signingConfigs.release
-            applicationIdSuffix ".web"
-            minifyEnabled true
-            shrinkResources false
-            multiDexEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro'
-            ndk.debugSymbolLevel = 'FULL'
         }
 
         release {
-            debuggable false
-            jniDebuggable false
-            signingConfig signingConfigs.release
             minifyEnabled true
-            shrinkResources false
-            multiDexEnabled true
+            shrinkResources true
+            vcsInfo.include false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro'
-            ndk.debugSymbolLevel = 'FULL'
-        }
-    }
-
-    sourceSets.debug {
-        manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest.xml'
-    }
-
-    sourceSets.standalone {
-        manifest.srcFile '../TMessagesProj/config/release/AndroidManifest.xml'
-    }
-
-    sourceSets.release {
-        manifest.srcFile '../TMessagesProj/config/release/AndroidManifest.xml'
-    }
-
-    flavorDimensions "minApi"
-
-    productFlavors {
-        bundleAfat {
-            ndk {
-                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-            }
-            ext {
-                abiVersionCode = 1
-            }
-            buildConfigField "boolean", "BUNDLE", "true"
-        }
-        bundleAfat_SDK23 {
-            ndk {
-                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-            }
-            sourceSets.debug {
-                manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest_SDK23.xml'
-            }
-            sourceSets.release {
-                manifest.srcFile '../TMessagesProj/config/release/AndroidManifest_SDK23.xml'
-            }
-            minSdkVersion 23
-            ext {
-                abiVersionCode = 2
-            }
-            buildConfigField "boolean", "BUNDLE", "true"
-        }
-        afat {
-            ndk {
-                abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-            }
-            sourceSets.debug {
-                manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest_SDK23.xml'
-            }
-            sourceSets.release {
-                manifest.srcFile '../TMessagesProj/config/release/AndroidManifest_SDK23.xml'
-            }
-            sourceSets.standalone {
-                manifest.srcFile '../TMessagesProj/config/release/AndroidManifest_standalone.xml'
-            }
-            ext {
-                abiVersionCode = 9
-            }
-            buildConfigField "boolean", "BUNDLE", "false"
-        }
-    }
-
-    defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
-
-    // 🔹 ҶУДО КАРДАНИ АПК-ҲО ВА БЕРОУН ВАЙРОН НАКАРДАНИ НОМҲО
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def abi = output.getFilter(com.android.build.OutputFile.ABI)
-            def abiName = abi ?: "universal"
-            outputFileName = "Tajgram-${abiName}.apk"
-            output.versionCodeOverride = defaultConfig.versionCode * 10 + variant.productFlavors.get(0).abiVersionCode
-        }
-    }
-
-    variantFilter { variant ->
-        def names = variant.flavors*.name
-        if (variant.buildType.name != "release" && !names.contains("afat")) {
-            setIgnore(true)
+            ndk.debugSymbolLevel 'FULL'
         }
     }
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 35
+        versionCode = Integer.parseInt(APP_VERSION_CODE)
         versionName APP_VERSION_NAME
         ndkVersion "27.2.12479018"
 
         multiDexEnabled true
-
-        vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
 
         externalNativeBuild {
             cmake {
@@ -191,34 +86,44 @@ android {
         }
     }
 
-    buildFeatures {
-        buildConfig = true
-    }
-    namespace 'org.telegram.messenger.regular'
-
-    lintOptions {
-        checkReleaseBuilds false
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 
-    // 🔹 ФАРМОНИ МАҶБУРИИ ҶУДОКУНИИ APK АЗ ZIP (SPLITS)
     splits {
         abi {
-            enable true
+            def buildingBundle = gradle.startParameter.taskNames.any { it.startsWith("bundle") }
+            enable !buildingBundle
             universalApk true
             reset()
             include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
     }
 
-    packagingOptions {
-        resources {
-            excludes += [
-                'META-INF/com/android/build/gradle/app-metadata.properties',
-                'META-INF/INDEX.LIST',
-                'META-INF/DEPENDENCIES'
-            ]
-        }
+    namespace 'org.telegram.messenger.regular'
+
+    dependenciesInfo {
+        includeInApk false
+        includeInBundle false
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        disable 'MissingTranslation', 'ExtraTranslation', 'BlockedPrivateApi'
     }
 }
 
-apply plugin: 'com.google.gms.google-services'
+// 🔹 НОМГУЗОРИИ АПКАҲО БО УСУЛИ НАВИ GRADLE (БИДУНИ FLAVOR/AFAT)
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        variant.outputs.each { output ->
+            def abi = output.filters.find { it.filterType == FilterConfiguration.FilterType.ABI }?.identifier
+            def abiName = abi ?: "universal"
+            def baseVersionCode = output.versionCode.get()
+            output.outputFileName.set("Tajgram-${output.versionName.get()}-${baseVersionCode}-${abiName}.apk")
+            output.versionCode.set(baseVersionCode * 10)
+        }
+    }
+}

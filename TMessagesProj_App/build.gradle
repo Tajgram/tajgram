@@ -1,18 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.telegram.build-app-plugin'
 
-repositories {
-    mavenCentral()
-    google()
-}
-
-configurations {
-    compile.exclude module: 'support-v4'
-}
-
-configurations.all {
-    exclude group: 'com.google.firebase', module: 'firebase-core'
-    exclude group: 'androidx.recyclerview', module: 'recyclerview'
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 dependencies {
@@ -29,16 +20,9 @@ android {
 
     sourceSets.main.jniLibs.srcDirs = ['../TMessagesProj/jni/']
 
-    lintOptions {
-        disable 'MissingTranslation'
-        disable 'ExtraTranslation'
-        disable 'BlockedPrivateApi'
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-
         coreLibraryDesugaringEnabled true
     }
 
@@ -54,7 +38,6 @@ android {
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
         }
-
         release {
             storeFile file("../TMessagesProj/config/release.keystore")
             storePassword RELEASE_STORE_PASSWORD
@@ -65,8 +48,6 @@ android {
 
     buildTypes {
         debug {
-            debuggable true
-            jniDebuggable true
             signingConfig signingConfigs.debug
             applicationIdSuffix ".beta"
             minifyEnabled false
@@ -89,9 +70,6 @@ android {
         }
 
         release {
-            debuggable false
-            jniDebuggable false
-            signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             multiDexEnabled true
@@ -187,8 +165,6 @@ android {
 
         multiDexEnabled true
 
-        vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
-
         externalNativeBuild {
             cmake {
                 version '3.22.1'
@@ -213,4 +189,15 @@ android {
     }
 }
 
-apply plugin: 'com.google.gms.google-services'
+// 🔹 НОМГУЗОРИИ АПКАҲО БО УСУЛИ НАВИ GRADLE (БИДУНИ FLAVOR/AFAT)
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        variant.outputs.each { output ->
+            def abi = output.filters.find { it.filterType == FilterConfiguration.FilterType.ABI }?.identifier
+            def abiName = abi ?: "universal"
+            def baseVersionCode = output.versionCode.get()
+            output.outputFileName.set("Tajgram-${output.versionName.get()}-${baseVersionCode}-${abiName}.apk")
+            output.versionCode.set(baseVersionCode * 10)
+        }
+    }
+}

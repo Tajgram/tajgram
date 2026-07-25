@@ -102,10 +102,11 @@ jobs:
             echo "✅ Китобхонаи Firebase Database бехатар занҷир шуд!"
           fi
       
-      #- name: Show SHA Fingerprints
-      #  run: |
-      #    CURRENT_KEYSTORE=$(grep "storeFile=" local.properties | cut -d'=' -f2)
-      #    keytool -list -v -keystore "$CURRENT_KEYSTORE" -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
+      - name: Show SHA Fingerprints
+        run: |
+           CURRENT_KEYSTORE=$(grep "storeFile=" local.properties | cut -d'=' -f2)
+           keytool -list -v -keystore "$CURRENT_KEYSTORE" -storepass "${{ secrets.RELEASE_STORE_PASSWORD }}" | grep -E "SHA1:|SHA256:"
+      
       #- name: Configure BuildVars with Secrets
       #  run: |
       # Декод кардан ва мустақим сабт кардан ба local.properties

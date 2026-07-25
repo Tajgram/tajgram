@@ -5,7 +5,7 @@ import org.telegram.messenger.BuildConfig;
 public class Extra {
     public static int APP_ID = BuildConfig.API_ID;
     public static String APP_HASH = BuildConfig.API_HASH;
-    public static String APP_SHA256 = BuildConfig.SHA_256;
+    public static String APP_SHA256 = BuildConfig.SHA256;
 
     // Нишон додани намуди билд (Debug ё Release) барои ядрои барнома
     public static boolean isDirectApp() {

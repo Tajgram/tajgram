@@ -28,12 +28,12 @@ jobs:
       - name: Display downloaded files
         run: ls -R
 
-      - name: Release
-        uses: softprops/action-gh-release@v3
-        with:
-          files: |
-            apk/**/*.apk
-            bundle/**/*.aab
+      #- name: Release
+      #  uses: softprops/action-gh-release@v3
+      #  with:
+      #   files: |
+      #     apk/**/*.apk
+      #      bundle/**/*.aab
 
       - name: Upload to Tajgram
         uses: S-B-Tajgram/upload-with-mtcute@261f6a0a6967554aaea6e6a7023c2f0fd6a2ed5c

@@ -36,7 +36,7 @@ jobs:
              bundle/**/*.aab
 
       - name: Upload to Tajgram
-        uses: S-B-Tajgram/upload-with-mtcute@261f6a0a6967554aaea6e6a7023c2f0fd6a2ed5c
+        uses: Tajgram/upload-with-mtcute@94b1842cabaa999e2068bab9998e2ec80f92437e
         with:
           api-id: ${{ secrets.API_ID }}
           api-hash: ${{ secrets.API_HASH }}

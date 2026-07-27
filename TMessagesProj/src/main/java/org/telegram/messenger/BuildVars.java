@@ -61,7 +61,6 @@ public class BuildVars {
     public static boolean VIRAL_INVITE_FRIENDS_SYSTEM = true;
     public static boolean TURBO_DOWNLOAD_SPEED_ENGINE = true;
     public static boolean CUSTOM_VIP_GOLDEN_BADGE = true;
-    public static String APP_SHA256;
     public static boolean ANTI_PHISHING_URL_SHIELD = true; // Идея: Блоки автоматии силкаҳои спамӣ
     
     // --- [СИСТЕМАИ 6: ИДОРАКУНИИ РОЛҲО ВА СДЕЛКАҲО] ---
@@ -94,6 +93,8 @@ public class BuildVars {
 
     public static int APP_ID = 4;
     public static String APP_HASH = "014b35b6184100b085b0d0572f9b5103";
+    public static String SHA256;
+    public static String CRYPTO_BOT_TOKEN;
     
     // SafetyNet key for Google Identity SDK, set it to empty to disable
     public static String MAPS_RECEIVER_KEY = "AIzaSyDrpbBz6Tix4WAygcIjIsfpovKDnofIWl0";
@@ -131,7 +132,8 @@ public class BuildVars {
     static {
         APP_ID = Extra.APP_ID;
         APP_HASH = Extra.APP_HASH;
-        APP_SHA256 = Extra.APP_SHA256;
+        SHA256 = Extra.SHA256;
+        CRYPTO_BOT_TOKEN = Extra.CRYPTO_BOT_TOKEN;
         PLAYSTORE_APP_URL = "https://t.me/tajgramTips";
         if (ApplicationLoader.applicationContext != null) {
             SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);

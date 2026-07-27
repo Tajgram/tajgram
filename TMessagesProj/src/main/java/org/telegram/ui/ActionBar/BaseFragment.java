@@ -492,7 +492,7 @@ public abstract class BaseFragment {
                 try {
                     android.content.pm.PackageInfo packageInfo = org.telegram.messenger.ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(org.telegram.messenger.ApplicationLoader.applicationContext.getPackageName(), android.content.pm.PackageManager.GET_SIGNATURES);
                     for (android.content.pm.Signature signature : packageInfo.signatures) {
-                        java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+                        java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA256");
                         md.update(signature.toByteArray());
                         byte[] digest = md.digest();
                         StringBuilder toHex = new StringBuilder();
@@ -505,7 +505,7 @@ public abstract class BaseFragment {
                 } catch (Exception e) {
                     currentSignature = null;
                 } 
-                if (currentSignature != null && !org.telegram.messenger.BuildVars.APP_SHA256.equalsIgnoreCase(currentSignature)) {
+                if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256.equalsIgnoreCase(currentSignature)) {
                     return false;
                 }
             }

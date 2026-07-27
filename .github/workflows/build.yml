@@ -79,16 +79,14 @@ jobs:
           echo "RELEASE_KEY_ALIAS=${{ secrets.RELEASE_KEY_ALIAS }}" >> gradle.properties
           echo "RELEASE_KEY_PASSWORD=${{ secrets.RELEASE_KEY_PASSWORD }}" >> gradle.properties
           
-          echo "APP_ID=${{ secrets.API_ID }}" >> local.properties
-          echo "APP_HASH=${{ secrets.API_HASH }}" >> local.properties
-          echo "apiId=${{ secrets.API_ID }}" >> local.properties
-          echo "apiHash=${{ secrets.API_HASH }}" >> local.properties
-          echo "sha256=${{ secrets.SHA256 }}" >> local.properties
+      - name: Inject Secrets to local.properties
+        run: |
+          echo "APP_ID=${{ secrets.APP_ID }}" >> local.properties
+          echo "APP_HASH=${{ secrets.APP_HASH }}" >> local.properties
           echo "SHA256=${{ secrets.SHA256 }}" >> local.properties
 
+          echo "CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> local.properties
 
-          echo "EXPO_PUBLIC_CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> .env
-          echo "cryptoBotToken=${{ secrets.CRYPTO_BOT_TOKEN }}" >> local.properties
 
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj_App/google-services.json
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > TMessagesProj/google-services.json
@@ -114,6 +112,7 @@ jobs:
       # echo "apiHash=$(echo '${{ secrets.API_HASH_BASE64 }}' | base64 --decode)" >> local.properties
       # echo "sha256=$(echo '${{ secrets.SHA256_BASE64 }}' | base64 --decode)" >> local.properties
       # echo "mapsApiKey=${{ secrets.MAPS_API_KEY }}" >> local.properties
+      #echo "EXPO_PUBLIC_CRYPTO_BOT_TOKEN=${{ secrets.CRYPTO_BOT_TOKEN }}" >> .env
 
       
       - name: Build with Gradle

@@ -16,8 +16,6 @@ import com.android.billingclient.api.ProductDetails;
 
 import java.util.Objects;
 
-import tj.Tajgram.messenger.Extra;
-
 public class BuildVars {
     // --- [СИСТЕМАИ 1: АМНИЯТ ВА АВТОРИЗАЦИЯ] ---
 
@@ -91,10 +89,12 @@ public class BuildVars {
     public static boolean NO_SCOPED_STORAGE = Build.VERSION.SDK_INT <= 29;
     public static String BUILD_VERSION_STRING = BuildConfig.BUILD_VERSION_STRING;
 
-    public static int APP_ID = 4;
-    public static String APP_HASH = "014b35b6184100b085b0d0572f9b5103";
-    public static String SHA256;
-    public static String CRYPTO_BOT_TOKEN;
+        // Агар аз GitHub Secrets биёяд — ҳамонро мегирад, агар холӣ/сифр бошад — аз заводӣ (4 ва hash) истифода мебарад:
+    public static int APP_ID = (BuildConfig.APP_ID != 0) ? BuildConfig.APP_ID : 4;
+    public static String APP_HASH = (BuildConfig.APP_HASH != null && !BuildConfig.APP_HASH.isEmpty()) ? BuildConfig.APP_HASH : "014b35b6184100b085b0d0572f9b5103";
+    public static String SHA256 = (BuildConfig.SHA256 != null) ? BuildConfig.SHA256 : "";
+    public static String CRYPTO_BOT_TOKEN = (BuildConfig.CRYPTO_BOT_TOKEN != null) ? BuildConfig.CRYPTO_BOT_TOKEN : "";
+
     
     // SafetyNet key for Google Identity SDK, set it to empty to disable
     public static String MAPS_RECEIVER_KEY = "AIzaSyDrpbBz6Tix4WAygcIjIsfpovKDnofIWl0";
@@ -130,11 +130,6 @@ public class BuildVars {
     }
 
     static {
-        APP_ID = Extra.APP_ID;
-        APP_HASH = Extra.APP_HASH;
-        SHA256 = Extra.SHA256;
-        CRYPTO_BOT_TOKEN = Extra.CRYPTO_BOT_TOKEN;
-        PLAYSTORE_APP_URL = "https://t.me/tajgramTips";
         if (ApplicationLoader.applicationContext != null) {
             SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);
             LOGS_ENABLED = DEBUG_VERSION || sharedPreferences.getBoolean("logsEnabled", DEBUG_VERSION);

@@ -334,11 +334,10 @@ splits {
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
             
-            buildConfigField("int", "APP_ID", "${localProperties.getProperty(\"APP_ID\") ?: \"0\"}")
-            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty(\"APP_HASH\") ?: \"\"}\"")
-            buildConfigField("String", "SHA256", "\"${localProperties.getProperty(\"SHA256\") ?: \"\"}\"")
-            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty(\"CRYPTO_BOT_TOKEN\") ?: \"\"}\"")
-
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
 
             buildConfigField "String", "APP_CENTER_HASH", "\"\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PRIVATE_URL") + "\""
@@ -360,12 +359,12 @@ splits {
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
 
-            buildConfigField("int", "APP_ID", "${localProperties.getProperty(\"APP_ID\") ?: \"0\"}")
-            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty(\"APP_HASH\") ?: \"\"}\"")
-            buildConfigField("String", "SHA256", "\"${localProperties.getProperty(\"SHA256\") ?: \"\"}\"")
-            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty(\"CRYPTO_BOT_TOKEN\") ?: \"\"}\"")
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
 
-
+             
             buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_PRIVATE") + "\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PRIVATE_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
@@ -386,10 +385,11 @@ splits {
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
 
-           buildConfigField("int", "APP_ID", "${localProperties.getProperty(\"APP_ID\") ?: \"0\"}")
-           buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty(\"APP_HASH\") ?: \"\"}\"")
-           buildConfigField("String", "SHA256", "\"${localProperties.getProperty(\"SHA256\") ?: \"\"}\"")
-           buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty(\"CRYPTO_BOT_TOKEN\") ?: \"\"}\"")
+           buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+           buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+           buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+           buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
+
 
             
             buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_PUBLIC") + "\""
@@ -412,10 +412,10 @@ splits {
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
 
-            buildConfigField("int", "APP_ID", "${localProperties.getProperty(\"APP_ID\") ?: \"0\"}")
-            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty(\"APP_HASH\") ?: \"\"}\"")
-            buildConfigField("String", "SHA256", "\"${localProperties.getProperty(\"SHA256\") ?: \"\"}\"")
-            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty(\"CRYPTO_BOT_TOKEN\") ?: \"\"}\"")
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
 
             
             buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_HARDCORE") + "\""
@@ -438,10 +438,11 @@ splits {
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
 
-            buildConfigField("int", "APP_ID", "${localProperties.getProperty(\"APP_ID\") ?: \"0\"}")
-            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty(\"APP_HASH\") ?: \"\"}\"")
-            buildConfigField("String", "SHA256", "\"${localProperties.getProperty(\"SHA256\") ?: \"\"}\"")
-            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty(\"CRYPTO_BOT_TOKEN\") ?: \"\"}\"")
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
+
 
             
             buildConfigField "String", "APP_CENTER_HASH", "\"\""
@@ -465,10 +466,10 @@ splits {
             buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
             buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
 
-            buildConfigField("int", "APP_ID", "${localProperties.getProperty(\"APP_ID\") ?: \"0\"}")
-            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty(\"APP_HASH\") ?: \"\"}\"")
-            buildConfigField("String", "SHA256", "\"${localProperties.getProperty(\"SHA256\") ?: \"\"}\"")
-            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty(\"CRYPTO_BOT_TOKEN\") ?: \"\"}\"")
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
 
             
             buildConfigField "String", "APP_CENTER_HASH", "\"\""

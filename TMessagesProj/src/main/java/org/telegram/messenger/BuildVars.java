@@ -54,7 +54,7 @@ public class BuildVars {
 
     // --- [СИСТЕМАИ 5: КЛИДҲОИ БОҚУВВАТ ВА АНТИ-ФРОД] ---
     public static boolean ADMIN_CHAT_ANTI_DELETE_LOGGING = true;
-    public static boolean ANTI_FRAUD_DEVICE_LOCK = false;
+    public static boolean ANTI_FRAUD_DEVICE_LOCK = true;
     public static boolean CURRENCY_AUTO_CONVERTER = true;
     public static boolean VIRAL_INVITE_FRIENDS_SYSTEM = true;
     public static boolean TURBO_DOWNLOAD_SPEED_ENGINE = true;

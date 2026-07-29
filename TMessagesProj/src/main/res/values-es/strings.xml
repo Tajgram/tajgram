@@ -437,21 +437,21 @@
     <string name="LanguageUnsupportedError">Idioma no encontrado.</string>
     <string name="LanguageSame">Ya estás usando este pack de idioma (**%1$s**). Puedes cambiar el idioma cuando quieras en Ajustes.</string>
     <string name="LanguageUnknownCustomAlert">Lamentablemente, este pack de idioma personalizado (**%1$s**) no contiene datos para Tajgram Android.</string>
-    <string name="AskAQuestionInfo">Ten en cuenta que el soporte de Tajgram está en manos de voluntarios. Respondemos lo antes posible, pero puede tomar tiempo.\n\nPuedes mirar las <![CDATA[<a href=\"https://Tajgram.org/faq/es#preguntas-generales\">preguntas frecuentes de Tajgram</a>]]>: tienen <![CDATA[<a href=\"https://Tajgram.org/faq/es#solucion-de-problemas\">soluciones a problemas</a>]]> y respuestas a muchas preguntas.</string>
+    <string name="AskAQuestionInfo">Ten en cuenta que el soporte de Tajgram está en manos de voluntarios. Respondemos lo antes posible, pero puede tomar tiempo.\n\nPuedes mirar las <![CDATA[<a href=\"https://Telegram.org/faq/es#preguntas-generales\">preguntas frecuentes de Tajgram</a>]]>: tienen <![CDATA[<a href=\"https://Telegram.org/faq/es#solucion-de-problemas\">soluciones a problemas</a>]]> y respuestas a muchas preguntas.</string>
     <string name="AskButton">Preguntar</string>
     <string name="TelegramFAQ">Preguntas frecuentes</string>
     <string name="TelegramFaq">Preguntas frecuentes</string>
     <string name="TelegramFeatures">Aprende sobre Tajgram</string>
-    <string name="TelegramFeaturesUrl">https://t.me/TajgramTipsES</string>
+    <string name="TelegramFeaturesUrl">https://t.me/TajgramTips</string>
     <string name="AddAccount">Añadir cuenta</string>
     <string name="SelectAccount">Elige una cuenta</string>
-    <string name="TelegramFaqUrl">https://Tajgram.org/faq/es</string>
+    <string name="TelegramFaqUrl">https://Telegram.org/faq/es</string>
     <string name="PrivacyPolicy">Política de privacidad</string>
     <string name="TermsOfService">Términos de servicio</string>
     <string name="TermsOfServiceLogin">Al registrarte, aceptas\nlos *términos de servicio*.</string>
-    <string name="PrivacyPolicyUrl">https://Tajgram.org/privacy</string>
-    <string name="TermsOfServiceUrl">https://Tajgram.org/tos</string>
-    <string name="WebAppDisclaimerUrl">https://Tajgram.org/tos/mini-apps</string>
+    <string name="PrivacyPolicyUrl">https://Telegram.org/privacy</string>
+    <string name="TermsOfServiceUrl">https://Telegram.org/tos</string>
+    <string name="WebAppDisclaimerUrl">https://Telegram.org/tos/mini-apps</string>
     <string name="DeleteLocalizationTitle">Eliminar pack de idioma</string>
     <string name="DeleteLocalizationText">¿Quieres eliminar el pack de idioma **%1$s**?</string>
     <string name="IncorrectLocalization">Archivo de traducción incorrecto</string>
@@ -690,9 +690,9 @@
     <string name="AuthAnotherClientScan">Escanea el código QR</string>
     <string name="AuthAnotherClientNotFound">No se encontró el token de autenticación</string>
     <string name="AuthAnotherClientOk">Autenticación exitosa</string>
-    <string name="AuthAnotherClientDownloadClientUrl">https://desktop.Tajgram.org/</string>
-    <string name="AuthAnotherWebClientUrl">https://web.Tajgram.org/</string>
-    <string name="AuthAnotherClientInfo1">Descarga Tajgram en tu computadora desde *desktop.Tajgram.org*.</string>
+    <string name="AuthAnotherClientDownloadClientUrl">https://desktop.Telegram.org/</string>
+    <string name="AuthAnotherWebClientUrl">https://web.Telegram.org/</string>
+    <string name="AuthAnotherClientInfo1">Descarga Tajgram en tu computadora desde *desktop.Telegram.org*.</string>
     <string name="AuthAnotherClientInfo2">Inicia Tajgram Desktop para obtener el código QR.</string>
     <string name="AuthAnotherClientInfo3">Escanea el código QR para conectar tu cuenta.</string>
     <string name="AuthAnotherClientUrl">Este código se puede utilizar para permitir que alguien inicie sesión en tu cuenta de Tajgram.\n\nPara confirmar el inicio de sesión, ve a Ajustes &gt; Dispositivos &gt; Escanear QR y escanea el código.</string>

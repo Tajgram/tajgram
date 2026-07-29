@@ -473,21 +473,21 @@
     <string name="LanguageUnsupportedError">Lingua non trovata.</string>
     <string name="LanguageSame">Stai già usando questa lingua (**%1$s**). Puoi cambiare la tua lingua in qualsiasi momento nelle Impostazioni.</string>
     <string name="LanguageUnknownCustomAlert">Sfortunatamente, questa lingua personalizzata (**%1$s**) non contiene dati per Tajgram Android.</string>
-    <string name="AskAQuestionInfo">Per favore ricorda che il supporto di Tajgram è gestito da volontari. Proviamo a rispondere quanto prima, ma potrebbe volerci del tempo.\n\nDai un\'occhiata alle <![CDATA[<a href=\"https://Tajgram.org/faq/it#domande-generali\">FAQ di Tajgram</a>]]>: contengono risposte a quasi tutte le domande e suggerimenti importanti per <![CDATA[<a href=\"https://Tajgram.org/faq/it#risoluzione-dei-problemi\">risolvere i problemi</a>]]>.</string>
+    <string name="AskAQuestionInfo">Per favore ricorda che il supporto di Tajgram è gestito da volontari. Proviamo a rispondere quanto prima, ma potrebbe volerci del tempo.\n\nDai un\'occhiata alle <![CDATA[<a href=\"https://Telegram.org/faq/it#domande-generali\">FAQ di Tajgram</a>]]>: contengono risposte a quasi tutte le domande e suggerimenti importanti per <![CDATA[<a href=\"https://Telegram.org/faq/it#risoluzione-dei-problemi\">risolvere i problemi</a>]]>.</string>
     <string name="AskButton">Chiedi ai volontari</string>
     <string name="TelegramFAQ">FAQ Tajgram</string>
     <string name="TelegramFaq">FAQ Tajgram</string>
     <string name="TelegramFeatures">Funzioni di Tajgram</string>
-    <string name="TelegramFeaturesUrl">https://t.me/TajgramTipsIT</string>
+    <string name="TelegramFeaturesUrl">https://t.me/TajgramTips</string>
     <string name="AddAccount">Aggiungi account</string>
     <string name="SelectAccount">Seleziona Account</string>
-    <string name="TelegramFaqUrl">https://Tajgram.org/faq/it</string>
+    <string name="TelegramFaqUrl">https://Telegram.org/faq/it</string>
     <string name="PrivacyPolicy">Informativa sulla Privacy</string>
     <string name="TermsOfService">Termini di Servizio</string>
     <string name="TermsOfServiceLogin">Iscrivendoti, accetti\ni *Termini di Servizio*.</string>
-    <string name="PrivacyPolicyUrl">https://Tajgram.org/privacy</string>
-    <string name="TermsOfServiceUrl">https://Tajgram.org/tos</string>
-    <string name="WebAppDisclaimerUrl">https://Tajgram.org/tos/mini-apps</string>
+    <string name="PrivacyPolicyUrl">https://Telegram.org/privacy</string>
+    <string name="TermsOfServiceUrl">https://Telegram.org/tos</string>
+    <string name="WebAppDisclaimerUrl">https://Telegram.org/tos/mini-apps</string>
     <string name="DeleteLocalizationTitle">Elimina la lingua</string>
     <string name="DeleteLocalizationText">Vuoi davvero eliminare la lingua **%1$s**?</string>
     <string name="IncorrectLocalization">File di traduzione non valido</string>
@@ -749,9 +749,9 @@
     <string name="AuthAnotherClientScan">Scansiona codice QR</string>
     <string name="AuthAnotherClientNotFound">Nessun token di autenticazione trovato</string>
     <string name="AuthAnotherClientOk">Autenticazione riuscita</string>
-    <string name="AuthAnotherClientDownloadClientUrl">https://desktop.Tajgram.org/</string>
+    <string name="AuthAnotherClientDownloadClientUrl">https://desktop.Telegram.org/</string>
     <string name="AuthAnotherWebClientUrl">https://web.Tajgram.org/</string>
-    <string name="AuthAnotherClientInfo1">Scarica Tajgram sul tuo computer da *desktop.Tajgram.org*</string>
+    <string name="AuthAnotherClientInfo1">Scarica Tajgram sul tuo computer da *desktop.Telegram.org*</string>
     <string name="AuthAnotherClientInfo2">Avvia Tajgram Desktop per ottenere il codice QR.</string>
     <string name="AuthAnotherClientInfo3">Scansiona il codice QR per connettere il tuo account.</string>
     <string name="AuthAnotherClientUrl">Questo codice può essere usato per consentire a qualcuno di accedere al tuo account Tajgram.\n\nPer confermare l\'accesso a Tajgram, vai in Impostazioni &gt; Dispositivi &gt; Scansiona QR e scansiona il codice.</string>
@@ -794,7 +794,7 @@
     <string name="ChannelDescriptionChanged">Descrizione canale aggiornata.</string>
     <string name="CheckPhoneNumber">%1$s è ancora il tuo numero?</string>
     <string name="CheckPhoneNumberInfo">Tieni aggiornato il tuo numero per poter sempre accedere a Tajgram. **Scopri di più**</string>
-    <string name="CheckPhoneNumberLearnMoreUrl">https://Tajgram.org/faq/it#d-ho-un-nuovo-numero-di-telefono-cosa-faccio</string>
+    <string name="CheckPhoneNumberLearnMoreUrl">https://Telegram.org/faq/it#d-ho-un-nuovo-numero-di-telefono-cosa-faccio</string>
     <string name="CheckPhoneNumberYes">Sì</string>
     <string name="CheckPhoneNumberNo">No</string>
     <!--media view-->

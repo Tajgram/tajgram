@@ -134,6 +134,12 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
 
         titles = new CharSequence[]{
                 null,
+                LocaleController.getString("onboarding_title_1", R.string.onboarding_title_1),
+                LocaleController.getString("onboarding_title_2", R.string.onboarding_title_2),
+                LocaleController.getString("onboarding_title_3", R.string.onboarding_title_3),
+                LocaleController.getString("onboarding_title_4", R.string.onboarding_title_4),
+                LocaleController.getString("onboarding_title_5", R.string.onboarding_title_5),
+            
                 LocaleController.getString(R.string.Page2Title),
                 LocaleController.getString(R.string.Page3Title),
                 LocaleController.getString(R.string.Page5Title),
@@ -142,6 +148,12 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
         };
         messages = new String[]{
                 LocaleController.getString(R.string.Page1Message),
+                LocaleController.getString("onboarding_desc_1", R.string.onboarding_desc_1),
+                LocaleController.getString("onboarding_desc_2", R.string.onboarding_desc_2),
+                LocaleController.getString("onboarding_desc_3", R.string.onboarding_desc_3),
+                LocaleController.getString("onboarding_desc_4", R.string.onboarding_desc_4),
+                LocaleController.getString("onboarding_desc_5", R.string.onboarding_desc_5),
+            
                 LocaleController.getString(R.string.Page2Message),
                 LocaleController.getString(R.string.Page3Message),
                 LocaleController.getString(R.string.Page5Message),

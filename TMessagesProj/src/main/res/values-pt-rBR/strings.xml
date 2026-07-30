@@ -461,21 +461,21 @@
     <string name="LanguageUnsupportedError">Idioma não encontrado.</string>
     <string name="LanguageSame">Você já está usando esse pacote de idiomas (**%1$s**). Você pode alterar seu idioma a qualquer momento em Configurações.</string>
     <string name="LanguageUnknownCustomAlert">Infelizmente esse pacote de idiomas personalizado (**%1$s**) não contém dados para o Tajgram no Android.</string>
-    <string name="AskAQuestionInfo">Por favor, note que o Suporte do Tajgram é feito por voluntários. Tentaremos responder o mais rápido possível, mas pode levar um tempo.\n\nDê uma olhada na página de <![CDATA[<a href=\"https://Tajgram.org/faq/pt-br#questoes-gerais\">Perguntas Frequentes</a>]]>: há dicas e soluções para a maioria dos <![CDATA[<a href=\"https://Tajgram.org/faq/pt-br#solucao-de-problemas\">problemas</a>]]>.</string>
+    <string name="AskAQuestionInfo">Por favor, note que o Suporte do Tajgram é feito por voluntários. Tentaremos responder o mais rápido possível, mas pode levar um tempo.\n\nDê uma olhada na página de <![CDATA[<a href=\"https://Telegram.org/faq/pt-br#questoes-gerais\">Perguntas Frequentes</a>]]>: há dicas e soluções para a maioria dos <![CDATA[<a href=\"https://Telegram.org/faq/pt-br#solucao-de-problemas\">problemas</a>]]>.</string>
     <string name="AskButton">Perguntar</string>
     <string name="TelegramFAQ">Perguntas Frequentes</string>
     <string name="TelegramFaq">Perguntas Frequentes</string>
     <string name="TelegramFeatures">Recursos do Tajgram</string>
-    <string name="TelegramFeaturesUrl">https://t.me/TajgramTipsBR</string>
+    <string name="TelegramFeaturesUrl">https://t.me/TajgramTips</string>
     <string name="AddAccount">Adicionar&#160;Conta</string>
     <string name="SelectAccount">Selecionar Conta</string>
-    <string name="TelegramFaqUrl">https://Tajgram.org/faq/pt-br</string>
+    <string name="TelegramFaqUrl">https://Telegram.org/faq/pt-br</string>
     <string name="PrivacyPolicy">Política de Privacidade</string>
     <string name="TermsOfService">Termos de Serviço</string>
     <string name="TermsOfServiceLogin">Ao registrar-se, você aceita\nos *Termos de Serviço*.</string>
-    <string name="PrivacyPolicyUrl">https://Tajgram.org/privacy</string>
-    <string name="TermsOfServiceUrl">https://Tajgram.org/tos</string>
-    <string name="WebAppDisclaimerUrl">https://Tajgram.org/tos/mini-apps</string>
+    <string name="PrivacyPolicyUrl">https://Telegram.org/privacy</string>
+    <string name="TermsOfServiceUrl">https://Telegram.org/tos</string>
+    <string name="WebAppDisclaimerUrl">https://Telegram.org/tos/mini-apps</string>
     <string name="DeleteLocalizationTitle">Apagar pacote de idioma</string>
     <string name="DeleteLocalizationText">Deseja mesmo apagar o pacote de idioma %1$s?</string>
     <string name="IncorrectLocalization">Arquivo de localização incorreto</string>

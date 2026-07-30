@@ -47,7 +47,7 @@
     <!--signin view-->
     <string name="YourPhone">Телефони шумо</string>
     <string name="StartText">Лутфан рамзи кишвари худро тасдиқ кунед ва рақами телефони худро ворид кунед.</string>
-    <string name="StartTextPasskey">Лутфан рақами телефони худро ворид кунед\nё **log in using passkey >**</string>
+    <string name="StartTextPasskey">Лутфан рақами телефони худро ворид кунед\nё **Ворид шудан бо калиди дастрасӣ >**</string>
     <string name="Country">кишвар</string>
     <string name="YourNumber">Рақами телефони шумо</string>
     <string name="PhoneNumber">рақами телефон</string>
@@ -65,7 +65,7 @@
     <string name="WrongNumberFormat">Формат нодуруст</string>
     <string name="ShortNumberInfo">Рақами пешниҳодкардаи шумо барои **%1$s**:\n\n**%2$s**\n\nЛутфан рақами дурустро бо шумули рамзи кишвари худ ворид кунед.</string>
     <string name="EditNumber">Рақамро таҳрир кунед</string>
-    <string name="DidNotGetTheCodeInfo">Агар шумо\'кодро тавассути SMS ё занг нагирифта бошед, лутфан **cellular data settings** ва рақами телефони худро санҷед:\n\n**%1$s**\n\nИмконоти боқимондаи шумо ин аст, ки рақами дигарро санҷед ё бо дастгирии Tajgram тамос гиред. **Help**-ро клик кунед, то ба мо тафсилоти техникӣ фиристед, то мо мушкилотро муайян кунем.</string>
+    <string name="DidNotGetTheCodeInfo">Агар шумо\'кодро тавассути SMS ё занг нагирифта бошед, лутфан **Танзимоти интернети мобилӣ** ва рақами телефони худро санҷед:\n\n**%1$s**\n\nИмконоти боқимондаи шумо ин аст, ки рақами дигарро санҷед ё бо дастгирии Tajgram тамос гиред. **Кумак**-ро клик кунед, то ба мо тафсилоти техникӣ фиристед, то мо мушкилотро муайян кунем.</string>
     <string name="DidNotGetTheCodeHelpButton">Кӯмак</string>
     <string name="DidNotGetTheCodeEditNumberButton">Рақамро таҳрир кунед</string>
     <!--code enter view-->
@@ -282,7 +282,7 @@
     <string name="ArchivePinned">Архив маҳкам карда шуд.</string>
     <string name="ArchivePinnedInfo">Барои пинҳон кардани он дар бойгонӣ ба чап лағжед.</string>
     <string name="ArchiveHidden">Архив пинҳон аст.</string>
-    <string name="ArchiveHiddenInfo">Барои дидани архив ба поён лағжед.</string>
+    <string name="ArchiveHiddenInfo">Барои дидани архив ба поён Лағжет.</string>
     <string name="ChatArchived">Чат архив карда шуд.</string>
     <string name="ChatsArchived">Чатҳо бойгонӣ шуданд.</string>
     <string name="ChatArchivedInfo">Архивро бо лағжиши чап ба он пинҳон кунед.</string>
@@ -366,7 +366,7 @@
     <string name="Underline">Зерхат кунед</string>
     <string name="Regular">Мунтазам</string>
     <string name="FormattedDate">Сана</string>
-    <string name="ContactsPermissionAlert">**Telegram** ба мухотибон дастрасӣ дорад, то шумо метавонед бо дӯстони худ дар тамоми дастгоҳҳои худ пайваст шавед. Тамосҳои шумо пайваста бо серверҳои абрии сахт рамзгузоришудаи Tajgram\'s ҳамоҳанг карда мешаванд.</string>
+    <string name="ContactsPermissionAlert">**Tajgram** ба мухотибон дастрасӣ дорад, то шумо метавонед бо дӯстони худ дар тамоми дастгоҳҳои худ пайваст шавед. Тамосҳои шумо пайваста бо серверҳои абрии сахт рамзгузоришудаи Tajgram\'s ҳамоҳанг карда мешаванд.</string>
     <string name="ContactsPermissionAlertNotNow">Ҳозир не</string>
     <string name="ContactsPermissionAlertContinue">Давом додан</string>
     <string name="NotificationsPermissionAlertTitle">Огоҳиҳоро фаъол кунед</string>
@@ -387,7 +387,7 @@
     <string name="ScheduledOrNoSoundHint">Барои ба нақша гирифтани паёми худ ё бе садо фиристодани он ин тугмаро нигоҳ доред.</string>
     <string name="ScheduledHint">Барои дертар фиристодани паёми худ, дароз клик кунед.</string>
     <string name="HideNewChatsAlertTitle">Пинҳон кардани чатҳои нав?</string>
-    <string name="HideNewChatsAlertText">Шумо аз корбароне, ки дар Рӯйхати алоқаҳои шумо нестанд, бисёр сӯҳбатҳои нав мегиред. Оё шумо мехоҳед, ки чунин чатҳои **automatically muted** ва **archived** дошта бошед?</string>
+    <string name="HideNewChatsAlertText">Шумо аз корбароне, ки дар Рӯйхати алоқаҳои шумо нестанд, бисёр сӯҳбатҳои нав мегиред. Оё шумо мехоҳед, ки чунин чатҳои **Автоматӣ беовоз карда шуд** ва **Архив** дошта бошед?</string>
     <string name="GoToSettings">БА НАЗОРАТҲО ГУЗАРЕД</string>
     <string name="OpenProfile">Профилро кушоед</string>
     <string name="OpenChannel2">Каналро кушоед</string>
@@ -647,7 +647,7 @@
     <string name="ActionGiftPremiumText">Обуна ба хусусиятҳои истисноии Tajgram.</string>
     <string name="ActionGiftPremiumView">Намоиш</string>
     <string name="ActionStarGiveawayPrizeTitle">Табрик мекунем!</string>
-    <string name="ActionStarGiveawayPrize_one">Шумо дар тӯҳфае, ки аз ҷониби **un1** ташкил шуда буд, соҳиби ҷоиза шудед.\n\nМукофоти шумо **%d Star** аст.</string>
+    <string name="ActionStarGiveawayPrize_one">Шумо дар тӯҳфае, ки аз ҷониби **un1** ташкил шуда буд, соҳиби ҷоиза шудед.\n\nМукофоти шумо **%d Stars** аст.</string>
     <string name="ActionStarGiveawayPrize_other">Шумо дар тӯҳфае, ки аз ҷониби **un1** ташкил шуда буд, соҳиби ҷоиза шудед.\n\nМукофоти шумо **%d Stars** аст.</string>
     <string name="ActionChannelChangedPhoto">Акси канал иваз шуд</string>
     <string name="ActionChannelChangedVideo">Видеои канал иваз шуд</string>
@@ -729,7 +729,7 @@
     <string name="ChannelNotifyMembersInfoOn">Вақте ки шумо интишор мекунед, аъзоён огоҳ карда мешаванд</string>
     <string name="ChannelNotifyMembersInfoOff">Аъзоён огоҳиномаи хомӯш мегиранд</string>
     <string name="ChannelSignMessages">Паёмҳои имзо</string>
-    <string name="ChannelSignMessagesWithProfile">Нишон додани профилҳои Authors\'</string>
+    <string name="ChannelSignMessagesWithProfile">Нишон додани профилҳои Муаллифон\'</string>
     <string name="ChannelSignMessagesInfo">Номҳои администраторҳоро ба паёмҳое, ки онҳо интишор мекунанд, илова кунед.</string>
     <string name="EditAdmin">Ҳуқуқҳои администратор</string>
     <string name="EditAdminRank">Унвони фармоишӣ</string>
@@ -749,7 +749,7 @@
     <string name="EditAdminAddAdmins">Администраторҳои нав илова кунед</string>
     <string name="EditAdminSendAnonymously">Беном фиристед</string>
     <string name="EditAdminProcessJoinRequests">Дархостҳои ҳамроҳшавӣ</string>
-    <string name="EditAdminProcessJoinRequestsInfo">Ба ин бот иҷозат диҳед, ки аъзои навро бо истифода аз интерфейсҳои худ, ба монанди captcha, тасдиқ кунад.</string>
+    <string name="EditAdminProcessJoinRequestsInfo">Ба ин бот иҷозат диҳед, ки аъзои навро бо истифода аз интерфейсҳои худ, ба монанди Капча, тасдиқ кунад.</string>
     <string name="EditAdminRemoveAdmin">Админро бекор кунед</string>
     <string name="EditAdminGroupTransfer">Интиқоли моликияти гурӯҳ</string>
     <string name="EditAdminChannelTransfer">Интиқоли моликияти канал</string>
@@ -1053,7 +1053,7 @@
     <string name="EventLogSubExtend">un1 обунаи навшуда</string>
     <string name="EventLogToggledSignaturesProfilesOn">un1 муаллифон\' профилҳои фаъол</string>
     <string name="EventLogToggledSignaturesProfilesOff">un1 профилҳои муаллифони\' ғайрифаъол</string>
-    <string name="EventLogRestrictedUntil">тағир додани иҷозатҳо барои %1$s\n\nDuration: %2$s</string>
+    <string name="EventLogRestrictedUntil">тағир додани иҷозатҳо барои %1$s\n\nМӯҳлат: %2$s</string>
     <string name="EventLogDefaultPermissions">иҷозатҳои пешфарзро тағир дод</string>
     <string name="EventLogRestrictedSendStickers">Фиристодани стикерҳо &amp; GIF</string>
     <string name="EventLogRestrictedSendMedia">Медиа фиристед</string>
@@ -1251,8 +1251,8 @@
     <string name="SponsoredMessageAdWhatIsThis">ин чист\'?</string>
     <string name="SponsoredMessageSponsor">Маълумоти таблиғотӣ</string>
     <string name="SponsoredMessageSponsorReportable">Маълумоти сарпараст</string>
-    <string name="SponsoredMessageInfo">Паёмҳои sponsored\n кадомҳоянд?</string>
-    <string name="SponsoredMessageInfo2Description1">Unlike other apps, Telegram never uses your private data to target ads. [Learn more in the Privacy Policy](https://Tajgram.org/privacy#5-6-no-ads-based-on-user-data)</string>
+    <string name="SponsoredMessageInfo">Паёмҳои Сарпарастҳо\n кадомҳоянд?</string>
+    <string name="SponsoredMessageInfo2Description1">Баръакси дигар барномаҳо, Tajgram ҳеҷ гоҳ маълумоти шахсии шуморо барои нишон додани реклама истифода намебарад. [Дар Сиёсати маҳрамонагӣ бештар хонед](https://Telegram.org/privacy#5-6-no-ads-based-on-user-data)</string>
     <string name="SponsoredMessageInfo2Description2">Баръакси дигар барномаҳо, Tajgram пайгирӣ намекунад, ки оё шумо паёми сарпарастиро клик кардаед ё не ва дар асоси фаъолиятатон профили шуморо\' намегирад. Мо инчунин истинодҳои берунаро дар паёмҳои сарпарастӣ пешгирӣ мекунем, то боварӣ ҳосил кунем, ки шахсони сеюм наметавонанд корбарони моро ҷосусӣ кунанд. Мо боварӣ дорем, ки ҳама ҳуқуқ ба дахолатнопазирӣ доранд ва платформаҳои технологӣ бояд инро эҳтиром кунанд.</string>
     <string name="SponsoredMessageInfo2Description3">Tajgram ба садҳо миллион корбарон хидмати ройгон ва номаҳдуд пешниҳод мекунад, ки хароҷоти зиёди сервер ва трафикро дар бар мегирад. Барои мустақил мондан ва содиқ мондан ба арзишҳои худ, Tajgram як абзори пулакӣ барои таблиғи паёмҳо бо назардошти махфияти корбар таҳия кардааст. Мо таблиғгарони масъулро дар суроғаи:</string>
     <string name="SponsoredMessageInfo2Description4">Таблиғ дигар набояд бо сӯиистифода аз махфияти корбар синоними бошад. Биёед аз нав муайян кунем, ки як ширкати технологӣ чӣ гуна бояд кор кунад - якҷоя.</string>
@@ -1264,18 +1264,18 @@
     <string name="RevenueSharingAdsInfo2Title">Ба Созандаи канал кумак кунед</string>
     <string name="RevenueSharingAdsInfo2Subtitle">50% даромад аз таблиғоти Tajgram ба соҳиби канале меравад, ки дар он ҷо онҳо намоиш дода мешаванд.</string>
     <string name="RevenueSharingAdsInfo3Title">Хориҷ кардан мумкин аст</string>
-    <string name="RevenueSharingAdsInfo3Subtitle">You can turn off ads by subscribing to **Tajgram Premium VIP**, and Level %1$s channels can remove them for their subscribers.</string>
+    <string name="RevenueSharingAdsInfo3Subtitle">Шумо метавонед бо обуна шудан ба **Tajgram Premium VIP** рекламаро хомӯш кунед, ва каналҳои дараҷаи %1$s метавонанд онро барои обуначиёни худ бекор кунанд.</string>
     <string name="RevenueSharingAdsInfo3SubtitleBot">Шумо метавонед тавассути обуна шудан ба **Tajgram Premium VIP** таблиғро хомӯш кунед.</string>
     <string name="RevenueSharingAdsInfo4Title">Оё ман метавонам таблиғро оғоз кунам?</string>
     <string name="RevenueSharingAdsInfo4TitleBot">Оё ман метавонам таблиғро оғоз кунам?</string>
-    <string name="RevenueSharingAdsInfo4Subtitle2">Ҳар касе метавонад таблиғе эҷод кунад, то дар ин канал намоиш диҳад - бо буҷаи ҳадди ақал. Барои тафсилот **Tajgram Ad Platform**-ро санҷед. %1$s</string>
-    <string name="RevenueSharingAdsInfo4SubtitleLearnMore">**Learn More >**</string>
+    <string name="RevenueSharingAdsInfo4Subtitle2">Ҳар касе метавонад таблиғе эҷод кунад, то дар ин канал намоиш диҳад - бо буҷаи ҳадди ақал. Барои тафсилот **Tajgram Платформаи рекламавӣ**-ро санҷед. %1$s</string>
+    <string name="RevenueSharingAdsInfo4SubtitleLearnMore">**Бештар омӯхтан>**</string>
     <string name="RevenueSharingAdsAlertButton">Фаҳмид</string>
     <string name="RevenueSharingAdsInfo1TitleBot">Махфияти худро эҳтиром кунед</string>
     <string name="RevenueSharingAdsInfo1SubtitleBot">Таблиғҳо дар Tajgram маълумоти шахсии шуморо истифода намебаранд ва дар асоси бот, ки дар он шумо онҳоро мебинед, асос ёфтааст.</string>
     <string name="RevenueSharingAdsInfo2TitleBot">Ба Офарандаи бот кӯмак кунед</string>
     <string name="RevenueSharingAdsInfo2SubtitleBot">50% даромад аз рекламаи Tajgram ба соҳиби бот, ки дар он намоиш дода мешавад, меравад.</string>
-    <string name="RevenueSharingAdsInfo4Subtitle2Bot">Ҳар касе метавонад таблиғе эҷод кунад, то дар ин бот намоиш диҳад - бо буҷаи ҳадди ақал. Барои тафсилот **Tajgram Ad Platform**-ро санҷед. %1$s</string>
+    <string name="RevenueSharingAdsInfo4Subtitle2Bot">Ҳар касе метавонад таблиғе эҷод кунад, то дар ин бот намоиш диҳад - бо буҷаи ҳадди ақал. Барои тафсилот **Tajgram Платформаи рекламавӣ**-ро санҷед. %1$s</string>
     <string name="PromoteUrl">https://ads.Telegram.org</string>
     <string name="InstantViewReference">Истинод</string>
     <string name="InstantViewReferences">Иқтибосҳо</string>
@@ -1312,7 +1312,7 @@
     <string name="TypeMessage">Паём</string>
     <string name="TypeMessageIn">Паём дар %1$s</string>
     <string name="TypeMessageForStars">Паём барои ⭐️%s</string>
-    <string name="ShareMyPhone">РАҚАМИ ТЕЛЕФОНИ МАНРО ПАДАР КУНЕД</string>
+    <string name="ShareMyPhone">РАҚАМИ ТЕЛЕФОНИ МАНРО ПАЙДО КУНЕД</string>
     <string name="ShareMyPhoneNoCaps">Рақами телефони маро мубодила кунед</string>
     <string name="ShareMyContactInfo">Алоқаи манро мубодила кунед</string>
     <string name="AddToContacts">Ба мухотибон илова кунед</string>
@@ -1483,7 +1483,7 @@
     <string name="ReportHint">Тафсилоти иловагӣ...</string>
     <string name="ReportSend">Ҳисобот фиристед</string>
     <string name="ReportSentInfo">Модераторони Tajgram гузориши шуморо меомӯзанд.\nТашаккур барои ҳамкорӣ!</string>
-    <string name="ReportChatSpam">Ангалнома</string>
+    <string name="ReportChatSpam">Маълумотҳо</string>
     <string name="ReportChatFakeAccount">Ҳисоби қалбакӣ</string>
     <string name="ReportChatViolence">Зӯроварӣ</string>
     <string name="ReportChatPornography">Порнография</string>
@@ -1516,11 +1516,11 @@
     <string name="SavedMessagesInfo">Барои захира кардан ба ин ҷо равона кунед.</string>
     <string name="SavedMessagesInfoQuote">Иқтибос дар ин ҷо барои наҷот.</string>
     <string name="ChatYourSelfName">Шумо</string>
-    <string name="GroupEmptyTitle1">Шумо **group** сохтаед.</string>
+    <string name="GroupEmptyTitle1">Шумо **Гуруҳ** сохтаед.</string>
     <string name="GroupEmptyTitle2">Гурӯҳҳо метавонанд дошта бошанд:</string>
     <string name="GroupDescription1">То 200 000 аъзо</string>
     <string name="GroupDescription2">Таърихи доимии сӯҳбат</string>
-    <string name="GroupDescription3">Public links such as t.me/title</string>
+    <string name="GroupDescription3">Пайвандҳои умумӣ, ба монанди t.me/title</string>
     <string name="GroupDescription4">Администраторҳо бо ҳуқуқҳои гуногун</string>
     <string name="ChatYourSelfDescription1">Паёмҳоро ба ин ҷо интиқол диҳед, то онҳоро захира кунед</string>
     <string name="ChatYourSelfDescription2">Медиа ва файлҳоро барои нигоҳ доштани онҳо фиристед</string>
@@ -1604,7 +1604,7 @@
     <string name="InstallGoogleMaps">Google Maps насб кунед?</string>
     <string name="InstallHuaweiMaps">Харитаҳои Petal насб кунед?</string>
     <string name="ScamMessage">ФИРЕБ</string>
-    <string name="FakeMessage">ФАЙК</string>
+    <string name="FakeMessage">ФЕЙК</string>
     <string name="ViaBot">тавассути</string>
     <string name="MessageNotFound">Паём мавҷуд нест\'</string>
     <string name="UniqueGiftNotFound">Тӯҳфа ёфт нашуд</string>
@@ -1643,15 +1643,15 @@
     <string name="MessageScheduledReminderNotification">&#128197; Ёдрас</string>
     <string name="OneResult">1 натиҷа</string>
     <string name="VideoQualityIsTooLow">Сифати видео барои тағир додани танзимоти фишурда хеле паст аст.</string>
-    <string name="TextSelectionHint">**word**-ро нигоҳ доред ва курсорро барои интихоби матни бештар барои иқтибос ё нусхабардорӣ ҳаракат кунед.</string>
+    <string name="TextSelectionHint">**ибора**-ро нигоҳ доред ва курсорро барои интихоби матни бештар барои иқтибос ё нусхабардорӣ ҳаракат кунед.</string>
     <string name="CardNumberCopied">Рақами корт ба буфер нусхабардорӣ карда шуд</string>
     <string name="CopyCardNumber">Нусхабардорӣ</string>
-    <string name="DiceInfo2">Ба ҳама чат эмодзии **:dice:** фиристед, то маргро бигиред.</string>
-    <string name="DartInfo">Барои санҷидани иқболи худ як эмодзи **:darts:** фиристед.</string>
+    <string name="DiceInfo2">Ба ҳама чат эмодзии **:Зар:** фиристед, то маргро бигиред.</string>
+    <string name="DartInfo">Барои санҷидани иқболи худ як эмодзи **:нишонгоҳ:** фиристед.</string>
     <string name="DiceEmojiInfo">Барои санҷидани иқболи худ як эмодзи %1$s фиристед.</string>
     <string name="SendDice">фиристед</string>
-    <string name="PsaTypeDefault">PSA</string>
-    <string name="PsaInfoDefault">Санҷиши иттилоотии PSA</string>
+    <string name="PsaTypeDefault">Эълони расмӣ</string>
+    <string name="PsaInfoDefault">Санҷиши иттилоотии Эълони расмӣ</string>
     <string name="PsaMessageDefault">Огоҳиномаи муҳим</string>
     <string name="PsaMessageInfoDefault">Ин огоҳии муҳим аст.</string>
     <string name="PsaHideChatAlertTitle">Пинҳон кардани чат</string>
@@ -1667,7 +1667,7 @@
     <string name="SecretChatTimerHours">ч</string>
     <string name="SecretChatTimerWeeks">в</string>
     <string name="BotOwnershipTransfer">Интиқоли моликияти бот</string>
-    <string name="BotOwnershipTransferReadyAlertText">Ин ҳуқуқи **full owner**-ро барои бот ба корбари интихобшуда интиқол медиҳад.</string>
+    <string name="BotOwnershipTransferReadyAlertText">Ин ҳуқуқи **Соҳиби канал**-ро барои бот ба корбари интихобшуда интиқол медиҳад.</string>
     <string name="BotOwnershipTransferChangeOwner">Иваз кардани соҳиби</string>
     <string name="BotOwnershipTransferAlertText">Шумо метавонед ботро интиқол диҳед, агар шумо дошта бошед:</string>
     <string name="LeaveAComment">Назари худро гузоред</string>
@@ -1693,7 +1693,7 @@
     <string name="HidePinnedMessages">ПАЁМҲОИ ПИНХОНАНДА ПИНҲОН КУНЕД</string>
     <string name="HidePinnedMessagesNoCaps">Паёмҳои маҳкамшударо пинҳон кунед</string>
     <string name="PinnedMessagesHidden">Паёмҳои маҳкамшуда пинҳон шудаанд</string>
-    <string name="PinnedMessagesHiddenInfo">Шумо сатри дорои паёмҳои pinnedро танҳо дар сурати гузоштани паёми нав хоҳед дид.</string>
+    <string name="PinnedMessagesHiddenInfo">Шумо сатри дорои паёмҳои Аввал часпондаро танҳо дар сурати гузоштани паёми нав хоҳед дид.</string>
     <string name="ImportedMessage">Ворид карда шудааст</string>
     <string name="ImportFileTooLarge">Воридоти файл хеле калон аст.</string>
     <string name="ImportFailedToUpload">Файлро бор карда натавонист.</string>
@@ -1703,23 +1703,23 @@
     <string name="MessageCopied">Паём ба буфер нусхабардорӣ карда шуд.</string>
     <string name="HintSent">Супурд</string>
     <string name="HintRead">Хондан</string>
-    <string name="InvLinkToSavedMessages">Истиноди даъват ба **Saved Messages** фиристода шуд.</string>
+    <string name="InvLinkToSavedMessages">Истиноди даъват ба **Паёмҳои маҳфузшуда** фиристода шуд.</string>
     <string name="InvLinkToGroup">Истиноди даъват ба **%1$s** фиристода шуд.</string>
     <string name="InvLinkToUser">Истиноди даъват ба **%1$s** фиристода шуд.</string>
     <string name="InvLinkToChats">Истиноди даъват ба **%1$s** фиристода шуд.</string>
-    <string name="FwdMessageToSavedMessages">Паём ба **Saved Messages** фиристода шуд.</string>
-    <string name="FwdMessagesToSavedMessages">Паёмҳо ба **Saved Messages** фиристода шуданд.</string>
+    <string name="FwdMessageToSavedMessages">Паём ба **Паёмҳои маҳфузшуда** фиристода шуд.</string>
+    <string name="FwdMessagesToSavedMessages">Паёмҳо ба **Паёмҳои маҳфузшуда** фиристода шуданд.</string>
     <string name="FwdMessageToGroup">Паём ба **%1$s** фиристода шуд.</string>
     <string name="FwdMessagesToGroup">Паёмҳо ба **%1$s** фиристода шуданд.</string>
     <string name="FwdMessageToUser">Паём ба **%1$s** фиристода шуд.</string>
     <string name="FwdMessagesToUser">Паёмҳо ба **%1$s** фиристода шуданд.</string>
     <string name="FwdMessageToUserShort">Ба **%1$s** интиқол дода мешавад.</string>
     <string name="FwdMessagesToUserShort">Ба **%1$s** интиқол дода мешавад.</string>
-    <string name="FwdMessageToManyChats_one">Паём ба **a chat** фиристода шуд.</string>
-    <string name="FwdMessageToManyChats_other">Паём ба **%1$d chats** фиристода шуд.</string>
+    <string name="FwdMessageToManyChats_one">Паём ба **a чат** фиристода шуд.</string>
+    <string name="FwdMessageToManyChats_other">Паём ба **%1$d чатҳо** фиристода шуд.</string>
     <string name="FwdMessagesToManyChats_one">Паёмҳо ба **a chat** фиристода шуданд.</string>
     <string name="FwdMessagesToManyChats_other">Паёмҳо ба **%1$d chats** фиристода шуданд.</string>
-    <string name="BackgroundToSavedMessages">Замина ба **Saved Messages** муштарак.</string>
+    <string name="BackgroundToSavedMessages">Замина ба **Паёмҳои маҳфузшуда** муштарак.</string>
     <string name="BackgroundToGroup">Замина ба **%1$s** муштарак.</string>
     <string name="BackgroundToUser">Замина ба **%1$s** муштарак.</string>
     <string name="BackgroundToChats">Замина ба **%1$s** муштарак.</string>
@@ -1802,8 +1802,8 @@
     <string name="NotificationMessageGroupSticker">%1$s ба гурӯҳи %2$s стикер фиристод</string>
     <string name="NotificationMessageGroupStickerEmoji">%1$s ба гурӯҳи %2$s стикери %3$s фиристод</string>
     <string name="NotificationMessageRecurringPay">%1$s ситонида шуд %2$s</string>
-    <string name="NotificationPaidMedia_one">%1$d ⭐️ ВАО</string>
-    <string name="NotificationPaidMedia_other">%1$d ⭐️ ВАО</string>
+    <string name="NotificationPaidMedia_one">%1$d ⭐️ Каналҳои хабарӣ</string>
+    <string name="NotificationPaidMedia_other">%1$d ⭐️ Каналҳои хабарӣ, Нашрия</string>
     <string name="NotificationMessagePaidMedia_one">%2$s ба шумо паёми пулакӣ барои ситораи %1$d фиристод</string>
     <string name="NotificationMessagePaidMedia_other">%2$s ба шумо паёми пулакӣ барои %1$d ситора фиристод</string>
     <string name="NotificationChannelMessagePaidMedia_one">%2$s барои ситораи %1$d паёми пулакӣ нашр кард</string>
@@ -2006,7 +2006,7 @@
     <string name="GigagroupConvertProcessButton">Ба гурӯҳи пахши барномаҳо табдил диҳед</string>
     <string name="GigagroupConvertCancelButton">Ҳамчун гурӯҳи муқаррарӣ тарк кунед</string>
     <string name="GigagroupConvertAlertTitle">Шумо мутмаъин ҳастед?</string>
-    <string name="GigagroupConvertAlertText">Аъзои муқаррарии гурӯҳ (ғайриадминҳо) **irrevocably** ҳуқуқи худро барои интишори паёмҳо дар гурӯҳ аз даст медиҳанд.\n\nИн амал **can\'t** бекор карда мешавад.</string>
+    <string name="GigagroupConvertAlertText">Аъзои муқаррарии гурӯҳ (ғайриадминҳо) **Шартномаҳо** ҳуқуқи худро барои интишори паёмҳо дар гурӯҳ аз даст медиҳанд.\n\nИн амал **Ҳа Иҷозат\'t** бекор карда мешавад.</string>
     <string name="GigagroupConvertAlertConver">ТАБДИЛ КАРДАН</string>
     <string name="GigagroupConvertCancelHint">Агар шумо фикри худро тағир диҳед, ба танзимоти гурӯҳи худ равед.</string>
     <!--group info view-->

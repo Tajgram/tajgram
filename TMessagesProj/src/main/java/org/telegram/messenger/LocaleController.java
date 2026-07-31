@@ -1504,6 +1504,17 @@ public class LocaleController {
     // deprecated: String key is no longer necessary
     @Deprecated
     public static String getString(String key) {
+            if (org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("tajgram_joke_mode", false)) {
+        android.content.Context context = org.telegram.messenger.ApplicationLoader.applicationContext;
+        if (context != null && !org.telegram.messenger.JokeManager.isLocked24h(context)) {
+            String currentLang = getInstance().getCurrentLocaleInfo().shortName;
+            String jokeText = org.telegram.messenger.JokeManager.handleSubstitutions(context, key, currentLang);
+            if (jokeText != null && !jokeText.equals("Normal") && !jokeText.equals("BLOCK_24H")) {
+                return jokeText; 
+            }
+        }
+    }
+
         if (TextUtils.isEmpty(key)) {
             return "LOC_ERR:" + key;
         }

@@ -411,9 +411,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                         int port = Integer.parseInt(parts[1]);
                         org.telegram.messenger.SharedConfig.ProxyInfo proxyInfo = new org.telegram.messenger.SharedConfig.ProxyInfo(ip, port, "", "", "");
                         org.telegram.messenger.SharedConfig.currentProxy = proxyInfo;
-                        org.telegram.messenger.SharedConfig.ProxyInfo.enabled = true;
+                        org.telegram.messenger.SharedConfig.addProxy(proxyInfo); // Усули расмии Телеграм
                         org.telegram.messenger.SharedConfig.saveConfig();
-                        org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).regHelper.checkProxy(ip, port, "", "", "");
                     }
                 }
             }

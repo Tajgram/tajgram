@@ -819,7 +819,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             Intro.setPrivateTextures(textures[19], textures[20]);
             Intro.setFreeTextures(textures[14], textures[13]);
             Intro.setFastTextures(textures[2], textures[3], textures[1], textures[0]);
-            Intro.setStaticTextures(textures[4], textures[5], textures[6], textures[7], textures[8], textures[9], textures[10], textures[11], textures[12], textures[4], textures[5], textures[6], textures[7], textures[8], textures[9], textures[10], textures[11], textures[12]);
+            Intro.setIcTextures(textures[4], textures[5], textures[6], textures[7], textures[8], textures[9], textures[10], textures[11], textures[12]);
             Intro.onSurfaceCreated();
             currentDate = System.currentTimeMillis() - 1000;
 

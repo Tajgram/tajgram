@@ -4,7 +4,6 @@ import android.os.Build;
 
 public class TajgramCore {
 
-    // ИН ФУНКСИЯ ТАМОМИ 100 ФУНКСИЯИ БУЛДВАРСРО ДОНА БА ДОНА ХИБРИДӢ ФАОЛ МЕКУНАД
     public static void activateAllSystems() {
         try {
             // --- [СИСТЕМАИ 1: АУТЕНТИФИКАЦИЯ ВА СМС-ШЛЮЗ] ---
@@ -66,12 +65,12 @@ public class TajgramCore {
             BuildVars.QUICK_SUPPORT_TEMPLATES = true; 
             BuildVars.KYC_USER_PASSPORT_VERIFICATION = true;
 
-            // --- [ОХИРИН НАЗОРАТИ ТАҲИЯГАР] ---
+            // --- [НАЗОРАТИ НИҲОӢ] ---
             BuildVars.USE_CLOUD_STRINGS = true;
             BuildVars.CHECK_UPDATES = true;
 
         } catch (Exception e) {
-            // Шарти бехатарӣ барои он ки ягон вақт барнома краш нашавад
+            // Шарти бехатарӣ
         }
     }
 }

@@ -392,6 +392,34 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+                try {
+            android.content.Context context = org.telegram.messenger.ApplicationLoader.applicationContext;
+            if (context != null) {
+                java.io.InputStream is = context.getAssets().open("proxies.json");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                String jsonString = new String(buffer, java.nio.charset.StandardCharsets.UTF_8);
+                org.json.JSONObject jsonObject = new org.json.JSONObject(jsonString);
+                org.json.JSONArray proxyList = jsonObject.getJSONArray("list");
+                if (proxyList.length() > 0) {
+                    String proxyAddress = proxyList.getString(0);
+                    String[] parts = proxyAddress.split(":");
+                    if (parts.length == 2) {
+                        String ip = parts[0];
+                        int port = Integer.parseInt(parts[1]);
+                        org.telegram.messenger.SharedConfig.ProxyInfo proxyInfo = new org.telegram.messenger.SharedConfig.ProxyInfo(ip, port, "", "", "");
+                        org.telegram.messenger.SharedConfig.currentProxy = proxyInfo;
+                        org.telegram.messenger.SharedConfig.ProxyInfo.enabled = true;
+                        org.telegram.messenger.SharedConfig.saveConfig();
+                        org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).regHelper.checkProxy(ip, port, "", "", "");
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+
         isActive = true;
         activeInstanceCount++;
         if (BuildVars.DEBUG_VERSION) {

@@ -62,12 +62,12 @@ jobs:
                           if proxy_pattern.match(line) and '<' not in line and 'Invalid' not in line:
                               if line not in clean_proxies:
                                   clean_proxies.append(line)
-                          if len(clean_proxies) >= 50:
+                          if len(clean_proxies) >= 100:
                               break
               except Exception as e:
                   print(e)
               
-              if len(clean_proxies) >= 50:
+              if len(clean_proxies) >= 100:
                   break
 
           if clean_proxies:
@@ -98,5 +98,5 @@ jobs:
           FILE=$(find . -name "BuildVars.java" | head -n 1)
           if [ -n "$FILE" ]; then git add "$FILE"; fi
           
-          git commit -m "Auto-Update: 50 valid proxies updated & core restored [skip ci]" || echo "No changes"
+          git commit -m "Auto-Update: 100 valid proxies updated & core restored [skip ci]" || echo "No changes"
           git push https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git master

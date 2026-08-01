@@ -45,8 +45,8 @@ You will require Android Studio 2025.1.4, Android NDK 27.2.12479018 and Android 
 
 ## 🌍 Localization & Translation
 
-Tajgram is forked from Telegram, meaning most translation contexts strictly follow the localizations provided by the active community for Telegram for Android. Check out progress or contribute via: https://translations.telegram.org/Tg/android/.
+Tajgram is forked from Telegram, meaning most translation contexts strictly follow the localizations provided by the active community for Telegram for Android. Check out progress or contribute via: https://translations.telegram.org/en/android/.
 
 ### 🇹🇯 Tajik Language Beta Activation
 Anyone can immediately switch their active Telegram interface layout directly to the certified Tajik localization layout context by accessing this secure structural redirection link:  
-👉 https://t.me/setlanguage/tg-beta
+👉 https://translations.telegram.org/Tg/android/ ☝👉 https://t.me/tajgramTips

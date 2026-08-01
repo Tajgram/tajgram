@@ -3,7 +3,7 @@
 [![Crowdin](https://badges.crowdin.net/e/a094217ac83905ae1625526d59bba8dc/localized.svg)](https://Tajgram.crowdin.com/tajgram)  
 Tajgram is a powerful, modern, third-party Telegram client with deep modifications, advanced wallet systems, and hybrid premium functionality.
 
-- **Telegram Channel:** https://t.me/tajgramTops
+- **Telegram Channel:** https://t.me/tajgramTips
 - **Official Updates:** https://t.me
 - **Feedback & Repository:** gh repo clone Tajgram/tajgram
 

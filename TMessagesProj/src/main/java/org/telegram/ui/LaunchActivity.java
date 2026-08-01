@@ -392,32 +392,54 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-                try {
-            android.content.Context context = org.telegram.messenger.ApplicationLoader.applicationContext;
-            if (context != null) {
-                java.io.InputStream is = context.getAssets().open("proxies.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                String jsonString = new String(buffer, java.nio.charset.StandardCharsets.UTF_8);
-                org.json.JSONObject jsonObject = new org.json.JSONObject(jsonString);
-                org.json.JSONArray proxyList = jsonObject.getJSONArray("list");
-                if (proxyList.length() > 0) {
-                    String proxyAddress = proxyList.getString(0);
-                    String[] parts = proxyAddress.split(":");
-                    if (parts.length == 2) {
-                        String ip = parts[0];
-                        int port = Integer.parseInt(parts[1]);
-                        org.telegram.messenger.SharedConfig.ProxyInfo proxyInfo = new org.telegram.messenger.SharedConfig.ProxyInfo(ip, port, "", "", "");
-                        org.telegram.messenger.SharedConfig.currentProxy = proxyInfo;
-                        org.telegram.messenger.SharedConfig.addProxy(proxyInfo); // Усули расмии Телеграм
-                        org.telegram.messenger.SharedConfig.saveConfig();
+                        try {
+            android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
+            boolean isVpnActive = false;
+            if (cm != null) {
+                android.net.Network[] networks = cm.getAllNetworks();
+                for (android.net.Network network : networks) {
+                    android.net.NetworkCapabilities caps = cm.getNetworkCapabilities(network);
+                    if (caps != null && caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_VPN)) {
+                        isVpnActive = true;
+                        break;
                     }
+                }
+            }
+                            
+            if (!isVpnActive) {
+                android.content.Context context = org.telegram.messenger.ApplicationLoader.applicationContext;
+                if (context != null) {
+                    java.io.InputStream is = context.getAssets().open("proxies.json");
+                    int size = is.available();
+                    byte[] buffer = new byte[size];
+                    is.read(buffer);
+                    is.close();
+                    String jsonString = new String(buffer, java.nio.charset.StandardCharsets.UTF_8);
+                    org.json.JSONObject jsonObject = new org.json.JSONObject(jsonString);
+                    org.json.JSONArray proxyList = jsonObject.getJSONArray("list");
+                    
+                    for (int i = 0; i < proxyList.length(); i++) {
+                        String proxyAddress = proxyList.getString(i);
+                        String[] parts = proxyAddress.split(":");
+                        if (parts.length == 2) {
+                            String ip = parts[0];
+                            int port = Integer.parseInt(parts[1]);
+                            
+                            org.telegram.messenger.SharedConfig.ProxyInfo proxyInfo = new org.telegram.messenger.SharedConfig.ProxyInfo(ip, port, "", "", "");
+                            org.telegram.messenger.SharedConfig.addProxy(proxyInfo);
+                        }
+                    }
+                    
+                    if (proxyList.length() > 0) {
+                        String[] parts = proxyList.getString(0).split(":");
+                        org.telegram.messenger.SharedConfig.currentProxy = new org.telegram.messenger.SharedConfig.ProxyInfo(parts[0], Integer.parseInt(parts[1]), "", "", "");
+                    }
+                    org.telegram.messenger.SharedConfig.saveConfig();
                 }
             }
         } catch (Exception e) {
         }
+
 
         isActive = true;
         activeInstanceCount++;

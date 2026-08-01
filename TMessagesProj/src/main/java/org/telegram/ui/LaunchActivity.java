@@ -412,7 +412,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
             if (!isVpnActive && !userHasProxy) {
                 org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
                 
-                org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkSponsorChannel();
+            // org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkSponsorChannel();
             }
         } catch (Exception e) {
         }

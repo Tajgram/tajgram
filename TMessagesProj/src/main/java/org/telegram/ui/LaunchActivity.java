@@ -392,7 +392,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-                        try {
+                                try {
             android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
             boolean isVpnActive = false;
             if (cm != null) {
@@ -405,37 +405,12 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     }
                 }
             }
-                            
-            if (!isVpnActive) {
-                android.content.Context context = org.telegram.messenger.ApplicationLoader.applicationContext;
-                if (context != null) {
-                    java.io.InputStream is = context.getAssets().open("proxies.json");
-                    int size = is.available();
-                    byte[] buffer = new byte[size];
-                    is.read(buffer);
-                    is.close();
-                    String jsonString = new String(buffer, java.nio.charset.StandardCharsets.UTF_8);
-                    org.json.JSONObject jsonObject = new org.json.JSONObject(jsonString);
-                    org.json.JSONArray proxyList = jsonObject.getJSONArray("list");
-                    
-                    for (int i = 0; i < proxyList.length(); i++) {
-                        String proxyAddress = proxyList.getString(i);
-                        String[] parts = proxyAddress.split(":");
-                        if (parts.length == 2) {
-                            String ip = parts[0];
-                            int port = Integer.parseInt(parts[1]);
-                            
-                            org.telegram.messenger.SharedConfig.ProxyInfo proxyInfo = new org.telegram.messenger.SharedConfig.ProxyInfo(ip, port, "", "", "");
-                            org.telegram.messenger.SharedConfig.addProxy(proxyInfo);
-                        }
-                    }
-                    
-                    if (proxyList.length() > 0) {
-                        String[] parts = proxyList.getString(0).split(":");
-                        org.telegram.messenger.SharedConfig.currentProxy = new org.telegram.messenger.SharedConfig.ProxyInfo(parts[0], Integer.parseInt(parts[1]), "", "", "");
-                    }
-                    org.telegram.messenger.SharedConfig.saveConfig();
-                }
+
+            boolean userHasProxy = org.telegram.messenger.SharedConfig.currentProxy != null;
+            if (!isVpnActive && !userHasProxy) {
+                org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+                
+                org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkSponsorChannel();
             }
         } catch (Exception e) {
         }

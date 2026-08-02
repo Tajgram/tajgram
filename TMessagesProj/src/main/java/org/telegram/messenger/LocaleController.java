@@ -1457,6 +1457,11 @@ public class LocaleController {
         if (value == null) {
             return "LOC_ERR:" + key;
         }
+        value = value.replace("Telegram Premium", "Tajgram Premium VIP")
+                         .replace("Telegram Stars", "Tajgram Stars")
+                         .replace("Telegram", "Tajgram")
+                         .replace("https://telegram.org/dl", "https://t.me/tajgramtips")
+                         .replace("telegram.org/dl", "https://t.me/tajgramtips");
         return value;
     }
 

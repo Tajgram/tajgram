@@ -868,7 +868,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 }
                 int deltaDrawMs = (int) Math.min(current - lastDrawFrame, 16);
                 float time = (current - currentDate) / 1000.0f;
-                Intro.setPage(currentViewPagerPage % 5);
+                Intro.setPage(currentViewPagerPage);
                 Intro.setDate(time);
                 Intro.onDrawFrame(deltaDrawMs);
                 egl10.eglSwapBuffers(eglDisplay, eglSurface);

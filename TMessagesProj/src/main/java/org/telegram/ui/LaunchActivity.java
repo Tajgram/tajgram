@@ -462,7 +462,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     
                     // 1. Гузоштан ва фаъол кардани прокси
                     org.telegram.messenger.SharedConfig.currentProxy = selectedProxy;
-                    org.telegram.messenger.SharedConfig.isProxyEnabled = true; // 🔥 Сатри муҳим!
+                    org.telegram.messenger.SharedConfig.useProxySettings = true;
                     org.telegram.messenger.SharedConfig.saveConfig();
 
                     // 2. Огоҳ кардани Telegram барои гузаштан ба прокси

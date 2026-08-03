@@ -269,7 +269,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                     eglThread.setSurfaceTextureSize(width, height);
                     eglThread.postRunnable(()->{
                         float time = (System.currentTimeMillis() - currentDate) / 1000.0f;
-                        Intro.setPage(currentViewPagerPage);
+                        Intro.setPage(currentViewPagerPage % 5);
                         Intro.setDate(time);
                         Intro.onDrawFrame(0);
                         if (eglThread != null && eglThread.isAlive() && eglThread.eglDisplay != null && eglThread.eglSurface != null) {
@@ -819,10 +819,8 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             Intro.setPrivateTextures(textures[19], textures[20]);
             Intro.setFreeTextures(textures[14], textures[13]);
             Intro.setFastTextures(textures[2], textures[3], textures[1], textures[0]);
-            Intro.setIcTextures(
-                textures[4], textures[5], textures[6], textures[7], textures[8], textures[9], textures[10], textures[11], textures[12], 
-                textures[4], textures[5], textures[6], textures[7], textures[8], textures[9], textures[10], textures[11], textures[12]);
-            Intro.onSurfaceCreated();
+            Intro.setIcTextures(textures[4], textures[5], textures[6], textures[7], textures[8], textures[9], textures[10], textures[11], textures[12]); 
+               
             currentDate = System.currentTimeMillis() - 1000;
 
             return true;
@@ -870,7 +868,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                 }
                 int deltaDrawMs = (int) Math.min(current - lastDrawFrame, 16);
                 float time = (current - currentDate) / 1000.0f;
-                Intro.setPage(currentViewPagerPage);
+                Intro.setPage(currentViewPagerPage % 5);
                 Intro.setDate(time);
                 Intro.onDrawFrame(deltaDrawMs);
                 egl10.eglSwapBuffers(eglDisplay, eglSurface);

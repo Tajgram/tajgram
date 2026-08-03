@@ -269,7 +269,7 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
                     eglThread.setSurfaceTextureSize(width, height);
                     eglThread.postRunnable(()->{
                         float time = (System.currentTimeMillis() - currentDate) / 1000.0f;
-                        Intro.setPage(currentViewPagerPage % 5);
+                        Intro.setPage(currentViewPagerPage);
                         Intro.setDate(time);
                         Intro.onDrawFrame(0);
                         if (eglThread != null && eglThread.isAlive() && eglThread.eglDisplay != null && eglThread.eglSurface != null) {

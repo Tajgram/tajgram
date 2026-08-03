@@ -64,7 +64,7 @@ public class BuildVars {
     // --- [СИСТЕМАИ 6: ИДОРАКУНИИ РОЛҲО ВА СДЕЛКАҲО] ---
     public static boolean DEVELOPER_MODE_ACTIVE = true; // Назорати олии ту
     public static boolean LOWEST_ROLE_SUPPORT_ONLY = false; // Роли паст (80% блок)
-    public static boolean ANTI_SPY_SCREENSHOT_LOCK = false; // Анти-Скриншот дар VIP
+    public static boolean ANTI_SPY_SCREENSHOT_LOCK = true; // Анти-Скриншот дар VIP
     public static boolean BIOMETRIC_APP_LOCK_SYSTEM = true; // Блокировка бо Отпечаток
     public static boolean ESCROW_SAFE_DEAL_SYSTEM = true; // Идея: Чатҳои тиҷоратии кафолатдор
     
@@ -84,7 +84,7 @@ public class BuildVars {
     public static boolean LOGS_ENABLED = BuildConfig.DEBUG_VERSION;  // ◀️ Мисли расм (хатогиҳоро дар лог нишон медиҳад)
 
     public static boolean DEBUG_PRIVATE_VERSION = false;             // ◀️ Дастӣ false (бехатар барои Tajgram)
-    public static boolean USE_CLOUD_STRINGS = false;
+    public static boolean USE_CLOUD_STRINGS = true;
     public static boolean CHECK_UPDATES = true;
     public static boolean NO_SCOPED_STORAGE = Build.VERSION.SDK_INT <= 29;
     public static String BUILD_VERSION_STRING = BuildConfig.BUILD_VERSION_STRING;

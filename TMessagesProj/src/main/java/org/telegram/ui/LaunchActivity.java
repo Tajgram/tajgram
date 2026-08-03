@@ -394,76 +394,105 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     protected void onCreate(Bundle savedInstanceState) {
                                 try {
            android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
-            boolean isVpnActive = false;
-            if (cm != null) {
-                android.net.Network[] networks = cm.getAllNetworks();
-                for (android.net.Network network : networks) {
-                    android.net.NetworkCapabilities caps = cm.getNetworkCapabilities(network);
-                    if (caps != null && caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_VPN)) {
-                        isVpnActive = true;
-                        break;
+    boolean isVpnActive = false;
+    if (cm != null) {
+        android.net.Network[] networks = cm.getAllNetworks();
+        for (android.net.Network network : networks) {
+            android.net.NetworkCapabilities caps = cm.getNetworkCapabilities(network);
+            if (caps != null && caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_VPN)) {
+                isVpnActive = true;
+                break;
+            }
+        }
+    }
+
+    boolean userHasProxy = org.telegram.messenger.SharedConfig.currentProxy != null;
+
+    if (!isVpnActive && !userHasProxy) {
+        new Thread(() -> {
+            
+            String[] urls = {
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_ru_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt"
+            };
+
+            
+            final java.util.ArrayList<org.telegram.messenger.SharedConfig.ProxyInfo> smartProxyList = new java.util.ArrayList<>();
+
+            for (String urlStr : urls) {
+                java.io.BufferedReader reader = null;
+                try {
+                    java.net.URL url = new java.net.URL(urlStr);
+                    reader = new java.io.BufferedReader(new java.io.InputStreamReader(url.openStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        line = line.trim();
+                        if (line.startsWith("tg://proxy") || line.startsWith("https://t.me/proxy")) {
+                            android.net.Uri uri = android.net.Uri.parse(line.replace("tg://proxy", "https://t.me/proxy"));
+                            String server = uri.getQueryParameter("server");
+                            String portStr = uri.getQueryParameter("port");
+                            String secret = uri.getQueryParameter("secret");
+
+                            if (server != null && portStr != null && secret != null) {
+                                try {
+                                    int port = Integer.parseInt(portStr);
+                                    smartProxyList.add(new org.telegram.messenger.SharedConfig.ProxyInfo(server, port, "", "", secret));
+                                } catch (NumberFormatException ignored) {}
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {
+                } finally {
+                    if (reader != null) {
+                        try { reader.close(); } catch (Exception ignored) {}
                     }
                 }
             }
 
-            boolean userHasProxy = org.telegram.messenger.SharedConfig.currentProxy != null;
+            if (!smartProxyList.isEmpty()) {
+                
+                java.util.Collections.shuffle(smartProxyList);
 
-            if (!isVpnActive && !userHasProxy) {
-                new Thread(() -> {
-                    String[] urls = {
-                        "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt",
-                        "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
-                        "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_ru_verified.txt",
-                        "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt"
-                    };
+                
+                org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
+                    org.telegram.messenger.SharedConfig.currentProxy = smartProxyList.get(0);
+                    org.telegram.messenger.SharedConfig.saveConfig();
+                    org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+                });
+                
+                org.telegram.messenger.Utilities.stageQueue.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        int connectionState = org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getConnectionState();
+                        
+                        if (connectionState != 3 && !smartProxyList.isEmpty()) {
+                            
+                            smartProxyList.remove(0);
 
-                    for (String urlStr : urls) {
-                        java.io.BufferedReader reader = null;
-                        try {
-                            java.net.URL url = new java.net.URL(urlStr);
-                            reader = new java.io.BufferedReader(new java.io.InputStreamReader(url.openStream()));
-                            String line;
-                            while ((line = reader.readLine()) != null) {
-                                line = line.trim();
-                                if (line.startsWith("tg://proxy") || line.startsWith("https://t.me/proxy")) {
-                                    android.net.Uri uri = android.net.Uri.parse(line.replace("tg://proxy", "https://t.me/proxy"));
-                                    String server = uri.getQueryParameter("server");
-                                    String portStr = uri.getQueryParameter("port");
-                                    String secret = uri.getQueryParameter("secret");
-
-                                    if (server != null && portStr != null && secret != null) {
-                                        try {
-                                            int port = Integer.parseInt(portStr);
-                                            org.telegram.messenger.SharedConfig.ProxyInfo proxyInfo = 
-                                                new org.telegram.messenger.SharedConfig.ProxyInfo(server, port, "", "", secret);
-                                            
-                                            org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
-                                                org.telegram.messenger.SharedConfig.addProxy(proxyInfo);
-                                                org.telegram.messenger.SharedConfig.setCurrentProxy(proxyInfo);
-                                            });
-
-                                            org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
-                                            
-                                            reader.close();
-                                            return;
-                                        } catch (NumberFormatException ignored) {}
-                                    }
-                                }
-                            }
-                        } catch (Exception ignored) {
-                        } finally {
-                            if (reader != null) {
-                                try { reader.close(); } catch (Exception ignored) {}
+                            if (!smartProxyList.isEmpty()) {
+                               
+                                final org.telegram.messenger.SharedConfig.ProxyInfo nextProxy = smartProxyList.get(0);
+                                
+                                org.telegram.messenger.SharedConfig.currentProxy = nextProxy;
+                                org.telegram.messenger.SharedConfig.saveConfig();
+                                org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
                             }
                         }
+                        // Таймерро барои 5 дақиқаи навбатӣ аз нав ба кор медорем (300000 мс)
+                        org.telegram.messenger.Utilities.stageQueue.postRunnable(this, 300000);
                     }
-                }).start();
-            } else {
-                org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+                }, 300000); 
+
             }
-        } catch (Exception e) {
-            // Handling exception
-        }
+        }).start();
+    } else {
+        org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+    }
+} catch (Exception e) {
+    // Handling exception
+}
  
 
 

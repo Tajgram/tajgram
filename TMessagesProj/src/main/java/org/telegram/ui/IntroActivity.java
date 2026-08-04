@@ -134,19 +134,26 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
 
         titles = new CharSequence[]{
                 null,
-                LocaleController.getString(R.string.Page2Title),
                 LocaleController.getString("onboarding_title_1", R.string.onboarding_title_1),
-                LocaleController.getString(R.string.Page3Title),
                 LocaleController.getString("onboarding_title_2", R.string.onboarding_title_2),
-                LocaleController.getString(R.string.Page5Title),
                 LocaleController.getString("onboarding_title_3", R.string.onboarding_title_3),
-                LocaleController.getString(R.string.Page4Title),
                 LocaleController.getString("onboarding_title_4", R.string.onboarding_title_4),
-                LocaleController.getString(R.string.Page6Title)
                 LocaleController.getString("onboarding_title_5", R.string.onboarding_title_5),
+            
+                LocaleController.getString(R.string.Page2Title),
+                LocaleController.getString(R.string.Page3Title),
+                LocaleController.getString(R.string.Page5Title),
+                LocaleController.getString(R.string.Page4Title),
+                LocaleController.getString(R.string.Page6Title)
         };
         messages = new String[]{
                 LocaleController.getString(R.string.Page1Message),
+                LocaleController.getString("onboarding_desc_1", R.string.onboarding_desc_1),
+                LocaleController.getString("onboarding_desc_2", R.string.onboarding_desc_2),
+                LocaleController.getString("onboarding_desc_3", R.string.onboarding_desc_3),
+                LocaleController.getString("onboarding_desc_4", R.string.onboarding_desc_4),
+                LocaleController.getString("onboarding_desc_5", R.string.onboarding_desc_5),
+            
                 LocaleController.getString(R.string.Page2Message),
                 LocaleController.getString(R.string.Page3Message),
                 LocaleController.getString(R.string.Page5Message),
@@ -457,13 +464,24 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             }
             justCreated = false;
         }
-        AndroidUtilities.lockOrientation(getParentActivity(), ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        if (!AndroidUtilities.isTablet()) {
+            Activity activity = getParentActivity();
+            if (activity != null) {
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        AndroidUtilities.unlockOrientation(getParentActivity());
+
+        if (!AndroidUtilities.isTablet()) {
+            Activity activity = getParentActivity();
+            if (activity != null) {
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+            }
+        }
     }
 
     @Override

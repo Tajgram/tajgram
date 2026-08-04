@@ -502,10 +502,10 @@ if (!isVpnActive) {
                 org.telegram.messenger.SharedConfig.proxyList.clear(); // Тоза кардани хлами кӯҳна
                 
                 // Илова кардани 1 дона проксии нав ба рӯйхати танзимоти барнома
-                org.telegram.messenger.SharedConfig.addProxyInfo(selectedProxy);
+                org.telegram.messenger.SharedConfig.proxyList.add(selectedProxy);
                 
                 // Танзими нави расмии Telegram
-                org.telegram.messenger.SharedConfig.ProxyRotationController.setEnabled(true);
+                org.telegram.messenger.SharedConfig.saveConfig();
                 org.telegram.messenger.SharedConfig.saveConfig();
 
                 // Идоракунии хушманди ядро барои бе VPN пайваст шудан (Намудро худи ядро автоматӣ муайян мекунад)

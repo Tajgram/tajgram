@@ -134,26 +134,19 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
 
         titles = new CharSequence[]{
                 null,
-                LocaleController.getString("onboarding_title_1", R.string.onboarding_title_1),
-                LocaleController.getString("onboarding_title_2", R.string.onboarding_title_2),
-                LocaleController.getString("onboarding_title_3", R.string.onboarding_title_3),
-                LocaleController.getString("onboarding_title_4", R.string.onboarding_title_4),
-                LocaleController.getString("onboarding_title_5", R.string.onboarding_title_5),
-            
                 LocaleController.getString(R.string.Page2Title),
+                LocaleController.getString("onboarding_title_1", R.string.onboarding_title_1),
                 LocaleController.getString(R.string.Page3Title),
+                LocaleController.getString("onboarding_title_2", R.string.onboarding_title_2),
                 LocaleController.getString(R.string.Page5Title),
+                LocaleController.getString("onboarding_title_3", R.string.onboarding_title_3),
                 LocaleController.getString(R.string.Page4Title),
+                LocaleController.getString("onboarding_title_4", R.string.onboarding_title_4),
                 LocaleController.getString(R.string.Page6Title)
+                LocaleController.getString("onboarding_title_5", R.string.onboarding_title_5),
         };
         messages = new String[]{
                 LocaleController.getString(R.string.Page1Message),
-                LocaleController.getString("onboarding_desc_1", R.string.onboarding_desc_1),
-                LocaleController.getString("onboarding_desc_2", R.string.onboarding_desc_2),
-                LocaleController.getString("onboarding_desc_3", R.string.onboarding_desc_3),
-                LocaleController.getString("onboarding_desc_4", R.string.onboarding_desc_4),
-                LocaleController.getString("onboarding_desc_5", R.string.onboarding_desc_5),
-            
                 LocaleController.getString(R.string.Page2Message),
                 LocaleController.getString(R.string.Page3Message),
                 LocaleController.getString(R.string.Page5Message),
@@ -819,8 +812,8 @@ public class IntroActivity extends BaseFragment implements NotificationCenter.No
             Intro.setPrivateTextures(textures[19], textures[20]);
             Intro.setFreeTextures(textures[14], textures[13]);
             Intro.setFastTextures(textures[2], textures[3], textures[1], textures[0]);
-            Intro.setIcTextures(textures[4], textures[5], textures[6], textures[7], textures[8], textures[9], textures[10], textures[11], textures[12]); 
-               
+            Intro.setIcTextures(textures[4], textures[5], textures[6], textures[7], textures[8], textures[9], textures[10], textures[11], textures[12]);
+            Intro.onSurfaceCreated();
             currentDate = System.currentTimeMillis() - 1000;
 
             return true;

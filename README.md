@@ -1,9 +1,9 @@
 # 🐾 Tajgram
 
 [![Crowdin](https://badges.crowdin.net/e/a094217ac83905ae1625526d59bba8dc/localized.svg)](https://Tajgram.crowdin.com/tajgram)  
-Tajgram is a powerful, modern, third-party Telegram client with deep modifications, advanced wallet systems, and hybrid premium functionality.
+Tajgram is a powerful, modern, third-party Tajgram client with deep modifications, advanced wallet systems, and hybrid premium functionality.
 
-- **Telegram Channel:** https://t.me/tajgramTips
+- **Tajgram Channel:** https://t.me/tajgramTips
 - **Official Updates:** https://t.me
 - **Feedback & Repository:** gh repo clone Tajgram/tajgram
 
@@ -25,19 +25,19 @@ Tajgram is a powerful, modern, third-party Telegram client with deep modificatio
 
 You will require Android Studio 2025.1.4, Android NDK 27.2.12479018 and Android SDK 35.
 
-1. Clone the Telegram source code with its submodules:
+1. Clone the Tajgram source code with its submodules:
    ```bash
-   git clone --recursive --shallow-submodules https://github.com/DrKLO/Telegram.git Telegram
+   git clone --recursive --shallow-submodules https://github.com/Tajgram/tajgram.git Tajgram
    ```
-   In case you forgot the `--recursive` flag, change to the `Telegram` directory and run:
+   In case you forgot the `--recursive` flag, change to the `Tajgram` directory and run:
    ```bash
    git submodule init && git submodule update --init --recursive --depth=1
    ```
 2. Copy your release.keystore into TMessagesProj/config
 3. Fill out RELEASE_KEY_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_STORE_PASSWORD in gradle.properties to access your  release.keystore
-4.  Go to https://console.firebase.google.com/, create two android apps with application IDs org.telegram.messenger and org.telegram.messenger.beta, turn on firebase messaging and download google-services.json, which should be copied to the same folder as TMessagesProj.
+4.  Go to https://console.firebase.google.com/, create two android apps with application IDs org.telegram.messenger and org.tajgram.messenger.beta, turn on firebase messaging and download google-services.json, which should be copied to the same folder as TMessagesProj.
 5. Open the project in the Studio (note that it should be opened, NOT imported).
-6. Fill out values in TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java – there’s a link for each of the variables showing where and which data to obtain.
+6. Fill out values in TMessagesProj/src/main/java/org/tajgram/messenger/BuildVars.java – there’s a link for each of the variables showing where and which data to obtain.
 7. You are ready to compile Telegram.
 
 6. **Compile:**  
@@ -45,7 +45,7 @@ You will require Android Studio 2025.1.4, Android NDK 27.2.12479018 and Android 
 
 ## 🌍 Localization & Translation
 
-Tajgram is forked from Telegram, meaning most translation contexts strictly follow the localizations provided by the active community for Telegram for Android. Check out progress or contribute via: https://translations.telegram.org/en/android/.
+Tajgram is forked from Telegram, meaning most translation contexts strictly follow the localizations provided by the active community for Tajgram for Android. Check out progress or contribute via: https://translations.telegram.org/en/android/.
 
 ### 🇹🇯 Tajik Language Beta Activation
 Anyone can immediately switch their active Telegram interface layout directly to the certified Tajik localization layout context by accessing this secure structural redirection link:  

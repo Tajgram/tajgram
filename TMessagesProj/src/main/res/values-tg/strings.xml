@@ -11191,4 +11191,12 @@
     <string name="ArticleAIPrompt">Дархост нависед...</string>
     <string name="ArticleAIGenerate">Эҷод кардан</string>
     <string name="ArticleAIAddToPage">Илова кардан ба саҳифа</string>
+    <string name="PaymentInvoiceDisabledStarsText">Ситораҳо намерасанд</string>
+    <string name="StarsPurchaseUnavailable">Хариди ситораҳо дар айни замон дастрас нест.</string>
+    <string name="AccDescrCheckbox">Қуттии қайд</string>
+    <string name="AccDescrChecked">Қайдшуда</string>
+    <string name="AccDescrNotChecked">Қайднашуда</string>
+    <string name="AccDescrWithAdminTag">бо барчаспи админ: %1$s</string>
+    <string name="AccDescrWithMemberTag">бо барчаспи иштирокчӣ: %1$s</string>
+    <string name="ArticleTableTitleHint">Сарлавҳа илова кунед…</string>  
 </resources>

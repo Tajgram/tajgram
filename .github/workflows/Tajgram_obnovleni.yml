@@ -26,6 +26,9 @@ jobs:
         run: |
           git remote add upstream https://github.com/DrKLO/Telegram.git || true
           git fetch upstream master
+
+          git config --global merge.ours.driver true
+
           
           echo "🚀 Раванди REBASE оғоз шуд: Баробарсозии мукаммал бо DrKLO..."
           

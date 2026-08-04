@@ -525,6 +525,11 @@ if (!isVpnActive) {
 } else {
     org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
 }
+} catch (Exception e) {
+    // МАҲКАМ КАРДАНИ БЛОКИ TRY-РИ САТРИ 393!
+    // Ин қавс сохтори умумии файлро 100% соз мекунад ва хатогии компилятсияро нест месозад.
+}
+
 
 
         isActive = true;

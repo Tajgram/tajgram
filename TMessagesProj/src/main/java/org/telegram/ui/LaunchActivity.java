@@ -393,7 +393,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
                                 try {
-    android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
+    // --- ЯДРОИ ХУШМАНД ВА РАКЕТАВИИ ТАҶГРАМ: ЛОКАТСИЯ ВА ПАЙВАСТШАВИИ ЛАҲЗАВӢ ---
+android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
 boolean isVpnActive = false;
 if (cm != null) {
     android.net.Network[] networks = cm.getAllNetworks();
@@ -406,117 +407,164 @@ if (cm != null) {
     }
 }
 
-// Агар VPN фаъол набошад, системаи автоматии проксиро оғоз мекунем
-if (!isVpnActive) {
+// 1. САНҶИШИ ЛОКАТСИЯ ВА IP-И ДАВЛАТҲО (БЕ ТАЪСИРИ VPN)
+String userCountry = "";
+try {
+    userCountry = org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getCurrentCountry();
+} catch (Exception ignored) {}
+
+if (userCountry == null) {
+    userCountry = "";
+}
+userCountry = userCountry.toUpperCase();
+
+// ТАНҲО ДАВЛАТҲОИ МАҲДУДШУДАИ АСЛӢ (Эрон, Россия, Чин ва ғайра)
+boolean hasRestrictions = userCountry.equals("RU") || userCountry.equals("IR") || userCountry.equals("CN") || userCountry.isEmpty();
+                                    
+if (hasRestrictions) {
+    // 2. ПАЙВАСТШАВИИ ЛАҲЗАВӢ (0.1 СОНИЯ): Проксии ҷории базаро дарҳол мепайвандад, то одам интизор нашавад
+    final org.telegram.messenger.SharedConfig.ProxyInfo savedProxy = org.telegram.messenger.SharedConfig.currentProxy;
+    if (savedProxy != null) {
+        org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
+            org.telegram.messenger.SharedConfig.currentProxy = savedProxy;
+            org.telegram.tgnet.ConnectionsManager.native_setProxySettings(
+                org.telegram.messenger.UserConfig.selectedAccount,
+                savedProxy.address,
+                savedProxy.port,
+                "",
+                "",
+                savedProxy.secret
+            );
+            org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+        });
+    }
+
+    // 3. САНҶИШИ ПИНҲОНӢ ДАР ЗАМИНА БЕ ШАХ ШУДАН
     new Thread(() -> {
-        String[] urls = {
-            "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
-            "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt",
-            "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt",
-            "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_ru_verified.txt",
-            "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all.txt"
-        };
+        try {
+            boolean isCurrentProxyAlive = false;
 
-        final java.util.ArrayList<org.telegram.messenger.SharedConfig.ProxyInfo> smartProxyList = new java.util.ArrayList<>();
+            // Тафтиши тез (1 сония): Агар проксии ҷорӣ зинда бошад, ОНРО УМУМАН ИВАЗ НАКУН (нарасад!)
+            if (savedProxy != null) {
+                try (java.net.Socket socket = new java.net.Socket()) {
+                    socket.connect(new java.net.InetSocketAddress(savedProxy.address, savedProxy.port), 1000); // 1 сония таваққуфи тез
+                    isCurrentProxyAlive = true;
+                } catch (Exception ignored) {}
+            }
 
-        // 1. Боргирии мустақим ва босифат аз файлҳои RAW-и GitHub
-        for (String urlStr : urls) {
-            java.io.BufferedReader reader = null;
-            try {
-                java.net.URL url = new java.net.URL(urlStr);
-                java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
-                conn.setConnectTimeout(4000);
-                conn.setReadTimeout(4000);
-                conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+            // Агар прокси кор кунад, равандро мебандем. 100 бор пӯшида кушоӣ ҳам беҳуда ба GitHub намеравад!
+            if (isCurrentProxyAlive && savedProxy != null) {
+                org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
+                    org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+                });
+                return;
+            }
 
-                reader = new java.io.BufferedReader(new java.io.InputStreamReader(conn.getInputStream()));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    line = line.trim();
-                    if (line.startsWith("tg://proxy")) {
-                        
-                        // Табдили формат танҳо барои он ки Android параметрҳои IP, порт ва секретро 100% дуруст бихонад
-                        android.net.Uri uri = android.net.Uri.parse(line.replace("tg://proxy", "https://localhost"));
-                        String server = uri.getQueryParameter("server");
-                        String portStr = uri.getQueryParameter("port");
-                        String secret = uri.getQueryParameter("secret"); 
+            // 4. БОРГИРИИ НАВ: ТАНҲО вақте ки проксии кӯҳна аз кор монад (мурд), рӯйхатро аз GitHub мехонад
+            String[] urls = {
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_ru_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all.txt"
+            };
 
-                        if (server != null && portStr != null && secret != null) {
-                            try {
-                                int port = Integer.parseInt(portStr);
-                                smartProxyList.add(new org.telegram.messenger.SharedConfig.ProxyInfo(server, port, "", "", secret));
-                            } catch (NumberFormatException ignored) {}
+            final java.util.ArrayList<org.telegram.messenger.SharedConfig.ProxyInfo> smartProxyList = new java.util.ArrayList<>();
+
+            for (String urlStr : urls) {
+                java.io.BufferedReader reader = null;
+                try {
+                    java.net.URL url = new java.net.URL(urlStr);
+                    java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(4000);
+                    conn.setReadTimeout(4000);
+                    conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+                    reader = new java.io.BufferedReader(new java.io.InputStreamReader(conn.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        line = line.trim();
+                        if (line.startsWith("tg://proxy")) {
+                            android.net.Uri uri = android.net.Uri.parse(line.replace("tg://proxy", "https://localhost"));
+                            String server = uri.getQueryParameter("server");
+                            String portStr = uri.getQueryParameter("port");
+                            String secret = uri.getQueryParameter("secret"); 
+
+                            if (server != null && portStr != null && secret != null) {
+                                try {
+                                    int port = Integer.parseInt(portStr);
+                                    smartProxyList.add(new org.telegram.messenger.SharedConfig.ProxyInfo(server, port, "", "", secret));
+                                } catch (NumberFormatException ignored) {}
+                            }
                         }
                     }
-                }
-            } catch (Exception ignored) {
-            } finally {
-                if (reader != null) {
-                    try { reader.close(); } catch (Exception ignored) {}
-                }
-            }
-        }
-
-        // 2. Омехта кардан (Random) ва Пинг (Санҷиши суръати портҳо барои он ки барнома шах нашавад)
-        if (!smartProxyList.isEmpty()) {
-            org.telegram.messenger.SharedConfig.ProxyInfo bestProxy = null;
-            long lowestPing = Long.MAX_VALUE;
-
-            java.util.Collections.shuffle(smartProxyList);
-            int countToTest = Math.min(smartProxyList.size(), 10); // Танҳо 10-тои аввалро месанҷем
-
-            for (int i = 0; i < countToTest; i++) {
-                org.telegram.messenger.SharedConfig.ProxyInfo proxy = smartProxyList.get(i);
-                try {
-                    long startTime = System.currentTimeMillis();
-                    java.net.Socket socket = new java.net.Socket();
-                    socket.connect(new java.net.InetSocketAddress(proxy.address, proxy.port), 1500); // 1.5 сония таваққуф
-                    long ping = System.currentTimeMillis() - startTime;
-                    socket.close();
-
-                    if (ping < lowestPing) {
-                        lowestPing = ping;
-                        bestProxy = proxy;
-                    }
                 } catch (Exception ignored) {
-                    // Проксиҳои хароб автоматӣ партофта мешаванд
+                } finally {
+                    if (reader != null) {
+                        try { reader.close(); } catch (Exception ignored) {}
+                    }
                 }
             }
 
-            // Захираи асосӣ дар навбат (Агар ягон прокси бо пинг ҷавоб надиҳад)
-            if (bestProxy == null) {
-                bestProxy = smartProxyList.get(0);
+            // 5. ТАҚСИМОТИ РАНДОМНИ (LOAD BALANCING): Барои он ки 100 одам ба як прокси начаспонад
+            if (!smartProxyList.isEmpty()) {
+                org.telegram.messenger.SharedConfig.ProxyInfo bestProxy = null;
+                long lowestPing = Long.MAX_VALUE;
+
+                java.util.Collections.shuffle(smartProxyList); // Омехта кардан барои тақсимот байни одамон
+                int countToTest = Math.min(smartProxyList.size(), 10); 
+
+                for (int i = 0; i < countToTest; i++) {
+                    org.telegram.messenger.SharedConfig.ProxyInfo proxy = smartProxyList.get(i);
+                    try (java.net.Socket socket = new java.net.Socket()) {
+                        long startTime = System.currentTimeMillis();
+                        socket.connect(new java.net.InetSocketAddress(proxy.address, proxy.port), 1000); // 1 сония таваққуф
+                        long ping = System.currentTimeMillis() - startTime;
+
+                        if (ping < lowestPing) {
+                            lowestPing = ping;
+                            bestProxy = proxy;
+                        }
+                    } catch (Exception ignored) {}
+                }
+
+                if (bestProxy == null) {
+                    bestProxy = smartProxyList.get(0);
+                }
+
+                final org.telegram.messenger.SharedConfig.ProxyInfo selectedProxy = bestProxy;
+
+                // АКТИВАТСИЯИ ПРОКСИИ НАВ ДАР ЯДРО БЕ ХАТОГӢ
+                org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
+                    org.telegram.messenger.SharedConfig.currentProxy = selectedProxy;
+                    org.telegram.messenger.SharedConfig.proxyList.clear(); 
+                    org.telegram.messenger.SharedConfig.proxyList.add(selectedProxy); 
+                    org.telegram.messenger.SharedConfig.saveConfig();
+
+                    org.telegram.tgnet.ConnectionsManager.native_setProxySettings(
+                        org.telegram.messenger.UserConfig.selectedAccount,
+                        selectedProxy.address,
+                        selectedProxy.port,
+                        "",
+                        "",
+                        selectedProxy.secret
+                    );
+                    
+                    org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+                });
             }
-
-            final org.telegram.messenger.SharedConfig.ProxyInfo selectedProxy = bestProxy;
-
-            // 3. Танзим ва Фаъолсозии хушманди 1 дона проксии ТЕЗТАРИН
-            org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
-                org.telegram.messenger.SharedConfig.currentProxy = selectedProxy;
-                org.telegram.messenger.SharedConfig.proxyList.clear(); // Тоза кардани хлами кӯҳна
-                org.telegram.messenger.SharedConfig.proxyList.add(selectedProxy); // Илова кардани фақат 1 проксии нав ба рӯйхат
-                org.telegram.messenger.SharedConfig.saveConfig();
-
-                // Идоракунии хушманди ядро барои бе VPN пайваст шудан
-                org.telegram.tgnet.ConnectionsManager.native_setProxySettings(
-                    org.telegram.messenger.UserConfig.selectedAccount,
-                    selectedProxy.address,
-                    selectedProxy.port,
-                    "",
-                    "",
-                    selectedProxy.secret
-                );
-                
-                org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
-            });
-        }
+        } catch (Exception ignored) {}
     }).start();
 } else {
+    // 6. ДАВЛАТҲОИ КУШОДА (ОДИХ): Прокси лозим нест, мустақим пайваст мешавад
     org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
 }
+
+// --- МУКАММАЛ МАҲКАМ КАРДАНИ БЛОКИ TRY-РИ САТРИ 393/398 БЕ ҲЕҶ ХАТОГӢ ---
 } catch (Exception e) {
-    // МАҲКАМ КАРДАНИ БЛОКИ TRY-РИ САТРИ 393!
+    // Блоки умумии заводии сатри 393 бе хатогии қавсҳо маҳкам шуд!
 }
+
 
 
 

@@ -393,7 +393,6 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
                                 try {
-    // --- ЯДРОИ ХУШМАНД ВА РАКЕТАВИИ ТАҶГРАМ: ЛОКАТСИЯ ВА ПАЙВАСТШАВИИ ЛАҲЗАВӢ ---
 android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
 boolean isVpnActive = false;
 if (cm != null) {
@@ -407,7 +406,6 @@ if (cm != null) {
     }
 }
 
-// 1. САНҶИШИ ЛОКАТСИЯ ВА IP-И ДАВЛАТҲО (БЕ ТАЪСИРИ VPN)
 String userCountry = "";
 try {
     userCountry = org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getCurrentCountry();
@@ -418,11 +416,9 @@ if (userCountry == null) {
 }
 userCountry = userCountry.toUpperCase();
 
-// ТАНҲО ДАВЛАТҲОИ МАҲДУДШУДАИ АСЛӢ (Эрон, Россия, Чин ва ғайра)
 boolean hasRestrictions = userCountry.equals("RU") || userCountry.equals("IR") || userCountry.equals("CN") || userCountry.isEmpty();
                                     
 if (hasRestrictions) {
-    // 2. ПАЙВАСТШАВИИ ЛАҲЗАВӢ (0.1 СОНИЯ): Проксии ҷории базаро дарҳол мепайвандад, то одам интизор нашавад
     final org.telegram.messenger.SharedConfig.ProxyInfo savedProxy = org.telegram.messenger.SharedConfig.currentProxy;
     if (savedProxy != null) {
         org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
@@ -439,12 +435,10 @@ if (hasRestrictions) {
         });
     }
 
-    // 3. САНҶИШИ ПИНҲОНӢ ДАР ЗАМИНА БЕ ШАХ ШУДАН
     new Thread(() -> {
         try {
             boolean isCurrentProxyAlive = false;
 
-            // Тафтиши тез (1 сония): Агар проксии ҷорӣ зинда бошад, ОНРО УМУМАН ИВАЗ НАКУН (нарасад!)
             if (savedProxy != null) {
                 try (java.net.Socket socket = new java.net.Socket()) {
                     socket.connect(new java.net.InetSocketAddress(savedProxy.address, savedProxy.port), 1000); // 1 сония таваққуфи тез
@@ -452,7 +446,6 @@ if (hasRestrictions) {
                 } catch (Exception ignored) {}
             }
 
-            // Агар прокси кор кунад, равандро мебандем. 100 бор пӯшида кушоӣ ҳам беҳуда ба GitHub намеравад!
             if (isCurrentProxyAlive && savedProxy != null) {
                 org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
                     org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
@@ -460,7 +453,6 @@ if (hasRestrictions) {
                 return;
             }
 
-            // 4. БОРГИРИИ НАВ: ТАНҲО вақте ки проксии кӯҳна аз кор монад (мурд), рӯйхатро аз GitHub мехонад
             String[] urls = {
                 "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
                 "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt",
@@ -506,12 +498,11 @@ if (hasRestrictions) {
                 }
             }
 
-            // 5. ТАҚСИМОТИ РАНДОМНИ (LOAD BALANCING): Барои он ки 100 одам ба як прокси начаспонад
             if (!smartProxyList.isEmpty()) {
                 org.telegram.messenger.SharedConfig.ProxyInfo bestProxy = null;
                 long lowestPing = Long.MAX_VALUE;
 
-                java.util.Collections.shuffle(smartProxyList); // Омехта кардан барои тақсимот байни одамон
+                java.util.Collections.shuffle(smartProxyList); 
                 int countToTest = Math.min(smartProxyList.size(), 10); 
 
                 for (int i = 0; i < countToTest; i++) {
@@ -556,13 +547,12 @@ if (hasRestrictions) {
         } catch (Exception ignored) {}
     }).start();
 } else {
-    // 6. ДАВЛАТҲОИ КУШОДА (ОДИХ): Прокси лозим нест, мустақим пайваст мешавад
+   
     org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
 }
 
-// --- МУКАММАЛ МАҲКАМ КАРДАНИ БЛОКИ TRY-РИ САТРИ 393/398 БЕ ҲЕҶ ХАТОГӢ ---
 } catch (Exception e) {
-    // Блоки умумии заводии сатри 393 бе хатогии қавсҳо маҳкам шуд!
+                                    
 }
 
 

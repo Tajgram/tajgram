@@ -5693,7 +5693,7 @@
     <string name="SubscribeToPremiumNoPrice">Subscribe</string>
     <string name="SubscribeToPremiumNotAvailable">Subscription not available</string>
     <string name="SubscribeToPremiumOfficialAppNeeded">**Official app needed**</string>
-    <string name="SubscribeToPremiumOfficialAppNeededDescription">You need an official Telegram app to subscribe to **Tajgram Premium**.\n\nOnce subscribed, you will be able to use the benefits of Tajgram Premium VIP in any apps that support it, including unofficial ones.</string>
+    <string name="SubscribeToPremiumOfficialAppNeededDescription">You need an official Tajgram app to subscribe to **Tajgram Premium**.\n\nOnce subscribed, you will be able to use the benefits of Tajgram Premium VIP in any apps that support it, including unofficial ones.</string>
     <string name="InstallOfficialApp">Install official app</string>
     <string name="GiftSubscriptionFor">Gift Subscription for %1$s</string>
     <string name="GiftSubscriptionCountFor_one">Gift %1$d Subscription for %2$s</string>
@@ -8058,7 +8058,7 @@
     <string name="MonetizationBalanceInfoLink">https://Telegram.org/tos/content-creator-rewards</string>
     <string name="MonetizationBalanceInfoNotAvailable">In the coming weeks you will be able to collect your reward using Fragment, a third-party platform used by advertisers to pay ads. **Learn more >**</string>
     <string name="MonetizationProceedsStarsInfo">Stars from your total balance become available for spending on ads and rewards 21 days after they are earned.</string>
-    <string name="MonetizationProceedsStarsInfoLink">https://Tajgram.org/tos/stars/</string>
+    <string name="MonetizationProceedsStarsInfoLink">https://Telegram.org/tos/stars/</string>
     <string name="MonetizationProceedsTONInfo">TON from your total balance become available for spending on ads and rewards 3 days after they are earned.</string>
     <string name="MonetizationProceedsTONInfoLink">https://Telegram.org/tos/content-creator-rewards</string>
     <string name="MonetizationProceedsStarsTONInfo">Stars and TON from your total balance become available for spending on ads and rewards 21 and 3 days respectively after they are earned.</string>
@@ -8773,7 +8773,7 @@
     <string name="StarsSubscribeTextTest_other">Do you want to subscribe to **%2$s** for **%1$d Stars** per %3$s?</string>
     <string name="StarsSubscribeButton">Subscribe</string>
     <string name="StarsSubscribeInfo">By subscribing you agree to the **Terms of Service**.</string>
-    <string name="StarsSubscribeInfoLink">https://Tajgram.org/tos/stars</string>
+    <string name="StarsSubscribeInfoLink">https://Telegram.org/tos/stars</string>
     <string name="StarsSubscriptionCompleted">Subscription successful!</string>
     <string name="StarsSubscriptionCompletedText_one">%1$d Star transferred to **%2$s**.</string>
     <string name="StarsSubscriptionCompletedText_other">%1$d Stars transferred to **%2$s**.</string>
@@ -9556,7 +9556,7 @@
     <string name="Gift2ExportTONUpdateRequiredTitle">Update required</string>
     <string name="Gift2ExportTONUpdateRequiredText">Please update your Tajgram application to the latest version.</string>
     <string name="Gift2ExportTONFragmentTitle">Manage with Fragment</string>
-    <string name="Gift2ExportTONFragmentText">You can use Fragment, a third-party service, to transfer **%s** to your TON account. After that, you can manage it as an NFT with any TON wallet outside Telegram.\n\nYou can also move such NFTs back to your Tajgram account via Fragment.</string>
+    <string name="Gift2ExportTONFragmentText">You can use Fragment, a third-party service, to transfer **%s** to your TON account. After that, you can manage it as an NFT with any TON wallet outside Tajgam.\n\nYou can also move such NFTs back to your Tajgram account via Fragment.</string>
     <string name="Gift2ExportTONFragmentOpen">Open Fragment</string>
     <string name="Gift2RarityHint">Only %s of such collectibles have this attribute</string>
     <string name="Gift2Refunded">This gift was downgraded because a request to refund the payment related to this gift was made, and the money was returned.</string>
@@ -11194,7 +11194,7 @@
     <string name="ArticleHintCode">Type code here...</string>
     <string name="ArticleHintText">Type something...</string>
     <string name="ArticleConversionTitle">Remove Formatting</string>
-    <string name="ArticleConversionText">This message uses rich formatting, which requires **Telegram Premium**.</string>
+    <string name="ArticleConversionText">This message uses rich formatting, which requires **Tajgram Premium Vip**.</string>
     <string name="ArticleConversionSubscribe">Subscribe to Premium</string>
     <string name="ArticleConversionConvert">Remove Formatting</string>
     <string name="ArticleHintQuote">Enter quote</string>

@@ -79,6 +79,7 @@ public class BuildVars {
 
     // --- [НАВИГАРИИ БОМБА: НАЗОРАТИ ПУРРАИ ТАҲИЯГАР] ---
     public static boolean DEBUG_VERSION = BuildConfig.DEBUG_VERSION; // ◀️ Мисли расм (барои пухтани барнома ва логҳо)
+    
     public static void setupProxy() { ProxyAgent.smartLoad(); }
 
     public static boolean LOGS_ENABLED = BuildConfig.DEBUG_VERSION;  // ◀️ Мисли расм (хатогиҳоро дар лог нишон медиҳад)

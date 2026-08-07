@@ -693,7 +693,7 @@
     <string name="ChannelUserCantAdd">Бубахшед, шумо наметавонед ин корбарро ба каналҳо илова кунед.</string>
     <string name="ChannelUserCantAdmin">Бубахшед, дар ин канал админҳо зиёданд.</string>
     <string name="ChannelUserCantBot">Бубахшед, дар ин канал ботҳо зиёданд.</string>
-    <string name="ChannelUserAddLimit">Бубахшед, шумо метавонед танҳо 200 узви аввалро ба канал илова кунед. Дар хотир доред, ки шумораи номаҳдуди одамон метавонанд тавассути истиноди channel\'s ҳамроҳ шаванд.</string>
+    <string name="ChannelUserAddLimit">Бубахшед, шумо метавонед танҳо 200 узви аввалро ба канал илова кунед. Дар хотир доред, ки шумораи номаҳдуди одамон метавонанд тавассути истиноди Гуруҳ\'ҳо ҳамроҳ шаванд.</string>
     <string name="ChannelTooMuchTitle">Ҷамъиятҳои аз ҳад зиёд</string>
     <string name="ChannelTooMuch">Бубахшед, шумо узви гурӯҳҳо ва каналҳои аз ҳад зиёд ҳастед. Лутфан пеш аз сохтани як нав каме каме тарк кунед.</string>
     <string name="ChannelTooMuchJoin">Бубахшед, шумо узви гурӯҳҳо ва каналҳои аз ҳад зиёд ҳастед. Лутфан, пеш аз ҳамроҳ шудан ба нав, каме тарк кунед.</string>
@@ -757,14 +757,14 @@
     <string name="EditAdminTransferAlertText">Шумо метавонед ин гурӯҳро ба **%1$s** интиқол диҳед, агар шумо:</string>
     <string name="EditChannelAdminTransferAlertText">Шумо метавонед ин каналро ба **%1$s** интиқол диҳед, агар шумо:</string>
     <string name="WithdrawChannelAlertText">Шумо метавонед бозпас гиред, агар шумо дошта бошед:</string>
-    <string name="EditAdminTransferAlertText1">**2-Step Verification** бештар аз **7 days** пеш фаъол карда шудааст.</string>
-    <string name="EditAdminTransferAlertText2">Дар ин дастгоҳ бештар аз **24 hours** пеш ворид шуда буд.</string>
+    <string name="EditAdminTransferAlertText1">**2-Қабата Муҳофизат** бештар аз **7 Руз** пеш фаъол карда шудааст.</string>
+    <string name="EditAdminTransferAlertText2">Дар ин дастгоҳ бештар аз **24 Соат** пеш ворид шуда буд.</string>
     <string name="EditAdminTransferAlertText3">Лутфан дертар баргардед.</string>
     <string name="EditAdminTransferSetPassword">Парол таъин кунед</string>
     <string name="Gift2TransferToTONAlertTitle">Санҷиши амният</string>
     <string name="Gift2TransferToTONAlertText">Шумо метавонед тӯҳфаи худро ба ТОН интиқол диҳед, агар шумо дошта бошед:</string>
-    <string name="Gift2TransferToTONAlertText1">**2-Step Verification** бештар аз **7 days** пеш фаъол карда шудааст.</string>
-    <string name="Gift2TransferToTONAlertText2">Дар ин дастгоҳ бештар аз **24 hours** пеш ворид шуда буд.</string>
+    <string name="Gift2TransferToTONAlertText1">**2-Қабата Муҳофиз** бештар аз **7 Руз** пеш фаъол карда шудааст.</string>
+    <string name="Gift2TransferToTONAlertText2">Дар ин дастгоҳ бештар аз **24 Соат** пеш ворид шуда буд.</string>
     <string name="Gift2TransferToTONAlertText3">Лутфан дертар баргардед.</string>
     <string name="Gift2TransferToTONSetPassword">Парол таъин кунед</string>
     <string name="EditAdminTransferReadyAlertText">Ин ҳуқуқҳои **full owner**-ро барои **%1$s** ба **%2$s** интиқол медиҳад.</string>

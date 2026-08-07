@@ -102,7 +102,10 @@ public class BuildVars {
     public static String MAPS_API_KEY = "AIzaSyDrpbBz6Tix4WAygcIjIsfpovKDnofIWl0";
     public static String SAFETYNET_KEY = "AIzaSyDrpbBz6Tix4WAygcIjIsfpovKDnofIWl0";
     
-    public static String PLAYSTORE_APP_URL = "https://play.google.com/store/apps/details?id=org.telegram.messenger";
+    public static final String APP_INVITE_URL = "https://t.me/tajgramtips";
+    public static String PLAYSTORE_APP_URL = "https://t.me/tajgramtips";
+    // public static String PLAYSTORE_APP_URL = "https://play.google.com/store/apps/details?id=org.telegram.messenger";
+    
     public static String HUAWEI_STORE_URL = "https://appgallery.huawei.com/app/C101184875";
     public static String GOOGLE_AUTH_CLIENT_ID = "11900975748-c1g3vv8ek67mbk8b03ejlgp8gv68qauv.apps.googleusercontent.com";
 
@@ -113,22 +116,6 @@ public class BuildVars {
 
     // works only on official app ids, disable on your forks
     public static boolean SUPPORTS_PASSKEYS = true;
-
-    static {
-        if (ApplicationLoader.applicationContext != null) {
-            SharedPreferences sharedPreferences = ApplicationLoader.applicationContext.getSharedPreferences("systemConfig", Context.MODE_PRIVATE);
-            LOGS_ENABLED = DEBUG_VERSION || sharedPreferences.getBoolean("logsEnabled", DEBUG_VERSION);
-            if (LOGS_ENABLED) {
-                final Thread.UncaughtExceptionHandler pastHandler = Thread.getDefaultUncaughtExceptionHandler();
-                Thread.setDefaultUncaughtExceptionHandler((thread, exception) -> {
-                    FileLog.fatal(exception, false);
-                    if (pastHandler != null) {
-                        pastHandler.uncaughtException(thread, exception);
-                    }
-                });
-            }
-        }
-    }
 
     static {
         if (ApplicationLoader.applicationContext != null) {

@@ -1953,7 +1953,7 @@
     <!--group create view-->
     <string name="SendMessageTo">Илова кардани одамон...</string>
     <string name="SoftUserLimitAlert">Шумо метавонед пас аз анҷоми сохтани гурӯҳ корбарони бештар илова кунед ва онро ба супергурӯҳ табдил диҳед.</string>
-    <string name="GigagroupAlertText">Гурӯҳи шумо ба ҳадди шумораи аъзои **200,000** расид.\n\nШумо метавонед ин маҳдудиятро тавассути табдил додани гурӯҳ ба **broadcast group**, ки танҳо администраторҳо метавонанд интишор кунанд, зиёд кунед.\nШавқ доред?</string>
+    <string name="GigagroupAlertText">Гурӯҳи шумо ба ҳадди шумораи аъзои **200,000** расид.\n\nШумо метавонед ин маҳдудиятро тавассути табдил додани гурӯҳ ба **гуруҳи бахш**, ки танҳо администраторҳо метавgrou интишор кунанд, зиёд кунед.\nШавқ доред?</string>
     <string name="GigagroupAlertTitle">Лимит расид</string>
     <string name="GigagroupAlertLearnMore">БИСЁР ОМӮХТАН</string>
     <string name="BroadcastGroup">Гурӯҳи пахши барномаҳо</string>
@@ -2090,10 +2090,10 @@
     <string name="UsernameAlso">инчунин %1$s</string>
     <string name="UsernameLinkPlaceholder">номи корбар</string>
     <string name="UsernameInUse">Бубахшед, ин номи корбарӣ аллакай гирифта шудааст.</string>
-    <string name="UsernameInUsePurchase">Ин пайванд аллакай гирифта шудааст.\nБо вуҷуди ин, он ҳоло барои харид дастрас аст. **Learn more…**</string>
+    <string name="UsernameInUsePurchase">Ин пайванд аллакай гирифта шудааст.\nБо вуҷуди ин, он ҳоло барои харид дастрас аст. **Бештар омӯзед…**</string>
     <string name="UsernameInvalid">Бубахшед, ин номи корбарӣ нодуруст аст.</string>
     <string name="UsernameInvalidShort">Номи корбар бояд на камтар аз 5 аломат дошта бошад.</string>
-    <string name="UsernameInvalidShortPurchase">Номи корбар бояд ҳадди аққал 5 аломат дошта бошад.\nАммо, он ҳоло барои харид дастрас аст. **Learn more…**</string>
+    <string name="UsernameInvalidShortPurchase">Номи корбар бояд ҳадди аққал 5 аломат дошта бошад.\nАммо, он ҳоло барои харид дастрас аст. **Бештар омӯзед…**</string>
     <string name="UsernameInvalidLong">Номи корбар набояд аз 32 аломат зиёд бошад.</string>
     <string name="UsernameInvalidStartNumber">Мутаасифона, номи корбар наметавонад\' бо рақам оғоз шавад.</string>
     <string name="UsernameHelp">Шумо метавонед номи корбарро дар **Tajgram** интихоб кунед. Агар ин тавр кунед, одамони дигар метавонанд бо ин номи корбарӣ шуморо пайдо кунанд ва бидуни донистани рақами телефони шумо бо шумо тамос гиранд.\n\nШумо метавонед **a–z**, **0–9** ва зерхатро истифода баред. Дарозии ҳадди ақал **5** аломат аст.</string>
@@ -2451,7 +2451,7 @@
     <string name="FontSizePreviewReply">Субҳ ба хайр! &#128075;</string>
     <string name="FontSizePreviewLine1">Оё медонӣ, ки соат чанд аст?</string>
     <string name="FontSizePreviewLine2">Субҳи\'дар Токио &#128526;</string>
-    <string name="BackgroundColorSinglePreviewLine1">Барои татбиқ кардани замина \'Set\' -ро пахш кунед.</string>
+    <string name="BackgroundColorSinglePreviewLine1">Барои татбиқ кардани замина \'гузоштан\' -ро пахш кунед.</string>
     <string name="BackgroundColorSinglePreviewLine2">Аз манзара лаззат баред.</string>
     <string name="SearchByColor">Ҷустуҷӯ аз рӯи ранг</string>
     <string name="SearchBackgrounds">Ҷустуҷӯи замина</string>
@@ -2499,7 +2499,7 @@
     <string name="LanguageUnsupportedError">Чунин забон вуҷуд надорад.</string>
     <string name="LanguageSame">Шумо аллакай ин бастаи забонро (**%1$s**) истифода мебаред. Шумо метавонед забони худро дар вақти дилхоҳ дар Танзимот иваз кунед.</string>
     <string name="LanguageUnknownCustomAlert">Мутаассифона, ин бастаи забони фармоишӣ (**%1$s**) дорои маълумот барои Tajgram Android нест.</string>
-    <string name="AskAQuestionInfo">Please note that Tajgram Support is done by volunteers. We try to respond as quickly as possible, but it may take a while.\n\nPlease take a look at the <![CDATA[<a href=\"https://telegram.org/faq#general-questions\">Tajgram FAQ</a>]]>: it has answers to most questions and important tips for <![CDATA[<a href=\"https://telegram.org/faq#troubleshooting\">troubleshooting</a>]]>.</string>
+    <string name="AskAQuestionInfo">Лутфан, таваҷҷуҳ кунед, ки Дастгирии Tajgram аз ҷониби волонтёрҳо амалӣ карда мешавад. Мо мекӯшем, ки ҳадди имкон зуд ҷавоб диҳем, аммо ин метавонад каме вақт гирад..\n\nЛутфан, ба ин ҷо нигаред.<![CDATA[<a href=\"https://telegram.org/faq#general-questions\">Tajgram Саволҳо ва Ҷавобҳо</a>]]>: дар он ҷо ҷавобҳо ба аксари саволҳо ва маслиҳатҳои муҳим барои <![CDATA[<a href=\"https://telegram.org/faq#troubleshooting\">бартараф кардани мушкилот</a>]]>.</string>
     <string name="AskButton">Аз волонтёр пурсед</string>
     <string name="TelegramFAQ">Саволҳои FAQ Tajgram</string>
     <string name="TelegramFaq">Саволҳои FAQ Tajgram</string>
@@ -2641,7 +2641,7 @@
     <string name="NotificationsDeleteAllExceptionTitle">Ҳама истисноҳоро нест кунед</string>
     <string name="NotificationsDeleteAllExceptionAlert">Шумо мутмаин ҳастед, ки мехоҳед ҳамаи истисноҳоро нест кунед?</string>
     <string name="NotificationsNewException">Истиснои нав</string>
-    <string name="NoExceptions">Ин бахш ҳамаи чатҳоро бо танзимоти огоҳиномаи ғайримуқаррарӣ номбар мекунад.\n\nШумо метавонед бо кушодани профили он ва интихоби \'Notifications\' огоҳиҳоро барои чат танзим кунед.</string>
+    <string name="NoExceptions">Ин бахш ҳамаи чатҳоро бо танзимоти огоҳиномаи ғайримуқаррарӣ номбар мекунад.\n\nШумо метавонед бо кушодани профили он ва интихоби \'Огоҳиномаҳо\' огоҳиҳоро барои чат танзим кунед.</string>
     <string name="SmartNotificationsInfo">%1$d / %2$s</string>
     <string name="SmartNotificationsDisabled">Маъюб</string>
     <string name="SecretWebPage">Пешнамоиши пайвандҳо</string>
@@ -2825,7 +2825,7 @@
     <string name="ChannelTitleChanged">Сарлавҳаи канал нав карда шуд.</string>
     <string name="ChannelDescriptionChanged">Тавсифи канал нав карда шуд.</string>
     <string name="CheckPhoneNumber">Оё %1$s ҳоло ҳам рақами шумост?</string>
-    <string name="CheckPhoneNumberInfo">Рақами худро нав нигоҳ доред, то боварӣ ҳосил кунед, ки шумо ҳамеша метавонед ба Tajgram ворид шавед. **Learn more**</string>
+    <string name="CheckPhoneNumberInfo">Рақами худро нав нигоҳ доред, то боварӣ ҳосил кунед, ки шумо ҳамеша метавонед ба Tajgram ворид шавед. **Бештар омӯзед…**</string>
     <string name="CheckPhoneNumberLearnMoreUrl">https://Telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do</string>
     <string name="CheckPhoneNumberYes">Бале</string>
     <string name="CheckPhoneNumberYes2">👍 Бале</string>
@@ -2858,7 +2858,7 @@
     <string name="PassportRequestedInformation">Маълумоти дархостшуда</string>
     <string name="PassportProvidedInformation">Маълумоти пешниҳодшуда</string>
     <string name="PassportInfoTitle">Passport Tajgram чист?</string>
-    <string name="PassportInfo2">Бо Passport Tajgram шумо метавонед ба осонӣ ба вебсайтҳо ва хидматҳое, ки тасдиқи шахсиятро талаб мекунанд, сабти ном кунед.\n\nМаълумот, маълумоти шахсӣ ва ҳуҷҷатҳои шумо бо рамзгузории охири ба охир ҳифз карда мешаванд. Ҳеҷ кас, аз ҷумла Tajgram, бе иҷозати шумо ба онҳо дастрасӣ пайдо карда наметавонад.\n\nШумо метавонед барои гирифтани маълумоти бештар аз *FAQ*-и мо дидан кунед.</string>
+    <string name="PassportInfo2">Бо Passport Tajgram шумо метавонед ба осонӣ ба вебсайтҳо ва хидматҳое, ки тасдиқи шахсиятро талаб мекунанд, сабти ном кунед.\n\nМаълумот, маълумоти шахсӣ ва ҳуҷҷатҳои шумо бо рамзгузории охири ба охир ҳифз карда мешаванд. Ҳеҷ кас, аз ҷумла Tajgram, бе иҷозати шумо ба онҳо дастрасӣ пайдо карда наметавонад.\n\nШумо метавонед барои гирифтани маълумоти бештар аз *Маълумотҳо*-и мо дидан кунед.</string>
     <string name="PassportInfoUrl">https://Telegram.org/faq#passport</string>
     <string name="TelegramPassportCreatePasswordInfo">Лутфан гузарвожа эҷод кунед, то маълумоти шахсии худро бо рамзгузории охири ба охир муҳофизат кунед.\n\nИн парол инчунин ҳангоми ворид шудан ба Tajgram дар дастгоҳи нав талаб карда мешавад.</string>
     <string name="TelegramPassportCreatePassword">КАЛИДВОЖА СОЗЕД</string>
@@ -3427,14 +3427,14 @@
     <string name="PhotoSavedHint">Акс дар галерея захира карда шуд</string>
     <string name="LivePhotoSavedHint">Акси Motion дар галерея захира карда шуд</string>
     <string name="VideoSavedHint">Видео дар галерея захира карда шуд</string>
-    <string name="PhotoSavedToDownloadsHintLinked">Акс дар **downloads** захира карда шуд.</string>
-    <string name="VideoSavedToDownloadsHintLinked">Видео дар **downloads** захира карда шуд.</string>
+    <string name="PhotoSavedToDownloadsHintLinked">Акс дар **Боргириҳо** захира карда шуд.</string>
+    <string name="VideoSavedToDownloadsHintLinked">Видео дар **Боргириҳо** захира карда шуд.</string>
     <string name="GifSavedHint">Ба GIF-ҳои захирашуда илова карда шуд</string>
-    <string name="GifSavedToDownloadsHintLinked">GIF дар **downloads** захира карда шуд.</string>
+    <string name="GifSavedToDownloadsHintLinked">GIF дар **Боргириҳо** захира карда шуд.</string>
     <string name="AudioSavedHint">Файл дар мусиқӣ захира карда шуд</string>
-    <string name="FileSavedHintLinked">Файл дар **downloads** захира карда шуд.</string>
-    <string name="FilesSavedHintLinked_one">Файл дар **downloads** захира карда шуд.</string>
-    <string name="FilesSavedHintLinked_other">%1$d файлҳо дар **downloads** захира карда шуданд.</string>
+    <string name="FileSavedHintLinked">Файл дар **Боргириҳо** захира карда шуд.</string>
+    <string name="FilesSavedHintLinked_one">Файл дар **Боргириҳо** захира карда шуд.</string>
+    <string name="FilesSavedHintLinked_other">%1$d файлҳо дар **Боргириҳо** захира карда шуданд.</string>
     <string name="PhotosSavedHint_one">Акс дар галерея захира карда шуд</string>
     <string name="PhotosSavedHint_other">%1$d аксҳо дар галерея захира карда шуданд</string>
     <string name="LivePhotosSavedHint_one">Акси Motion дар галерея захира карда шуд</string>
@@ -3950,9 +3950,9 @@
     <string name="UserChannelTooMuchJoin">Бубахшед, корбари мавриди ҳадаф узви гурӯҳҳо ва каналҳои аз ҳад зиёд аст. Лутфан аз онҳо хоҳиш кунед, ки аввал каме тарк кунанд.</string>
     <!--Alert messages-->
     <string name="LimitReachedPinnedTopics">Мутаасифона, шумо метавонед беш аз %d мавзӯъро дар боло ҷойгир кунед.</string>
-    <string name="DeleteAllMessagesAlert">Огоҳӣ! Ин **delete all messages** дар ин чат барои иштирокчиёни **both** хоҳад буд.</string>
-    <string name="DeleteAllMessagesChannelAlert">Огоҳӣ! Ин дар ин канал **delete all messages** мешавад.</string>
-    <string name="DeleteAllMessagesSavedAlert">Огоҳӣ! Ин дар ин чат **delete all messages** хоҳад буд.</string>
+    <string name="DeleteAllMessagesAlert">Огоҳӣ! Ин **ҳаммаи паёмакҳоро пок кунед** дар ин чат барои иштирокчиёни **both** хоҳад буд.</string>
+    <string name="DeleteAllMessagesChannelAlert">Огоҳӣ! Ин дар ин канал **ҳаммаи паёмакҳоро пок кунед** мешавад.</string>
+    <string name="DeleteAllMessagesSavedAlert">Огоҳӣ! Ин дар ин чат **ҳаммаи паёмакҳоро пок кунед** хоҳад буд.</string>
     <string name="DeleteAll">Ҳамаро нест кунед</string>
     <string name="StopLoadingTitle">Қатъи боркунӣ?</string>
     <string name="StopLoading">Мехоҳед боркуниро бекор кунед?</string>
@@ -4070,7 +4070,7 @@
     <string name="NoMonoforumTopicsCreated">паёмҳои қабулшуда нест</string>
     <string name="BotCantJoinGroups">Ин бот наметавонад ба гурӯҳҳо ҳамроҳ шавад.</string>
     <string name="SecretLinkPreviewAlert">Оё шумо мехоҳед пешнамоиши истинодҳои васеъро дар чатҳои махфӣ фаъол созед? Дар хотир доред, ки пешнамоиши истинодҳо дар серверҳои Tajgram тавлид мешаванд.</string>
-    <string name="SecretChatContextBotAlert">Лутфан қайд кунед, ки ботҳои дохилӣ аз ҷониби таҳиягарони тарафи сеюм пешниҳод карда мешаванд. Барои кор кардани бот, рамзҳое, ки шумо пас аз номи корбарии bot\'s менависед, ба таҳиягари мувофиқ фиристода мешаванд.</string>
+    <string name="SecretChatContextBotAlert">Лутфан қайд кунед, ки ботҳои дохилӣ аз ҷониби таҳиягарони тарафи сеюм пешниҳод карда мешаванд. Барои кор кардани бот, рамзҳое, ки шумо пас аз номи корбарии бот\'s менависед, ба таҳиягари мувофиқ фиристода мешаванд.</string>
     <string name="EditMessageError">Бубахшед, шумо ин паёмро таҳрир карда наметавонед.</string>
     <string name="AllowReadCall">Лутфан ба Tajgram иҷозат диҳед, ки зангҳоро қабул кунад, то мо коди шуморо ба таври худкор ворид кунем.</string>
     <string name="AllowReadCallAndLog">Лутфан ба Tajgram иҷозат диҳед, ки зангҳоро қабул кунад ва сабти зангҳоро хонед, то мо коди шуморо ба таври худкор ворид кунем.</string>
@@ -4105,27 +4105,27 @@
     <string name="ErrorSendRestrictedPrivacyVoiceMessages">Бубахшед, шумо метавонед ба ин корбар аз сабаби танзимоти махфияти онҳо паёмҳои овозӣ фиристед.</string>
     <string name="ErrorSendRestrictedPrivacyVideoMessages">Бубахшед, шумо метавонед ба ин корбар аз сабаби танзимоти махфияти онҳо паёмҳои видеоӣ фиристед.</string>
     <string name="UnableForward">Ба пеш гузаштан ғайриимкон аст</string>
-    <string name="TosDecline">Мо\'бисёр пушаймонем, аммо ин маънои онро дорад, ки шумо наметавонед\'ба Telegram обуна шавед.\n\nБаръакси дигарон, мо маълумоти шуморо барои ҳадафҳои таблиғот ё дигар мақсадҳои тиҷоратӣ истифода намебарем. Telegram танҳо маълумотеро нигоҳ медорад, ки ба он ҳамчун хидмати абрии дорои хусусиятҳо лозим аст. Шумо метавонед тарзи истифодаи маълумоти шуморо (масалан, нест кардани мухотибон) дар танзимоти амниятӣ &amp; танзим кунед.\n\nАммо агар шумо\'ба талаботи хоксоронаи Tajgram\' мувофиқ набошед, мо ба шумо ин хадамотро пешниҳод карда наметавонем.</string>
+    <string name="TosDecline">Мо\'бисёр пушаймонем, аммо ин маънои онро дорад, ки шумо наметавонед\'ба Telegram обуна шавед.\n\nБаръакси дигарон, мо маълумоти шуморо барои ҳадафҳои таблиғот ё дигар мақсадҳои тиҷоратӣ истифода намебарем. Tajgram танҳо маълумотеро нигоҳ медорад, ки ба он ҳамчун хидмати абрии дорои хусусиятҳо лозим аст. Шумо метавонед тарзи истифодаи маълумоти шуморо (масалан, нест кардани мухотибон) дар танзимоти амниятӣ &amp; танзим кунед.\n\nАммо агар шумо\'ба талаботи хоксоронаи Tajgram\' мувофиқ набошед, мо ба шумо ин хадамотро пешниҳод карда наметавонем.</string>
     <string name="TosAgeTitle">Санҷиши синну сол</string>
     <string name="PrivacyPolicyAndTerms">Сиёсати махфият ва шартҳои хидмат</string>
     <string name="TosAgeText">Барои тасдиқ кардани он, ки шумо %1$s ё калонтар ҳастед, "Розим"-ро клик кунед.</string>
-    <string name="TosUpdateDecline">Мо\'бисёр пушаймонем, аммо ин маънои онро дорад, ки мо бояд аз ин ҷо ҷудо шавем. Баръакси дигарон, мо маълумоти шуморо бо ҳадафи таблиғ ё дигар мақсадҳои тиҷоратӣ истифода намебарем. Telegram танҳо маълумотеро нигоҳ медорад, ки ба он ҳамчун хидмати абрии дорои хусусиятҳо лозим аст. Шумо метавонед тарзи истифодаи маълумоти шуморо (масалан, нест кардани мухотибон) дар танзимоти амниятӣ &amp; танзим кунед.\n\nАммо агар шумо\'ба ниёзҳои оддии Tajgram\' мувофиқ набошед, пешниҳоди ин хадамот барои мо имконнопазир аст. Шумо метавонед ҳисоби худро ҳоло ғайрифаъол кунед - ё ба атроф назар кунед ва баъдтар онро ғайрифаъол кунед, агар шумо эҳсос кунед, ки шумо\' аз тарзи истифодаи маълумоти шумо қаноатманд нестед.</string>
-    <string name="TosDeclineDeleteAccount">Огоҳӣ, ин ҳисоби Telegram-и шуморо бо тамоми маълумоте, ки шумо дар абри Telegram нигоҳ медоред, бебозгашт нест мекунад.\n\nМуҳим: Шумо метавонед ҳоло бекор кунед ва маълумоти худро пеш аз нест кардани ҳисоби худ ба ҷои гум кардани ҳамааш содир кунед. (Барои ин кор, версияи охирини Desktop-и Telegram-ро кушоед ва ба Танзимот &gt; Маълумоти содироти Tajgram гузаред.)</string>
+    <string name="TosUpdateDecline">Мо\'бисёр пушаймонем, аммо ин маънои онро дорад, ки мо бояд аз ин ҷо ҷудо шавем. Баръакси дигарон, мо маълумоти шуморо бо ҳадафи таблиғ ё дигар мақсадҳои тиҷоратӣ истифода намебарем. tajgram танҳо маълумотеро нигоҳ медорад, ки ба он ҳамчун хидмати абрии дорои хусусиятҳо лозим аст. Шумо метавонед тарзи истифодаи маълумоти шуморо (масалан, нест кардани мухотибон) дар танзимоти амниятӣ &amp; танзим кунед.\n\nАммо агар шумо\'ба ниёзҳои оддии Tajgram\' мувофиқ набошед, пешниҳоди ин хадамот барои мо имконнопазир аст. Шумо метавонед ҳисоби худро ҳоло ғайрифаъол кунед - ё ба атроф назар кунед ва баъдтар онро ғайрифаъол кунед, агар шумо эҳсос кунед, ки шумо\' аз тарзи истифодаи маълумоти шумо қаноатманд нестед.</string>
+    <string name="TosDeclineDeleteAccount">Огоҳӣ, ин ҳисоби Tajgram-и шуморо бо тамоми маълумоте, ки шумо дар абри Tajgram нигоҳ медоред, бебозгашт нест мекунад.\n\nМуҳим: Шумо метавонед ҳоло бекор кунед ва маълумоти худро пеш аз нест кардани ҳисоби худ ба ҷои гум кардани ҳамааш содир кунед. (Барои ин кор, версияи охирини Desktop-и Telegram-ро кушоед ва ба Танзимот &gt; Маълумоти содироти Tajgram гузаред.)</string>
     <!--permissions-->
-    <string name="PermissionStorageWithHint">**Tajgram** дастрасии нигаҳдорӣ лозим аст, то шумо метавонед аксҳо, видеоҳо, мусиқӣ ва дигар медиаро фиристед ва захира кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Files and media**-ро фаъол созед.</string>
-    <string name="PermissionNoAudioWithHint">**Tajgram** дастрасии микрофонро талаб мекунад, то шумо паёмҳои овозӣ фиристед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Microphone**-ро фаъол созед.</string>
+    <string name="PermissionStorageWithHint">**Tajgram** дастрасии нигаҳдорӣ лозим аст, то шумо метавонед аксҳо, видеоҳо, мусиқӣ ва дигар медиаро фиристед ва захира кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Файлҳо ва медиа**-ро фаъол созед.</string>
+    <string name="PermissionNoAudioWithHint">**Tajgram** дастрасии микрофонро талаб мекунад, то шумо паёмҳои овозӣ фиристед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **микрофон**-ро фаъол созед.</string>
     <string name="PermissionNoBluetoothWithHint">**Tajgram** барои сабти видео аз микрофони гӯшмонаки шумо дастрасии Bluetooth лозим аст. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Bluetooth**-ро фаъол созед.</string>
-    <string name="PermissionNoAudioVideoWithHint">**Tajgram** дастрасии микрофонро талаб мекунад, то шумо паёмҳои овозӣ фиристед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Microphone**-ро фаъол созед.</string>
-    <string name="PermissionNoCameraWithHint">**Tajgram** дастрасии камераро талаб мекунад, то шумо метавонед аксҳо ва видео гиред. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Camera**-ро фаъол созед.</string>
-    <string name="PermissionNoCameraMicVideo">**Tajgram** дастрасии камера ва микрофонро талаб мекунад, то шумо метавонед паёмҳои видеоӣ фиристед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Microphone** ва **Camera** -ро фаъол кунед.</string>
+    <string name="PermissionNoAudioVideoWithHint">**Tajgram** дастрасии микрофонро талаб мекунад, то шумо паёмҳои овозӣ фиристед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **микрофон**-ро фаъол созед.</string>
+    <string name="PermissionNoCameraWithHint">**Tajgram** дастрасии камераро талаб мекунад, то шумо метавонед аксҳо ва видео гиред. Танзимотҳо -> Иҷозатҳоро клик кунед ва **камера**-ро фаъол созед.</string>
+    <string name="PermissionNoCameraMicVideo">**Tajgram** дастрасии камера ва микрофонро талаб мекунад, то шумо метавонед паёмҳои видеоӣ фиристед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **микрофон** ва **камера** -ро фаъол кунед.</string>
     <string name="PermissionNoLocation">Tajgram ба макони шумо дастрасӣ дорад, то шумо онро бо дӯстони худ мубодила кунед.</string>
     <string name="PermissionNoLocationStory">Tajgram ба макони шумо дастрасӣ дорад, то шумо метавонед виҷети обу ҳавои ҷории худро ба ҳикоя илова кунед.</string>
-    <string name="PermissionNoLocationFriends">**Tajgram** ба макон дастрасӣ дорад, то шумо онро бо дӯстони худ мубодила кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Location**-ро фаъол созед.</string>
-    <string name="PermissionNoLocationNavigation">**Tajgram** ба макон дастрасӣ лозим аст, то шумо метавонед роҳнамо гиред. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Location**-ро фаъол созед.</string>
-    <string name="PermissionNoContactsSharing">**Tajgram** дастрасӣ ба мухотибон лозим аст, то шумо онҳоро бо дӯстони худ мубодила кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Contacts**-ро фаъол созед.</string>
-    <string name="PermissionNoContactsSaving">**Tajgram** ба мухотибон дастрасӣ дорад, то онҳоро дар телефони шумо захира кунад. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Contacts**-ро фаъол созед.</string>
-    <string name="PermissionNoStorageAvatar">**Tajgram** дастрасии нигаҳдорӣ лозим аст, то шумо метавонед тасвири профилро бор кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Files and media**-ро фаъол созед.</string>
-    <string name="PermissionNoAudioStorageStory">**Tajgram** барои бор кардани ҳикояи шумо ба файлҳои мусиқӣ дастрасӣ лозим аст. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Music and Audio**-ро фаъол созед.</string>
+    <string name="PermissionNoLocationFriends">**Tajgram** ба макон дастрасӣ дорад, то шумо онро бо дӯстони худ мубодила кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Макон**-ро фаъол созед.</string>
+    <string name="PermissionNoLocationNavigation">**Tajgram** ба макон дастрасӣ лозим аст, то шумо метавонед роҳнамо гиред. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Макон**-ро фаъол созед.</string>
+    <string name="PermissionNoContactsSharing">**Tajgram** дастрасӣ ба мухотибон лозим аст, то шумо онҳоро бо дӯстони худ мубодила кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **контактҳо**-ро фаъол созед.</string>
+    <string name="PermissionNoContactsSaving">**Tajgram** ба мухотибон дастрасӣ дорад, то онҳоро дар телефони шумо захира кунад. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Контактҳо**-ро фаъол созед.</string>
+    <string name="PermissionNoStorageAvatar">**Tajgram** дастрасии нигаҳдорӣ лозим аст, то шумо метавонед тасвири профилро бор кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **файлҳо ва медиа**-ро фаъол созед.</string>
+    <string name="PermissionNoAudioStorageStory">**Tajgram** барои бор кардани ҳикояи шумо ба файлҳои мусиқӣ дастрасӣ лозим аст. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Мусиқӣ ва аудио**-ро фаъол созед.</string>
     <string name="PermissionDrawAboveOtherApps">Барои намоиш додани видеоҳо дар реҷаи тасвир дар расм ба Tajgram дастрасӣ дорад.</string>
     <string name="PermissionDrawAboveOtherAppsGroupCall">Ҳолати overlay ба шумо имкон медиҳад, ки тугмаи гуфтугӯро истифода баред ва бубинед, ки ҳатто вақте ки шумо берун аз Tajgram ҳастед, кӣ гап мезанад.</string>
     <string name="PermissionOpenSettings">Танзимот</string>
@@ -4210,7 +4210,7 @@
     <string name="Page4Title">Бехатар</string>
     <string name="Page5Title">тавоно</string>
     <string name="Page6Title">Дар асоси абр</string>
-    <string name="Page1Message">Барномаи паёмнависии ҷаҳон\'s **fastest**.\nИн **free** ва **secure** аст.</string>
+    <string name="Page1Message">Барномаи паёмнависии ҷаҳон\'s **Тезтарин**.\nИн **free** ва **Бехатар** аст.</string>
     <string name="Page2Message">**Tajgram** паёмҳоро нисбат ба\nар гуна замимаи дигар зудтар мерасонад.</string>
     <string name="Page3Message">**Tajgram** захираи абрии бемаҳдудро барои чатҳо ва медиа таъмин мекунад.</string>
     <string name="Page4Message">**Tajgram** паёмҳои шуморо аз ҳамлаҳои ҳакерӣ эмин нигоҳ медорад.</string>
@@ -4295,8 +4295,8 @@
     <string name="VoipPeerVideoOutdated">Бубахшед, **%1$s** версияи кӯҳнаи Tajgram-ро истифода мебарад, ки зангҳои видеоиро\' дастгирӣ намекунад.</string>
     <string name="VoipPeerVideoOutdatedMakeVoice">Занг занед</string>
     <string name="VoipRateCallAlert">Лутфан ба сифати занги Tajgram-и худ баҳо диҳед</string>
-    <string name="VoipNeedMicPermissionWithHint">**Tajgram** дастрасии микрофонро талаб мекунад, то шумо метавонед занг занед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Microphone**-ро фаъол созед.</string>
-    <string name="VoipNeedMicCameraPermissionWithHint">**Tajgram** дастрасии камера ва микрофонро талаб мекунад, то шумо метавонед зангҳои видеоӣ кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **Microphone** ва **Camera** -ро фаъол кунед.</string>
+    <string name="VoipNeedMicPermissionWithHint">**Tajgram** дастрасии микрофонро талаб мекунад, то шумо метавонед занг занед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **микрафон**-ро фаъол созед.</string>
+    <string name="VoipNeedMicCameraPermissionWithHint">**Tajgram** дастрасии камера ва микрофонро талаб мекунад, то шумо метавонед зангҳои видеоӣ кунед. Танзимотҳо -> Иҷозатҳоро клик кунед ва **микрафон** ва **камера** -ро фаъол кунед.</string>
     <string name="VoipNeedCameraPermission">Tajgram ба камераи шумо дастрасӣ дорад, то шумо метавонед зангҳои видеоӣ кунед.</string>
     <string name="VoipFeedbackCommentHint">Иловаи шарҳи ихтиёрӣ</string>
     <string name="CallBack">Аз нав занг задан</string>
@@ -4341,7 +4341,7 @@
     <string name="RateCallVideoDistorted">Видео таҳриф карда шуд</string>
     <string name="RateCallVideoPixelated">Видео пиксел шуд</string>
     <string name="TapToTurnCamera">Барои фаъол кардани камераи худ ин ҷо клик кунед</string>
-    <string name="TapToHideCallsTab">Барои пинҳон кардани ҷадвали **Calls** ин ҷо клик кунед</string>
+    <string name="TapToHideCallsTab">Барои пинҳон кардани ҷадвали **Танзимоти зангҳо** ин ҷо клик кунед</string>
     <string name="VoipUnmute">Овозро кушоед</string>
     <string name="VoipHoldAndTalk">ё нигоҳ доред ва сӯҳбат кунед</string>
     <string name="VoipTapToMute">Шумо\' зинда ҳастед</string>
@@ -4430,7 +4430,7 @@
     <string name="VoipGroupTooMuch">Бубахшед, ин чати овозӣ пур аст.</string>
     <string name="VoipGroupInviteText">Эй! Ба сӯҳбати овозии мо ҳамроҳ шавед: %1$s</string>
     <string name="VoipChannelLeaveAlertTitle">Ҷараёни мустақимро тарк кунед</string>
-    <string name="VoipChannelLeaveAlertText">Do you want to leave this live stream?</string>
+    <string name="VoipChannelLeaveAlertText">Мехоҳед ин пахши мустақимро тарк кунед??</string>
     <string name="VoipChannelLeaveConferenceAlertTitle">Зангро тарк кунед</string>
     <string name="VoipChannelLeaveConferenceAlertText">Мехоҳед ин занги гурӯҳиро тарк кунед?</string>
     <string name="VoipChannelLeaveConferenceAlertEndChat">Анҷоми занги гурӯҳӣ</string>
@@ -4499,8 +4499,8 @@
     <string name="VoipChannelStartRecordingVideoText">Оё шумо мехоҳед сабти ин ҷараёни мустақимро оғоз кунед ва натиҷаро дар файли видео захира кунед?\n\nДигар аъзоён хоҳанд дид, ки ҷараён сабт шуда истодааст.</string>
     <string name="VoipGroupStartRecordingRtmpVideoText">Оё шумо мехоҳед сабти ин сӯҳбатро оғоз кунед ва натиҷаро дар файли видеоӣ захира кунед?</string>
     <string name="VoipGroupSaveFileHint">Сарлавҳаи сабт</string>
-    <string name="VoipGroupAudioRecordSaved">Аудио дар **Saved Messages** захира карда шуд.</string>
-    <string name="VoipGroupVideoRecordSaved">Видео дар **Saved Messages** захира карда шуд.</string>
+    <string name="VoipGroupAudioRecordSaved">Аудио дар **Паёмҳои ҳифзшуда** захира карда шуд.</string>
+    <string name="VoipGroupVideoRecordSaved">Видео дар **Паёмҳои ҳифзшуда** захира карда шуд.</string>
     <string name="VoipGroupAudioRecordStarted">Сабти аудио оғоз ёфт.</string>
     <string name="VoipGroupVideoRecordStarted">Сабти видео оғоз шуд.</string>
     <string name="VoipGroupRecording">Сӯҳбати овозӣ сабт карда мешавад</string>
@@ -4673,7 +4673,7 @@
     <string name="LeaveCommunities_other">%d ҷамоатҳоро тарк кунед</string>
 
     <string name="RemoveDocumentsMessage_one">Оё шумо мехоҳед ин ҳуҷҷатро аз Боргириҳо нест кунед?</string>
-    <string name="RemoveDocumentsMessage_other">Оё шумо мехоҳед ин **%d documents**-ро аз Боргириҳо нест кунед?</string>
+    <string name="RemoveDocumentsMessage_other">Оё шумо мехоҳед ин **%d Ҳуҷҷатҳо**-ро аз Боргириҳо нест кунед?</string>
 
     <string name="RemoveDocumentsTitle_one">Ҳуҷҷати %d-ро хориҷ кунед</string>
     <string name="RemoveDocumentsTitle_other">Ҳуҷҷатҳои %d-ро хориҷ кунед</string>
@@ -5481,8 +5481,8 @@
 
     <string name="AllowBackgroundActivity">Ба фаъолияти замина иҷозат диҳед</string>
     <string name="AllowBackgroundActivityInfo">Ин эътимоднокии огоҳиномаҳои воридотӣ ва зангҳои Tajgram ро беҳтар мекунад.</string>
-    <string name="AllowBackgroundActivityInfoOneUIBelowS">Ин эътимоднокии огоҳиномаҳои воридотӣ ва зангҳои Tajgram ро беҳтар мекунад. Танзимот -> Батареяро клик кунед ва **Allow background activity** -ро фаъол кунед.</string>
-    <string name="AllowBackgroundActivityInfoOneUIAboveS">Ин эътимоднокии огоҳиномаҳои воридотӣ ва зангҳои Tajgram ро беҳтар мекунад. Лутфан **Optimised** ё **Unrestricted** -ро дар Танзимотҳо > Батарея интихоб кунед.</string>
+    <string name="AllowBackgroundActivityInfoOneUIBelowS">Ин эътимоднокии огоҳиномаҳои воридотӣ ва зангҳои Tajgram ро беҳтар мекунад. Танзимот -> Батареяро клик кунед ва **Иҷозати фаъолият дар замина** -ро фаъол кунед.</string>
+    <string name="AllowBackgroundActivityInfoOneUIAboveS">Ин эътимоднокии огоҳиномаҳои воридотӣ ва зангҳои Tajgram ро беҳтар мекунад. Лутфан **Оптимизатсияшуда** ё **Бе маҳдудият** -ро дар Танзимотҳо > Батарея интихоб кунед.</string>
     <string name="SetNewPassword">Пароли нав таъин кунед</string>
     <string name="ReadAllReactions">Ҳама реаксияҳоро хонед</string>
     <string name="ReadAllMentions">Ҳамаи зикрҳоро хонед</string>
@@ -5563,7 +5563,7 @@
     <string name="BotWebViewRequestGeolocationPermission">Ба **%1$s** иҷозат диҳед, ки ба макони шумо дастрасӣ пайдо кунад?\n\nТаҳиягари **%1$s** ҳангоми кушода будани ин веб-барнома метавонад ба макони шумо дастрасӣ пайдо кунад.</string>
     <string name="BotWebViewRequestGeolocationPermissionWithHint">Ба **%1$s** иҷозат диҳед, ки ба макони шумо дастрасӣ пайдо кунад?\n\nТаҳиягари **%1$s** ҳангоми кушода будани ин веб-барнома метавонад ба макони шумо дастрасӣ пайдо кунад.\n\nБа Танзимотҳо > Иҷозатҳо гузаред ва **Location**-ро барои мубодилаи маълумоти ҷойгиршавӣ фаъол кунед.</string>
     <string name="WebViewRequestGeolocationPermission">Ба **%1$s** иҷозат диҳед, ки ба макони шумо дастрасӣ пайдо кунад?\n\n**%1$s** ҳангоми кушода будани ин вебсайт метавонад ба макони шумо дастрасӣ пайдо кунад.</string>
-    <string name="WebViewRequestGeolocationPermissionWithHint">Ба **%1$s** иҷозат диҳед, ки ба макони шумо дастрасӣ пайдо кунад?\n\n**%1$s** ҳангоми кушода будани ин вебсайт метавонад ба макони шумо дастрасӣ пайдо кунад.\n\nБа Танзимотҳо > Иҷозатҳо гузаред ва **Location**-ро барои мубодилаи маълумоти ҷойгиршавӣ фаъол кунед.</string>
+    <string name="WebViewRequestGeolocationPermissionWithHint">Ба **%1$s** иҷозат диҳед, ки ба макони шумо дастрасӣ пайдо кунад?\n\n**%1$s** ҳангоми кушода будани ин вебсайт метавонад ба макони шумо дастрасӣ пайдо кунад.\n\nБа Танзимотҳо > Иҷозатҳо гузаред ва **макон**-ро барои мубодилаи маълумоти ҷойгиршавӣ фаъол кунед.</string>
     <string name="BotWebViewRequestMicrophonePermission">Ба **%1$s** иҷозат диҳед, ки ба микрофони шумо дастрасӣ пайдо кунад?\n\nТаҳиягари **%1$s** ҳангоми кушода будани ин веб-барнома метавонад ба микрофони шумо дастрасӣ пайдо кунад.</string>
     <string name="BotWebViewRequestMicrophonePermissionWithHint">Ба **%1$s** иҷозат диҳед, ки ба микрофони шумо дастрасӣ пайдо кунад?\n\nТаҳиягари **%1$s** ҳангоми кушода будани ин веб барнома метавонад ба микрофони шумо дастрасӣ пайдо кунад.\n\nДар Танзимотҳо > Иҷозатҳо > Микрофон дастрасии микрофонро фаъол созед.</string>
     <string name="WebViewRequestMicrophonePermission">Ба **%1$s** иҷозат диҳед, ки ба микрофони шумо дастрасӣ пайдо кунад?\n\n**%1$s** ҳангоми кушода будани ин вебсайт метавонад ба микрофони шумо дастрасӣ пайдо кунад.</string>
@@ -5644,7 +5644,7 @@
     <string name="SubscribeToPremiumNoPrice">Обуна шавед</string>
     <string name="SubscribeToPremiumNotAvailable">Обуна дастрас нест</string>
     <string name="SubscribeToPremiumOfficialAppNeeded">**Official app needed**</string>
-    <string name="SubscribeToPremiumOfficialAppNeededDescription">Барои обуна шудан ба **Tajgram Premium**.\n\nБарои обуна шудан ба шумо барномаи расмии Telegram лозим аст, шумо метавонед аз бартариҳои Tajgram Premium VIP дар ҳама барномаҳое, ки онро дастгирӣ мекунанд, аз ҷумла дар барномаҳои ғайрирасмӣ истифода баред.</string>
+    <string name="SubscribeToPremiumOfficialAppNeededDescription">Барои обуна шудан ба **Tajgram Premium**.\n\nБарои обуна шудан ба шумо барномаи расмии Tajgram  лозим аст, шумо метавонед аз бартариҳои Tajgram Premium VIP дар ҳама барномаҳое, ки онро дастгирӣ мекунанд, аз ҷумла дар барномаҳои ғайрирасмӣ истифода баред.</string>
     <string name="InstallOfficialApp">Барномаи расмӣ насб кунед</string>
     <string name="GiftSubscriptionFor">Обунаи тӯҳфа барои %1$s</string>
     <string name="GiftSubscriptionCountFor_one">Тӯҳфа %1$d Обуна барои %2$s</string>
@@ -5661,7 +5661,7 @@
     <string name="ProfileSendAGiftToChannel">Тӯҳфа фиристед</string>
     <string name="GiftPremiumActivateForFree">Бепул фаъол кунед</string>
     <string name="GiftPremiumActivateErrorTitle">Шумо аллакай Tajgram Premium VIP доред</string>
-    <string name="GiftPremiumActivateErrorText">Шумо метавонед ин рамзи тӯҳфаро пас аз %1$s ё **send the link** ба дӯстатон фаъол созед.</string>
+    <string name="GiftPremiumActivateErrorText">Шумо метавонед ин рамзи тӯҳфаро пас аз %1$s ё **Ирсоли истинод** ба дӯстатон фаъол созед.</string>
     <string name="GiftPremiumUseGiftBtn">Тӯҳфаро истифода баред</string>
     <string name="GiftPremiumGiftsSent_one">Тӯҳфа фиристода шуд!</string>
     <string name="GiftPremiumGiftsSent_other">Тӯҳфаҳо фиристода шуданд!</string>
@@ -5711,7 +5711,7 @@
     <string name="PremiumTierSemiannual">нимсола</string>
     <string name="PremiumTierMonthly">Ҳармоҳа</string>
     <string name="GroupsAndChannelsLimitTitle">Гурӯҳҳо ва каналҳо</string>
-    <string name="GroupsAndChannelsLimitSubtitle">Join up to %d channels and large groups</string>
+    <string name="GroupsAndChannelsLimitSubtitle">Узвият то ба %d канал ва гурӯҳҳои калон</string>
     <string name="PinChatsLimitTitle">Чатҳои басташуда</string>
     <string name="PinChatsLimitSubtitle">То %d чатро дар рӯйхати чатҳои асосии худ пайваст кунед</string>
     <string name="PublicLinksLimitTitle">Пайвандҳои ҷамъиятӣ</string>
@@ -5748,7 +5748,7 @@
     <string name="AboutRevenueSharingAds">Дар бораи ин реклама</string>
     <string name="ReportAd">Гузориши реклама</string>
     <string name="ReportAdLearnMore">Learn more about our [Ad Policies and Guidelines.](https://ads.Telegram.org/guidelines)</string>
-    <string name="AdReported">Мо ин таблиғро баррасӣ мекунем, то боварӣ ҳосил кунем, ки он ба **Ad Policies and Guidelines.** мо мувофиқат мекунад</string>
+    <string name="AdReported">Мо ин таблиғро баррасӣ мекунем, то боварӣ ҳосил кунем, ки он ба **Сиёсат ва дастурҳои таблиғотӣ.** мо мувофиқат мекунад</string>
     <string name="AdHidden">Шумо дигар таблиғҳоро аз Tajgram намебинед.</string>
     <string name="BioLimitTitle">Био</string>
     <string name="BioLimitSubtitle">Рамзҳои бештар илова кунед ва истинодҳоро дар биои худ истифода баред.</string>
@@ -5841,7 +5841,7 @@
     <string name="SetEmojiStatusUntil2Days">Барои 2 рӯз таъин кунед</string>
     <string name="SetEmojiStatusUntilOther">Дигар…</string>
     <string name="ReportSpamUserEmojiStatusHint">Ин ҳисоб %1$s-ро ҳамчун ҳолати фармоишӣ дар паҳлӯи номи худ истифода мебарад. Чунин ҳолати эмодзиҳо барои ҳамаи муштариёни %2$s дастрасанд.</string>
-    <string name="ReportSpamUserEmojiStatusHint2">%1$s нишона барои **Premium subscribers >** аст</string>
+    <string name="ReportSpamUserEmojiStatusHint2">%1$s нишона барои **Муштариёни Premium >** аст</string>
     <string name="PremiumPreviewReactions2Description">Бо ҳазорон эмодзи вокуниш нишон диҳед - бо аксуламалҳои сершумор дар як паём.</string>
     <string name="PremiumPreviewReactions2">Реаксияҳои беохир</string>
     <string name="PremiumPreviewEmojiStatus">Ҳолати эмодзи</string>
@@ -6010,7 +6010,7 @@
     <string name="AnonymousNumberNotice">Ин рақам ба симкорт пайваст нест ва дар *Фрагмент* гирифта шудааст.</string>
     <string name="AutoDeleteMessages">Паёмҳоро худкор нест кунед</string>
     <string name="SetCustomTime">Вақти фармоиширо таъин кунед</string>
-    <string name="GlobalAutoDeleteInfo">Агар фаъол бошад, ҳамаи паёмҳои нав дар чатҳое, ки шумо оғоз мекунед, барои ҳама пас аз фиристодани онҳо ба таври худкор нест карда мешаванд. Шумо инчунин метавонед **apply this setting for your existing chats.**</string>
+    <string name="GlobalAutoDeleteInfo">Агар фаъол бошад, ҳамаи паёмҳои нав дар чатҳое, ки шумо оғоз мекунед, барои ҳама пас аз фиристодани онҳо ба таври худкор нест карда мешаванд. Шумо инчунин метавонед **Ин танзимотро барои чатҳои мавҷудаи худ татбиқ кунед.**</string>
     <string name="AutoDeleteDisabled">худкор несткунии ғайрифаъол</string>
     <string name="AutoDeleteConfirmMessage">Оё мутмаин ҳастед, ки мехоҳед ҳамаи паёмҳои чатҳои наве, ки шумо оғоз кардаед, пас аз фиристодани онҳо ба таври худкор барои ҳама %s нест карда шаванд?</string>
     <string name="SelectChatsForDisableAutoDelete">барои хомӯш кардани таймери худкушӣ</string>
@@ -6018,7 +6018,7 @@
     <string name="AutoDeleteGlobalTimerDisabled">Вақтсанҷи худкушӣ барои ҳама чатҳои нав ғайрифаъол аст.</string>
     <string name="AutodeleteTimerEnabledForChats">Вақтсанҷи худкушӣ барои **%1$s** дар %2$s фаъол карда шудааст.</string>
     <string name="AutodeleteTimerDisabledForChats">Вақтсанҷи худкушӣ дар %s ғайрифаъол карда шудааст.</string>
-    <string name="AutoDeletePopupDescription2">Шумо инчунин метавонед **self-destruct timer** пешфарзии худро барои ҳама чатҳо дар Танзимот танзим кунед.</string>
+    <string name="AutoDeletePopupDescription2">Шумо инчунин метавонед **Таймери худсӯзӣ** пешфарзии худро барои ҳама чатҳо дар Танзимот танзим кунед.</string>
     <string name="GroupCreateAutodeleteDescription">Пас аз муддате паёмҳоро дар ин гурӯҳ барои ҳама ба таври худкор нест кунед.</string>
     <string name="GroupCreateMembersTwo">%1$s ва %2$s</string>
     <string name="GroupCreateMembersThree">%1$s, %2$s ва %3$s</string>

@@ -4013,7 +4013,7 @@
     <string name="InvalidLastName">Sorry, this last name can\'t be used</string>
     <string name="Loading">Loading...</string>
     <string name="NoPlayerInstalled">You don\'t have a video player, please install one to continue</string>
-    <string name="NoMailInstalled">Please send an email describing your problem to sms@Tajgram.org</string>
+    <string name="NoMailInstalled">Please send an email describing your problem to sms@Telegram.org</string>
     <string name="NoHandleAppInstalled">You don\'t have applications that can handle the file type \'%1$s\', please install one to continue</string>
     <string name="InviteUser">This user does not have Tajgram yet, send an invitation?</string>
     <string name="AreYouSure">Are you sure?</string>
@@ -5796,7 +5796,7 @@
     <string name="RemoveAds">Remove Ads</string>
     <string name="AboutRevenueSharingAds">About These Ads</string>
     <string name="ReportAd">Report Ad</string>
-    <string name="ReportAdLearnMore">Learn more about our [Ad Policies and Guidelines.](https://ads.Tajgram.org/guidelines)</string>
+    <string name="ReportAdLearnMore">Learn more about our [Ad Policies and Guidelines.](https://ads.Telegram.org/guidelines)</string>
     <string name="AdReported">We will review this ad to ensure it matches our **Ad Policies and Guidelines.**</string>
     <string name="AdHidden">You will no longer see ads from Tajgram.</string>
     <string name="BioLimitTitle">Bio</string>

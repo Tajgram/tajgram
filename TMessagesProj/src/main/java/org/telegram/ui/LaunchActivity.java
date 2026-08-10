@@ -410,7 +410,7 @@ if (cm != null) {
 
 String userCountry = "";
 try {
-    userCountry = org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getCurrentCountry();
+    userCountry = org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getCountryCode();
 } catch (Exception ignored) {}
 
 if (userCountry == null) {

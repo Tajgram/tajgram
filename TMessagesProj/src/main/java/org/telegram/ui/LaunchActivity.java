@@ -409,7 +409,7 @@ if (cm != null) {
 
 String userCountry = "";
 try {
-    userCountry = org.telegram.messenger.ApplicationLoader.getCurrentCountry();
+    userCountry = java.util.Locale.getDefault().getCountry();
 } catch (Exception ignored) {}
 
 if (userCountry == null) {

@@ -10590,9 +10590,9 @@
     <string name="StakeDiceActionLost">un1 гумшуда 💎 %s</string>
 
     <string name="BotAuthTitle">Ба **%s** ворид шавед</string>
-    <string name="BotAuthSiteSubtitle">Ин сайт **name**,\n**username** ва **profile photo**-и шуморо қабул мекунад.</string>
-    <string name="BotAuthBotSubtitle">Ин бот **name**,\n**username** ва **profile photo**-и шуморо қабул мекунад.</string>
-    <string name="BotAuthAppSubtitle">Ин барнома **name**,\n**username** ва **profile photo**-и шуморо қабул мекунад.</string>
+    <string name="BotAuthSiteSubtitle">Ин сайт **ном**,\n**номи корбар** ва **акси профел**-и шуморо қабул мекунад.</string>
+    <string name="BotAuthBotSubtitle">Ин бот **ном**,\n**номи корбар** ва **акси профел**-и шуморо қабул мекунад.</string>
+    <string name="BotAuthAppSubtitle">Ин барнома **ном**,\n**номи корбар** ва **акси профел**-и шуморо қабул мекунад.</string>
     <string name="BotAuthBasedOnIP">Дар асоси IP (%s)</string>
     <string name="BotAuthInfo">Ин кӯшиши воридшавӣ аз дастгоҳи боло омад.</string>
     <string name="BotAuthAllowMessages">Ба паёмҳо иҷозат диҳед</string>
@@ -10639,9 +10639,9 @@
     <string name="GiftCraftFailedText_one">Кӯшиши ҳунармандӣ муваффақ нашуд.\n**%d** тӯҳфа гум шуд.</string>
     <string name="GiftCraftFailedText_other">Кӯшиши ҳунармандӣ муваффақ нашуд.\n**%d** тӯҳфаҳо гум шуданд.</string>
     <string name="GiftCraftTextEmpty1">Барои эҷоди нав то **4** тӯҳфа илова кунед</string>
-    <string name="GiftCraftTextEmpty2">**%s** тӯҳфа.\n\nАгар ҳунармандӣ ноком шавад, ҳама тӯҳфаҳои интихобшуда\n **lost** мешаванд.</string>
+    <string name="GiftCraftTextEmpty2">**%s** тӯҳфа.\n\nАгар ҳунармандӣ ноком шавад, ҳама тӯҳфаҳои интихобшуда\n **гумшуда** мешаванд.</string>
     <string name="GiftCraftText1">Барои эҷоди нав то **4** тӯҳфа илова кунед</string>
-    <string name="GiftCraftText2">**%1$s #%2$s**.\n\nАгар ҳунармандӣ ноком шавад, ҳама тӯҳфаҳои интихобшуда\n **lost** мешаванд.</string>
+    <string name="GiftCraftText2">**%1$s #%2$s**.\n\nАгар ҳунармандӣ ноком шавад, ҳама тӯҳфаҳои интихобшуда\n **гумшуда** мешаванд.</string>
     <string name="GiftCraftSelectTitle">Тӯҳфаро интихоб кунед</string>
     <string name="GiftCraftSelectYour">Тӯҳфаҳои шумо</string>
     <string name="GiftCraftSelectYourEmpty">Шумо аз ин маҷмӯа тӯҳфаҳои\nнадоред.</string>
@@ -10670,12 +10670,12 @@
     <string name="GiftCraftBackdropChance_other">**%1$d%%** эҳтимол дорад, ки тӯҳфаи таҳияшуда дорои заминаи **%2$s** бошад.</string>
     <string name="GiftOnSale">Дар фурӯш барои %s</string>
     <string name="GiftCraftCantChooseFirstTitle">Аввалро интихоб карда наметавонад</string>
-    <string name="GiftCraftCantChooseFirst">Ин тӯҳфаро ҳамчун аввалин дар ҳунармандӣ истифода бурдан мумкин нест, зеро он дар blockchain сабт шудааст.</string>
+    <string name="GiftCraftCantChooseFirst">Ин тӯҳфаро ҳамчун аввалин дар ҳунармандӣ истифода бурдан мумкин нест, зеро он дар блокчейн сабт шудааст.</string>
 
     <string name="LeaveGroupTitle">Гурӯҳро тарк кунед?</string>
     <string name="LeaveChannelTitle">Каналро тарк кунед?</string>
-    <string name="LeaveGroupNewOwnerText">Агар шумо тарк кунед, **%1$s** соҳиби нави **%2$s** дар **1 week** мешавад.</string>
-    <string name="LeaveChannelNewOwnerText">Агар шумо тарк кунед, **%1$s** соҳиби нави **%2$s** дар **1 week** мешавад.</string>
+    <string name="LeaveGroupNewOwnerText">Агар шумо тарк кунед, **%1$s** соҳиби нави **%2$s** дар **1 ҳафта** мешавад.</string>
+    <string name="LeaveChannelNewOwnerText">Агар шумо тарк кунед, **%1$s** соҳиби нави **%2$s** дар **1 ҳафта** мешавад.</string>
     <string name="AppointNewOwner">Соҳиби дигар таъин кунед</string>
     <string name="LeaveGroupAndAppoint">%s-ро таъин кунед ва гурӯҳро тарк кунед</string>
     <string name="LeaveChannelAndAppoint">%s таъин кунед ва каналро тарк кунед</string>
@@ -10900,9 +10900,9 @@
     <string name="AIEditorStyleLimitTextPremium">Шумо метавонед то %1$d услубро захира кунед ё ба **Tajgram Premium VIP** барои %2$d сабк обуна шавед.</string>
     <string name="AIEditorStyleLimitText">Шумо метавонед то %1$d услубро захира кунед.</string>
     <string name="AIEditorStyleSharedTo">Истиноди AI Style ба **%s** фиристода шуд.</string>
-    <string name="AIEditorStyleSharedToSavedMessages">Истиноди AI Style ба **Saved Messages** фиристода шуд</string>
-    <string name="AIEditorStyleSharedToManyChats_one">Истиноди AI Style ба **a chat** фиристода шуд.</string>
-    <string name="AIEditorStyleSharedToManyChats_other">Истиноди AI Style ба **%1$d chats** фиристода шуд.</string>
+    <string name="AIEditorStyleSharedToSavedMessages">Истиноди AI стил ба **ҳифзи паёмҳо** фиристода шуд</string>
+    <string name="AIEditorStyleSharedToManyChats_one">Истиноди AI стил ба ** чат** фиристода шуд.</string>
+    <string name="AIEditorStyleSharedToManyChats_other">Истиноди AI стил ба **%1$d чатҳо** фиристода шуд.</string>
     <string name="AIEditorStyleNotFound">AI Style ёфт нашуд.</string>
 
     <string name="WebBrowserExceptionsLimitTitle">Ба ҳадди ниҳоӣ расид</string>
@@ -10916,19 +10916,19 @@
     <string name="ApproveNewMembersDisabledMessageChannel">Муштариёни нав пеш аз пайвастан ба ин канал дигар ба тасдиқи **%1$s** эҳтиёҷ надоранд.</string>
     <string name="ApproveNewMembersEnable">Фаъол кардан</string>
     <string name="ApproveNewMembersDisable">Хомӯш кардан</string>
-    <string name="ApproveNewMembersApplyToLinksTitle">Apply to existing invite links</string>
-    <string name="ApproveNewMembersEnableForLinks_one">Инчунин дар ин гурӯҳ **Approve New Members** барои **%1$d existing invite link** фаъол карда шавад?</string>
-    <string name="ApproveNewMembersEnableForLinks_other">Инчунин дар ин гурӯҳ **Approve New Members** барои **%1$d existing invite links** фаъол карда шавад?</string>
-    <string name="ApproveNewMembersDisableForLinks_one">Инчунин **Approve New Members** барои **%1$d existing invite link** дар ин гурӯҳ хомӯш карда шавад?</string>
-    <string name="ApproveNewMembersDisableForLinks_other">Инчунин **Approve New Members** барои **%1$d existing invite links** дар ин гурӯҳ хомӯш карда шавад?</string>
-    <string name="ApproveNewMembersEnableForLinksChannel_one">Инчунин дар ин канал **Approve New Members** барои **%1$d existing invite link** фаъол карда шавад?</string>
-    <string name="ApproveNewMembersEnableForLinksChannel_other">Инчунин дар ин канал **Approve New Members** барои **%1$d existing invite links** фаъол карда шавад?</string>
-    <string name="ApproveNewMembersDisableForLinksChannel_one">Инчунин дар ин канал **Approve New Members** барои **%1$d existing invite link** хомӯш карда шавад?</string>
-    <string name="ApproveNewMembersDisableForLinksChannel_other">Инчунин дар ин канал **Approve New Members** барои **%1$d existing invite links** хомӯш карда шавад?</string>
-    <string name="ApproveNewMembersApplyToLinksDontApply">Don\'t Apply</string>
+    <string name="ApproveNewMembersApplyToLinksTitle">Татбиқ кардан ба истинодҳои даъватии мавҷуда</string>
+    <string name="ApproveNewMembersEnableForLinks_one">Инчунин дар ин гурӯҳ **Аъзоёни навро тасдиқ кунед** барои **%1$d Татбиқ кардан ба истинодҳои даъватии мавҷуда** фаъол карда шавад?</string>
+    <string name="ApproveNewMembersEnableForLinks_other">Инчунин дар ин гурӯҳ **Аъзоёни навро тасдиқ кунед** барои **%1$d Татбиқ кардан ба истинодҳои даъватии мавҷуда** фаъол карда шавад?</string>
+    <string name="ApproveNewMembersDisableForLinks_one">Инчунин **Аъзоёни навро тасдиқ кунед** барои **%1$d Татбиқ кардан ба истинодҳои даъватии мавҷуда** дар ин гурӯҳ хомӯш карда шавад?</string>
+    <string name="ApproveNewMembersDisableForLinks_other">Инчунин **Аъзоёни навро тасдиқ кунед** барои **%1$d истинодҳои даъватии мавҷуда** дар ин гурӯҳ хомӯш карда шавад?</string>
+    <string name="ApproveNewMembersEnableForLinksChannel_one">Инчунин дар ин канал **Аъзоёни навро тасдиқ кунед** барои **%1$ истинодҳои даъватии мавҷуда** фаъол карда шавад?</string>
+    <string name="ApproveNewMembersEnableForLinksChannel_other">Инчунин дар ин канал **Аъзоёни навро тасдиқ кунед** барои **%1$d Татбиқ кардан ба истинодҳои даъватии мавҷуда** фаъол карда шавад?</string>
+    <string name="ApproveNewMembersDisableForLinksChannel_one">Инчунин дар ин канал **Аъзоёни навро тасдиқ кунед** барои **%1$d истинодҳои даъватии мавҷуда** хомӯш карда шавад?</string>
+    <string name="ApproveNewMembersDisableForLinksChannel_other">Инчунин дар ин канал **Аъзоёни навро тасдиқ кунед** барои **%1$d Татбиқ кардан ба истинодҳои даъватии мавҷуда** хомӯш карда шавад?</string>
+    <string name="ApproveNewMembersApplyToLinksDontApply">Накунед\'Татбиқ кунед</string>
     <string name="ApproveNewMembersApplyToLinksApply">Муроҷиат кунед</string>
-    <string name="GuardBotReplaceTitle">Replace Bot</string>
-    <string name="GuardBotReplaceMessage">**%1$s** айни замон дархостҳои ҳамроҳро коркард мекунад. Switch to **%2$s** instead?</string>
+    <string name="GuardBotReplaceTitle">Иваз кардани бот</string>
+    <string name="GuardBotReplaceMessage">**%1$s** айни замон дархостҳои ҳамроҳро коркард мекунад. Гузаштан ба **%2$s** ба ҷои ин?</string>
     <string name="GuardBotReplaceUseNew">Истифода %1$s</string>
     <string name="GuardBotReplaceKeepCurrent">%1$s-ро нигоҳ доред</string>
     <string name="GuardBotJoinRequestApproved">Дархости шумо барои ҳамроҳ шудан ба **%1$s** тасдиқ карда шуд</string>

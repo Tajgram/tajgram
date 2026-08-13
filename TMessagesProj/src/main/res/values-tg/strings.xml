@@ -466,7 +466,7 @@
     <string name="EditWidget">Виҷетро таҳрир кунед</string>
     <string name="EditWidgetContactsInfo">Барои дастрасии зуд миёнабурҳоро ба чатҳои муҳимтарини худ нишон диҳед.\n\nАгар касе интихоб нашавад, тамосҳои бештари шумо дар ин виҷет нишон дода мешаванд.</string>
     <string name="EditWidgetChatsInfo">Паёми охиринро аз чатҳои интихобкардаатон намоиш диҳед.\n\nАгар чатҳои мушаххас интихоб нашуда бошанд, чатҳои охирини шумо дар ин виҷет нишон дода мешаванд.</string>
-    <string name="WidgetPasscode2">Эзоҳ: Рамзи шумо барои виджетҳо **ignored** хоҳад буд.</string>
+    <string name="WidgetPasscode2">Эзоҳ: Рамзи шумо барои виджетҳо **нодида гирифта шуд** хоҳад буд.</string>
     <string name="SearchForChats">Ҷустуҷӯи чатҳо...</string>
     <string name="WidgetPreview">Пешнамоиши виджет</string>
     <string name="TapToEditWidget">барои таҳрир кардани виджет клик кунед</string>
@@ -767,8 +767,8 @@
     <string name="Gift2TransferToTONAlertText2">Дар ин дастгоҳ бештар аз **24 Соат** пеш ворид шуда буд.</string>
     <string name="Gift2TransferToTONAlertText3">Лутфан дертар баргардед.</string>
     <string name="Gift2TransferToTONSetPassword">Парол таъин кунед</string>
-    <string name="EditAdminTransferReadyAlertText">Ин ҳуқуқҳои **full owner**-ро барои **%1$s** ба **%2$s** интиқол медиҳад.</string>
-    <string name="EditAdminTransferReadyAlertText2">Ин **owner rights**-ро барои **%1$s** ба **%2$s** интиқол медиҳад.</string>
+    <string name="EditAdminTransferReadyAlertText">Ин ҳуқуқҳои **соҳиби пурра**-ро барои **%1$s** ба **%2$s** интиқол медиҳад.</string>
+    <string name="EditAdminTransferReadyAlertText2">Ин **соҳиб ҳуқуқ**-ро барои **%1$s** ба **%2$s** интиқол медиҳад.</string>
     <string name="EditAdminTransferChangeOwner">Иваз кардани соҳиби</string>
     <string name="EditAdminTransferGroupToast">**%1$s** ҳоло соҳиби гурӯҳ аст.</string>
     <string name="EditAdminTransferChannelToast">**%1$s** ҳоло соҳиби канал аст.</string>
@@ -983,8 +983,8 @@
     <string name="EventLogAllEvents">Ҳама амалҳо</string>
     <string name="EventLogSelectedEvents">Амалҳои интихобшуда</string>
     <string name="EventLogAllAdmins">Хамаи админхо</string>
-    <string name="EventLogEmpty2">**No actions here yet**\n\nАъзоён ва маъмурони гурӯҳи\'s дар давоми **48** соати охир ягон амали хидматрасонӣ накардаанд.</string>
-    <string name="EventLogEmptyChannel2">**No actions here yet**\n\nАдминистраторони канали\'s дар давоми **48** соати охир ягон амали хидматрасониро анҷом надодаанд.</string>
+    <string name="EventLogEmpty2">**Дар ин ҷо ҳанӯз ягон амале нест.**\n\nАъзоён ва маъмурони гурӯҳи\'s дар давоми **48** соати охир ягон амали хидматрасонӣ накардаанд.</string>
+    <string name="EventLogEmptyChannel2">**Дар ин ҷо ҳанӯз ягон амале нест.**\n\nАдминистраторони канали\'s дар давоми **48** соати охир ягон амали хидматрасониро анҷом надодаанд.</string>
     <string name="EventLogInfoTitle">Амалҳои охирин чист?</string>
     <string name="EventLogInfoDetail">Ин рӯйхати тамоми амалҳои хадамотест, ки аз ҷониби аъзоён ва маъмурони group\'s дар 48 соати охир анҷом дода шудаанд.</string>
     <string name="EventLogInfoDetailChannel">Ин рӯйхати тамоми амалҳои хидматрасонии маъмурони channel\'s дар давоми 48 соати охир аст.</string>
@@ -2062,13 +2062,13 @@
     <string name="EncryptionKey">Калиди рамзгузорӣ</string>
     <string name="MessageLifetime">Вақтсанҷи худкушӣ</string>
     <string name="ShortMessageLifetimeForever">Хомӯш</string>
-    <string name="EncryptionKeyDescription">Ин тасвир ва матн аз калиди рамзгузории ин сӯҳбати махфӣ бо **%1$s** гирифта шудааст.\n\nАгар онҳо дар дастгоҳи **%2$s\'s** якхела бошанд, рамзгузории дутарафа кафолат дода мешавад.\n\nМаълумоти бештар дар Tajgram.org</string>
+    <string name="EncryptionKeyDescription">Ин тасвир ва матн аз калиди рамзгузории ин сӯҳбати махфӣ бо **%1$s** гирифта шудааст.\n\nАгар онҳо дар дастгоҳи **%2$s\'s** якхела бошанд, рамзгузории дутарафа кафолат дода мешавад.\n\nМаълумоти бештар дар Telegram.org</string>
     <string name="EncryptionKeyLink">https://Telegram.org/faq#secret-chats</string>
     <string name="NumberUnknown">Номаълум</string>
     <string name="PhoneHidden">Номаълум</string>
     <string name="MobileHidden">Мобилӣ пинҳон</string>
     <string name="MobileHiddenExceptionInfo">Рақами телефон вақте намоён мешавад, ки %1$s шуморо ҳамчун мухотибон илова мекунад.</string>
-    <string name="MobileVisibleInfo">Вақте ки шумо **DONE**-ро пахш мекунед, рақами телефони шумо ба %1$s намоён мешавад.</string>
+    <string name="MobileVisibleInfo">Вақте ки шумо **АНҶОМ ШУД**-ро пахш мекунед, рақами телефони шумо ба %1$s намоён мешавад.</string>
     <string name="SharePhoneNumberWith">Рақами телефони маро бо %1$s мубодила кунед</string>
     <string name="NowInContacts">%1$s ҳоло дар рӯйхати тамосҳои шумост.</string>
     <string name="Info">Маълумот</string>
@@ -2157,7 +2157,7 @@
     <string name="StickersSetEmojiForSticker">Танзими эмодзи, ки ба стикери шумо мувофиқ аст</string>
     <string name="StickersChooseNameForStickerPack">Барои бастаи худ ном интихоб кунед.</string>
     <string name="StickersStickerAddedToSetToast">Стикер ба маҷмӯи стикерҳои %1$s илова карда шуд.</string>
-    <string name="StickersStickerEditedInSetToast">Sticker edited in %1$s sticker set.</string>
+    <string name="StickersStickerEditedInSetToast">Стикери таҳриршуда дар %1$s маҷмӯи стикерҳо.</string>
     <string name="StickersRemoved">Стикерҳо хориҷ карда шуданд.</string>
     <string name="StickersRemovedInfo">%1$s дигар дар стикерҳои шумо нест.</string>
     <string name="MasksRemoved">Маскаҳо хориҷ карда шуданд.</string>
@@ -2271,7 +2271,7 @@
     <string name="DeleteThemeTitle">Мавзӯъро нест кунед</string>
     <string name="DeleteThemeAlert">Шумо мутмаин ҳастед, ки мехоҳед ин мавзӯъро нест кунед?</string>
     <string name="IncorrectTheme">Файли мавзӯъ нодуруст</string>
-    <string name="EnterThemeNameEdit">Агар шумо хоҳед, ки мавзӯи худро бо дигарон мубодила кунед ё ҳар як рангро дастӣ танзим кунед, **Create**-ро клик кунед.\n\nЛутфан номи мавзӯъро ворид кунед:</string>
+    <string name="EnterThemeNameEdit">Агар шумо хоҳед, ки мавзӯи худро бо дигарон мубодила кунед ё ҳар як рангро дастӣ танзим кунед, **Эҷод кардан**-ро клик кунед.\n\nЛутфан номи мавзӯъро ворид кунед:</string>
     <string name="EnterThemeName">Номи мавзӯъро ворид кунед</string>
     <string name="CloseEditor">РЕДАКЦИЯРО ПУШАНД</string>
     <string name="SaveTheme">МАВЗУЪРО ЗАХИРЕД</string>
@@ -2314,7 +2314,7 @@
     <string name="ThemePreviewDialog1">Ева тобистон</string>
     <string name="ThemePreviewDialogMessage1">Ба ман як далели чиниро ба хотир меорад ...</string>
     <string name="ThemePreviewDialog2">Рақобати дохилии шумо</string>
-    <string name="ThemePreviewDialogMessage2">эй, I\'ve рамзи сарчашмаро навсозӣ кардам.</string>
+    <string name="ThemePreviewDialogMessage2">эй, Ман\'кардам рамзи сарчашмаро навсозӣ кардам.</string>
     <string name="ThemePreviewDialog3">Майк Apple</string>
     <string name="ThemePreviewDialogMessage3">&#129335;&#8205;&#9794;&#65039; Стикер</string>
     <string name="ThemePreviewDialog4">Пол Нюман</string>
@@ -2411,7 +2411,7 @@
     <string name="FontType">Навъи шрифт</string>
     <string name="ColorViolet">Бунафш</string>
     <string name="ColorOrange">норанҷӣ</string>
-    <string name="NotificationsLedInfo">LED як нури хурди милт-милткунанда дар баъзе дастгоҳҳо мебошад, ки барои нишон додани паёмҳои нав истифода мешавад.</string>
+    <string name="NotificationsLedInfo">НН - НУРНИШОН як нури хурди милт-милткунанда дар баъзе дастгоҳҳо мебошад, ки барои нишон додани паёмҳои нав истифода мешавад.</string>
     <string name="PriorityInfo">Огоҳиҳои афзалиятноки баландтар кор хоҳанд кард, ҳатто агар телефони шумо дар реҷаи "Хамроҳ нашав" бошад.</string>
     <string name="General">Генерал</string>
     <string name="NotificationsMuted">Хомӯш</string>
@@ -2526,7 +2526,7 @@
     <string name="ImportContacts">Воридоти мухотибон</string>
     <string name="SortFirstName">Ном</string>
     <string name="SortLastName">Насаб</string>
-    <string name="LedColor">Ранги LED</string>
+    <string name="LedColor">Ранги НН - НУРНИШОН</string>
     <string name="PopupNotification">Огоҳиҳои поп-ап</string>
     <string name="NoPopup">Поп-ап нест</string>
     <string name="OnlyWhenScreenOn">Танҳо вақте ки экран \"фурузон аст\"</string>
@@ -2589,7 +2589,7 @@
     <string name="WhenUsingMobileData">Ҳангоми истифодаи маълумоти мобилӣ</string>
     <string name="WhenConnectedOnWiFi">Ҳангоми пайвастшавӣ ба Wi-Fi</string>
     <string name="WhenRoaming">Ҳангоми роуминг</string>
-    <string name="AutoplayGIF">GIFs</string>
+    <string name="AutoplayGIF">GIF-ҳо</string>
     <string name="AutoplayVideo">Видеоҳо</string>
     <string name="AutoplayVideoInfo">Барои фаъол кардани садо тугмаҳои баландии овозро пахш кунед.</string>
     <string name="HidAccount">Ҳисоб аз ҷониби корбар пинҳон карда шуд</string>
@@ -2627,7 +2627,7 @@
     <string name="PopupDisabled">Маъюб</string>
     <string name="LedDisabled">Маъюб</string>
     <string name="RepeatDisabled">Хомӯш</string>
-    <string name="InChatSound">Овозҳои дар чат</string>
+    <string name="InChatSound">Овозҳо дар чат</string>
     <string name="SoundDefault">Пешфарз</string>
     <string name="VibrationDefault">Пешфарз</string>
     <string name="NotificationsDefault">Пешфарз</string>
@@ -2671,10 +2671,10 @@
     <string name="DebugMenuResetContacts">Тамосҳои воридшударо аз нав танзим кунед</string>
     <string name="DebugMenuClearMediaCache">Кэши медиаи фиристодашударо тоза кунед</string>
     <string name="DebugMenuCallSettings">Танзимоти занг</string>
-    <string name="DebugMenuClearWebViewCache">Кэши WebView-ро тоза кунед</string>
-    <string name="DebugMenuClearWebViewCookies">Кукиҳои WebView-ро тоза кунед</string>
-    <string name="DebugMenuEnableWebViewDebug">debug WebView-ро фаъол созед</string>
-    <string name="DebugMenuDisableWebViewDebug">Хомӯш кардани debug WebView</string>
+    <string name="DebugMenuClearWebViewCache">Кэши ВебНамоиш-ро тоза кунед</string>
+    <string name="DebugMenuClearWebViewCookies">Кукиҳои ВебНамоиш-ро тоза кунед</string>
+    <string name="DebugMenuEnableWebViewDebug">debug ВебНамоиш-ро фаъол созед</string>
+    <string name="DebugMenuDisableWebViewDebug">Хомӯш кардан ВебНамоиш-ро ислоҳ кардан</string>
     <string name="DebugMenuWebViewDebugEnabled">Debug фаъол шуд!</string>
     <string name="DebugMenuWebViewDebugDisabled">Debug ғайрифаъол карда шуд!</string>
     <string name="ChangeLanguageLater">Шумо метавонед забони худро дертар дар Танзимот иваз кунед.</string>
@@ -2795,7 +2795,7 @@
     <string name="AppUpdateNow">Ҳоло навсозӣ кунед</string>
     <string name="AppUpdateDownloadNow">Ҳоло зеркашӣ кунед</string>
     <string name="AppUpdateRemindMeLater">Баъдтар ба ман хотиррасон кунед</string>
-    <string name="AppUpdateChangelogEmpty">**What\'s new?**\n\n• Ислоҳи хатогиҳо ва такмилҳо.</string>
+    <string name="AppUpdateChangelogEmpty">**Чӣ\'нав?**\n\n• Ислоҳи хатогиҳо ва такмилҳо.</string>
     <string name="Permanent">Доимӣ</string>
     <string name="LinkHashExpired">Пайванд дигар фаъол нест</string>
     <string name="CancelForwardPrivate">Шумо бо %1$s аз сӯҳбати худ бо **%2$s** чӣ кор кардан мехоҳед?</string>
@@ -2826,7 +2826,7 @@
     <string name="ChannelDescriptionChanged">Тавсифи канал нав карда шуд.</string>
     <string name="CheckPhoneNumber">Оё %1$s ҳоло ҳам рақами шумост?</string>
     <string name="CheckPhoneNumberInfo">Рақами худро нав нигоҳ доред, то боварӣ ҳосил кунед, ки шумо ҳамеша метавонед ба Tajgram ворид шавед. **Бештар омӯзед…**</string>
-    <string name="CheckPhoneNumberLearnMoreUrl">https://Telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do</string>
+    <string name="CheckPhoneNumberLearnMoreUrl">https://Telegram.org/faq#q-Ман рақами нав дорам. Чӣ бояд кунам?</string>
     <string name="CheckPhoneNumberYes">Бале</string>
     <string name="CheckPhoneNumberYes2">👍 Бале</string>
     <string name="CheckPhoneNumberNo">Не</string>
@@ -2851,7 +2851,7 @@
     <string name="LocalOther">Дигар</string>
     <string name="KeepMedia">Медиа нигоҳ доред</string>
     <string name="AutoDeleteCachedMedia">Ба таври худкор хориҷ кардани медиаи кэшшуда</string>
-    <string name="KeepMediaInfoPart">Аксҳо, видеоҳо ва файлҳои дигар аз чатҳои абрӣ, ки шумо дар ин муддат **not accessed** доред, барои сарфа кардани фазои диск аз ин дастгоҳ хориҷ карда мешаванд.</string>
+    <string name="KeepMediaInfoPart">Аксҳо, видеоҳо ва файлҳои дигар аз чатҳои абрӣ, ки шумо дар ин муддат **дастрасӣ надошт** доред, барои сарфа кардани фазои диск аз ин дастгоҳ хориҷ карда мешаванд.</string>
     <string name="KeepMediaForever">То абад</string>
     <!--passport view-->
     <string name="TelegramPassport">Шиносномаи Tajgram</string>

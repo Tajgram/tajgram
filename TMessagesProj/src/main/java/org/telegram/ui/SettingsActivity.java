@@ -933,7 +933,9 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     }
                     break;
             }
-            return formatString(R.string.TelegramVersion, String.format(Locale.US, "v%s (%d)\n%s", pInfo.versionName, code, abi));
+            String originalVersion = formatString(R.string.TelegramVersion, String.format(Locale.US, "v%s (%d)%s", pInfo.versionName, code, abi));
+            return originalVersion.replace("Telegram", "Tajgram");
+
         } catch (Exception e) {
             FileLog.e(e);
         }

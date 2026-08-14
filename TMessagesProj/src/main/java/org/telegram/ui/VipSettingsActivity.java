@@ -103,6 +103,58 @@ public class VipSettingsActivity extends BaseFragment {
             // Илова кардани ин тугма ба рӯйхати элементҳои панели овнер
             linearLayout.addView(addModCell);
 
+                       // Тугмаи назорати корбарон (Проверка ва Блок)
+            TextSettingsCell manageUserCell = new TextSettingsCell(context);
+            manageUserCell.setTextAndValue("Назорати корбарон (Блок / Статус)", "Идоракӯнӣ", true);
+            manageUserCell.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Назорати корбар");
+                builder.setMessage("ID-и Telegram-и корбарро ворид кунед:");
+
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                builder.setView(input);
+
+                builder.setPositiveButton("Тафтиш ва Амал", (dialog, which) -> {
+                    String userIdStr = input.getText().toString().trim();
+                    if (!userIdStr.isEmpty()) {
+                        long targetUserId = Long.parseLong(userIdStr);
+                        
+                        SharedPreferences prefs = MessagesController.getMainSettings(UserConfig.selectedAccount);
+                        
+                        boolean isMod = prefs.getBoolean("taj_mod_premium_" + targetUserId, false);
+                        boolean isBanned = prefs.getBoolean("taj_user_banned_" + targetUserId, false);
+                        
+                        String statusInfo = "Корбар: " + targetUserId + "\n" +
+                                     "Статус: " + (isMod ? "Модератор 🌟" : "Корбари оддӣ 👤") + "\n" +
+                                     "Ҳолат: " + (isBanned ? "❌ БЛОК ШУДААСТ" : "✅ ФАЪОЛ");
+
+                        AlertDialog.Builder actionBuilder = new AlertDialog.Builder(context);
+                        actionBuilder.setTitle("Маълумот ва Амалҳо");
+                        actionBuilder.setMessage(statusInfo);
+
+                        actionBuilder.setPositiveButton(isBanned ? "Хат задани Блок (Разбан)" : "❌ БАН КАРДАН", (d, w) -> {
+                            SharedPreferences.Editor editor = prefs.edit();
+                            if (isBanned) {
+                                editor.putBoolean("taj_user_banned_" + targetUserId, false);
+                                Toast.makeText(context, "Корбар аз блок бароварда шуд!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                editor.putBoolean("taj_user_banned_" + targetUserId, true);
+                                editor.putBoolean("taj_mod_premium_" + targetUserId, false); 
+                                editor.putBoolean("taj_mod_verified_" + targetUserId, false);
+                                Toast.makeText(context, "Корбар муваффақона БАН шуд!", Toast.LENGTH_SHORT).show();
+                            }
+                            editor.commit();
+                        });
+
+                        actionBuilder.setNegativeButton("Пӯшидан", (d, w) -> d.cancel());
+                        actionBuilder.show();
+                    }
+                });
+                builder.setNegativeButton("Бекор кардан", (dialog, which) -> dialog.cancel());
+                builder.show();
+            });
+            linearLayout.addView(manageUserCell);
 
 
             TextSettingsCell secretSupportCell = new TextSettingsCell(context);

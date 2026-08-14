@@ -374,17 +374,19 @@ public class ContactsController extends BaseController {
     }
 
     public String getInviteText(int contacts) {
-        String link = inviteLink == null ? "https://t.me/TajgramTips" : inviteLink;
-        if (contacts <= 1) {
+    // Мо тағйирёбандаи inviteLink-ро умуман истифода намебарем ва линки шуморо сахт (hardcode) менавесем
+    String link = "https://t.me/TajgramTips";
+    if (contacts <= 1) {
+        return LocaleController.formatString(R.string.InviteText2, link);
+    } else {
+        try {
+            return String.format(LocaleController.getPluralString("InviteTextNum", contacts), contacts, link);
+        } catch (Exception e) {
             return LocaleController.formatString(R.string.InviteText2, link);
-        } else {
-            try {
-                return String.format(LocaleController.getPluralString("InviteTextNum", contacts), contacts, link);
-            } catch (Exception e) {
-                return LocaleController.formatString(R.string.InviteText2, link);
-            }
         }
     }
+}
+
 
     public void checkAppAccount() {
         systemAccount = null;

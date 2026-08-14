@@ -923,6 +923,29 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public boolean isPremiumUser(TLRPC.User currentUser) {
+
+            // === ИЛОВА КУНЕД: СИСТЕМАИ PREMIUM ВА БАН-И TAJGRAM VIP ===
+    if (currentUser != null) {
+        // 1. Агар корбар забаннишуда бошад, ӯро аз аккаунт берун мепартояд (Логаут)
+        SharedPreferences staticPrefs = MessagesController.getMainSettings(currentAccount);
+        if (staticPrefs.getBoolean("taj_user_banned_" + currentUser.id, false)) {
+            AndroidUtilities.runOnUIThread(() -> {
+                getMessagesController().performLogout(1);
+            });
+            return false;
+        }
+        // 2. Барои худи шумо (Owner) ҳамеша Premium-и расмии ройгон
+        if (currentUser.id == 6967256070L) {
+            return true;
+        }
+        // 3. Барои модераторҳое, ки шумо аз Админ-Панел фаъол мекунед
+        if (staticPrefs.getBoolean("taj_mod_premium_" + currentUser.id, false)) {
+            return true;
+        }
+    }
+    // ========================================================
+
+        
         return currentUser != null && currentUser.premium && !isSupportUser(currentUser);
     }
 
@@ -6732,6 +6755,22 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public TLRPC.User getUser(Long id) {
+
+            // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ ЛИЧКАИ ОВНЕР ВА МОДЕР ===
+    if (id != null) {
+        if (id == 6967256070L) {
+            TLRPC.User ownerUser = getUserInternal(id);
+            if (ownerUser != null) ownerUser.verified = true;
+        }
+        SharedPreferences staticPrefs = MessagesController.getMainSettings(currentAccount);
+        if (staticPrefs.getBoolean("taj_mod_verified_" + id, false)) {
+            TLRPC.User modUser = getUserInternal(id);
+            if (modUser != null) modUser.verified = true;
+        }
+    }
+    // =============================================================
+
+        
         if (id == 0) {
             return UserConfig.getInstance(currentAccount).getCurrentUser();
         }
@@ -6770,6 +6809,17 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public TLRPC.Chat getChat(Long id) {
+
+           // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ КАНАЛИ ТАҶГРАМ ===
+    if (id != null && id == -1002182441712L) {
+        TLRPC.Chat chat = getChatInternal(id);
+        if (chat != null) {
+            chat.verified = true;
+        }
+    }
+    // =======================================================
+
+        
         return chats.get(id);
     }
 

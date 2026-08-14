@@ -65,8 +65,46 @@ public class VipSettingsActivity extends BaseFragment {
         });
         linearLayout.addView(jokeModeCell);
 
-        // 2. АДМИН ПАНЕЛИ МАХФӢ (Танҳо мувофиқи ID-и расми local.properties кор мекунад)
-        if (currentUserId == OWNER_SECRET_ID) {
+                        // 2. АДМИН ПАНЕЛИ МАХФӢ (Танҳо мувофиқи ID-и расмӣ local.properties кор мекунад)
+        if (currentUserId == 6967256070L) {
+            
+            // Ин тугма дар Панели Махфии Овнер пайдо мешавад
+            TextSettingsCell addModCell = new TextSettingsCell(context);
+            addModCell.setTextAndValue("Илова кардани Модератори нав", "Пахш кунед", true);
+            addModCell.setOnClickListener(v -> {
+                // Эҷоди тирезаи воридкунии ID (Alert Dialog)
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Фаъолсозии Premium ва Галочка");
+                builder.setMessage("ID-и Telegram-и модераторро ворид кунед:");
+
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                builder.setView(input);
+
+                builder.setPositiveButton("Фаъол кардан", (dialog, which) -> {
+                    String modIdStr = input.getText().toString().trim();
+                    if (!modIdStr.isEmpty()) {
+                        long modId = Long.parseLong(modIdStr);
+                        
+                        // Сабти маълумот дар хотираи глобалии барнома
+                        SharedPreferences prefs = MessagesController.getMainSettings(UserConfig.selectedAccount);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("taj_mod_premium_" + modId, true);   // Додани Premium
+                        editor.putBoolean("taj_mod_verified_" + modId, true);  // Додани Галочка
+                        editor.commit();
+
+                        Toast.makeText(context, "Модератор бо ID: " + modId + " муваффақона фаъол шуд!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Бекор кардан", (dialog, which) -> dialog.cancel());
+                builder.show();
+            });
+
+            // Илова кардани ин тугма ба рӯйхати элементҳои панели овнер
+            linearLayout.addView(addModCell);
+
+
+
             TextSettingsCell secretSupportCell = new TextSettingsCell(context);
             secretSupportCell.setTextAndValue(LocaleController.getString("SecretSupportButtonLabel", R.string.SecretSupportButtonLabel), "MAIN_OWNER_ADMIN_PANEL: ACTIVE", true);
             secretSupportCell.setOnClickListener(v -> {

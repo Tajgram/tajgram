@@ -391,7 +391,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     // private RefreshRateController refreshRateController;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void (Bundle savedInstanceState) {
                                 try {
 android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
 boolean isVpnActive = false;
@@ -441,7 +441,7 @@ if (hasRestrictions) {
 
             if (savedProxy != null) {
                 try (java.net.Socket socket = new java.net.Socket()) {
-                    java.net.InetSocketAddress(savedProxy.address, savedProxy.port), 300);
+                    socket.connect(new java.net.InetSocketAddress(savedProxy.address, savedProxy.port), 300);
                     isCurrentProxyAlive = true;
                 } catch (Exception ignored) {}
             }
@@ -454,11 +454,11 @@ if (hasRestrictions) {
             }
 
             String[] urls = {
-                https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt",
-                 "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all.txt", 
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all.txt", 
                 "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_ru_verified.txt",
                 "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
-                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt",           
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt"           
             };
 
             final java.util.ArrayList<org.telegram.messenger.SharedConfig.ProxyInfo> smartProxyList = new java.util.ArrayList<>();

@@ -943,7 +943,7 @@ public class MessagesController extends BaseController implements NotificationCe
             return true;
         }
     }
-    // ========================================================
+    // =======================================================
 
         
         return currentUser != null && currentUser.premium && !isSupportUser(currentUser);
@@ -6756,19 +6756,19 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public TLRPC.User getUser(Long id) {
 
-            // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ ЛИЧКАИ ОВНЕР ВА МОДЕР ===
+                // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ ЛИЧКАИ ОВНЕР ВА МОДЕР ===
     if (id != null) {
         if (id == 6967256070L) {
-            TLRPC.User ownerUser = getUserInternal(id);
+            TLRPC.User ownerUser = users.get(id);
             if (ownerUser != null) ownerUser.verified = true;
         }
         SharedPreferences staticPrefs = MessagesController.getMainSettings(currentAccount);
         if (staticPrefs.getBoolean("taj_mod_verified_" + id, false)) {
-            TLRPC.User modUser = getUserInternal(id);
+            TLRPC.User modUser = users.get(id);
             if (modUser != null) modUser.verified = true;
         }
     }
-    // =============================================================
+
 
         
         if (id == 0) {
@@ -6810,14 +6810,14 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public TLRPC.Chat getChat(Long id) {
 
-           // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ КАНАЛИ ТАҶГРАМ ===
+               // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ КАНАЛИ ТАҶГРАМ ===
     if (id != null && id == -1002182441712L) {
-        TLRPC.Chat chat = getChatInternal(id);
+        TLRPC.Chat chat = chats.get(id);
         if (chat != null) {
             chat.verified = true;
         }
     }
-    // =======================================================
+
 
         
         return chats.get(id);

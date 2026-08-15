@@ -101,8 +101,7 @@ public class BuildVars {
     public static String MAPS_RECEIVER_KEY = "AIzaSyDrpbBz6Tix4WAygcIjIsfpovKDnofIWl0";
     public static String MAPS_API_KEY = "AIzaSyDrpbBz6Tix4WAygcIjIsfpovKDnofIWl0";
     public static String SAFETYNET_KEY = "AIzaSyDrpbBz6Tix4WAygcIjIsfpovKDnofIWl0";
-    
-    public static final String APP_INVITE_URL = "https://t.me/tajgramtips";
+      
     public static String PLAYSTORE_APP_URL = "https://t.me/tajgramtips";
     // public static String PLAYSTORE_APP_URL = "https://play.google.com/store/apps/details?id=org.telegram.messenger";
     

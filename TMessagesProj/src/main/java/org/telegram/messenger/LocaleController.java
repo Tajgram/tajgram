@@ -1493,8 +1493,13 @@ public class LocaleController {
     // deprecated: String key is no longer necessary
     @Deprecated
     public static String getString(String key, @StringRes int res) {
-        return getInstance().getStringInternal(key, res);
+           
+    if ("InviteText2".equals(key)) {
+        String str = getInstance().getStringInternal(key, res);
+        return str != null ? str.replace("Telegram", "Tajgram") : null;
     }
+    return getInstance().getStringInternal(key, res);
+}
 
     // deprecated: String key is no longer necessary
     @Deprecated

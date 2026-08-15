@@ -228,7 +228,7 @@ public class VipSettingsActivity extends BaseFragment {
         TextSettingsCell inviteCell = new TextSettingsCell(context);
         inviteCell.setTextAndValue(LocaleController.getString("Folk_InviteFriends", R.string.Folk_InviteFriends), "", false);
         inviteCell.setOnClickListener(v -> {
-            String shareText = "Салом! Ба Tajgram ҳамроҳ шавед: https://t.me" + CHANNEL_USERNAME;
+            String shareText = "Салом! Ба Tajgram ҳамроҳ шавед: https://t.me/" + CHANNEL_USERNAME;
             AndroidUtilities.addToClipboard(shareText);
             Toast.makeText(context, "Линки даъват нусхабардорӣ шуд!", Toast.LENGTH_SHORT).show();
         });

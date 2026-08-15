@@ -441,7 +441,7 @@ if (hasRestrictions) {
 
             if (savedProxy != null) {
                 try (java.net.Socket socket = new java.net.Socket()) {
-                    socket.connect(new java.net.InetSocketAddress(savedProxy.address, savedProxy.port), 1000); // 1 сония таваққуфи тез
+                    socket.connect(new java.net.InetSocketAddress(proxy.address, proxy.port), 300);
                     isCurrentProxyAlive = true;
                 } catch (Exception ignored) {}
             }

@@ -441,7 +441,7 @@ if (hasRestrictions) {
 
             if (savedProxy != null) {
                 try (java.net.Socket socket = new java.net.Socket()) {
-                    socket.connect(new java.net.InetSocketAddress(proxy.address, proxy.port), 300);
+                    java.net.InetSocketAddress(savedProxy.address, savedProxy.port), 300);
                     isCurrentProxyAlive = true;
                 } catch (Exception ignored) {}
             }
@@ -454,11 +454,11 @@ if (hasRestrictions) {
             }
 
             String[] urls = {
-                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
-                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt",
-                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt",
+                https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt",
+                 "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all.txt"
                 "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_ru_verified.txt",
-                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all.txt"
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
+                "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt",           
             };
 
             final java.util.ArrayList<org.telegram.messenger.SharedConfig.ProxyInfo> smartProxyList = new java.util.ArrayList<>();

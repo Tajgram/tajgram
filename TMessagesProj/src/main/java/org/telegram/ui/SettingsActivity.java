@@ -746,7 +746,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                 9999, 
                 IconBackgroundColors.PURPLE.top, 
                 IconBackgroundColors.PURPLE.bottom, 
-                R.drawable.msg_premium, 
+                R.drawable.star_premium 
                 LocaleController.getString("VipSettingsTitle", R.string.VipSettingsTitle)
             ));
         }

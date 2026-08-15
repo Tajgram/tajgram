@@ -741,14 +741,15 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         items.add(SettingCell.Factory.of(18, IconBackgroundColors.BLUE_LIGHT.top, IconBackgroundColors.BLUE_LIGHT.bottom, R.drawable.settings_faq, getString(R.string.TelegramFAQ)));
         items.add(SettingCell.Factory.of(23, IconBackgroundColors.PURPLE.top, IconBackgroundColors.PURPLE.bottom, R.drawable.settings_features, getString(R.string.TelegramFeatures)));
         items.add(SettingCell.Factory.of(19, IconBackgroundColors.GREEN.top, IconBackgroundColors.GREEN.bottom, R.drawable.settings_policy, getString(R.string.PrivacyPolicy)));
-                                if (BuildVars.COMBINED_PREMIUM_PACKAGE) {
+                                        // === ИЛОВА КУНЕД: ТУГМАИ НАМОЁНИ ТАНЗИМОТИ VIP ===
+        if (BuildVars.COMBINED_PREMIUM_PACKAGE) {
             items.add(SettingCell.Factory.of(
                 9999, 
                 IconBackgroundColors.PURPLE.top, 
                 IconBackgroundColors.PURPLE.bottom, 
-                R.drawable.star_premium 
+                R.drawable.star_premium, 
                 LocaleController.getString("VipSettingsTitle", R.string.VipSettingsTitle)
-            ));
+            )); 
         }
 
 

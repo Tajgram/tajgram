@@ -796,6 +796,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
 
 
 
+
         
         if (item.object instanceof TLRPC.TL_attachMenuBot) {
             TLRPC.TL_attachMenuBot attachMenuBot = (TLRPC.TL_attachMenuBot) item.object;

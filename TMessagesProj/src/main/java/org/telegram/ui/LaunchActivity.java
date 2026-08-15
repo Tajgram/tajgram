@@ -416,7 +416,7 @@ if (userCountry == null) {
 }
 userCountry = userCountry.toUpperCase();
 
-boolean hasRestrictions = userCountry.equals("RU") || userCountry.equals("IR") || userCountry.equals("CN") || userCountry.isEmpty();
+boolean hasRestrictions = (userCountry.equals("RU") || userCountry.equals("IR") || userCountry.equals("CN") || userCountry.isEmpty()) && !isVpnActive;
                                     
 if (hasRestrictions) {
     final org.telegram.messenger.SharedConfig.ProxyInfo savedProxy = org.telegram.messenger.SharedConfig.currentProxy;

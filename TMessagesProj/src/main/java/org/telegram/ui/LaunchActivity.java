@@ -391,7 +391,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     // private RefreshRateController refreshRateController;
 
     @Override
-    protected void (Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
                                 try {
 android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
 boolean isVpnActive = false;

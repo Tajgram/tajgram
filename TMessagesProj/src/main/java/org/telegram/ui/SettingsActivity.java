@@ -741,15 +741,17 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         items.add(SettingCell.Factory.of(18, IconBackgroundColors.BLUE_LIGHT.top, IconBackgroundColors.BLUE_LIGHT.bottom, R.drawable.settings_faq, getString(R.string.TelegramFAQ)));
         items.add(SettingCell.Factory.of(23, IconBackgroundColors.PURPLE.top, IconBackgroundColors.PURPLE.bottom, R.drawable.settings_features, getString(R.string.TelegramFeatures)));
         items.add(SettingCell.Factory.of(19, IconBackgroundColors.GREEN.top, IconBackgroundColors.GREEN.bottom, R.drawable.settings_policy, getString(R.string.PrivacyPolicy)));
-                // === ИЛОВА КУНЕД: ТУГМАИ НАМОЁНИ ТАНЗИМОТИ VIP ===
-        if (BuildVars.COMBINED_PREMIUM_PACKAGE) {
+                                if (BuildVars.COMBINED_PREMIUM_PACKAGE) {
             items.add(SettingCell.Factory.of(
                 9999, 
                 IconBackgroundColors.PURPLE.top, 
+                IconBackgroundColors.PURPLE.bottom, 
+                R.drawable.msg_premium, 
                 LocaleController.getString("VipSettingsTitle", R.string.VipSettingsTitle)
             ));
         }
-        // ===============================================
+
+
 
         if (BuildVars.LOGS_ENABLED || BuildVars.DEBUG_PRIVATE_VERSION) {
             items.add(UItem.asShadow(null));
@@ -780,12 +782,13 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
 
     private void onClick(UItem item, View view, int position, float x, float y) {
 
-               // === ИЛОВА КУНЕД: КУШОДАНИ САҲИФАИ VIP ===
+                // === ИЛОВА КУНЕД: КУШОДАНИ САҲИФАИ VIP ===
         if (item != null && item.id == 9999) {
             presentFragment(new VipSettingsActivity());
             return;
         }
-        // =========================================
+
+
         
         if (item.object instanceof TLRPC.TL_attachMenuBot) {
             TLRPC.TL_attachMenuBot attachMenuBot = (TLRPC.TL_attachMenuBot) item.object;

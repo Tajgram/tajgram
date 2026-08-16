@@ -741,16 +741,12 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         items.add(SettingCell.Factory.of(18, IconBackgroundColors.BLUE_LIGHT.top, IconBackgroundColors.BLUE_LIGHT.bottom, R.drawable.settings_faq, getString(R.string.TelegramFAQ)));
         items.add(SettingCell.Factory.of(23, IconBackgroundColors.PURPLE.top, IconBackgroundColors.PURPLE.bottom, R.drawable.settings_features, getString(R.string.TelegramFeatures)));
         items.add(SettingCell.Factory.of(19, IconBackgroundColors.GREEN.top, IconBackgroundColors.GREEN.bottom, R.drawable.settings_policy, getString(R.string.PrivacyPolicy)));
-                                        // === ИЛОВА КУНЕД: ТУГМАИ НАМОЁНИ ТАНЗИМОТИ VIP ===
-                        if (BuildVars.COMBINED_PREMIUM_PACKAGE) {
-            items.add(SettingCell.Factory.of(
-                8888,
-                IconBackgroundColors.PURPLE.top, 
-                IconBackgroundColors.PURPLE.bottom, 
-                R.drawable.star_premium, 
-                LocaleController.getString("VipSettingsTitle", R.string.VipSettingsTitle)
-            ));
-           }
+                                                            
+        // --- ИЛОВА КУНЕД: ТУГМАИ НАМОЁНИ ТАНЗИМОТИ VIP ---
+       if (UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId() == 6967256070L) {
+       items.add(SettingCell.Factory.of(8888, IconBackgroundColors.PURPLE_top, IconBackgroundColors.PURPLE_bottom, R.drawable.star_premium, LocaleController.getString("VipSettingsTitle", R.string.VipSettingsTitle)));
+         }
+
 
 
 
@@ -783,11 +779,11 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
 
     private void onClick(UItem item, View view, int position, float x, float y) {
 
-                // === ИЛОВА КУНЕД: КУШОДАНИ САҲИФАИ VIP ===
-        if (item != null && item.id == 8888) {
-            presentFragment(new VipSettingsActivity());
+                                if (item != null && item.id == 8888) {
+            SettingsActivity.this.presentFragment(new VipSettingsActivity());
             return;
-        }
+                 }
+
 
 
 

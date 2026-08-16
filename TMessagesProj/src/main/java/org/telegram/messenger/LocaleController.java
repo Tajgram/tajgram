@@ -1493,11 +1493,6 @@ public class LocaleController {
     // deprecated: String key is no longer necessary
     @Deprecated
     public static String getString(String key, @StringRes int res) {
-           
-    if ("InviteText2".equals(key)) {
-        String str = getInstance().getStringInternal(key, res);
-        return str != null ? str.replace("Telegram", "Tajgram") : null;
-    }
     return getInstance().getStringInternal(key, res);
 }
 
@@ -1534,6 +1529,12 @@ public class LocaleController {
         if (resourceId != 0) {
             return getString(key, resourceId);
         }
+
+                if ("InviteText2".equals(key)) {
+            String serverStr = getServerString(key);
+            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
+        }
+
         return getServerString(key);
     }
 

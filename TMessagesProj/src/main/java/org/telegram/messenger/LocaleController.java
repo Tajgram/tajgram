@@ -1463,6 +1463,8 @@ public class LocaleController {
                          .replace("Telegram Premium", "Tajgram Premium VIP")
                          .replace("Telegram Stars", "Tajgram Stars")
                          .replace("Telegram", "Tajgram");
+        if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
 
         return value;
     }

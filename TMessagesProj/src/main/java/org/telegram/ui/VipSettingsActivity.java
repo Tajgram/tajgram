@@ -173,7 +173,6 @@ public class VipSettingsActivity extends BaseFragment {
             });
             linearLayout.addView(secretSupportCell);
         }
-    });
 
         // 6. Пуштибонии фаннӣ (AskAQuestion ва VipSupportBot)
         TextSettingsCell techSupportCell = new TextSettingsCell(context);

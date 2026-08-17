@@ -744,8 +744,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                                                             
         // --- ИЛОВА КУНЕД: ТУГМАИ НАМОЁНИ ТАНЗИМОТИ VIP ---
        if (UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId() == 6967256070L) {
-       items.add(SettingCell.Factory.of(8888, IconBackgroundColors.PURPLE_top, IconBackgroundColors.PURPLE_bottom, R.drawable.star_premium, LocaleController.getString("VipSettingsTitle", R.string.VipSettingsTitle)));
-         }
+       items.add(SettingCell.Factory.of(8888, IconBackgroundColors.PURPLE.top, IconBackgroundColors.PURPLE.bottom, R.drawable.star_premium, LocaleController.getString("VipSettingsTitle", R.string.VipSettingsTitle)));
+       }
 
 
 

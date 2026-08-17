@@ -23,7 +23,6 @@ import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.ActionBar;
 import org.telegram.ui.ActionBar.BaseFragment;
-import org.telegram.ui.Cells.HeaderCell;
 import org.telegram.ui.Cells.TextCheckCell;
 import org.telegram.ui.Cells.TextSettingsCell;
 
@@ -347,6 +346,17 @@ public class VipSettingsActivity extends BaseFragment {
             prefs.edit().putInt("tajgram_voice_type", prefs.getInt("tajgram_voice_type", 1)).apply();
         });
         linearLayout.addView(changeVoiceOnSendCell);
+
+        TextCheckCell readMessageVoiceCell = new TextCheckCell(context);
+        boolean isReadVoiceEnabled = prefs.getBoolean("tajgram_enable_voice_read_msg", false);
+        readMessageVoiceCell.setTextAndCheck(LocaleController.getString("VoiceSelection", R.string.VoiceSelection), isReadVoiceEnabled, true);
+        readMessageVoiceCell.setOnClickListener(v -> {
+            boolean current = prefs.getBoolean("tajgram_enable_voice_read_msg", false);
+            prefs.edit().putBoolean("tajgram_enable_voice_read_msg", !current).apply();
+            readMessageVoiceCell.setChecked(!current);
+            MediaController.getInstance().setTtsEnabled(!current);
+        });
+        linearLayout.addView(readMessageVoiceCell);
 
         TextSettingsCell girlVoiceCell = new TextSettingsCell(context);
         girlVoiceCell.setTextAndValue(

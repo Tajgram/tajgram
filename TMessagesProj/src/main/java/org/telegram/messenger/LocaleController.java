@@ -4515,17 +4515,19 @@ public class LocaleController {
             DateUtils.FORMAT_ABBREV_RELATIVE
         ).toString();
     }
+
     public void checkCurrentLocale() {
     try {
         if (currentLocale == null) {
-            loadCurrentLocale();
+            loadCurrentLocale(false);
         } else {
-            recreateStringMaps();
+            reloadCurrentLocale();
         }
     } catch (Exception e) {
         FileLog.e(e);
     }
 }
+
 
 
     public String getCurrentLanguageCode() {

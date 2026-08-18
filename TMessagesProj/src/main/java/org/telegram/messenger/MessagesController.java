@@ -25572,6 +25572,20 @@ public class MessagesController extends BaseController implements NotificationCe
         }
     }
 
+    public long getDialogId(String channel) {
+    try {
+        return Long.parseLong(channel);
+    } catch (Exception e) {
+        org.telegram.tgnet.TLObject object = getUserOrChat(channel);
+        if (object instanceof TLRPC.User) {
+            return ((TLRPC.User) object).id;
+        } else if (object instanceof TLRPC.Chat) {
+            return -((TLRPC.Chat) object).id;
+        }
+    }
+    return 0;
+    }
+
     public void toggleWebBrowserUseCustomTabs(boolean useCustomTabs) {
         if (webBrowserSettings != null) {
             updateWebBrowserSettings(webBrowserSettings.open_external_browser, useCustomTabs);

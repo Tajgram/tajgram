@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Tajgram VIP Strings -->
+    <string name="ExitDialogBtnLeave">Salir</string>
+    <string name="ExitDialogBtnStay">Permanecer</string>
+    <string name="UserIdLabel">ID de usuario</string>
+    <string name="UserIdCopied">ID copiado</string>
+    <string name="TajgramPremiumControl">Control de Tajgram Premium</string>
+    <string name="TajgramPremiumChanged">Estado Premium cambiado</string>
+    <string name="prank_instruction_title">Instrucción</string>
+    <string name="prank_accept_btn">Aceptar</string>
+    <string name="LikeSentToast">Me gusta enviado</string>
+    <string name="DislikeSentToast">No me gusta enviado</string>
+    <string name="VoiceDesc_Girl">Voz femenina</string>
+    <string name="VoiceGirlActivated">Voz femenina activada</string>
+    <string name="VoiceDesc_Boy">Voz masculina</string>
+    <string name="VoiceBoyActivated">Voz masculina activada</string>
+    <string name="InviteLinkCopied">Enlace copiado</string>
+    <string name="CurrencyLoading">Cargando...</string>
+    <string name="CurrencyDialogTitle">Seleccionar moneda</string>
+    <string name="CurrencyError">Error de carga</string>
+
 <string name="onboarding_title_1">Welcome! 🌍</string>
 <string name="onboarding_desc_1">Speed and security.</string>
 <string name="onboarding_title_2">Shine with Stars! ⭐</string>

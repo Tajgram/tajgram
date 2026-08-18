@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Tajgram VIP Strings -->
+    <string name="ExitDialogBtnLeave">خروج</string>
+    <string name="ExitDialogBtnStay">البقاء</string>
+    <string name="UserIdLabel">معرف المستخدم</string>
+    <string name="UserIdCopied">تم نسخ المعرف</string>
+    <string name="TajgramPremiumControl">التحكم في Tajgram Premium</string>
+    <string name="TajgramPremiumChanged">تم تغيير حالة Premium</string>
+    <string name="prank_instruction_title">تعليمات</string>
+    <string name="prank_accept_btn">قبول</string>
+    <string name="LikeSentToast">تم إرسال الإعجاب</string>
+    <string name="DislikeSentToast">تم إرسال عدم الإعجاب</string>
+    <string name="VoiceDesc_Girl">صوت أنثوي</string>
+    <string name="VoiceGirlActivated">تم تفعيل الصوت الأنثوي</string>
+    <string name="VoiceDesc_Boy">صوت ذكوري</string>
+    <string name="VoiceBoyActivated">تم تفعيل الصوت الذكوري</string>
+    <string name="InviteLinkCopied">تم نسخ الرابط</string>
+    <string name="CurrencyLoading">جاري التحميل...</string>
+    <string name="CurrencyDialogTitle">تحديد العملة</string>
+    <string name="CurrencyError">خطأ في التحميل</string>
+
 <string name="onboarding_title_1">مرحباً بك! 🌍</string>
 <string name="onboarding_desc_1">السرعة والأمان.</string>
 <string name="onboarding_title_2">تألق مع النجوم! ⭐</string>

@@ -4518,15 +4518,14 @@ public class LocaleController {
 
     public void checkCurrentLocale() {
     try {
-        if (currentLocale == null) {
-            loadCurrentLocale(false);
-        } else {
-            reloadCurrentLocale();
+        if (getCurrentLocaleInfo() != null) {
+            applyLanguage(getCurrentLocaleInfo(), true, false, currentAccount);
         }
     } catch (Exception e) {
         FileLog.e(e);
     }
 }
+
 
 
 

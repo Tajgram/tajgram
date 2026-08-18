@@ -124,7 +124,7 @@ public class VipSettingsActivity extends BaseFragment {
                 currentLang,
                 nextState
             );
-            LocaleController.getInstance().recreateStringMaps();
+            LocaleController.getInstance().checkCurrentLocale();
             showDynamicJokeDialog(context, "prank_instruction_title", "prank_instruction_desc");
         });
         linearLayout.addView(jokeModeCell);
@@ -241,34 +241,85 @@ public class VipSettingsActivity extends BaseFragment {
             }
         }
 
-        // 10. Лайк ва Дизлайк (LikeButton ва DislikeButton)
+        // 10. Лайк ва Дизлайк (LikeButton ва DislikeButton) бо ҳисобкунаки рақамӣ ва тугмаи такрорӣ (Toggle)
         TextSettingsCell likeCell = new TextSettingsCell(context);
-        likeCell.setTextAndValue(
-            LocaleController.getString("LikeButton", R.string.LikeButton), 
-            LocaleController.getString("RateAppDesc", R.string.RateAppDesc), 
-            true
-        );
+        TextSettingsCell dislikeCell = new TextSettingsCell(context);
+
+        Runnable updateLikeDislikeUI = () -> {
+            int likes = prefs.getInt("tajgram_global_likes", 0);
+            int dislikes = prefs.getInt("tajgram_global_dislikes", 0);
+            boolean hasLiked = prefs.getBoolean("tajgram_user_liked", false);
+            boolean hasDisliked = prefs.getBoolean("tajgram_user_disliked", false);
+
+            likeCell.setTextAndValue(
+                LocaleController.getString("LikeButton", R.string.LikeButton),
+                (hasLiked ? "👍 " : "") + likes,
+                true
+            );
+            dislikeCell.setTextAndValue(
+                LocaleController.getString("DislikeButton", R.string.DislikeButton),
+                (hasDisliked ? "👎 " : "") + dislikes,
+                true
+            );
+        };
+
         likeCell.setOnClickListener(v -> {
-            int likes = prefs.getInt("tajgram_global_likes", 0) + 1;
-            prefs.edit().putInt("tajgram_global_likes", likes).apply();
-            sendLiveTelegramReaction(CHANNEL_USERNAME, "👍");
+            SharedPreferences.Editor editor = prefs.edit();
+            int likes = prefs.getInt("tajgram_global_likes", 0);
+            int dislikes = prefs.getInt("tajgram_global_dislikes", 0);
+            boolean hasLiked = prefs.getBoolean("tajgram_user_liked", false);
+            boolean hasDisliked = prefs.getBoolean("tajgram_user_disliked", false);
+
+            if (hasLiked) {
+                likes = Math.max(0, likes - 1);
+                editor.putBoolean("tajgram_user_liked", false);
+            } else {
+                if (hasDisliked) {
+                    dislikes = Math.max(0, dislikes - 1);
+                    editor.putBoolean("tajgram_user_disliked", false);
+                }
+                likes++;
+                editor.putBoolean("tajgram_user_liked", true);
+                sendLiveTelegramReaction(CHANNEL_USERNAME, "👍");
+            }
+            editor.putInt("tajgram_global_likes", likes);
+            editor.putInt("tajgram_global_dislikes", dislikes);
+            editor.apply();
+
+            updateLikeDislikeUI.run();
             Toast.makeText(context, LocaleController.getString("LikeSentToast", R.string.LikeSentToast), Toast.LENGTH_SHORT).show();
         });
         linearLayout.addView(likeCell);
 
-        TextSettingsCell dislikeCell = new TextSettingsCell(context);
-        dislikeCell.setTextAndValue(
-            LocaleController.getString("DislikeButton", R.string.DislikeButton), 
-            "", 
-            true
-        );
         dislikeCell.setOnClickListener(v -> {
-            int dislikes = prefs.getInt("tajgram_global_dislikes", 0) + 1;
-            prefs.edit().putInt("tajgram_global_dislikes", dislikes).apply();
-            sendLiveTelegramReaction(CHANNEL_USERNAME, "👎");
+            SharedPreferences.Editor editor = prefs.edit();
+            int likes = prefs.getInt("tajgram_global_likes", 0);
+            int dislikes = prefs.getInt("tajgram_global_dislikes", 0);
+            boolean hasLiked = prefs.getBoolean("tajgram_user_liked", false);
+            boolean hasDisliked = prefs.getBoolean("tajgram_user_disliked", false);
+
+            if (hasDisliked) {
+                dislikes = Math.max(0, dislikes - 1);
+                editor.putBoolean("tajgram_user_disliked", false);
+            } else {
+                if (hasLiked) {
+                    likes = Math.max(0, likes - 1);
+                    editor.putBoolean("tajgram_user_liked", false);
+                }
+                dislikes++;
+                editor.putBoolean("tajgram_user_disliked", true);
+                sendLiveTelegramReaction(CHANNEL_USERNAME, "👎");
+            }
+            editor.putInt("tajgram_global_likes", likes);
+            editor.putInt("tajgram_global_dislikes", dislikes);
+            editor.apply();
+
+            updateLikeDislikeUI.run();
             Toast.makeText(context, LocaleController.getString("DislikeSentToast", R.string.DislikeSentToast), Toast.LENGTH_SHORT).show();
         });
         linearLayout.addView(dislikeCell);
+
+        updateLikeDislikeUI.run();
 
         // 11. Курси асъори зинда (TajgramBellCurrencyTitle ва TajgramBellCurrencyStatus)
         TextSettingsCell currencyCell = new TextSettingsCell(context);
@@ -292,7 +343,7 @@ public class VipSettingsActivity extends BaseFragment {
             boolean current = prefs.getBoolean("tajgram_enable_voice_change_send", false);
             prefs.edit().putBoolean("tajgram_enable_voice_change_send", !current).apply();
             changeVoiceOnSendCell.setChecked(!current);
-            MediaController.getInstance().setVoiceChangeMode(prefs.getInt("tajgram_voice_type", 1));
+            prefs.edit().putInt("tajgram_voice_type", prefs.getInt("tajgram_voice_type", 1)).apply();
         });
         linearLayout.addView(changeVoiceOnSendCell);
 
@@ -384,11 +435,15 @@ public class VipSettingsActivity extends BaseFragment {
 
     private void sendLiveTelegramReaction(String channel, String emoji) {
         TLRPC.TL_messages_sendReaction req = new TLRPC.TL_messages_sendReaction();
-        req.peer = MessagesController.getInstance(currentAccount).getInputPeer(channel);
-        TLRPC.TL_reactionEmoji reaction = new TLRPC.TL_reactionEmoji();
-        reaction.emoticon = emoji;
-        req.reaction.add(reaction);
-        ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> {});
+        long dialogId = MessagesController.getInstance(currentAccount).getDialogId(channel);
+        TLRPC.InputPeer inputPeer = MessagesController.getInstance(currentAccount).getInputPeer(dialogId);
+        if (inputPeer != null) {
+            req.peer = inputPeer;
+            TLRPC.TL_reactionEmoji reaction = new TLRPC.TL_reactionEmoji();
+            reaction.emoticon = emoji;
+            req.reaction.add(reaction);
+            ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> {});
+        }
     }
 
     private void showDynamicJokeDialog(Context context, String titleKey, String descKey) {

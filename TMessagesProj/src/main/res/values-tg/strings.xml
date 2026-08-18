@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+     <!-- Tajgram VIP Strings -->
+    <string name="ExitDialogBtnLeave">Баромадан</string>
+    <string name="ExitDialogBtnStay">Мондан</string>
+    <string name="UserIdLabel">ID-и корбар</string>
+    <string name="UserIdCopied">ID нусхабардорӣ шуд</string>
+    <string name="TajgramPremiumControl">Назорати Tajgram Premium</string>
+    <string name="TajgramPremiumChanged">Ҳолати Premium иваз шуд</string>
+    <string name="prank_instruction_title">Дастурамал</string>
+    <string name="prank_accept_btn">Қабул</string>
+    <string name="LikeSentToast">Лайк фиристода шуд</string>
+    <string name="DislikeSentToast">Дизлайк фиристода шуд</string>
+    <string name="VoiceDesc_Girl">Овози занона</string>
+    <string name="VoiceGirlActivated">Овози занона фаъол шуд</string>
+    <string name="VoiceDesc_Boy">Овози мардона</string>
+    <string name="VoiceBoyActivated">Овози мардона фаъол шуд</string>
+    <string name="InviteLinkCopied">Ишора нусхабардорӣ шуд</string>
+    <string name="CurrencyLoading">Боргирӣ...</string>
+    <string name="CurrencyDialogTitle">Интихоби асъор</string>
+    <string name="CurrencyError">Хатогии боргирӣ</string>
+
 <string name="onboarding_title_1">Хуш омадед! 🌍</string>
 <string name="onboarding_desc_1">Суръат ва амният.</string>
 <string name="onboarding_title_2">Бо ситорагон дурахшон шавед! ⭐</string>

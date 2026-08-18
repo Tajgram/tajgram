@@ -325,7 +325,7 @@ public class VipSettingsActivity extends BaseFragment {
         TextSettingsCell currencyCell = new TextSettingsCell(context);
         currencyCell.setTextAndValue(
             LocaleController.getString("TajgramBellCurrencyTitle", R.string.TajgramBellCurrencyTitle),
-            "Барои дидани курси асъори зинда пахш кунед",
+            LocaleController.getString("TajgramBellCurrencyStatus", R.string.TajgramBellCurrencyStatus),
             true
         );
         currencyCell.setOnClickListener(v -> fetchLiveCurrencyRates(context));
@@ -347,18 +347,6 @@ public class VipSettingsActivity extends BaseFragment {
         });
         linearLayout.addView(changeVoiceOnSendCell);
 
-        TextCheckCell readMessageVoiceCell = new TextCheckCell(context);
-        boolean isReadVoiceEnabled = prefs.getBoolean("tajgram_enable_voice_read_msg", false);
-        readMessageVoiceCell.setTextAndCheck(LocaleController.getString("VoiceSelection", R.string.VoiceSelection), isReadVoiceEnabled, true);
-        readMessageVoiceCell.setOnClickListener(v -> {
-            boolean current = prefs.getBoolean("tajgram_enable_voice_read_msg", false);
-            prefs.edit().putBoolean("tajgram_enable_voice_read_msg", !current).apply();
-            readMessageVoiceCell.setChecked(!current);
-            MediaController.getInstance().setTtsEnabled(!current);
-        });
-        linearLayout.addView(readMessageVoiceCell);
-
-        // Танзими динамикии овози Духтар
         TextSettingsCell girlVoiceCell = new TextSettingsCell(context);
         girlVoiceCell.setTextAndValue(
             LocaleController.getString("VoiceIcon_Girl", R.string.VoiceIcon_Girl), 
@@ -371,7 +359,6 @@ public class VipSettingsActivity extends BaseFragment {
         });
         linearLayout.addView(girlVoiceCell);
 
-        // Танзими динамикии овози Бача
         TextSettingsCell boyVoiceCell = new TextSettingsCell(context);
         boyVoiceCell.setTextAndValue(
             LocaleController.getString("VoiceIcon_Boy", R.string.VoiceIcon_Boy), 

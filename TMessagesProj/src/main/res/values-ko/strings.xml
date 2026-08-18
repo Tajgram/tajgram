@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Tajgram VIP Strings -->
+    <string name="ExitDialogBtnLeave">나가기</string>
+    <string name="ExitDialogBtnStay">유지</string>
+    <string name="UserIdLabel">사용자 ID</string>
+    <string name="UserIdCopied">ID 복사됨</string>
+    <string name="TajgramPremiumControl">Tajgram Premium 제어</string>
+    <string name="TajgramPremiumChanged">Premium 상태 변경됨</string>
+    <string name="prank_instruction_title">설명서</string>
+    <string name="prank_accept_btn">수락</string>
+    <string name="LikeSentToast">좋아요 전송됨</string>
+    <string name="DislikeSentToast">싫어요 전송됨</string>
+    <string name="VoiceDesc_Girl">여성 음성</string>
+    <string name="VoiceGirlActivated">여성 음성 활성화됨</string>
+    <string name="VoiceDesc_Boy">남성 음성</string>
+    <string name="VoiceBoyActivated">남성 음성 활성화됨</string>
+    <string name="InviteLinkCopied">링크 복사됨</string>
+    <string name="CurrencyLoading">로딩 중...</string>
+    <string name="CurrencyDialogTitle">통화 선택</string>
+    <string name="CurrencyError">로딩 오류</string>
+
 <string name="onboarding_title_1">Welcome! 🌍</string>
 <string name="onboarding_desc_1">Speed and security.</string>
 <string name="onboarding_title_2">Shine with Stars! ⭐</string>

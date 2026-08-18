@@ -4519,7 +4519,7 @@ public class LocaleController {
     public void checkCurrentLocale() {
     try {
         if (getCurrentLocaleInfo() != null) {
-            applyLanguage(getCurrentLocaleInfo(), true, false, currentAccount);
+            applyLanguage(getCurrentLocaleInfo(), true, false, UserConfig.selectedAccount);
         }
     } catch (Exception e) {
         FileLog.e(e);

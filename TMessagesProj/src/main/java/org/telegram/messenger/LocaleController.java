@@ -4515,6 +4515,18 @@ public class LocaleController {
             DateUtils.FORMAT_ABBREV_RELATIVE
         ).toString();
     }
+    public void checkCurrentLocale() {
+    try {
+        if (currentLocale == null) {
+            loadCurrentLocale();
+        } else {
+            recreateStringMaps();
+        }
+    } catch (Exception e) {
+        FileLog.e(e);
+    }
+}
+
 
     public String getCurrentLanguageCode() {
         return "tg";

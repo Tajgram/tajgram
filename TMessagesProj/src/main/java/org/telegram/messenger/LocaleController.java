@@ -1540,6 +1540,12 @@ public class LocaleController {
             String serverStr = getServerString(key);
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
+                
+                if ("PremiumOfficialTerms".equals(key) || "PremiumPreviewTerms".equals(key)) {
+            String serverStr = getServerString(key);
+            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
+        }
+
 
         return getServerString(key);
     }

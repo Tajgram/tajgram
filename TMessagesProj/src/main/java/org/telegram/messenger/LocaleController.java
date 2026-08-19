@@ -1541,10 +1541,12 @@ public class LocaleController {
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
                 
-                if ("PremiumOfficialTerms".equals(key) || "PremiumPreviewTerms".equals(key)) {
+
+                if ("PremiumOfficialTerms".equals(key) || "PremiumPreviewTerms".equals(key) || "PremiumTerms".equals(key)) {
             String serverStr = getServerString(key);
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
+
 
 
         return getServerString(key);
@@ -1717,6 +1719,9 @@ public class LocaleController {
             String value = BuildVars.USE_CLOUD_STRINGS ? getInstance().localeValues.get(key) : null;
             
             if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+            if (("PremiumOfficialTerms".equals(key) || "PremiumPreviewTerms".equals(key) || "PremiumTerms".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
             
             if (value == null) {
                 if (BuildVars.USE_CLOUD_STRINGS && fallback != null) {

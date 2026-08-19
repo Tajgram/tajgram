@@ -1778,6 +1778,19 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
 
             subtitleView = new TextView(context);
             subtitleView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+
+            // 1. АВВАЛ МАТНРО АЗ СЕРВЕР/ЛЕСУРС Мегирем ба subtitleView мегузорем:
+            subtitleView.setText(LocaleController.getString("TelegramPremiumSubstitutions", R.string.TelegramPremiumSubstitutions));
+
+            // 2. БАЪД КAЛИМАҲОРО БА TAJGRAM ИВАЗ МЕКУНЕМ:
+            if (subtitleView.getText() != null) {
+                String serverText = subtitleView.getText().toString();
+                subtitleView.setText(
+                    serverText.replace("Telegram Premium", "Tajgram Premium VIP")
+                              .replace("Telegram", "Tajgram")
+                );
+            }
+            
             subtitleView.setLineSpacing(dp(2), 1f);
             subtitleView.setGravity(Gravity.CENTER_HORIZONTAL);
             addView(subtitleView, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, 0, Gravity.CENTER_HORIZONTAL, 16, 7, 16, 0));

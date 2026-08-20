@@ -3989,9 +3989,9 @@
     <string name="StopLoadingTitle">Stop loading?</string>
     <string name="StopLoading">Do you want to cancel loading?</string>
     <string name="UpdateTelegram">Update Tajgram</string>
-    <string name="UpdateAppAlert">Sorry, your Telegram app is out of date and can\'t handle this request. Please update Tajgram.</string>
+    <string name="UpdateAppAlert">Sorry, your Tajgram app is out of date and can\'t handle this request. Please update Tajgram.</string>
     <string name="InvalidPhoneNumber">Invalid phone number. Please check the number and try again.</string>
-    <string name="PleaseLoginPassport">Please log in to your Telegram account to use Tajgram Passport.</string>
+    <string name="PleaseLoginPassport">Please log in to your Tajgram account to use Tajgram Passport.</string>
     <string name="BannedPhoneNumber">This phone number is banned.</string>
     <string name="CodeExpired">Code expired, please retry login.</string>
     <string name="WrongCodeTitle">Wrong code</string>

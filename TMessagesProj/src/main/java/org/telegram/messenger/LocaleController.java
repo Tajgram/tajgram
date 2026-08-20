@@ -1547,9 +1547,10 @@ public class LocaleController {
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
 
-                 if ("PremiumSubscribeTerms".equals(key) && result != null) {
-            result = result.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+                if ("PremiumSubscribeTerms".equals(key) && serverStr != null) {
+            serverStr = serverStr.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
         }
+
   
 
 

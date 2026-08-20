@@ -1548,9 +1548,10 @@ public class LocaleController {
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
 
-            if (key != null && (key.contains("Premium") || key.contains("Terms")) && serverStr != null) {
-             serverStr = serverStr.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-      }
+                if (key != null && (key.contains("Premium") || key.contains("Terms"))) {
+            String serverStr = getServerString(key);
+            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
 
 
         return getServerString(key);

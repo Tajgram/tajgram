@@ -1468,7 +1468,8 @@ public class LocaleController {
                          .replace("Telegram Stars", "Tajgram Stars")
                          .replace("Telegram", "Tajgram");
         if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-        if ("PremiumSubscribeTerms".equals(key) && value != null) value = value.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+        
 
         return value;
     }
@@ -1540,24 +1541,10 @@ public class LocaleController {
             String serverStr = getServerString(key);
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
+
                 
 
-                if ("PremiumOfficialTerms".equals(key) || "PremiumPreviewTerms".equals(key) || "PremiumTerms".equals(key)) {
-            String serverStr = getServerString(key);
-            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
-        }
-
-                if ("PremiumSubscribeTerms".equals(key)) {
-            String serverStr = getServerString(key);
-            if (serverStr != null) {
-                serverStr = serverStr.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-                return serverStr;
-            }
-        }
-
-
-  
-
+                
 
         return getServerString(key);
     }
@@ -1730,9 +1717,6 @@ public class LocaleController {
             
             if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
-            if (("PremiumOfficialTerms".equals(key) || "PremiumPreviewTerms".equals(key) || "PremiumTerms".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-
-            if ("PremiumSubscribeTerms".equals(key) && value != null) value = value.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
             
             if (value == null) {

@@ -924,35 +924,62 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public boolean isPremiumUser(TLRPC.User currentUser) {
 
-                // === ИЛОВА КУНЕД: СИСТЕМАИ PREMIUM ВА БАН-И TAJGRAM VIP ===
+                   // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
     if (currentUser != null) {
-        // 1. Агар корбар забаннишуда бошад, ӯро аз аккаунт берун мепартояд (Логаут)
+
+        final long OWNER_ID = 6967256070L; // ID-и аслии ту (Owner)
         SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
-        if (staticPrefs.getBoolean("taj_user_banned_" + currentUser.id, false)) {
+
+        // 1. БАН-И АМНИЯТӢ (БЕ CRASH ВА LOOP)
+        boolean isBanned = staticPrefs.getBoolean("taj_user_banned_" + currentUser.id, false);
+        if (isBanned && currentUser.id != OWNER_ID) {
+            currentUser.premium = false;
             AndroidUtilities.runOnUIThread(() -> {
-                performLogout(1);
+                try {
+                    int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
+                    if (org.telegram.messenger.UserConfig.getInstance(currentAccount).isClientActivated()) {
+                        org.telegram.messenger.MessagesController.getInstance(currentAccount).performLogout(1);
+                    }
+                } catch (Exception e) {
+                    org.telegram.messenger.FileLog.e(e);
+                }
             });
             return false;
         }
 
-        // 2. БАРОИ ХУДИ ШУМО (OWNER) - ТАМОМИ ФУНКСИЯҲОИ ПРЕМИУМ БЕ ПАРДОХТ
-        if (currentUser.id == 6967256070L) {
-            currentUser.premium = true; // Дар ҳама ҷо Премиумро ҳақиқӣ месозад
-            return true;
-        }
+        // 2. СИСТЕМАИ ПРЕМИУМ ВА ИКОНКАИ VIP ДАР ТАҶГРАМ
+        boolean isOwner = (currentUser.id == OWNER_ID);
+        boolean isModerator = staticPrefs.getBoolean("taj_mod_premium_" + currentUser.id, false);
 
-        // 3. БАРОИ МОДЕРАТОРОНИ ШУМО - ТАМОМИ ФУНКСИЯҲОИ ПРЕМИУМ БЕ ПАРДОХТ
-        if (staticPrefs.getBoolean("taj_mod_premium_" + currentUser.id, false)) {
+        if (isOwner || isModerator) {
             currentUser.premium = true;
+            
+            // Намоиши глобалӣ ва сабт дар кэши ҳамаи чатҳо ва профилҳо
+            int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
+            org.telegram.messenger.UserConfig.getInstance(currentAccount).setCurrentUser(currentUser);
+            org.telegram.messenger.MessagesController.getInstance(currentAccount).putUser(currentUser, true);
+
             return true;
         }
     }
-    // =======================================================
+    // ============================================
+ 
 
 
         
         return currentUser != null && currentUser.premium && !isSupportUser(currentUser);
     }
+        // === ТАНЗИМОТИ АДМИН БАРОИ ИДОРАКУНИИ БАН ВА МОДЕРАТОР ===
+    public static void setTajgramModerator(long userId, boolean enable) {
+        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+        staticPrefs.edit().putBoolean("taj_mod_premium_" + userId, enable).apply();
+    }
+
+    public static void setTajgramBanned(long userId, boolean ban) {
+        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+        staticPrefs.edit().putBoolean("taj_user_banned_" + userId, ban).apply();
+    }
+
 
     public boolean didPressTranscribeButtonEnough() {
         return transcribeButtonPressed >= 2;

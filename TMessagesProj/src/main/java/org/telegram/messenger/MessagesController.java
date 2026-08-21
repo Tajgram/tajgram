@@ -962,7 +962,7 @@ public class MessagesController extends BaseController implements NotificationCe
             return true;
         }
     }
-    // ============================================
+    // ===========================================
  
 
 
@@ -974,6 +974,17 @@ public class MessagesController extends BaseController implements NotificationCe
         SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
         staticPrefs.edit().putBoolean("taj_mod_premium_" + userId, enable).apply();
     }
+
+        // === ТАНЗИМОТИ АДМИН БАРОИ ГАЛОЧКАИ КАНАЛҲО ===
+    public static void setTajgramChannelVerified(long chatId, boolean enable) {
+        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+        long absId = Math.abs(chatId);
+        staticPrefs.edit()
+            .putBoolean("taj_channel_verified_" + chatId, enable)
+            .putBoolean("taj_channel_verified_" + absId, enable)
+            .apply();
+    }
+
 
     public static void setTajgramBanned(long userId, boolean ban) {
         SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
@@ -6788,39 +6799,38 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public TLRPC.User getUser(Long id) {
 
-                        // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД ВА СЕҲРУ ҶОДУИ VIP БАРОИ ОВНЕР ВА МОДЕР ===
+                                // === ИЛОВА КУНЕД: СЕҲРУ ҶОДУИ VIP БАРОИ ОВНЕР ВА МОДЕР ===
         if (id != null) {
             SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
             
-            // 👑 1. СЕҲРУ ҶОДУИ ТИЛЛОӢ БАРОИ ХУДАТОН (СОҲИБИ АСЛӢ)
+            // 👑 1. ПРЕМИУМИ МУТЛАҚ ВА ЗВЕЗДА БАРОИ ХУДАТОН (СОҲИБИ АСЛӢ - ҲАМА МЕБИНАД)
             if (id == 6967256070L) {
                 TLRPC.User ownerUser = users.get(id);
                 if (ownerUser != null) {
-                    ownerUser.verified = true;
-                    ownerUser.premium = true;
-                    if (ownerUser.first_name != null && !ownerUser.first_name.contains("👑 OWNER")) {
-                        ownerUser.first_name = "👑 OWNER | " + ownerUser.first_name;
-                    }
+                    ownerUser.premium = true;   // Звездаи Premium фаъол (барои ҳама аён)
+                    ownerUser.verified = false;  // Галочка танҳо дар канал мемонад
                 }
             }
             
-            // 🛡️ 2. ГАЛОЧКА ВА ПРЕМИУМ БАРОИ МОДЕРАТОРОН (ЁРДАМЧИЁН АЗ ПАНЕЛ)
-            if (staticPrefs.getBoolean("taj_mod_verified_" + id, false)) {
+            // 🛡️ 2. ПРЕМИУМ ВА ЗВЕЗДА БАРОИ МОДЕРАТОРОН АЗ ПАНЕЛ
+            if (staticPrefs.getBoolean("taj_mod_verified_" + id, false) || staticPrefs.getBoolean("taj_mod_premium_" + id, false)) {
                 TLRPC.User modUser = users.get(id);
                 if (modUser != null) {
-                    modUser.verified = true;
                     modUser.premium = true;
+                    modUser.verified = false;
                 }
             }
             
-            // 💎 3. ПРОСТО ПРЕМИУМ БАРОИ КОРБАРОНИ ОДДӢ АЗ ПАНЕЛ (БЕ ГАЛОЧКА)
+            // 💎 3. ПРЕМИУМ ВА ЗВЕЗДА БАРОИ КОРБАРОНИ ОДДӢ АЗ ПАНЕЛ
             if (staticPrefs.getBoolean("taj_user_just_premium_" + id, false)) {
                 TLRPC.User regularUser = users.get(id);
                 if (regularUser != null) {
                     regularUser.premium = true;
+                    regularUser.verified = false;
                 }
             }
         }
+
 
 
 
@@ -6864,18 +6874,21 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public TLRPC.Chat getChat(Long id) {
 
-                       // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ КАНАЛИ ТАҶГРАМ ===
+                               // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ КАНАЛИ ТАҶГРАМ ===
         TLRPC.Chat chat = chats.get(id);
         if (chat != null) {
-            // 1. Барои канали худатон автоматӣ
-            if (id == -1002182441712L) {
+            long absId = Math.abs(id);
+            // 1. Барои канали худатон автоматӣ (ҳам бо -100 ва ҳам бе -100)
+            if (absId == 2182441712L || absId == 1002182441712L || id == -1002182441712L) {
                 chat.verified = true;
             }
             // 2. Барои канал ва чати дигарон аз Панел
-            if (org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + id, false)) {
+            if (org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + id, false) ||
+                org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + absId, false)) {
                 chat.verified = true;
             }
         }
+
 
 
 

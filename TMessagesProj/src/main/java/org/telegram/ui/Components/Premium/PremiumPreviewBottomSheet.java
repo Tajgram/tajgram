@@ -443,10 +443,12 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
         while ((index = builder.toString().indexOf("Telegram")) >= 0) {
             builder.replace(index, index + "Telegram".length(), "Tajgram");
         }
+        subtitleView.setText(builder);
     } else {
         subtitleView.setText(subtitleView.getText().toString().replace("Telegram", "Tajgram"));
     }
 }
+
 
         
         try {

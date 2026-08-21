@@ -435,6 +435,20 @@ public class PremiumPreviewBottomSheet extends BottomSheetWithRecyclerListView i
                 subtitleView.setText(AndroidUtilities.replaceTags(LocaleController.getString(R.string.TelegramPremiumUserDialogSubtitle)));
             }
         }
+
+            if (subtitleView != null && subtitleView.getText() != null) {
+    if (subtitleView.getText() instanceof SpannableStringBuilder) {
+        SpannableStringBuilder builder = (SpannableStringBuilder) subtitleView.getText();
+        int index;
+        while ((index = builder.toString().indexOf("Telegram")) >= 0) {
+            builder.replace(index, index + "Telegram".length(), "Tajgram");
+        }
+    } else {
+        subtitleView.setText(subtitleView.getText().toString().replace("Telegram", "Tajgram"));
+    }
+}
+
+        
         try {
             titleView[0].setText(Emoji.replaceEmoji(titleView[0].getText(), titleView[0].getPaint().getFontMetricsInt(), false));
         } catch (Exception ignore) {}

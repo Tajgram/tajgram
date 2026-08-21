@@ -58,8 +58,6 @@ import org.telegram.ui.bots.AffiliateProgramFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import android.text.SpannableStringBuilder;
-
 
 public class PremiumFeatureBottomSheet extends BottomSheet implements NotificationCenter.NotificationCenterDelegate {
 

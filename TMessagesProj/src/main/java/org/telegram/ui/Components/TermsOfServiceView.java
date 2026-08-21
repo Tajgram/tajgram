@@ -179,6 +179,9 @@ public class TermsOfServiceView extends FrameLayout {
         if (getVisibility() != VISIBLE) {
             setVisibility(VISIBLE);
         }
+
+        if (tos.text != null) tos.text = tos.text.replace("Telegram", "Tajgram");
+
         SpannableStringBuilder builder = new SpannableStringBuilder(tos.text);
         MessageObject.addEntitiesToText(builder, tos.entities, false, false, false, false);
         addBulletsToText(builder, '-', AndroidUtilities.dp(10f), 0xff50a8eb, AndroidUtilities.dp(4f));

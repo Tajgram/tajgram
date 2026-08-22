@@ -449,6 +449,9 @@ public class MediaDataController extends BaseController {
     }
 
     public TLRPC.TL_help_premiumPromo getPremiumPromo() {
+        
+        if (premiumPromo != null && premiumPromo.status_text != null && !premiumPromo.status_text.contains("Tajgram")) premiumPromo.status_text = premiumPromo.status_text.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
         return premiumPromo;
     }
 
@@ -686,6 +689,9 @@ public class MediaDataController extends BaseController {
     public void processLoadedPremiumPromo(TLRPC.TL_help_premiumPromo premiumPromo, int date, boolean cache) {
         if (premiumPromo != null) {
             this.premiumPromo = premiumPromo;
+            
+            if (premiumPromo != null && premiumPromo.status_text != null && !premiumPromo.status_text.contains("Tajgram")) premiumPromo.status_text = premiumPromo.status_text.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
             premiumPromoUpdateDate = date;
             getMessagesController().putUsers(premiumPromo.users, cache);
             AndroidUtilities.runOnUIThread(() -> getNotificationCenter().postNotificationName(NotificationCenter.premiumPromoUpdated));

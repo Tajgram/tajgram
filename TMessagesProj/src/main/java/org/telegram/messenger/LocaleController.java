@@ -1469,14 +1469,8 @@ public class LocaleController {
                          .replace("Telegram", "Tajgram");
         if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
-        if (value != null) {
-    if ("SubscribePremiumOfficialText".equals(key) || 
-        "TermsOfService".equals(key) || 
-        "PrivacyPolicy".equals(key)) {
-        
-        value = value.replace("Telegram", "Tajgram");
-    }
-}
+        if (("SubscribePremiumOfficialText".equals(key) || "TermsOfService".equals(key) || "PrivacyPolicy".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram");
+
 
 
         
@@ -1552,9 +1546,11 @@ public class LocaleController {
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
 
-        if (serverStr != null && ("SubscribePremiumOfficialText".equals(key) || "TermsOfService".equals(key) || "PrivacyPolicy".equals(key))) {
-    serverStr = serverStr.replace("Telegram", "Tajgram");
+        if ("SubscribePremiumOfficialText".equals(key) || "TermsOfService".equals(key) || "PrivacyPolicy".equals(key)) {
+    String serverStr = getServerString(key);
+    if (serverStr != null) return serverStr.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 }
+
 
 
                 
@@ -1732,7 +1728,7 @@ public class LocaleController {
             
             if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
-            if (value != null && ("SubscribePremiumOfficialText".equals(key) || "TermsOfService".equals(key) || "PrivacyPolicy".equals(key))) value = value.replace("Telegram", "Tajgram");
+            if (value != null && ("SubscribePremiumOfficialText".equals(key) || "TermsOfService".equals(key) || "PrivacyPolicy".equals(key))) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
 
             

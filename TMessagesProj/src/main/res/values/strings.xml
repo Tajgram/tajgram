@@ -11274,8 +11274,8 @@
     <string name="GiftMessageAddDescription">You can add a message for **%1$s** or send **%2$s** right away.</string>
 
     <string name="UnsupportedBlockTitle">Unsupported Block</string>
-    <string name="UnsupportedBlockMessage">Update Telegram to view this part of the message</string>
+    <string name="UnsupportedBlockMessage">Update Tajgram to view this part of the message</string>
     <string name="UnsupportedMessageTitle">Unsupported Message</string>
-    <string name="UnsupportedMessageMessage">Update Telegram to view this message</string>
+    <string name="UnsupportedMessageMessage">Update Tajgram to view this message</string>
     <string name="UnsupportedUpdate">Update</string>
 </resources>

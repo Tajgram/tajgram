@@ -452,6 +452,9 @@ public class MediaDataController extends BaseController {
         
         if (premiumPromo != null && premiumPromo.status_text != null && !premiumPromo.status_text.contains("Tajgram")) premiumPromo.status_text = premiumPromo.status_text.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
+        if (premiumPromo != null && "tg".equals(org.telegram.messenger.LocaleController.getInstance().getCurrentLocaleInfo().shortName)) premiumPromo.status_text = "Бо обуна шудан ба Tajgram Premium шумо ба Tajgram Terms of Service ва Privacy Policy розигӣ медиҳед.";
+
+
         return premiumPromo;
     }
 
@@ -691,6 +694,9 @@ public class MediaDataController extends BaseController {
             this.premiumPromo = premiumPromo;
             
             if (premiumPromo != null && premiumPromo.status_text != null && !premiumPromo.status_text.contains("Tajgram")) premiumPromo.status_text = premiumPromo.status_text.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+            if (premiumPromo != null && "tg".equals(org.telegram.messenger.LocaleController.getInstance().getCurrentLocaleInfo().shortName)) premiumPromo.status_text = "Бо обуна шудан ба Tajgram Premium шумо ба Tajgram Terms of Service ва Privacy Policy розигӣ медиҳед.";
+
 
             premiumPromoUpdateDate = date;
             getMessagesController().putUsers(premiumPromo.users, cache);

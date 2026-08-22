@@ -1469,6 +1469,16 @@ public class LocaleController {
                          .replace("Telegram", "Tajgram");
         if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
+        if (value != null) {
+    if ("SubscribePremiumOfficialText".equals(key) || 
+        "TermsOfService".equals(key) || 
+        "PrivacyPolicy".equals(key)) {
+        
+        value = value.replace("Telegram", "Tajgram");
+    }
+}
+
+
         
 
         return value;
@@ -1541,6 +1551,11 @@ public class LocaleController {
             String serverStr = getServerString(key);
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
+
+        if (serverStr != null && ("SubscribePremiumOfficialText".equals(key) || "TermsOfService".equals(key) || "PrivacyPolicy".equals(key))) {
+    serverStr = serverStr.replace("Telegram", "Tajgram");
+}
+
 
                 
 
@@ -1716,6 +1731,8 @@ public class LocaleController {
             String value = BuildVars.USE_CLOUD_STRINGS ? getInstance().localeValues.get(key) : null;
             
             if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+            if (value != null && ("SubscribePremiumOfficialText".equals(key) || "TermsOfService".equals(key) || "PrivacyPolicy".equals(key))) value = value.replace("Telegram", "Tajgram");
 
 
             

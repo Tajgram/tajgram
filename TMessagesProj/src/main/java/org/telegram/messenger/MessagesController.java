@@ -931,7 +931,7 @@ public class MessagesController extends BaseController implements NotificationCe
 
         // 1. БАН-И АМНИЯТӢ (БЕ CRASH ВА LOOP)
         boolean isBanned = staticPrefs.getBoolean("taj_user_banned_" + currentUser.id, false);
-        if (isBanned && currentUser.id != OWNER_ID) {
+        if (isBanned && currentUser.id != OWNER_ID && currentUser.id == org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getClientUserId()) {
             currentUser.premium = false;
             AndroidUtilities.runOnUIThread(() -> {
                 try {

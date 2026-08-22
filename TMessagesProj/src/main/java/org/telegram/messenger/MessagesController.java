@@ -6818,6 +6818,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 if (ownerUser != null) {
                     ownerUser.premium = true;   // Звездаи Premium фаъол (барои ҳама аён)
                     ownerUser.verified = false;  // Галочка танҳо дар канал мемонад
+                    org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(ownerUser, false);
                 }
             }
             
@@ -6827,6 +6828,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 if (modUser != null) {
                     modUser.premium = true;
                     modUser.verified = false;
+                    org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(modUser, false);
                 }
             }
             
@@ -6836,6 +6838,7 @@ public class MessagesController extends BaseController implements NotificationCe
                 if (regularUser != null) {
                     regularUser.premium = true;
                     regularUser.verified = false;
+                    org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(regularUser, false);
                 }
             }
         }
@@ -6889,8 +6892,13 @@ public class MessagesController extends BaseController implements NotificationCe
             long absId = Math.abs(id);
             // 1. Барои канали худатон автоматӣ (ҳам бо -100 ва ҳам бе -100)
             if (absId == 2182441712L || absId == 1002182441712L || id == -1002182441712L) {
-                chat.verified = true;
+                chat.verified = true;                
             }
+
+           if (absId == 3579175298L || absId == 1003579175298L || id == -1003579175298L) {
+                chat.verified = true;                
+            }
+            
             // 2. Барои канал ва чати дигарон аз Панел
             if (org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + id, false) ||
                 org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + absId, false)) {

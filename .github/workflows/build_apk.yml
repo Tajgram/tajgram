@@ -1,7 +1,7 @@
 name: Merge Two Files from Telegram to Develop
 
 on:
-  workflow_dispatch: # Фақат бо пахши як тугма кор мекунад
+  workflow_dispatch:
 
 jobs:
   merge-files:
@@ -10,7 +10,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: develop # <--- МУҲИМ: Скрипт аз аввал бевосита шохаи develop-ро мегирад
           fetch-depth: 0
           persist-credentials: true
 
@@ -19,20 +18,14 @@ jobs:
           git config --global user.name "Tajgram Merge Bot"
           git config --global user.email "bot@tajgram.local"
 
-      - name: Setup Upstream Remote
+      - name: Fetch Upstream and Merge Two Files
         run: |
-          # Фақат репозиторияи аслии Telegram-ро пайваст мекунем (чунки мо аллакай дар develop ҳастем)
           git remote add upstream https://github.com/DrKLO/Telegram.git
           git fetch upstream
-
-      - name: Merge Only Two Files (Safe 3-way Merge)
-        run: |
-          # Гирифтани 2 файл аз upstream/master бо методи мерг (--merge)
           git checkout --merge upstream/master -- TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
 
-      - name: Commit and Push to Develop
+      - name: Commit and Push
         run: |
-          # Сабт ва фиристодани тағйирот ба шохаи develop
           git add TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
           git commit -m "Auto-merge: Update MessagesController and build.gradle from Telegram upstream" || echo "No changes to commit"
-          git push origin develop
+          git push origin HEAD

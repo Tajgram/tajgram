@@ -18,14 +18,30 @@ jobs:
           git config --global user.name "Tajgram Merge Bot"
           git config --global user.email "bot@tajgram.local"
 
-      - name: Fetch Upstream and Merge Two Files
+      - name: True 3-Way Merge for Two Files
         run: |
+          # 1. Пайваст кардани репозиторияи аслии Telegram
           git remote add upstream https://github.com/DrKLO/Telegram.git
           git fetch upstream
-          git checkout --merge upstream/master -- TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
+
+          # 2. Ёфтани солими умумии байни шохаи шумо ва upstream
+          BASE_COMMIT=$(git merge-base HEAD upstream/master)
+
+          # --- ФАЙЛИ ЯКУМ: MessagesController.java ---
+          FILE1="TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java"
+          git show $BASE_COMMIT:$FILE1 > file1.base
+          git show upstream/master:$FILE1 > file1.upstream
+          git merge-file $FILE1 file1.base file1.upstream || echo "Conflict in MessagesController.java"
+
+          # --- ФАЙЛИ ДУВВУМ: build.gradle ---
+          FILE2="TMessagesProj/build.gradle"
+          git show $BASE_COMMIT:$FILE2 > file2.base
+          git show upstream/master:$FILE2 > file2.upstream
+          git merge-file $FILE2 file2.base file2.upstream || echo "Conflict in build.gradle"
 
       - name: Commit and Push
         run: |
+          # 3. Сабт ва фиристодани натиҷа ба шохаи develop
           git add TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
-          git commit -m "Auto-merge: Update MessagesController and build.gradle from Telegram upstream" || echo "No changes to commit"
+          git commit -m "Auto-merge: True 3-way merge for MessagesController and build.gradle from Telegram upstream" || echo "No changes to commit"
           git push origin HEAD

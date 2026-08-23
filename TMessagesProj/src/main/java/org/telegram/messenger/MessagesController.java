@@ -923,8 +923,84 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public boolean isPremiumUser(TLRPC.User currentUser) {
+
+    // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
+    if (currentUser != null) {
+
+        final long OWNER_ID = 6967256070L; // ID-и аслии ту (Owner)
+        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+
+        // 1. БАН-И АМНИЯТӢ (БЕ CRASH ВА LOOP)
+        boolean isBanned = staticPrefs.getBoolean("taj_user_banned_" + currentUser.id, false);
+        if (isBanned && currentUser.id != OWNER_ID && currentUser.id == org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getClientUserId()) {
+            currentUser.premium = false;
+            AndroidUtilities.runOnUIThread(() -> {
+                try {
+                    int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
+                    if (org.telegram.messenger.UserConfig.getInstance(currentAccount).isClientActivated()) {
+                        org.telegram.messenger.MessagesController.getInstance(currentAccount).performLogout(1);
+                    }
+                } catch (Exception e) {
+                    org.telegram.messenger.FileLog.e(e);
+                }
+            });
+            return false;
+        }
+
+        // 2. СИСТЕМАИ ПРЕМИУМ ВА ИКОНКАИ VIP ДАР ТАҶГРАМ
+        boolean isOwner = (currentUser.id == OWNER_ID);
+        boolean isModerator = staticPrefs.getBoolean("taj_mod_premium_" + currentUser.id, false);
+
+        if (isOwner || isModerator) {
+            currentUser.premium = true;
+            
+            // Муқаррар кардани значоки доимӣ (то ки ҳеҷ гоҳ напарад)
+            if (currentUser.emojiStatus == null) {
+                currentUser.emojiStatus = new TLRPC.TL_emojiStatus();
+            }
+            
+            // Намуди значок (ID-и эмодзии махсус, масалан тоҷ ё значоки VIP)
+            long defaultEmojiId = 5451532297127622611L; // Мисол ID-и тоҷ
+            long savedEmojiId = staticPrefs.getLong("taj_custom_emoji_" + currentUser.id, defaultEmojiId);
+            currentUser.emojiStatus.document_id = savedEmojiId;
+            
+            int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
+            
+            // Танҳо ба кэш мемонем, то аккаунтҳо ҳеҷ гоҳ омехта нашаванд
+            org.telegram.messenger.MessagesController.getInstance(currentAccount).putUser(currentUser, true);
+            
+            return true;
+        }
+    }
+
+    // Барои корбарони одӣ
+
+        
         return currentUser != null && currentUser.premium && !isSupportUser(currentUser);
     }
+
+    // === ТАНЗИМОТИ АДМИН БАРОИ ИДОРАКУНИИ БАН ВА МОДЕРАТОР ===
+    public static void setTajgramModerator(long userId, boolean enable) {
+        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+        staticPrefs.edit().putBoolean("taj_mod_premium_" + userId, enable).apply();
+    }
+
+        // === ТАНЗИМОТИ АДМИН БАРОИ ГАЛОЧКАИ КАНАЛҲО ===
+    public static void setTajgramChannelVerified(long chatId, boolean enable) {
+        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+        long absId = Math.abs(chatId);
+        staticPrefs.edit()
+            .putBoolean("taj_channel_verified_" + chatId, enable)
+            .putBoolean("taj_channel_verified_" + absId, enable)
+            .apply();
+    }
+
+
+    public static void setTajgramBanned(long userId, boolean ban) {
+        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+        staticPrefs.edit().putBoolean("taj_user_banned_" + userId, ban).apply();
+    }
+            // === ТАНЗИМОТ ОХИР ===
 
     public boolean didPressTranscribeButtonEnough() {
         return transcribeButtonPressed >= 2;

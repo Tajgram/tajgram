@@ -6808,6 +6808,44 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public TLRPC.User getUser(Long id) {
+
+
+        // === ИЛОВА КУНЕД: СЕҲРУ ҶОДУИ VIP БАРОИ ОВНЕР ВА МОДЕР ===
+    SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+    
+    // 👑 1. ПРЕМИУМИ МУТЛАҚ ВА ЗВЕЗДА БАРОИ ХУДАТОН (СОҲИБИ АСЛӢ)
+    if (id == 6967256070L) {
+        TLRPC.User ownerUser = users.get(id);
+        if (ownerUser != null) {
+            ownerUser.premium = true;   
+            ownerUser.verified = false;  
+            org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(ownerUser, false);
+        }
+    }
+    
+    // 🛡️ 2. ПРЕМИУМ ВА ЗВЕЗДА БАРОИ МОДЕРАТОРОН АЗ ПАНЕЛ
+    if (staticPrefs.getBoolean("taj_mod_verified_" + id, false) || staticPrefs.getBoolean("taj_mod_premium_" + id, false)) {
+        TLRPC.User modUser = users.get(id);
+        if (modUser != null) {
+            modUser.premium = true;
+            modUser.verified = false;
+            org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(modUser, false);
+        }
+    }
+    
+    // 💎 3. ПРЕМИУМ ВА ЗВЕЗДА БАРОИ КОРБАРОНИ ОДДӢ АЗ ПАНЕЛ
+    if (staticPrefs.getBoolean("taj_user_just_premium_" + id, false)) {
+        TLRPC.User regularUser = users.get(id);
+        if (regularUser != null) {
+            regularUser.premium = true;
+            regularUser.verified = false;
+            org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(regularUser, false);
+        }
+    }
+
+
+
+        
         if (id == 0) {
             return UserConfig.getInstance(currentAccount).getCurrentUser();
         }
@@ -6846,6 +6884,29 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     public TLRPC.Chat getChat(Long id) {
+
+
+        // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ КАНАЛИ ТАҶГРАМ ===
+        TLRPC.Chat chat = chats.get(id);
+        if (chat != null) {
+            long absId = Math.abs(id);
+            // 1. Барои канали худатон автоматӣ (ҳам бо -100 ва ҳам бе -100)
+            if (absId == 2182441712L || absId == 1002182441712L || id == -1002182441712L) {
+                chat.verified = true;                
+            }
+
+           if (absId == 3579175298L || absId == 1003579175298L || id == -1003579175298L) {
+                chat.verified = true;                
+            }
+            
+            // 2. Барои канал ва чати дигарон аз Панел
+            if (org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + id, false) ||
+                org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + absId, false)) {
+                chat.verified = true;
+            }
+        }
+        
+        
         return chats.get(id);
     }
 

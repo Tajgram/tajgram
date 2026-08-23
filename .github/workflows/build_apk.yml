@@ -1,7 +1,7 @@
-name: Merge Only Two Files
+name: Merge Two Files from Telegram to Develop
 
 on:
-  workflow_dispatch: # Бо пахши як тугма дар GitHub кор мекунад
+  workflow_dispatch: # Фақат бо пахши як тугма дар GitHub кор мекунад
 
 jobs:
   merge-files:
@@ -18,19 +18,25 @@ jobs:
           git config --global user.name "Tajgram Merge Bot"
           git config --global user.email "bot@tajgram.local"
 
-      - name: File-level Merge for Two Files
+      - name: Setup Remote and Checkout Develop
         run: |
-          # 1. Пайваст кардани репозиторияи аслии Telegram
+          # Пайваст кардани репозиторияи аслии Telegram (DrKLO/Telegram)
           git remote add upstream https://github.com/DrKLO/Telegram.git
           git fetch upstream
+          git fetch origin
+          
+          # Гузариш ба шохаи develop-и худатон (master дастнорас мемонад)
+          git checkout develop || git checkout -b develop origin/develop
 
-          # 2. Гузариш ба шохаи develop
-          git checkout develop
-
-          # 3. МЕРГИ ТАНҲО ДУ ФАЙЛ (Бо истифода аз --merge, ки замена намекунад!)
+      - name: Merge Only Two Files (Safe 3-way Merge)
+        run: |
+          # Гирифтани 2 файл аз upstream/master бо методи мерг (--merge)
+          # Ин кор коди шуморо тоза намекунад, балки навгониҳоро омехта мекунад
           git checkout --merge upstream/master -- TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
 
-          # 4. Сабт ва фиристодани тағйирот ба GitHub
+      - name: Commit and Push to Develop
+        run: |
+          # Сабт ва фиристодани тағйирот танҳо ба шохаи develop
           git add TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
-          git commit -m "Merge upstream updates for MessagesController.java and build.gradle only" || echo "No changes to commit"
+          git commit -m "Auto-merge: Update MessagesController.java and build.gradle from Telegram upstream" || echo "No changes to commit"
           git push origin develop

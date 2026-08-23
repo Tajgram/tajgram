@@ -923,7 +923,9 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public boolean isPremiumUser(TLRPC.User currentUser) {
 
-                   // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
+                   public boolean isPremiumUser(TLRPC.User currentUser) {
+                       
+    // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
     if (currentUser != null) {
 
         final long OWNER_ID = 6967256070L; // ID-и аслии ту (Owner)
@@ -953,15 +955,29 @@ public class MessagesController extends BaseController implements NotificationCe
         if (isOwner || isModerator) {
             currentUser.premium = true;
             
-            // Намоиши глобалӣ ва сабт дар кэши ҳамаи чатҳо ва профилҳо
+            // Муқаррар кардани значоки доимӣ (то ки ҳеҷ гоҳ напарад)
+            if (currentUser.emojiStatus == null) {
+                currentUser.emojiStatus = new TLRPC.TL_emojiStatus();
+            }
+            
+            // Намуди значок (ID-и эмодзии махсус, масалан тоҷ ё значоки VIP)
+            long defaultEmojiId = 5451532297127622611L; // Мисол ID-и тоҷ
+            long savedEmojiId = staticPrefs.getLong("taj_custom_emoji_" + currentUser.id, defaultEmojiId);
+            currentUser.emojiStatus.document_id = savedEmojiId;
+            
             int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
-            org.telegram.messenger.UserConfig.getInstance(currentAccount).setCurrentUser(currentUser);
+            
+            // Танҳо ба кэш мемонем, то аккаунтҳо ҳеҷ гоҳ омехта нашаванд
             org.telegram.messenger.MessagesController.getInstance(currentAccount).putUser(currentUser, true);
-
+            
             return true;
         }
     }
-    // ==========================================
+
+    // Барои корбарони одӣ
+    return currentUser != null && currentUser.premium && !isSupportUser(currentUser);
+}
+
  
 
 

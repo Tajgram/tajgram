@@ -1,7 +1,7 @@
 name: Merge Two Files from Telegram to Develop
 
 on:
-  workflow_dispatch: # Фақат бо пахши як тугма дар GitHub кор мекунад
+  workflow_dispatch: # Фақат бо пахши як тугма кор мекунад
 
 jobs:
   merge-files:
@@ -10,6 +10,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: develop # <--- МУҲИМ: Скрипт аз аввал бевосита шохаи develop-ро мегирад
           fetch-depth: 0
           persist-credentials: true
 
@@ -18,25 +19,20 @@ jobs:
           git config --global user.name "Tajgram Merge Bot"
           git config --global user.email "bot@tajgram.local"
 
-      - name: Setup Remote and Checkout Develop
+      - name: Setup Upstream Remote
         run: |
-          # Пайваст кардани репозиторияи аслии Telegram (DrKLO/Telegram)
+          # Фақат репозиторияи аслии Telegram-ро пайваст мекунем (чунки мо аллакай дар develop ҳастем)
           git remote add upstream https://github.com/DrKLO/Telegram.git
           git fetch upstream
-          git fetch origin
-          
-          # Гузариш ба шохаи develop-и худатон (master дастнорас мемонад)
-          git checkout develop || git checkout -b develop origin/develop
 
       - name: Merge Only Two Files (Safe 3-way Merge)
         run: |
           # Гирифтани 2 файл аз upstream/master бо методи мерг (--merge)
-          # Ин кор коди шуморо тоза намекунад, балки навгониҳоро омехта мекунад
           git checkout --merge upstream/master -- TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
 
       - name: Commit and Push to Develop
         run: |
-          # Сабт ва фиристодани тағйирот танҳо ба шохаи develop
+          # Сабт ва фиристодани тағйирот ба шохаи develop
           git add TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
-          git commit -m "Auto-merge: Update MessagesController.java and build.gradle from Telegram upstream" || echo "No changes to commit"
+          git commit -m "Auto-merge: Update MessagesController and build.gradle from Telegram upstream" || echo "No changes to commit"
           git push origin develop

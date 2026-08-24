@@ -65,12 +65,6 @@ public class PremiumNotAvailableBottomSheet extends BottomSheet {
 
         title.setText(AndroidUtilities.replaceTags(LocaleController.getString(R.string.SubscribeToPremiumOfficialAppNeeded)));
         description.setText(AndroidUtilities.replaceTags(LocaleController.getString(R.string.SubscribeToPremiumOfficialAppNeededDescription)));
-
-        if (description != null && description.getText() != null) {
-    description.setText(description.getText().toString().replace("Telegram", "Tajgram"));
-}
-
-        
         ScrollView scrollView = new ScrollView(context);
         scrollView.addView(linearLayout);
         setCustomView(scrollView);

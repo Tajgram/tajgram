@@ -75,5 +75,5 @@ public final class Latex {
             FileLog.e(e);
             return null;
         }
-    }
+   // }
 }

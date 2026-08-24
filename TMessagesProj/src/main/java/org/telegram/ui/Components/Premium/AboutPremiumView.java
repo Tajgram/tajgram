@@ -38,17 +38,5 @@ public class AboutPremiumView extends LinearLayout {
         description2.setTextColor(Theme.getColor(Theme.key_windowBackgroundWhiteBlackText));
         description2.setText(AndroidUtilities.replaceTags(LocaleController.getString(R.string.AboutPremiumDescription2)));
         addView(description2, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, 0, 0, 0, 24, 0, 0));
-
-        if (textView != null && textView.getText() != null) {
-    textView.setText(textView.getText().toString().replace("Telegram", "Tajgram"));
-}
-if (description != null && description.getText() != null) {
-    description.setText(description.getText().toString().replace("Telegram", "Tajgram"));
-}
-if (description2 != null && description2.getText() != null) {
-    description2.setText(description2.getText().toString().replace("Telegram", "Tajgram"));
-}
-
-        
     }
 }

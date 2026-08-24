@@ -58,8 +58,6 @@ import org.telegram.ui.bots.AffiliateProgramFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import android.text.SpannableStringBuilder;
-
 
 public class PremiumFeatureBottomSheet extends BottomSheet implements NotificationCenter.NotificationCenterDelegate {
 
@@ -707,20 +705,6 @@ public class PremiumFeatureBottomSheet extends BottomSheet implements Notificati
             }
             addView(description, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL, 21, 10, 21, 16));
 
-            if (description != null && description.getText() != null) {
-    if (description.getText() instanceof SpannableStringBuilder) {
-        SpannableStringBuilder builder = (SpannableStringBuilder) description.getText();
-        int index;
-        while ((index = builder.toString().indexOf("Telegram")) >= 0) {
-            builder.replace(index, index + "Telegram".length(), "Tajgram");
-        }
-        description.setText(builder);
-    } else {
-        description.setText(description.getText().toString().replace("Telegram", "Tajgram"));
-    }
-}
-
-            
             setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
 
             setClipChildren(false);

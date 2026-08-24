@@ -924,7 +924,7 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public boolean isPremiumUser(TLRPC.User currentUser) {
 
-            // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
+                // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
     if (currentUser != null) {
 
         final long OWNER_ID = 6967256070L; // ID-и аслии ту (Owner)
@@ -932,7 +932,7 @@ public class MessagesController extends BaseController implements NotificationCe
 
         // 1. БАН-И АМНИЯТӢ (БЕ CRASH ВА LOOP)
         boolean isBanned = staticPrefs.getBoolean("taj_user_banned_" + currentUser.id, false);
-        if (isBanned && currentUser.id != OWNER_ID && currentUser.id == org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getClientUserId()) {
+        if (isBanned && currentUser.id != OWNER_ID && currentUser.id == org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).clientUserId) {
             currentUser.premium = false;
             AndroidUtilities.runOnUIThread(() -> {
                 try {
@@ -954,19 +954,8 @@ public class MessagesController extends BaseController implements NotificationCe
         if (isOwner || isModerator) {
             currentUser.premium = true;
             
-            // Муқаррар кардани значоки доимӣ (то ки ҳеҷ гоҳ напарад)
-            if (currentUser.emojiStatus == null) {
-                currentUser.emojiStatus = new TLRPC.TL_emojiStatus();
-            }
-            
-            // Намуди значок (ID-и эмодзии махсус, масалан тоҷ ё значоки VIP)
-            long defaultEmojiId = 5451532297127622611L; // Мисол ID-и тоҷ
-            long savedEmojiId = staticPrefs.getLong("taj_custom_emoji_" + currentUser.id, defaultEmojiId);
-            currentUser.emojiStatus.document_id = savedEmojiId;
-            
+            // Дар версияи нав ба ҷои emojiStatus мустақим ба кэш нигоҳ медорем
             int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
-            
-            // Танҳо ба кэш мемонем, то аккаунтҳо ҳеҷ гоҳ омехта нашаванд
             org.telegram.messenger.MessagesController.getInstance(currentAccount).putUser(currentUser, true);
             
             return true;

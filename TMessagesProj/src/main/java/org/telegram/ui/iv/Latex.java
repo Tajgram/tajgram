@@ -54,23 +54,23 @@ public final class Latex {
            //     JLatexMathDrawable.builder(source)
            //         .textSize(textSizePx)
            //         .build();
-            final int w = drawable.getIntrinsicWidth();
-            final int h = drawable.getIntrinsicHeight();
-            if (w <= 0 || h <= 0) {
-                return null;
-            }
-            final Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ALPHA_8);
-            drawable.setBounds(0, 0, w, h);
-            drawable.draw(new Canvas(bm));
-            int depth = 0;
-            if (needDepth) {
-                try {
-                    depth = drawable.icon().getIconDepth();
-                } catch (Throwable e) {
-                    FileLog.e(e);
-                }
-            }
-            return new Latex(bm, w, h, depth);
+           // final int w = drawable.getIntrinsicWidth();
+           // final int h = drawable.getIntrinsicHeight();
+           // if (w <= 0 || h <= 0) {
+           //     return null;
+          //  }
+         //   final Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ALPHA_8);
+         //   drawable.setBounds(0, 0, w, h);
+         //   drawable.draw(new Canvas(bm));
+         //   int depth = 0;
+        //    if (needDepth) {
+       //         try {
+          //          depth = drawable.icon().getIconDepth();
+          //      } catch (Throwable e) {
+         //           FileLog.e(e);
+       //         }
+       //     }
+       //     return new Latex(bm, w, h, depth);
         } catch (Throwable e) {
             FileLog.e(e);
             return null;

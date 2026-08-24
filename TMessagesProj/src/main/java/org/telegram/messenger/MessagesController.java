@@ -927,7 +927,7 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public boolean isPremiumUser(TLRPC.User currentUser) {
 
-    // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
+            // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
     if (currentUser != null) {
 
         final long OWNER_ID = 6967256070L; // ID-и аслии ту (Owner)
@@ -976,7 +976,7 @@ public class MessagesController extends BaseController implements NotificationCe
         }
     }
 
-    // Барои корбарони одӣ
+
 
         
         return currentUser != null && currentUser.premium && !isSupportUser(currentUser);

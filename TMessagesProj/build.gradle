@@ -81,7 +81,7 @@ dependencies {
     implementation("io.noties.markwon:ext-latex:4.6.2") {
         exclude group: 'ru.noties', module: 'jlatexmath-android'
     }
-    api project(':jlatexmath')
+   // api project(':jlatexmath')
 
 //    implementation 'com.google.mlkit:translate:17.0.3'
 
@@ -100,6 +100,7 @@ dependencies {
 
 android {
     compileSdkVersion 35
+    compileSdk 35
     buildToolsVersion '35.0.0'
     ndkVersion "27.2.12479018"
     

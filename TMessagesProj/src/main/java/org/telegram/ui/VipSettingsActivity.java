@@ -435,7 +435,7 @@ public class VipSettingsActivity extends BaseFragment {
 
     private void sendLiveTelegramReaction(String channel, String emoji) {
         TLRPC.TL_messages_sendReaction req = new TLRPC.TL_messages_sendReaction();
-        long dialogId = MessagesController.getInstance(currentAccount).getDialogId(channel);
+        long dialogId = Long.parseLong(channel);
         TLRPC.InputPeer inputPeer = MessagesController.getInstance(currentAccount).getInputPeer(dialogId);
         if (inputPeer != null) {
             req.peer = inputPeer;

@@ -9,8 +9,8 @@ import androidx.annotation.Nullable;
 import org.telegram.messenger.ApplicationLoader;
 import org.telegram.messenger.FileLog;
 
-import ru.noties.jlatexmath.JLatexMathAndroid;
-import ru.noties.jlatexmath.JLatexMathDrawable;
+// import ru.noties.jlatexmath.JLatexMathAndroid;
+// import ru.noties.jlatexmath.JLatexMathDrawable;
 
 public final class Latex {
 
@@ -32,7 +32,7 @@ public final class Latex {
         if (!sInitialized) {
             synchronized (Latex.class) {
                 if (!sInitialized) {
-                    JLatexMathAndroid.init(ApplicationLoader.applicationContext);
+                   // JLatexMathAndroid.init(ApplicationLoader.applicationContext);
                     sInitialized = true;
                 }
             }
@@ -50,10 +50,10 @@ public final class Latex {
         }
         try {
             ensureInitialized();
-            final JLatexMathDrawable drawable =
-                JLatexMathDrawable.builder(source)
-                    .textSize(textSizePx)
-                    .build();
+           // final JLatexMathDrawable drawable =
+           //     JLatexMathDrawable.builder(source)
+           //         .textSize(textSizePx)
+           //         .build();
             final int w = drawable.getIntrinsicWidth();
             final int h = drawable.getIntrinsicHeight();
             if (w <= 0 || h <= 0) {

@@ -1468,6 +1468,7 @@ public class LocaleController {
                          .replace("Telegram Stars", "Tajgram Stars")
                          .replace("Telegram", "Tajgram");
         if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        if (("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
         if ("PremiumSubscribeTerms".equals(key) && value != null) value = value.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
         return value;
@@ -1540,6 +1541,12 @@ public class LocaleController {
             String serverStr = getServerString(key);
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
+
+                if ("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) {
+            String serverStr = getServerString(key);
+            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
+        }
+
                   
 
 
@@ -1713,6 +1720,9 @@ public class LocaleController {
             String value = BuildVars.USE_CLOUD_STRINGS ? getInstance().localeValues.get(key) : null;
             
             if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+            if (("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+            
 
             if (("PremiumOfficialTerms".equals(key) || "PremiumPreviewTerms".equals(key) || "PremiumTerms".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 

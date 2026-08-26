@@ -5328,6 +5328,30 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         avatarGooey = new ProfileGooeyView(context);
         avatarGooey.addView(avatarContainer, LayoutHelper.createFrame(100, 100, Gravity.TOP | Gravity.LEFT));
         avatarContainer2.addView(avatarGooey, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
+
+                        // === START TAJGRAM USER ID UNDER STATUS ===
+        if (user != null) {
+            android.widget.TextView userIdTextView = new android.widget.TextView(getParentActivity());
+            String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
+            userIdTextView.setText(label + ": " + user.id);
+            userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+            userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
+            
+            userIdTextView.setOnClickListener(v -> {
+                org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(user.id));
+                android.widget.Toast.makeText(getParentActivity(), 
+                    org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
+                    android.widget.Toast.LENGTH_SHORT).show();
+            });
+            
+            if (avatarContainer != null) {
+                avatarContainer.addView(userIdTextView, org.telegram.messenger.LayoutHelper.createLinear(org.telegram.messenger.LayoutHelper.WRAP_CONTENT, org.telegram.messenger.LayoutHelper.WRAP_CONTENT, android.view.Gravity.CENTER_HORIZONTAL, 0, 2, 0, 0));
+            }
+        }
+        // === END TAJGRAM USER ID UNDER STATUS ===
+
+
+        
 //        avatarContainer2.addView(avatarContainer, LayoutHelper.createFrame(100, 100, Gravity.TOP | Gravity.LEFT, 64, 0, 0, 0));
         avatarImage = new AvatarImageView(context) {
             @Override

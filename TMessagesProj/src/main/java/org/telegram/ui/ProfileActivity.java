@@ -5346,7 +5346,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 }
             });
             
-            avatarContainer2.addView(userIdTextView, org.telegram.messenger.LayoutHelper.createLinear(org.telegram.messenger.LayoutHelper.WRAP_CONTENT, org.telegram.messenger.LayoutHelper.WRAP_CONTENT, android.view.Gravity.CENTER_HORIZONTAL, 0, 2, 0, 0));
+            avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createLinear(org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, android.view.Gravity.CENTER_HORIZONTAL, 0, 2, 0, 0));
         }
         // === END TAJGRAM USER ID UNDER STATUS ===
 

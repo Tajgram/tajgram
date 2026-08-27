@@ -5329,16 +5329,16 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         avatarGooey.addView(avatarContainer, LayoutHelper.createFrame(100, 100, Gravity.TOP | Gravity.LEFT));
         avatarContainer2.addView(avatarGooey, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
 
-                        // === START TAJGRAM USER ID UNDER STATUS ===
-        if (user != null) {
+                              // === START TAJGRAM USER ID UNDER STATUS ===
+        if (currentUser != null) {
             android.widget.TextView userIdTextView = new android.widget.TextView(getParentActivity());
             String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
-            userIdTextView.setText(label + ": " + user.id);
+            userIdTextView.setText(label + ": " + currentUser.id);
             userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
             userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
             
             userIdTextView.setOnClickListener(v -> {
-                org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(user.id));
+                org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(currentUser.id));
                 android.widget.Toast.makeText(getParentActivity(), 
                     org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
                     android.widget.Toast.LENGTH_SHORT).show();
@@ -5349,6 +5349,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             }
         }
         // === END TAJGRAM USER ID UNDER STATUS ===
+  
 
 
         

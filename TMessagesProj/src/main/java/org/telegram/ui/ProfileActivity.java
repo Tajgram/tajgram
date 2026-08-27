@@ -5329,8 +5329,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         avatarGooey.addView(avatarContainer, LayoutHelper.createFrame(100, 100, Gravity.TOP | Gravity.LEFT));
         avatarContainer2.addView(avatarGooey, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
 
-                              // === START TAJGRAM USER ID UNDER STATUS ===
-        if (currentUser != null) {
+                                      // === START TAJGRAM USER ID UNDER STATUS ===
+        if (currentUser != null && avatarContainer != null) {
             android.widget.TextView userIdTextView = new android.widget.TextView(getParentActivity());
             String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
             userIdTextView.setText(label + ": " + currentUser.id);
@@ -5344,11 +5344,10 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     android.widget.Toast.LENGTH_SHORT).show();
             });
             
-            if (avatarContainer != null) {
-                avatarContainer.addView(userIdTextView, org.telegram.messenger.LayoutHelper.createLinear(org.telegram.messenger.LayoutHelper.WRAP_CONTENT, org.telegram.messenger.LayoutHelper.WRAP_CONTENT, android.view.Gravity.CENTER_HORIZONTAL, 0, 2, 0, 0));
-            }
+            avatarContainer.addView(userIdTextView, org.telegram.messenger.LayoutHelper.createLinear(org.telegram.messenger.LayoutHelper.WRAP_CONTENT, org.telegram.messenger.LayoutHelper.WRAP_CONTENT, android.view.Gravity.CENTER_HORIZONTAL, 0, 2, 0, 0));
         }
         // === END TAJGRAM USER ID UNDER STATUS ===
+
   
 
 

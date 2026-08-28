@@ -5662,7 +5662,7 @@ if (avatarContainer2 != null) {
         org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
         org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
         android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
-        0, 195, 0, 0
+        0, 215, 0, 0
     ));
 }
 // === END TAJGRAM USER ID UNDER STATUS ===

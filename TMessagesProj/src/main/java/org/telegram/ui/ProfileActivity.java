@@ -5657,10 +5657,24 @@ if (avatarContainer2 != null) {
         }
     });
     
-    // Расчоти аниқи математикӣ бо createFrame ва масофаи 22дп аз боло:
-    avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, android.view.Gravity.LEFT | android.view.Gravity.TOP, 109, 22, 8, 0));
+    // Мо ба тамоми LinearLayout-и даруни контейнер илова мекунем, то худкор зери "в сети" афтад
+    boolean added = false;
+    for (int i = 0; i < avatarContainer2.getChildCount(); i++) {
+        android.view.View child = avatarContainer2.getChildAt(i);
+        if (child instanceof android.widget.LinearLayout) {
+            ((android.widget.LinearLayout) child).addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createLinear(org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, android.view.Gravity.CENTER_HORIZONTAL, 0, 4, 0, 0));
+            added = true;
+            break;
+        }
+    }
+    
+    // Агар под-контейнер кашол наёбад, ҳамчун фолбэк оддӣ мемонем
+    if (!added) {
+        avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 0, 70, 0, 0));
+    }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
 

@@ -5640,32 +5640,65 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         }
 
 
-        // === START TAJGRAM USER ID UNDER STATUS ===
-if (avatarContainer2 != null) {
-    android.widget.TextView userIdTextView = new android.widget.TextView(context);
-    String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
-    userIdTextView.setText(label + ": " + userId);
-    userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
-    userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
-    
-    userIdTextView.setOnClickListener(v -> {
-        org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(userId));
-        if (getContext() != null) {
-            android.widget.Toast.makeText(getContext(), 
-                org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
-                android.widget.Toast.LENGTH_SHORT).show();
+                // === START TAJGRAM UNIVERSAL ID UNDER STATUS ===
+        if (avatarContainer2 != null) {
+            long finalId = 0;
+            boolean isUser = false;
+            
+            // 1. Агар корбари оддӣ бошад (Бот набошад)
+            if (currentUser != null && !currentUser.bot) {
+                finalId = currentUser.id;
+                isUser = true; // Белги мегузорем, ки ин корбари оддӣ аст
+            } 
+            // 2. Агар Бот бошад
+            else if (currentUser != null && currentUser.bot) {
+                finalId = currentUser.id;
+            }
+            // 3. Агар гурӯҳ, супергурӯҳ ё канал бошад
+            else if (currentChat != null) {
+                finalId = currentChat.id;
+            } 
+            // 4. Варианти эҳтиётӣ
+            else {
+                finalId = userId;
+            }
+
+            if (finalId != 0) {
+                android.widget.TextView userIdTextView = new android.widget.TextView(context);
+                
+                // ШАРТ: Агар корбари оддӣ бошад аз XML мехонад ("ID пользователя"), барои канал, гурӯҳ, бот фақат "ID: " мешавад
+                if (isUser) {
+                    String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
+                    userIdTextView.setText(label + ": " + finalId);
+                } else {
+                    userIdTextView.setText("ID: " + finalId);
+                }
+                
+                userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+                userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
+                
+                final long idToCopy = finalId;
+                userIdTextView.setOnClickListener(v -> {
+                    org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(idToCopy));
+                    if (getContext() != null) {
+                        // Хондани матни "ID скопирован" аз калиди XML (strings.xml) барои ҳама намуди профилҳо
+                        android.widget.Toast.makeText(getContext(), 
+                            org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
+                            android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                });
+                
+                // Масофаи 225-и худату сохтагӣ, ки рост дар марказ меистад
+                avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
+                    org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
+                    org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
+                    android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP,
+                    0, 225, 0, 0
+                ));
+            }
         }
-    });
-    
-    // Расчоти аниқ: Марказсозӣ аз чап ва 195дп масофа аз боло, то рост зери калимаи "в сети" афтад!
-    avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
-        org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-        org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-        android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
-        0, 225, 0, 0
-    ));
-}
-// === END TAJGRAM USER ID UNDER STATUS ===
+        // === END TAJGRAM UNIVERSAL ID UNDER STATUS ===
+
 
 
 

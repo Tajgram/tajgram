@@ -5657,9 +5657,11 @@ if (avatarContainer2 != null) {
         }
     });
     
-    avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createLinear(org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, android.view.Gravity.LEFT, 0, 4, 0, 0));
+    // Расчоти аниқи математикӣ бо createFrame ва масофаи 22дп аз боло:
+    avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, android.view.Gravity.LEFT | android.view.Gravity.TOP, 109, 22, 8, 0));
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
         

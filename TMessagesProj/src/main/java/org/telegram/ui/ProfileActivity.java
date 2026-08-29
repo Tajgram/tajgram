@@ -5642,17 +5642,17 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
 
                                 // === START TAJGRAM UNIVERSAL ID UNDER STATUS ===
         if (avatarContainer2 != null) {
-            long finalId = userId; 
+            long finalId = dialogId; 
             boolean isUser = false;
             
             // Шарти универсалӣ: Агар корбари оддӣ бошад ё бот, ё гурӯҳу канал
-            if (currentUser != null) {
-                finalId = currentUser.id;
-                if (!currentUser.bot) {
+            if (user != null) {
+                finalId = user.id;
+                if (!user.bot) {
                     isUser = true; 
                 }
-            } else if (currentChat != null) {
-                finalId = currentChat.id;
+            } else if (chat != null) {
+                finalId = chat.id;
             }
 
             if (finalId != 0) {

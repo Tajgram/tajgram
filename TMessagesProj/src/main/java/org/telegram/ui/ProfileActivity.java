@@ -5640,74 +5640,53 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         }
 
 
-               // === START TAJGRAM UNIVERSAL ID UNDER STATUS ===
-        if (avatarContainer2 != null) {
-            long finalId = 0;
-            boolean isUser = false;
-            
-            // 1. Тафтиши Корбар ё Бот
-            if (user != null) {
-                finalId = user.id;
-                if (!user.bot) {
-                    isUser = true; // Танҳо барои одамони оддӣ "ID пользователя" мешавад
-                }
-            } 
-            // 2. Тафтиши Канал ё Гурӯҳ (Чат)
-            else if (chat != null) {
-                finalId = chat.id;
-            } 
-            // 3. Агар объектҳои болоӣ аз сабаби дигар методҳо холӣ бошанд
-            else if (info != null && info.id != 0) {
-                finalId = Math.abs(info.id);
-            }
+               // === START TAJGRAM USER ID UNDER STATUS ===
+if (avatarContainer2 != null) {
+    long finalId = userId; // ID-и корбар аз коди сабзшудаи худат
+    boolean isUser = true;
 
-            // 4. Варианти эҳтиётии умумӣ
-            if (finalId == 0 && dialogId != 0) {
-                finalId = Math.abs(dialogId);
-                if (dialogId > 0) {
-                    // Агар лозим бошад, метавонӣ тафтиши боти локалиро инҷо ҳам илова кунӣ
-                    org.telegram.tgnet.TLRPC.User localUser = org.telegram.messenger.MessagesController.getInstance(currentAccount).getUser(dialogId);
-                    if (localUser != null && !localUser.bot) {
-                        isUser = true;
-                    }
-                }
-            }
+    // Агар ин канал ё гурӯҳ бошад (тафтиши кафолатнок аз ProfileActivity)
+    if (currentChat != null) {
+        finalId = Math.abs(currentChat.id);
+        isUser = false;
+    } else if (currentUser != null && currentUser.bot) {
+        isUser = false;
+    }
 
-            if (finalId != 0) {
-                android.content.Context currentContext = avatarContainer2.getContext();
-                android.widget.TextView userIdTextView = new android.widget.TextView(currentContext);
-                
-                // Ҷудокунии чоткии матн:
-                if (isUser) {
-                    // Барои одамон: "ID пользователя: 12345"
-                    String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
-                    userIdTextView.setText(label + ": " + finalId);
-                } else {
-                    // Барои Канал, Бот ва Гурӯҳ: Танҳо "ID: 12345"
-                    userIdTextView.setText("ID: " + finalId);
-                }
-                
-                userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
-                userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
-                
-                final long idToCopy = finalId;
-                userIdTextView.setOnClickListener(v -> {
-                    org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(idToCopy));
-                    android.widget.Toast.makeText(currentContext, 
-                        org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
-                        android.widget.Toast.LENGTH_SHORT).show();
-                });
-                
-                // Ҷойгиркунӣ дар зери статус (ҳамон масофаи 225)
-                avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
-                    org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
-                    org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
-                    android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP,
-                    0, 225, 0, 0
-                ));
-            }
+    if (finalId != 0) {
+        android.widget.TextView userIdTextView = new android.widget.TextView(context);
+        
+        if (isUser) {
+            String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
+            userIdTextView.setText(label + ": " + finalId);
+        } else {
+            userIdTextView.setText("ID: " + finalId);
         }
-        // === END TAJGRAM UNIVERSAL ID UNDER STATUS ===
+        
+        userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+        userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
+        
+        final long idToCopy = finalId;
+        userIdTextView.setOnClickListener(v -> {
+            org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(idToCopy));
+            if (getContext() != null) {
+                android.widget.Toast.makeText(getContext(), 
+                    org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
+                    android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        // Масофа ва марказсозии аслии худат аз коди сабзшуда
+        avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
+            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+            android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
+            0, 225, 0, 0
+        ));
+    }
+}
+// === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
 

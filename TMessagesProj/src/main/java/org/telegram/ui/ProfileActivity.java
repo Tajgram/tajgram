@@ -5640,25 +5640,30 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         }
 
 
-                                // === START TAJGRAM UNIVERSAL ID UNDER STATUS ===
+               // === START TAJGRAM UNIVERSAL ID UNDER STATUS ===
         if (avatarContainer2 != null) {
+            // Аз тағирёбандаҳои глобалии класс истифода мебарем, то компилятор онҳоро 100% ёбад
             long finalId = dialogId; 
             boolean isUser = false;
             
-            // Шарти универсалӣ: Агар корбари оддӣ бошад ё бот, ё гурӯҳу канал
-            if (user != null) {
-                finalId = user.id;
-                if (!user.bot) {
+            // Барои сигурӣ аз ProfileActivity.this истифода мекунем
+            org.telegram.tgnet.TLRPC.User currentUserLocal = MessagesController.getInstance(currentAccount).getUser(dialogId);
+            org.telegram.tgnet.TLRPC.Chat currentChatLocal = MessagesController.getInstance(currentAccount).getChat(-dialogId);
+
+            if (currentUserLocal != null) {
+                finalId = currentUserLocal.id;
+                if (!currentUserLocal.bot) {
                     isUser = true; 
                 }
-            } else if (chat != null) {
-                finalId = chat.id;
+            } else if (currentChatLocal != null) {
+                finalId = currentChatLocal.id;
             }
 
             if (finalId != 0) {
-                android.widget.TextView userIdTextView = new android.widget.TextView(context);
+                // Агар 'context' хато диҳад, азgetParentActivity() истифода мебарем
+                android.content.Context currentContext = avatarContainer2.getContext();
+                android.widget.TextView userIdTextView = new android.widget.TextView(currentContext);
                 
-                // Агар корбари оддӣ бошад аз XML мехонад, барои дигар чизҳо фақат "ID: "
                 if (isUser) {
                     String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
                     userIdTextView.setText(label + ": " + finalId);
@@ -5672,14 +5677,11 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 final long idToCopy = finalId;
                 userIdTextView.setOnClickListener(v -> {
                     org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(idToCopy));
-                    if (getContext() != null) {
-                        android.widget.Toast.makeText(getContext(), 
-                            org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
-                            android.widget.Toast.LENGTH_SHORT).show();
-                    }
+                    android.widget.Toast.makeText(currentContext, 
+                        org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
+                        android.widget.Toast.LENGTH_SHORT).show();
                 });
                 
-                // Масофа ва марказсозии аслии худат аз скриншот
                 avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
                     org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
                     org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
@@ -5689,6 +5691,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             }
         }
         // === END TAJGRAM UNIVERSAL ID UNDER STATUS ===
+                 
 
 
 

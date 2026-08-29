@@ -5642,32 +5642,48 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
 
                // === START TAJGRAM UNIVERSAL ID UNDER STATUS ===
         if (avatarContainer2 != null) {
-            // Аз тағирёбандаҳои глобалии класс истифода мебарем, то компилятор онҳоро 100% ёбад
-            long finalId = dialogId; 
+            long finalId = 0;
             boolean isUser = false;
             
-            // Барои сигурӣ аз ProfileActivity.this истифода мекунем
-            org.telegram.tgnet.TLRPC.User currentUserLocal = MessagesController.getInstance(currentAccount).getUser(dialogId);
-            org.telegram.tgnet.TLRPC.Chat currentChatLocal = MessagesController.getInstance(currentAccount).getChat(-dialogId);
-
-            if (currentUserLocal != null) {
-                finalId = currentUserLocal.id;
-                if (!currentUserLocal.bot) {
-                    isUser = true; 
+            // 1. Тафтиши Корбар ё Бот
+            if (user != null) {
+                finalId = user.id;
+                if (!user.bot) {
+                    isUser = true; // Танҳо барои одамони оддӣ "ID пользователя" мешавад
                 }
-            } else if (currentChatLocal != null) {
-                finalId = currentChatLocal.id;
+            } 
+            // 2. Тафтиши Канал ё Гурӯҳ (Чат)
+            else if (chat != null) {
+                finalId = chat.id;
+            } 
+            // 3. Агар объектҳои болоӣ аз сабаби дигар методҳо холӣ бошанд
+            else if (info != null && info.id != 0) {
+                finalId = Math.abs(info.id);
+            }
+
+            // 4. Варианти эҳтиётии умумӣ
+            if (finalId == 0 && dialogId != 0) {
+                finalId = Math.abs(dialogId);
+                if (dialogId > 0) {
+                    // Агар лозим бошад, метавонӣ тафтиши боти локалиро инҷо ҳам илова кунӣ
+                    org.telegram.tgnet.TLRPC.User localUser = org.telegram.messenger.MessagesController.getInstance(currentAccount).getUser(dialogId);
+                    if (localUser != null && !localUser.bot) {
+                        isUser = true;
+                    }
+                }
             }
 
             if (finalId != 0) {
-                // Агар 'context' хато диҳад, азgetParentActivity() истифода мебарем
                 android.content.Context currentContext = avatarContainer2.getContext();
                 android.widget.TextView userIdTextView = new android.widget.TextView(currentContext);
                 
+                // Ҷудокунии чоткии матн:
                 if (isUser) {
+                    // Барои одамон: "ID пользователя: 12345"
                     String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
                     userIdTextView.setText(label + ": " + finalId);
                 } else {
+                    // Барои Канал, Бот ва Гурӯҳ: Танҳо "ID: 12345"
                     userIdTextView.setText("ID: " + finalId);
                 }
                 
@@ -5682,6 +5698,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         android.widget.Toast.LENGTH_SHORT).show();
                 });
                 
+                // Ҷойгиркунӣ дар зери статус (ҳамон масофаи 225)
                 avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
                     org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
                     org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
@@ -5691,10 +5708,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             }
         }
         // === END TAJGRAM UNIVERSAL ID UNDER STATUS ===
-                 
-
-
-
 
 
 

@@ -5649,7 +5649,7 @@ if (avatarContainer2 != null) {
     if (currentChat != null) {
         finalId = Math.abs(currentChat.id);
         isUser = false;
-    } else if (currentUser != null && currentUser.bot) {
+     } else if (user != null && user.bot) {
         isUser = false;
     }
 

@@ -5649,7 +5649,7 @@ if (avatarContainer2 != null) {
     if (currentChat != null) {
         finalId = Math.abs(currentChat.id);
         isUser = false;
-     } else if (currentUser != null && currentUser.bot) {
+     } else if (org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
         isUser = false;
     }
 

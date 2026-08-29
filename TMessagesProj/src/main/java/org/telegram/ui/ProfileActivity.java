@@ -5640,31 +5640,25 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         }
 
 
-                        // === START TAJGRAM UNIVERSAL ID UNDER STATUS ===
+                                // === START TAJGRAM UNIVERSAL ID UNDER STATUS ===
         if (avatarContainer2 != null) {
-            long finalId = 0;
+            long finalId = userId; 
             boolean isUser = false;
             
-            // 1. Агар корбари оддӣ ё бот бошад (Дар ProfileActivity ин объект "user" ном дорад)
-            if (user != null) {
-                finalId = user.id;
-                if (!user.bot) {
-                    isUser = true; // Танҳо барои одами оддӣ истифодаи XML
+            // Шарти универсалӣ: Агар корбари оддӣ бошад ё бот, ё гурӯҳу канал
+            if (currentUser != null) {
+                finalId = currentUser.id;
+                if (!currentUser.bot) {
+                    isUser = true; 
                 }
-            } 
-            // 2. Агар гурӯҳ ё канал бошад (Дар ProfileActivity ин объект "chat" ном дорад)
-            else if (chat != null) {
-                finalId = chat.id;
-            } 
-            // 3. Варианти эҳтиётӣ
-            else {
-                finalId = userId;
+            } else if (currentChat != null) {
+                finalId = currentChat.id;
             }
 
             if (finalId != 0) {
                 android.widget.TextView userIdTextView = new android.widget.TextView(context);
                 
-                // ШАРТ: Агар корбари оддӣ бошад аз XML ("ID пользователя"), барои дигар чизҳо фақат "ID: "
+                // Агар корбари оддӣ бошад аз XML мехонад, барои дигар чизҳо фақат "ID: "
                 if (isUser) {
                     String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
                     userIdTextView.setText(label + ": " + finalId);
@@ -5679,14 +5673,13 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 userIdTextView.setOnClickListener(v -> {
                     org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(idToCopy));
                     if (getContext() != null) {
-                        // Матни XML-и ту барои хабарчаи копия
                         android.widget.Toast.makeText(getContext(), 
                             org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
                             android.widget.Toast.LENGTH_SHORT).show();
                     }
                 });
                 
-                // Масофаи 225-и худату сохтагӣ
+                // Масофа ва марказсозии аслии худат аз скриншот
                 avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
                     org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
                     org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
@@ -5696,6 +5689,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             }
         }
         // === END TAJGRAM UNIVERSAL ID UNDER STATUS ===
+
 
 
 

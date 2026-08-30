@@ -5639,7 +5639,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             avatarContainer2.addView(onlineTextView[a], LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.LEFT | Gravity.TOP, 109 - (a == 1 || a == 2 || a == 3 ? 4 : 0), (a == 1 || a == 2 || a == 3 ? -2 : 0), (a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0), 0));
         }
 
-USER
                // === START TAJGRAM USER ID UNDER STATUS ===
 if (avatarContainer2 != null) {
     long idToCopy = userId;
@@ -5683,12 +5682,6 @@ if (avatarContainer2 != null) {
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
-
-
-
-
-
-
 
 
         

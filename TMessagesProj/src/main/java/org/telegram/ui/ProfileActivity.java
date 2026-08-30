@@ -5639,29 +5639,19 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             avatarContainer2.addView(onlineTextView[a], LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.LEFT | Gravity.TOP, 109 - (a == 1 || a == 2 || a == 3 ? 4 : 0), (a == 1 || a == 2 || a == 3 ? -2 : 0), (a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0), 0));
         }
 
-
+USER
                // === START TAJGRAM USER ID UNDER STATUS ===
 if (avatarContainer2 != null) {
-    long finalId = userId; // ID-и корбар аз коди сабзшудаи худат
-    final long idToCopy;   // Барои он ки ҳатман бо -100 нусхабардорӣ шавад
-    boolean isUser = true;
-
-    // Агар ин канал ё гурӯҳ бошад (тафтиши кафолатнок аз ProfileActivity)
-    if (currentChat != null) {
-        idToCopy = currentChat.id; // ID-и аслиро бо минусу -100 барои копи нигоҳ медорем
-        finalId = Math.abs(currentChat.id); // Барои экран рақами мусбати бе -100 мемонад
-        isUser = false;
-    } else {
-        idToCopy = userId;
-        if (org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
-            isUser = false;
-        }
-    }
+    // СТАНДАРТӢ: ID-ро чӣ хел бошад, ҳамон хел мегирем (бо -100 ё бе он, бе Math.abs)
+    final long finalId = (currentChat != null) ? currentChat.id : userId;
 
     if (finalId != 0) {
         android.widget.TextView userIdTextView = new android.widget.TextView(context);
         
-        if (isUser) {
+        // Танзими матн мувофиқи қоидаҳои аслии худат аз strings.xml
+        if (currentChat == null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
+            userIdTextView.setText("ID: " + finalId);
+        } else if (currentChat == null) {
             String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
             userIdTextView.setText(label + ": " + finalId);
         } else {
@@ -5671,9 +5661,9 @@ if (avatarContainer2 != null) {
         userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
         userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
         
-        // АНИҚ БО -100: Ҳангоми нусхабардорӣ ID-и аслӣ бо -100 нусха мешавад
+        // НУСХАБАРДОРӢ: Пурра чихеле ки ҳаст (бо -100) копи мешавад
         userIdTextView.setOnClickListener(v -> {
-            org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(idToCopy));
+            org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(finalId));
             if (getContext() != null) {
                 android.widget.Toast.makeText(getContext(), 
                     org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
@@ -5681,21 +5671,21 @@ if (avatarContainer2 != null) {
             }
         });
         
-        // Масофа ва марказсозии аслии худат аз коди сабзшуда (Ҳеҷ чиз вайрон нашуд)
-        avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
+        // ШИНОНДАН ДАР ДОХИЛИ ОНҲО:
+        // Барои он ки блок қисми яклухти шапка шавад ва умуман наҷунбад,
+        // мо онро рост ба дохили 'avatarContainer2' илова мекунем, лекин бо размер ва масофаи аслии худат (225)
+        org.telegram.ui.Components.LayoutHelper.FrameLayoutWithLayout userIdParams = org.telegram.ui.Components.LayoutHelper.createFrame(
             org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
             org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
             android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
-            0, 225, 0, 0
-        ));
-
-        // ЗАКРЕПИТЕЛ: Маҳкам мекунем, ки ҳангоми скролл умуман наҷунбад ва сахт истад
-        avatarContainer2.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-            userIdTextView.setTranslationY(-avatarContainer2.getTranslationY());
-        });
+            0, 225, 0, 0 // Масофаи аслии худат 100% сабт шуд
+        );
+        
+        avatarContainer2.addView(userIdTextView, userIdParams);
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
 

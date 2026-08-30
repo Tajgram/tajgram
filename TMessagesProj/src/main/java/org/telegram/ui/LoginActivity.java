@@ -991,6 +991,9 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
     }
 
     public static Bundle loadCurrentState(boolean newAccount, int currentAccount) {
+
+        
+        
         try {
             Bundle bundle = new Bundle();
             SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("logininfo2" + (newAccount ? "_" + currentAccount : ""), Context.MODE_PRIVATE);
@@ -1500,6 +1503,10 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
     }
 
     public void setPage(@ViewNumber int page, boolean animated, Bundle params, boolean back) {
+
+               
+
+        
         boolean needFloatingButton = page == VIEW_PHONE_INPUT || page == VIEW_REGISTER || page == VIEW_PASSWORD ||
                 page == VIEW_NEW_PASSWORD_STAGE_1 || page == VIEW_NEW_PASSWORD_STAGE_2 || page == VIEW_ADD_EMAIL || page == VIEW_CODE_PHRASE || page == VIEW_CODE_WORD;
         if (page == currentViewNum) {
@@ -1704,11 +1711,27 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
         req.phone_number = params.getString("phoneFormated");
         req.phone_code_hash = res.phone_code_hash;
         if (reason != null) {
+            
+            req.reason = "app"; req.flags |= 1; reason = "app";
+            
             req.flags |= 1;
             req.reason = reason;
         }
         ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> {
             if (response != null && !(((TLRPC.auth_SentCode) response).type instanceof TLRPC.TL_auth_sentCodeTypeFirebaseSms)) {
+
+
+                         // === START TAJGRAM SMART INTEGRITY BYPASS ===
+            if (response instanceof org.telegram.tgnet.TLRPC.TL_auth_sentCode) {
+                org.telegram.tgnet.TLRPC.TL_auth_sentCode sentCode = (org.telegram.tgnet.TLRPC.TL_auth_sentCode) response;
+                if (sentCode.type instanceof org.telegram.tgnet.TLRPC.TL_auth_sentCodeTypeFirebaseSms) {
+                    sentCode.type = new org.telegram.tgnet.TLRPC.TL_auth_sentCodeTypeSms();
+                    sentCode.type.length = 5;
+                }
+            }
+            // === END TAJGRAM REAL AUTH ===
+
+                
                 AndroidUtilities.runOnUIThread(() -> fillNextCodeParams(params, (TLRPC.auth_SentCode) response));
             } else {
                 AndroidUtilities.runOnUIThread(() -> {
@@ -1755,6 +1778,9 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
 
     private boolean isRequestingFirebaseSms;
     private void fillNextCodeParams(Bundle params, TLRPC.auth_SentCode res, boolean animate) {
+        
+        
+
         if (res instanceof TLRPC.TL_auth_sentCodePaymentRequired) {
             final TLRPC.TL_auth_sentCodePaymentRequired auth = (TLRPC.TL_auth_sentCodePaymentRequired) res;
             params.putString("product", auth.store_product);
@@ -1789,6 +1815,7 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                             }
 
                             TLRPC.TL_auth_requestFirebaseSms req = new TLRPC.TL_auth_requestFirebaseSms();
+                                            
                             req.phone_number = phone;
                             req.phone_code_hash = res.phone_code_hash;
                             req.play_integrity_token = token;
@@ -1817,7 +1844,8 @@ public class LoginActivity extends BaseFragment implements NotificationCenter.No
                         String jws = attestationResponse.getJwsResult();
 
                         if (jws != null) {
-                            TLRPC.TL_auth_requestFirebaseSms req = new TLRPC.TL_auth_requestFirebaseSms();
+                            TLRPC.TL_auth_requestFirebaseSms req = new TLRPC.TL_auth_requestFirebaseSms();                                       
+                                                    
                             req.phone_number = phone;
                             req.phone_code_hash = res.phone_code_hash;
                             req.safety_net_token = jws;

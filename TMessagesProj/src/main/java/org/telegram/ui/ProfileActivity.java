@@ -5752,6 +5752,120 @@ if (avatarContainer2 != null) {
         avatarContainer2.addView(giftsView, 0, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
         updateProfileData(true);
 
+        // === START TAJGRAM REAL BIO POST RATING SYSTEM ===
+if (avatarContainer2 != null) {
+    String bioText = "";
+    if (currentChat != null && currentChat.about != null) {
+        bioText = currentChat.about;
+    } else if (userInfo != null && userInfo.about != null) {
+        bioText = userInfo.about;
+    }
+
+    if (!bioText.isEmpty() && context != null) {
+        final long profileTargetId = (currentChat != null) ? currentChat.id : userId;
+        int bioHash = bioText.hashCode();
+        final String serverKey = profileTargetId + "_" + bioHash;
+
+        android.widget.LinearLayout bioRatingLayout = new android.widget.LinearLayout(context);
+        bioRatingLayout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+        bioRatingLayout.setPadding(
+            org.telegram.messenger.AndroidUtilities.dp(8), 
+            org.telegram.messenger.AndroidUtilities.dp(2), 
+            org.telegram.messenger.AndroidUtilities.dp(8), 
+            org.telegram.messenger.AndroidUtilities.dp(2)
+        );
+
+        android.graphics.drawable.GradientDrawable bioShape = new android.graphics.drawable.GradientDrawable();
+        bioShape.setCornerRadius(org.telegram.messenger.AndroidUtilities.dp(8));
+        bioShape.setColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_chat_inBubble));
+        bioRatingLayout.setBackground(bioShape);
+        
+        android.widget.TextView profLikeText = new android.widget.TextView(context);
+        profLikeText.setText("👍 0");
+        profLikeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
+        profLikeText.setPadding(0, 0, org.telegram.messenger.AndroidUtilities.dp(6), 0);
+        profLikeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_windowBackgroundWhiteGrayText2));
+
+        android.widget.TextView profDislikeText = new android.widget.TextView(context);
+        profDislikeText.setText("👎 0");
+        profDislikeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11);
+        profDislikeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_windowBackgroundWhiteGrayText2));
+
+        bioRatingLayout.addView(profLikeText);
+        bioRatingLayout.addView(profDislikeText);
+
+        try {
+            com.google.firebase.database.DatabaseReference profRef = com.google.firebase.database.FirebaseDatabase.getInstance()
+                .getReference("bio_posts_ratings").child(serverKey);
+
+            profRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+                @Override
+                public void onDataChange(com.google.firebase.database.DataSnapshot snapshot) {
+                    Long likes = snapshot.child("likes").getValue(Long.class);
+                    Long dislikes = snapshot.child("dislikes").getValue(Long.class);
+                    profLikeText.setText("👍 " + (likes != null ? likes : 0));
+                    profDislikeText.setText("👎 " + (dislikes != null ? dislikes : 0));
+                }
+                @Override
+                public void onCancelled(com.google.firebase.database.DatabaseError error) {}
+            });
+
+            profLikeText.setOnClickListener(v -> {
+                profRef.child("likes").runTransaction(new com.google.firebase.database.Transaction.Handler() {
+                    @Override
+                    public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
+                        Long val = currentData.getValue(Long.class);
+                        currentData.setValue(val == null ? 1 : val + 1);
+                        return com.google.firebase.database.Transaction.success(currentData);
+                    }
+                    @Override
+                    public void onComplete(com.google.firebase.database.DatabaseError err, boolean committed, com.google.firebase.database.DataSnapshot snap) {
+                        if (committed) {
+                            String toast = org.telegram.messenger.LocaleController.getString("LikeSentToast", org.telegram.messenger.R.string.LikeSentToast);
+                            android.widget.Toast.makeText(context, toast, android.widget.Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            });
+
+            profDislikeText.setOnClickListener(v -> {
+                profRef.child("dislikes").runTransaction(new com.google.firebase.database.Transaction.Handler() {
+                    @Override
+                    public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
+                        Long val = currentData.getValue(Long.class);
+                        currentData.setValue(val == null ? 1 : val + 1);
+                        return com.google.firebase.database.Transaction.success(currentData);
+                    }
+                    @Override
+                    public void onComplete(com.google.firebase.database.DatabaseError err, boolean committed, com.google.firebase.database.DataSnapshot snap) {
+                        if (committed) {
+                            String toast = org.telegram.messenger.LocaleController.getString("DislikeSentToast", org.telegram.messenger.R.string.DislikeSentToast);
+                            android.widget.Toast.makeText(context, toast, android.widget.Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (listView != null) {
+            android.widget.FrameLayout.LayoutParams bioLp = new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.WRAP_CONTENT, 
+                android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+            );
+            bioLp.gravity = android.view.Gravity.BOTTOM | android.view.Gravity.RIGHT;
+            bioLp.rightMargin = org.telegram.messenger.AndroidUtilities.dp(16);
+            bioLp.bottomMargin = org.telegram.messenger.AndroidUtilities.dp(8);
+            bioRatingLayout.setLayoutParams(bioLp);
+        }
+    }
+}
+// === END TAJGRAM REAL BIO POST RATING SYSTEM ===
+
+        
+
         writeButton = new RLottieImageView(context);
 
         if (actionsView != null) {

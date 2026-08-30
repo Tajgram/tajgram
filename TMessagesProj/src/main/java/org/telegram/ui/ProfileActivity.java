@@ -5643,14 +5643,19 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                // === START TAJGRAM USER ID UNDER STATUS ===
 if (avatarContainer2 != null) {
     long finalId = userId; // ID-и корбар аз коди сабзшудаи худат
+    final long idToCopy;   // Барои он ки ҳатман бо -100 нусхабардорӣ шавад
     boolean isUser = true;
 
     // Агар ин канал ё гурӯҳ бошад (тафтиши кафолатнок аз ProfileActivity)
     if (currentChat != null) {
-        finalId = Math.abs(currentChat.id);
+        idToCopy = currentChat.id; // ID-и аслиро бо минусу -100 барои копи нигоҳ медорем
+        finalId = Math.abs(currentChat.id); // Барои экран рақами мусбати бе -100 мемонад
         isUser = false;
-     } else if (org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
-        isUser = false;
+    } else {
+        idToCopy = userId;
+        if (org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
+            isUser = false;
+        }
     }
 
     if (finalId != 0) {
@@ -5666,7 +5671,7 @@ if (avatarContainer2 != null) {
         userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
         userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
         
-        final long idToCopy = finalId;
+        // АНИҚ БО -100: Ҳангоми нусхабардорӣ ID-и аслӣ бо -100 нусха мешавад
         userIdTextView.setOnClickListener(v -> {
             org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(idToCopy));
             if (getContext() != null) {
@@ -5676,16 +5681,22 @@ if (avatarContainer2 != null) {
             }
         });
         
-        // Масофа ва марказсозии аслии худат аз коди сабзшуда
+        // Масофа ва марказсозии аслии худат аз коди сабзшуда (Ҳеҷ чиз вайрон нашуд)
         avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
             org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
             org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
             android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
             0, 225, 0, 0
         ));
+
+        // ЗАКРЕПИТЕЛ: Маҳкам мекунем, ки ҳангоми скролл умуман наҷунбад ва сахт истад
+        avatarContainer2.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            userIdTextView.setTranslationY(-avatarContainer2.getTranslationY());
+        });
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
 

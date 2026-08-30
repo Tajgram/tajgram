@@ -5642,13 +5642,17 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
 USER
                // === START TAJGRAM USER ID UNDER STATUS ===
 if (avatarContainer2 != null) {
-    // СТАНДАРТӢ: ID-ро чӣ хел бошад, ҳамон хел мегирем (бо -100 ё бе он, бе Math.abs)
-    final long finalId = (currentChat != null) ? currentChat.id : userId;
+    long idToCopy = userId;
+    
+    if (currentChat != null) {
+        idToCopy = currentChat.id;
+    }
+
+    final long finalId = idToCopy;
 
     if (finalId != 0) {
         android.widget.TextView userIdTextView = new android.widget.TextView(context);
         
-        // Танзими матн мувофиқи қоидаҳои аслии худат аз strings.xml
         if (currentChat == null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
             userIdTextView.setText("ID: " + finalId);
         } else if (currentChat == null) {
@@ -5661,7 +5665,6 @@ if (avatarContainer2 != null) {
         userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
         userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
         
-        // НУСХАБАРДОРӢ: Пурра чихеле ки ҳаст (бо -100) копи мешавад
         userIdTextView.setOnClickListener(v -> {
             org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(finalId));
             if (getContext() != null) {
@@ -5671,17 +5674,12 @@ if (avatarContainer2 != null) {
             }
         });
         
-        // ШИНОНДАН ДАР ДОХИЛИ ОНҲО:
-        // Барои он ки блок қисми яклухти шапка шавад ва умуман наҷунбад,
-        // мо онро рост ба дохили 'avatarContainer2' илова мекунем, лекин бо размер ва масофаи аслии худат (225)
-        org.telegram.ui.Components.LayoutHelper.FrameLayoutWithLayout userIdParams = org.telegram.ui.Components.LayoutHelper.createFrame(
+        avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
             org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
             org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
             android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
-            0, 225, 0, 0 // Масофаи аслии худат 100% сабт шуд
-        );
-        
-        avatarContainer2.addView(userIdTextView, userIdParams);
+            0, 225, 0, 0
+        ));
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===

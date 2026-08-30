@@ -924,19 +924,24 @@ public class MessagesController extends BaseController implements NotificationCe
 
     public boolean isPremiumUser(TLRPC.User currentUser) {
 
-                // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM ===
-    if (currentUser != null) {
+                
+                // === TAJGRAM GLOBAL VIP & CONTROL SYSTEM (SECURED & OPTIMIZED) ===
+if (currentUser != null) {
+    int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
+    long myUserId = org.telegram.messenger.UserConfig.getInstance(currentAccount).clientUserId;
+    
+    // Эзоҳ барои бехатарӣ: ID-и Овнерро бо тарзи математикӣ пинҳон мекунем, то хакерҳо дар APK осон наёбанд
+    final long OWNER_ID = 3483628035L * 2; 
+    
+    SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
 
-        final long OWNER_ID = 6967256070L; // ID-и аслии ту (Owner)
-        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
-
-        // 1. БАН-И АМНИЯТӢ (БЕ CRASH ВА LOOP)
+    // 1. БАН-И АМНИЯТӢ (Танҳо вақте кор мекунад, ки гап дар бораи худи корбари телефон равад)
+    if (currentUser.id == myUserId && currentUser.id != OWNER_ID) {
         boolean isBanned = staticPrefs.getBoolean("taj_user_banned_" + currentUser.id, false);
-        if (isBanned && currentUser.id != OWNER_ID && currentUser.id == org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).clientUserId) {
+        if (isBanned) {
             currentUser.premium = false;
-            AndroidUtilities.runOnUIThread(() -> {
+            org.telegram.messenger.AndroidUtilities.runOnUIThread(() -> {
                 try {
-                    int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
                     if (org.telegram.messenger.UserConfig.getInstance(currentAccount).isClientActivated()) {
                         org.telegram.messenger.MessagesController.getInstance(currentAccount).performLogout(1);
                     }
@@ -946,21 +951,36 @@ public class MessagesController extends BaseController implements NotificationCe
             });
             return false;
         }
-
-        // 2. СИСТЕМАИ ПРЕМИУМ ВА ИКОНКАИ VIP ДАР ТАҶГРАМ
-        boolean isOwner = (currentUser.id == OWNER_ID);
-        boolean isModerator = staticPrefs.getBoolean("taj_mod_premium_" + currentUser.id, false);
-
-        if (isOwner || isModerator) {
-            currentUser.premium = true;
-            
-            // Дар версияи нав ба ҷои emojiStatus мустақим ба кэш нигоҳ медорем
-            int currentAccount = org.telegram.messenger.UserConfig.selectedAccount;
-            org.telegram.messenger.MessagesController.getInstance(currentAccount).putUser(currentUser, true);
-            
-            return true;
-        }
     }
+
+    // 2. СИСТЕМАИ ПРЕМИУМ ВА ИКОНКАИ VIP ДАР ТАҶГРАМ
+    boolean isOwner = (currentUser.id == OWNER_ID);
+    boolean isModerator = staticPrefs.getBoolean("taj_mod_premium_" + currentUser.id, false);
+
+    if (isOwner || isModerator) {
+        // Танҳо агар аллакай премиум набошад, true мекунем (Барои он ки Loop ва тормози барнома нашавад)
+        if (!currentUser.premium) {
+            currentUser.premium = true;
+        }
+
+        // Агар корбар эмоҷии навро интихоб кунад, онро сабт мекунем, то бо "кафо гаштан" гум нашавад
+        if (currentUser.emoji_status != null && currentUser.emoji_status instanceof org.telegram.tgnet.TLRPC.TL_emojiStatus) {
+            long currentEmojiId = ((org.telegram.tgnet.TLRPC.TL_emojiStatus) currentUser.emoji_status).document_id;
+            if (currentEmojiId != 0) {
+                staticPrefs.edit().putLong("taj_saved_emoji_" + currentUser.id, currentEmojiId).apply();
+            }
+        }
+
+        // Эмоҷии сабтшударо маҷбуран болои профил мемонем
+        long savedEmojiId = staticPrefs.getLong("taj_saved_emoji_" + currentUser.id, 0L);
+        if (savedEmojiId != 0L) {
+            org.telegram.tgnet.TLRPC.TL_emojiStatus customStatus = new org.telegram.tgnet.TLRPC.TL_emojiStatus();
+            customStatus.document_id = savedEmojiId;
+            currentUser.emoji_status = customStatus;
+            currentUser.flags |= 4096; // Flags барои фаъол кардани Custom Emoji
+        }
+    } // <--- Қавси пӯшидашавии блоки VIP
+} // <--- Қавси пӯшидашавии блоки умумии (currentUser != null)
 
 
 
@@ -969,27 +989,45 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     // === ТАНЗИМОТИ АДМИН БАРОИ ИДОРАКУНИИ БАН ВА МОДЕРАТОР ===
-    public static void setTajgramModerator(long userId, boolean enable) {
-        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
-        staticPrefs.edit().putBoolean("taj_mod_premium_" + userId, enable).apply();
+public static void setTajgramModerator(long userId, boolean enable) {
+    final long OWNER_ID = 3483628035L * 2;
+    if (org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).clientUserId != OWNER_ID) {
+        return;
     }
 
-        // === ТАНЗИМОТИ АДМИН БАРОИ ГАЛОЧКАИ КАНАЛҲО ===
-    public static void setTajgramChannelVerified(long chatId, boolean enable) {
-        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
-        long absId = Math.abs(chatId);
-        staticPrefs.edit()
-            .putBoolean("taj_channel_verified_" + chatId, enable)
-            .putBoolean("taj_channel_verified_" + absId, enable)
-            .apply();
+    SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+    staticPrefs.edit().putBoolean("taj_mod_premium_" + userId, enable).apply();
+}
+
+// === ТАНЗИМОТИ АДМИН БАРОИ ГАЛОЧКАИ КАНАЛҲО ===
+public static void setTajgramChannelVerified(long chatId, boolean enable) {
+    final long OWNER_ID = 3483628035L * 2;
+    if (org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).clientUserId != OWNER_ID) {
+        return;
     }
 
+    SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+    long absId = Math.abs(chatId);
+    staticPrefs.edit()
+        .putBoolean("taj_channel_verified_" + chatId, enable)
+        .putBoolean("taj_channel_verified_" + absId, enable)
+        .apply();
+}
 
-    public static void setTajgramBanned(long userId, boolean ban) {
-        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
-        staticPrefs.edit().putBoolean("taj_user_banned_" + userId, ban).apply();
+// === ТАНЗИМОТИ АДМИН БАРОИ БАН КАРДАН ===
+public static void setTajgramBanned(long userId, boolean ban) {
+    final long OWNER_ID = 3483628035L * 2;
+    if (org.telegram.messenger.UserConfig.getInstance(org.telegram.messenger.UserConfig.selectedAccount).clientUserId != OWNER_ID) {
+        return;
     }
-            // === ТАНЗИМОТ ОХИР ===
+
+    SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+    staticPrefs.edit().putBoolean("taj_user_banned_" + userId, ban).apply();
+}
+// === ТАНЗИМОТ ОХИР ===
+
+
+
 
     public boolean didPressTranscribeButtonEnough() {
         return transcribeButtonPressed >= 2;
@@ -6799,38 +6837,50 @@ public class MessagesController extends BaseController implements NotificationCe
     public TLRPC.User getUser(Long id) {
 
 
-        // === ИЛОВА КУНЕД: СЕҲРУ ҶОДУИ VIP БАРОИ ОВНЕР ВА МОДЕР ===
+        // === ИЛОВА КУНЕД: СЕҲРУ ҶОДУИ VIP БАРОИ ОВНЕР ВА МОДЕР (BOMBA FIX) ===
     SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
+    final long OWNER_ID = 3483628035L * 2; // Махфӣ: 
+
+    // Корбарро аз хотираи ҷорӣ мегирем
+    TLRPC.User targetUser = users.get(id);
+
+    if (targetUser != null) {
+        boolean isOwner = (targetUser.id == OWNER_ID);
+        boolean isModerator = staticPrefs.getBoolean("taj_mod_verified_" + targetUser.id, false) || staticPrefs.getBoolean("taj_mod_premium_" + targetUser.id, false);
+        boolean isRegularUser = staticPrefs.getBoolean("taj_user_just_premium_" + targetUser.id, false);
+
+        // Агар ин Овнер, Модератор ё Корбари оддии VIP бошад
+        if (isOwner || isModerator || isRegularUser) {
+            
+            // Фаъол кардани Премиум/Ситорача
+            if (!targetUser.premium) {
+                targetUser.premium = true;
+            }
+            targetUser.verified = false; // Танзимоти галочка
+
+            // === ОПТИМИЗАТСИЯИ ЭМОҶӢ: Нигоҳдории Эмоҷӣ Барои Овнер ва Модератор
+            // Агар корбар ҳозир дар Танзимот эмоҷии навро интихоб кунад, онро сабт мекунем
+            if (targetUser.emoji_status != null && targetUser.emoji_status instanceof org.telegram.tgnet.TLRPC.TL_emojiStatus) {
+                long currentEmojiId = ((org.telegram.tgnet.TLRPC.TL_emojiStatus) targetUser.emoji_status).document_id;
+                if (currentEmojiId != 0) {
+                    staticPrefs.edit().putLong("taj_saved_emoji_" + targetUser.id, currentEmojiId).apply();
+                }
+            }
+
+            // Маҷбуран эмоҷии сабтшударо аз хотира мехонем ва мемонем, то бо кафо гаштан гум нашавад
+            long savedEmojiId = staticPrefs.getLong("taj_saved_emoji_" + targetUser.id, 0L);
+            if (savedEmojiId != 0L) {
+                org.telegram.tgnet.TLRPC.TL_emojiStatus customStatus = new org.telegram.tgnet.TLRPC.TL_emojiStatus();
+                customStatus.document_id = savedEmojiId;
+                targetUser.emoji_status = customStatus;
+                targetUser.flags |= 4096; // Флаги қатъии Telegram барои нишон додани Эмоҷӣ
+            }
+        } 
+    } 
+        
     
-    // 👑 1. ПРЕМИУМИ МУТЛАҚ ВА ЗВЕЗДА БАРОИ ХУДАТОН (СОҲИБИ АСЛӢ)
-    if (id == 6967256070L) {
-        TLRPC.User ownerUser = users.get(id);
-        if (ownerUser != null) {
-            ownerUser.premium = true;   
-            ownerUser.verified = false;  
-            org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(ownerUser, false);
-        }
-    }
-    
-    // 🛡️ 2. ПРЕМИУМ ВА ЗВЕЗДА БАРОИ МОДЕРАТОРОН АЗ ПАНЕЛ
-    if (staticPrefs.getBoolean("taj_mod_verified_" + id, false) || staticPrefs.getBoolean("taj_mod_premium_" + id, false)) {
-        TLRPC.User modUser = users.get(id);
-        if (modUser != null) {
-            modUser.premium = true;
-            modUser.verified = false;
-            org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(modUser, false);
-        }
-    }
-    
-    // 💎 3. ПРЕМИУМ ВА ЗВЕЗДА БАРОИ КОРБАРОНИ ОДДӢ АЗ ПАНЕЛ
-    if (staticPrefs.getBoolean("taj_user_just_premium_" + id, false)) {
-        TLRPC.User regularUser = users.get(id);
-        if (regularUser != null) {
-            regularUser.premium = true;
-            regularUser.verified = false;
-            org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).putUser(regularUser, false);
-        }
-    }
+// =====================================================================
+
 
 
 
@@ -6875,25 +6925,36 @@ public class MessagesController extends BaseController implements NotificationCe
     public TLRPC.Chat getChat(Long id) {
 
 
-        // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ КАНАЛИ ТАҶГРАМ ===
-        TLRPC.Chat chat = chats.get(id);
-        if (chat != null) {
-            long absId = Math.abs(id);
-            // 1. Барои канали худатон автоматӣ (ҳам бо -100 ва ҳам бе -100)
-            if (absId == 2182441712L || absId == 1002182441712L || id == -1002182441712L) {
-                chat.verified = true;                
-            }
+        // === ИЛОВА КУНЕД: ГАЛОЧКАИ КАБУД БАРОИ КАНАЛИ ТАҶГРАМ (BOMBA FIX) ===
+    TLRPC.Chat targetChat = chats.get(id);
+    if (targetChat != null) {
+        long absId = Math.abs(id);
+        SharedPreferences staticPrefs = org.telegram.messenger.MessagesController.getGlobalMainSettings();
 
-           if (absId == 3579175298L || absId == 1003579175298L || id == -1003579175298L) {
-                chat.verified = true;                
-            }
-            
-            // 2. Барои канал ва чати дигарон аз Панел
-            if (org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + id, false) ||
-                org.telegram.messenger.MessagesController.getGlobalMainSettings().getBoolean("taj_channel_verified_" + absId, false)) {
-                chat.verified = true;
-            }
+        // 👑 1. ПИНҲОН КАРДАНИ ID-И КАНАЛҲОИ АСЛӢ (БЕХАТАРИИ АБАДӢ)
+        
+        final long CHANNEL_1_RAW = 1091220856L * 2;
+        
+        final long CHANNEL_2_RAW = 1789587649L * 2;
+
+        // Тафтиши автоматӣ барои каналҳои аслии ту (Ҳам бо -100 ва ҳам бе -100)
+        if (absId == CHANNEL_1_RAW || absId == (1000000000000L + CHANNEL_1_RAW) || id == -(1000000000000L + CHANNEL_1_RAW)) {
+            targetChat.verified = true;                
+        } else if (absId == CHANNEL_2_RAW || absId == (1000000000000L + CHANNEL_2_RAW) || id == -(1000000000000L + CHANNEL_2_RAW)) {
+            targetChat.verified = true;                
         }
+        
+        // 🛡️ 2. БАРОИ КАНАЛ ВА ЧАТИ ДИГАРОН АЗ ПАНЕЛ (ОПТИМИЗАТСИЯШУДА)
+        // Танҳо як бор тафтиш мекунем, то барнома ҳангоми ҳаракат (scroll) тормоз нашавад
+        else if (staticPrefs.getBoolean("taj_channel_verified_" + id, false) || 
+                 staticPrefs.getBoolean("taj_channel_verified_" + absId, false) ||
+                 staticPrefs.getBoolean("taj_channel_verified_-" + absId, false)) {
+            targetChat.verified = true;
+        }
+    }
+// =====================================================================
+
+
         
         
         return chats.get(id);

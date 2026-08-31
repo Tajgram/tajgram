@@ -13343,108 +13343,97 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
             topNearToSet = topNear;
             firstInChatToSet = firstInChat;
             lastInChatListToSet = lastInChatList;
-        }
-    }
 
-    // === START TAJGRAM REAL MESSAGES RATING SYSTEM ===
-if (currentMessageObject != null) {
-    final String messageKey = currentMessageObject.getDialogId() + "_" + currentMessageObject.getId();
+                    // === START TAJGRAM REAL MESSAGES RATING SYSTEM ===
+        if (currentMessageObject != null) {
+            final String messageKey = currentMessageObject.getDialogId() + "_" + currentMessageObject.getId();
 
-    if (context != null) {
-        android.widget.LinearLayout ratingLayout = new android.widget.LinearLayout(context);
-        ratingLayout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
-        ratingLayout.setPadding(
-            org.telegram.messenger.AndroidUtilities.dp(6), 
-            org.telegram.messenger.AndroidUtilities.dp(2), 
-            org.telegram.messenger.AndroidUtilities.dp(6), 
-            org.telegram.messenger.AndroidUtilities.dp(2)
-        );
+            if (getContext() != null) {
+                android.widget.LinearLayout ratingLayout = new android.widget.LinearLayout(getContext());
+                ratingLayout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+                ratingLayout.setPadding(org.telegram.messenger.AndroidUtilities.dp(6), org.telegram.messenger.AndroidUtilities.dp(2), org.telegram.messenger.AndroidUtilities.dp(6), org.telegram.messenger.AndroidUtilities.dp(2));
 
-        android.graphics.drawable.GradientDrawable backgroundShape = new android.graphics.drawable.GradientDrawable();
-        backgroundShape.setCornerRadius(org.telegram.messenger.AndroidUtilities.dp(12));
-        backgroundShape.setColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_chat_inBubble));
-        ratingLayout.setBackground(backgroundShape);
+                android.graphics.drawable.GradientDrawable backgroundShape = new android.graphics.drawable.GradientDrawable();
+                backgroundShape.setCornerRadius(org.telegram.messenger.AndroidUtilities.dp(12));
+                backgroundShape.setColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_chat_inBubble));
+                ratingLayout.setBackground(backgroundShape);
 
-        android.widget.TextView likeText = new android.widget.TextView(context);
-        likeText.setText("👍 0");
-        likeText.setTextSize(10);
-        likeText.setPadding(0, 0, org.telegram.messenger.AndroidUtilities.dp(6), 0);
-        likeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_chat_messageTextIn));
+                android.widget.TextView likeText = new android.widget.TextView(getContext());
+                likeText.setText("👍 0");
+                likeText.setTextSize(10);
+                likeText.setPadding(0, 0, org.telegram.messenger.AndroidUtilities.dp(6), 0);
+                likeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_chat_messageTextIn));
 
-        android.widget.TextView dislikeText = new android.widget.TextView(context);
-        dislikeText.setText("👎 0");
-        dislikeText.setTextSize(10);
-        dislikeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_chat_messageTextIn));
+                android.widget.TextView dislikeText = new android.widget.TextView(getContext());
+                dislikeText.setText("👎 0");
+                dislikeText.setTextSize(10);
+                dislikeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_chat_messageTextIn));
 
-        ratingLayout.addView(likeText);
-        ratingLayout.addView(dislikeText);
+                ratingLayout.addView(likeText);
+                ratingLayout.addView(dislikeText);
 
-        try {
-            com.google.firebase.database.DatabaseReference postRef = com.google.firebase.database.FirebaseDatabase.getInstance()
-                .getReference("post_ratings").child(messageKey);
+                try {
+                    com.google.firebase.database.DatabaseReference postRef = com.google.firebase.database.FirebaseDatabase.getInstance().getReference("post_ratings").child(messageKey);
 
-            postRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
-                @Override
-                public void onDataChange(com.google.firebase.database.DataSnapshot snapshot) {
-                    Long likes = snapshot.child("likes").getValue(Long.class);
-                    Long dislikes = snapshot.child("dislikes").getValue(Long.class);
-                    likeText.setText("👍 " + (likes != null ? likes : 0));
-                    dislikeText.setText("👎 " + (dislikes != null ? dislikes : 0));
+                    postRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+                        @Override
+                        public void onDataChange(com.google.firebase.database.DataSnapshot snapshot) {
+                            Long likes = snapshot.child("likes").getValue(Long.class);
+                            Long dislikes = snapshot.child("dislikes").getValue(Long.class);
+                            likeText.setText("👍 " + (likes != null ? likes : 0));
+                            dislikeText.setText("👎 " + (dislikes != null ? dislikes : 0));
+                        }
+                        @Override
+                        public void onCancelled(com.google.firebase.database.DatabaseError error) {}
+                    });
+
+                    likeText.setOnClickListener(v -> {
+                        postRef.child("likes").runTransaction(new com.google.firebase.database.Transaction.Handler() {
+                            @Override
+                            public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
+                                Long val = currentData.getValue(Long.class);
+                                currentData.setValue(val == null ? 1 : val + 1);
+                                return com.google.firebase.database.Transaction.success(currentData);
+                            }
+                            @Override
+                            public void onComplete(com.google.firebase.database.DatabaseError err, boolean committed, com.google.firebase.database.DataSnapshot snap) {
+                                if (committed && getContext() != null) {
+                                    String toast = org.telegram.messenger.LocaleController.getString("LikeSentToast", org.telegram.messenger.R.string.LikeSentToast);
+                                    android.widget.Toast.makeText(getContext(), toast, android.widget.Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    });
+
+                    dislikeText.setOnClickListener(v -> {
+                        postRef.child("dislikes").runTransaction(new com.google.firebase.database.Transaction.Handler() {
+                            @Override
+                            public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
+                                Long val = currentData.getValue(Long.class);
+                                currentData.setValue(val == null ? 1 : val + 1);
+                                return com.google.firebase.database.Transaction.success(currentData);
+                            }
+                            @Override
+                            public void onComplete(com.google.firebase.database.DatabaseError err, boolean committed, com.google.firebase.database.DataSnapshot snap) {
+                                if (committed && getContext() != null) {
+                                    String toast = org.telegram.messenger.LocaleController.getString("DislikeSentToast", org.telegram.messenger.R.string.DislikeSentToast);
+                                    android.widget.Toast.makeText(getContext(), toast, android.widget.Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                @Override
-                public void onCancelled(com.google.firebase.database.DatabaseError error) {}
-            });
 
-            likeText.setOnClickListener(v -> {
-                postRef.child("likes").runTransaction(new com.google.firebase.database.Transaction.Handler() {
-                    @Override
-                    public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
-                        Long val = currentData.getValue(Long.class);
-                        currentData.setValue(val == null ? 1 : val + 1);
-                        return com.google.firebase.database.Transaction.success(currentData);
-                    }
-                    @Override
-                    public void onComplete(com.google.firebase.database.DatabaseError err, boolean committed, com.google.firebase.database.DataSnapshot snap) {
-                        if (committed) {
-                            String toast = org.telegram.messenger.LocaleController.getString("LikeSentToast", org.telegram.messenger.R.string.LikeSentToast);
-                            android.widget.Toast.makeText(context, toast, android.widget.Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            });
-
-            dislikeText.setOnClickListener(v -> {
-                postRef.child("dislikes").runTransaction(new com.google.firebase.database.Transaction.Handler() {
-                    @Override
-                    public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
-                        Long val = currentData.getValue(Long.class);
-                        currentData.setValue(val == null ? 1 : val + 1);
-                        return com.google.firebase.database.Transaction.success(currentData);
-                    }
-                    @Override
-                    public void onComplete(com.google.firebase.database.DatabaseError err, boolean committed, com.google.firebase.database.DataSnapshot snap) {
-                        if (committed) {
-                            String toast = org.telegram.messenger.LocaleController.getString("DislikeSentToast", org.telegram.messenger.R.string.DislikeSentToast);
-                            android.widget.Toast.makeText(context, toast, android.widget.Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
+                addView(ratingLayout, org.telegram.ui.Components.LayoutHelper.createFrame(org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, android.view.Gravity.BOTTOM | android.view.Gravity.RIGHT, 0, 0, 12, 4));
+            }
         }
-
-        addView(ratingLayout, org.telegram.ui.Components.LayoutHelper.createFrame(
-            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-            android.view.Gravity.BOTTOM | android.view.Gravity.RIGHT, 
-            0, 0, 12, 4
-        ));
+        // === END TAJGRAM REAL MESSAGES RATING SYSTEM ===
+                
+        }
     }
-}
-// === END TAJGRAM REAL MESSAGES RATING SYSTEM ===
-
 
 
     private boolean frozen;

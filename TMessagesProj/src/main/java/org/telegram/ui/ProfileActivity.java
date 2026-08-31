@@ -5679,9 +5679,21 @@ if (avatarContainer2 != null) {
             android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
             0, 225, 0, 0
         ));
+
+                // ХУДИ КОНТЕЙНЕРРО КЛЕЙ МЕКУНЕМ: Шакли дуруст ва бе хатогӣ барои Tajgram
+        if (listView != null) {
+            listView.addOnScrollListener(new org.telegram.ui.Components.RecyclerListView.OnScrollListener() {
+                @Override
+                public void onScrolled(androidx.recyclerview.widget.RecyclerView recyclerView, int dx, int dy) {
+                    userIdTextView.setTranslationY(avatarContainer2.getTranslationY());
+                }
+            });
+        }
     }
 }
+
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
         

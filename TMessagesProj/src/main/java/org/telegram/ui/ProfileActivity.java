@@ -5755,8 +5755,8 @@ if (avatarContainer2 != null) {
         // === START TAJGRAM REAL BIO POST RATING SYSTEM ===
 if (avatarContainer2 != null) {
     String bioText = "";
-    if (currentChat != null && currentChat.about != null) {
-        bioText = currentChat.about;
+    if (info != null && info.about != null) {
+    bioText = info.about;
     } else if (userInfo != null && userInfo.about != null) {
         bioText = userInfo.about;
     }

@@ -5753,10 +5753,10 @@ if (avatarContainer2 != null) {
         updateProfileData(true);
 
         // === START TAJGRAM REAL BIO POST RATING SYSTEM ===
-if (avatarContainer2 != null) {
+    if (avatarContainer2 != null) {
     String bioText = "";
-    if (info != null && info.about != null) {
-    bioText = info.about;
+    if (chatInfo != null && chatInfo.about != null) {
+        bioText = chatInfo.about;
     } else if (userInfo != null && userInfo.about != null) {
         bioText = userInfo.about;
     }

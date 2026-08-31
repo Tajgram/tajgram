@@ -13348,8 +13348,15 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
         if (currentMessageObject != null) {
             final String messageKey = currentMessageObject.getDialogId() + "_" + currentMessageObject.getId();
 
+            // ИСЛОҲИ АСОСӢ: Тоза кардани блоки кӯҳна ҳангоми скролл, то лайкҳо ба болои ҳам савор нашаванд
+            android.view.View oldRating = findViewWithTag("tajgram_msg_rating");
+            if (oldRating != null) {
+                removeView(oldRating);
+            }
+
             if (getContext() != null) {
                 android.widget.LinearLayout ratingLayout = new android.widget.LinearLayout(getContext());
+                ratingLayout.setTag("tajgram_msg_rating"); // Тег барои идоракунии скролл
                 ratingLayout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
                 ratingLayout.setPadding(org.telegram.messenger.AndroidUtilities.dp(6), org.telegram.messenger.AndroidUtilities.dp(2), org.telegram.messenger.AndroidUtilities.dp(6), org.telegram.messenger.AndroidUtilities.dp(2));
 
@@ -13430,7 +13437,7 @@ public class ChatMessageCell extends BaseCell implements SeekBar.SeekBarDelegate
                 addView(ratingLayout, org.telegram.ui.Components.LayoutHelper.createFrame(org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, android.view.Gravity.BOTTOM | android.view.Gravity.RIGHT, 0, 0, 12, 4));
             }
         }
-        // === END TAJGRAM REAL MESSAGES RATING SYSTEM ===
+// === END TAJGRAM REAL MESSAGES RATING SYSTEM ===
                 
         }
     }

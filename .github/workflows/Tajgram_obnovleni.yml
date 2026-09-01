@@ -2,8 +2,8 @@ name: 🔄 Tajgram Ultimate Rebase Sync
 
 on:
   workflow_dispatch:
-  schedule:
-   # - cron: '0 0 */10 * *'
+  # schedule:
+  # - cron: '0 0 */10 * *'
 
 permissions:
   contents: write

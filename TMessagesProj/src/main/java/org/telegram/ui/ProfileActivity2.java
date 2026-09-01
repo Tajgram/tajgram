@@ -216,6 +216,9 @@ public class ProfileActivity2 extends BaseFragment implements
     private SimpleTextView title;
     private SimpleTextView subtitle;
 
+    private android.widget.TextView userIdTextView;
+
+
     private ImageLocation prevLoadedImageLocation;
 
     private boolean hoursExpanded;
@@ -235,6 +238,66 @@ public class ProfileActivity2 extends BaseFragment implements
         final ContainerView container = new ContainerView(context);
         container.setWillNotDraw(false);
         container.setBackgroundColor(0);
+
+        // === START TAJGRAM USER ID UNDER STATUS PROFILE2 ===
+if (container != null && context != null) {
+    long idToCopy = userId;
+    
+    if (currentChat != null) {
+        idToCopy = currentChat.id;
+        // Кафолати доимӣ: Агар ID-и канал ё гурӯҳ мусбат бошад, ба он -100-ро дар аввалаш клей мекунем
+        if (idToCopy > 0) {
+            String idStr = String.valueOf(idToCopy);
+            if (!idStr.startsWith("100")) {
+                idToCopy = Long.parseLong("-100" + idStr);
+            } else {
+                idToCopy = -idToCopy;
+            }
+        }
+    }
+
+    final long finalId = idToCopy;
+
+    if (finalId != 0) {
+        userIdTextView = new android.widget.TextView(context);
+        
+        // МАНТИҚИ ҶУДОКУНИИ ЗАБОНИ ХУДАТ (100% ҲИФЗ ШУД):
+        if (currentChat == null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
+            userIdTextView.setText("ID: " + finalId);
+        } else if (currentChat == null) {
+            String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
+            if (label == null || label.isEmpty() || label.startsWith("LocaleKey")) {
+                label = "ID"; // Резерв, агар калид дар забони телефон набошад
+            }
+            userIdTextView.setText(label + ": " + finalId);
+        } else {
+            userIdTextView.setText("ID: " + finalId);
+        }
+        
+        userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+        userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
+        
+        userIdTextView.setOnClickListener(v -> {
+            org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(finalId));
+            if (getContext() != null) {
+                android.widget.Toast.makeText(getContext(), 
+                    org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
+                    android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        // ДИАПАЗОНИ СУПЕР ДУРУСТИ ХУДАТ (0, 225, 0, 0):
+        container.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
+            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+            android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
+            0, 225, 0, 0
+        ));
+    }
+}
+// === END TAJGRAM USER ID UNDER STATUS PROFILE2 ===
+
+
 
         sharedMediaLayout = new SharedMediaLayout(
             context,
@@ -390,6 +453,12 @@ public class ProfileActivity2 extends BaseFragment implements
         lp = (FrameLayout.LayoutParams) subtitle.getLayoutParams();
         lp.topMargin = statusBarHeight;
 
+
+                if (userIdTextView != null) {
+            lp = (FrameLayout.LayoutParams) userIdTextView.getLayoutParams();
+            lp.topMargin = statusBarHeight;
+                }
+
         updateScrollLayout();
     }
 
@@ -453,6 +522,19 @@ public class ProfileActivity2 extends BaseFragment implements
             multAlpha(0xFFFFFFFF, 0.85f),
             top
         ));
+
+                // КЛЕЙ КАРДАНИ ID-И ХУДАТ МУСТАҚИМ БО АНИМАТСИЯИ СТАТУС
+        if (userIdTextView != null) {
+            userIdTextView.setTranslationX(subtitle.getTranslationX());
+            // Илова кардани dp(16) барои он ки масофаи зебои диапазони ту дар ҳаракат ҳам устувор истад
+            userIdTextView.setTranslationY(subtitle.getTranslationY() + org.telegram.messenger.AndroidUtilities.dp(16));
+            userIdTextView.setScaleX(subtitle.getScaleX());
+            userIdTextView.setScaleY(subtitle.getScaleY());
+            userIdTextView.setAlpha(subtitle.getAlpha());
+        }
+
+
+        
     }
 
     @Override

@@ -527,7 +527,7 @@ if (container != null && context != null) {
         if (userIdTextView != null) {
             userIdTextView.setTranslationX(subtitle.getTranslationX());
             // Илова кардани dp(16) барои он ки масофаи зебои диапазони ту дар ҳаракат ҳам устувор истад
-            userIdTextView.setTranslationY(subtitle.getTranslationY() + org.telegram.messenger.AndroidUtilities.dp(16));
+            userIdTextView.setTranslationY(subtitle.getTranslationY() + AndroidUtilities.dp(16));
             userIdTextView.setScaleX(subtitle.getScaleX());
             userIdTextView.setScaleY(subtitle.getScaleY());
             userIdTextView.setAlpha(subtitle.getAlpha());

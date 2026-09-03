@@ -618,6 +618,10 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     public int birthdayRow;
     private int setUsernameRow;
     private int bioRow;
+
+    private int bioRatingRow = -1;
+
+    
     private int phoneSuggestionSectionRow;
     private int graceSuggestionRow;
     private int graceSuggestionSectionRow;
@@ -10540,6 +10544,9 @@ if (userIdView != null && onlineTextView[1] != null) {
         birthdayRow = -1;
         setUsernameRow = -1;
         bioRow = -1;
+
+        bioRatingRow = -1;
+        
         channelRow = -1;
         channelDividerRow = -1;
         phoneSuggestionSectionRow = -1;
@@ -10705,6 +10712,8 @@ if (userIdView != null && onlineTextView[1] != null) {
                 numberRow = rowCount++;
                 setUsernameRow = rowCount++;
                 bioRow = rowCount++;
+
+                bioRatingRow = rowCount++;
 
                 settingsSectionRow = rowCount++;
 

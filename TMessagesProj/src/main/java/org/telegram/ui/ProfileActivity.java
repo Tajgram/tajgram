@@ -5644,7 +5644,12 @@ if (avatarContainer2 != null) {
     long idToCopy = userId;
     
     if (currentChat != null) {
-        idToCopy = currentChat.id;
+        // Барои каналҳо ва супергурӯҳҳо ба таври заводӣ префикси -100-ро худи Телеграм истифода мебарад
+        if (org.telegram.messenger.ChatObject.isChannel(currentChat)) {
+            idToCopy = -1000000000000L - currentChat.id;
+        } else {
+            idToCopy = -currentChat.id;
+        }
     }
 
     final long finalId = idToCopy;
@@ -5652,12 +5657,14 @@ if (avatarContainer2 != null) {
     if (finalId != 0) {
         android.widget.TextView userIdTextView = new android.widget.TextView(context);
         
+        // Коди худат барои тарҷумаи автоматии забонҳо (бе хардкод)
         if (currentChat == null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
             userIdTextView.setText("ID: " + finalId);
         } else if (currentChat == null) {
             String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
             userIdTextView.setText(label + ": " + finalId);
         } else {
+            // Барои чатҳо ва каналҳо префикси дурусти -100 ё - автоматӣ нишон дода мешавад
             userIdTextView.setText("ID: " + finalId);
         }
         
@@ -5673,15 +5680,21 @@ if (avatarContainer2 != null) {
             }
         });
         
+        // ТАГ МЕМОНЕМ, ТО ОНРО ДАР СКРОЛЛ БА СТАТУС КЛЕЙ КУНЕМ
+        userIdTextView.setTag("user_id_text_view");
+
+        // Барои он ки ID дар зери статус устувор бишинад ва ба поён напарад,
+        // маргини 225-ро ба 0 иваз мекунем. Он автоматӣ бо коди скролл ҳаракат мекунад.
         avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
             org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
             org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
             android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
-            0, 225, 0, 0
+            0, 0, 0, 0
         ));
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
         
@@ -5695,6 +5708,21 @@ if (avatarContainer2 != null) {
         ratingView.setDelegate(visibility -> {
             onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
             onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
+
+           // === ТАНЗИМИ ИД ДАР СКРОЛЛ ===
+android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
+if (userIdView != null && onlineTextView[1] != null) {
+    userIdView.setTranslationX(onlineTextView[1].getTranslationX());
+    // Истифодаи аниқи onlineTextView[1] ва иловаи 16dp
+    userIdView.setTranslationY(onlineTextView[1].getTranslationY() + org.telegram.messenger.AndroidUtilities.dp(16));
+    userIdView.setScaleX(onlineTextView[1].getScaleX());
+    userIdView.setScaleY(onlineTextView[1].getScaleY());
+    userIdView.setAlpha(onlineTextView[1].getAlpha());
+}
+// =============================
+
+
+            
         });
         ratingView.setOnClickListener(this::showStarRatingBottomSheet);
         if (userInfo != null) {

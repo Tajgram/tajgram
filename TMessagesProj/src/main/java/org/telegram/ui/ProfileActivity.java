@@ -14502,6 +14502,12 @@ if (userIdView != null && onlineTextView[1] != null) {
 
         @Override
         public int getItemViewType(int position) {
+
+            if (position == bioRatingRow) {
+    return 34;
+}
+
+            
             if (position == infoHeaderRow || position == membersHeaderRow || position == settingsSectionRow2 ||
                     position == numberSectionRow || position == helpHeaderRow || position == debugHeaderRow || position == botPermissionsHeader) {
                 return VIEW_TYPE_HEADER;

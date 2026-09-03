@@ -13266,7 +13266,7 @@ if (userIdView != null && onlineTextView[1] != null) {
                         }
                     };
                     break;
-
+                }
                     case 34: { // Сатри нави лайкҳо барои Тайграм
     android.widget.LinearLayout bioRatingLayout = null;
     String bioText = "";
@@ -13365,10 +13365,7 @@ if (userIdView != null && onlineTextView[1] != null) {
     // Агар БИО холӣ бошад, сатри оддӣ месозем, то хато накунад
     view = bioRatingLayout != null ? bioRatingLayout : new android.view.View(mContext);
     break;
-}
-
-
-                    
+          }           
                 }
                 case VIEW_TYPE_TEXT: {
                     view = new TextCell(mContext, 18, false, false, resourcesProvider) {

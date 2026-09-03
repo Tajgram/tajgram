@@ -13251,6 +13251,109 @@ if (userIdView != null && onlineTextView[1] != null) {
                         }
                     };
                     break;
+
+                    case 34: { // Сатри нави лайкҳо барои Тайграм
+    android.widget.LinearLayout bioRatingLayout = null;
+    String bioText = "";
+    
+    if (chatInfo != null && chatInfo.about != null) {
+        bioText = chatInfo.about;
+    } else if (userInfo != null && userInfo.about != null) {
+        bioText = userInfo.about;
+    }
+    
+    if (!bioText.isEmpty()) {
+        final long profileTargetId = dialogId;
+        int bioHash = bioText.hashCode();
+        final String serverKey = profileTargetId + "_" + bioHash;
+
+        bioRatingLayout = new android.widget.LinearLayout(mContext);
+        bioRatingLayout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+        bioRatingLayout.setPadding(
+            org.telegram.messenger.AndroidUtilities.dp(12),
+            org.telegram.messenger.AndroidUtilities.dp(6),
+            org.telegram.messenger.AndroidUtilities.dp(12),
+            org.telegram.messenger.AndroidUtilities.dp(6)
+        );
+
+        android.graphics.drawable.GradientDrawable bioShape = new android.graphics.drawable.GradientDrawable();
+        bioShape.setCornerRadius(org.telegram.messenger.AndroidUtilities.dp(12));
+        bioShape.setColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_chat_inBubble));
+        bioRatingLayout.setBackground(bioShape);
+
+        android.widget.TextView profLikeText = new android.widget.TextView(mContext);
+        profLikeText.setText("👍 0");
+        profLikeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+        profLikeText.setPadding(0, 0, org.telegram.messenger.AndroidUtilities.dp(12), 0);
+        profLikeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_windowBackgroundWhiteBlackText));
+
+        android.widget.TextView profDislikeText = new android.widget.TextView(mContext);
+        profDislikeText.setText("👎 0");
+        profDislikeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+        profDislikeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_windowBackgroundWhiteBlackText));
+
+        bioRatingLayout.addView(profLikeText);
+        bioRatingLayout.addView(profDislikeText);
+
+        try {
+            com.google.firebase.database.DatabaseReference profRef = com.google.firebase.database.FirebaseDatabase.getInstance()
+                .getReference("bio_posts_ratings").child(serverKey);
+                
+            profRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+                @Override
+                public void onDataChange(com.google.firebase.database.DataSnapshot snapshot) {
+                    Long likes = snapshot.child("likes").getValue(Long.class);
+                    Long dislikes = snapshot.child("dislikes").getValue(Long.class);
+                    profLikeText.setText("👍 " + (likes != null ? likes : 0));
+                    profDislikeText.setText("👎 " + (dislikes != null ? dislikes : 0));
+                }
+                @Override
+                public void onCancelled(com.google.firebase.database.DatabaseError error) {}
+            });
+
+            profLikeText.setOnClickListener(v -> profRef.child("likes").runTransaction(new com.google.firebase.database.Transaction.Handler() {
+                @Override
+                public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
+                    Long val = currentData.getValue(Long.class);
+                    currentData.setValue(val == null ? 1 : val + 1);
+                    return com.google.firebase.database.Transaction.success(currentData);
+                }
+                @Override
+                public void onComplete(com.google.firebase.database.DatabaseError err, boolean committed, com.google.firebase.database.DataSnapshot snap) {
+                    if (committed && getContext() != null) {
+                        String toast = org.telegram.messenger.LocaleController.getString("LikeSentToast", org.telegram.messenger.R.string.LikeSentToast);
+                        android.widget.Toast.makeText(getContext(), toast, android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }));
+
+            profDislikeText.setOnClickListener(v -> profRef.child("dislikes").runTransaction(new com.google.firebase.database.Transaction.Handler() {
+                @Override
+                public com.google.firebase.database.Transaction.Result doTransaction(com.google.firebase.database.MutableData currentData) {
+                    Long val = currentData.getValue(Long.class);
+                    currentData.setValue(val == null ? 1 : val + 1);
+                    return com.google.firebase.database.Transaction.success(currentData);
+                }
+                @Override
+                public void onComplete(com.google.firebase.database.DatabaseError err, boolean committed, com.google.firebase.database.DataSnapshot snap) {
+                    if (committed && getContext() != null) {
+                        String toast = org.telegram.messenger.LocaleController.getString("DislikeSentToast", org.telegram.messenger.R.string.DislikeSentToast);
+                        android.widget.Toast.makeText(getContext(), toast, android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Агар БИО холӣ бошад, сатри оддӣ месозем, то хато накунад
+    view = bioRatingLayout != null ? bioRatingLayout : new android.view.View(mContext);
+    break;
+}
+
+
+                    
                 }
                 case VIEW_TYPE_TEXT: {
                     view = new TextCell(mContext, 18, false, false, resourcesProvider) {

@@ -13277,7 +13277,7 @@ if (userIdView != null && onlineTextView[1] != null) {
                     case 34: { // Сатри нави лайкҳо барои Тайграм
     android.widget.LinearLayout bioRatingLayout = null;
     String bioText = "";
-    
+                      
     if (chatInfo != null && chatInfo.about != null) {
         bioText = chatInfo.about;
     } else if (userInfo != null && userInfo.about != null) {
@@ -13288,7 +13288,7 @@ if (userIdView != null && onlineTextView[1] != null) {
         final long profileTargetId = dialogId;
         int bioHash = bioText.hashCode();
         final String serverKey = profileTargetId + "_" + bioHash;
-
+    
         bioRatingLayout = new android.widget.LinearLayout(mContext);
         bioRatingLayout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
         bioRatingLayout.setPadding(
@@ -13372,8 +13372,8 @@ if (userIdView != null && onlineTextView[1] != null) {
     // Агар БИО холӣ бошад, сатри оддӣ месозем, то хато накунад
     view = bioRatingLayout != null ? bioRatingLayout : new android.view.View(mContext);
     break;
-          }           
-                }
+                     
+                    
                 case VIEW_TYPE_TEXT: {
                     view = new TextCell(mContext, 18, false, false, resourcesProvider) {
                         @Override

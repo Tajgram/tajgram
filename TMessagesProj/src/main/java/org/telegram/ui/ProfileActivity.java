@@ -13310,11 +13310,12 @@ if (userIdView != null && onlineTextView != null) {
         );
 
         // ТАНЗИМИ АНДОЗАИ САТР (LAYOUTPARAMS), ТО КИ ДАР ЭКРАН НАМОЁН ШАВАД
-        org.telegram.ui.Components.LayoutHelper.setLinearMargins(
-            bioRatingLayout,
-            org.telegram.ui.Components.LayoutHelper.MATCH_PARENT,
-            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT
+                androidx.recyclerview.widget.RecyclerView.LayoutParams layoutParams = new androidx.recyclerview.widget.RecyclerView.LayoutParams(
+            androidx.recyclerview.widget.RecyclerView.LayoutParams.MATCH_PARENT,
+            androidx.recyclerview.widget.RecyclerView.LayoutParams.WRAP_CONTENT
         );
+        bioRatingLayout.setLayoutParams(layoutParams);
+
 
         android.graphics.drawable.GradientDrawable bioShape = new android.graphics.drawable.GradientDrawable();
         bioShape.setCornerRadius(org.telegram.messenger.AndroidUtilities.dp(12));

@@ -5687,7 +5687,10 @@ if (avatarContainer2 != null) {
                 // ТАГ МЕМОНЕМ, ТО ОНРО ДАР СКРОЛЛ БА СТАТУС КЛЕЙ КУНЕМ
 userIdTextView.setTag("user_id_text_view");
 
-// ТАНЗИМИ 100% ЗАВОДӢ БО МАСОФАИ 225 АЗ РӮИ PDF
+// ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
+int a = 0;
+
+// ТАНЗИМИ 100% ЗАВОДӢ БО МАСОФАИ 225 АЗ РӮИ PDF ВА БЕ ХАТОГӢ
 avatarContainer2.addView(userIdTextView,
 org.telegram.ui.Components.LayoutHelper.createFrame(
 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,

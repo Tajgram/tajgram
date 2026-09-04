@@ -5685,22 +5685,20 @@ if (avatarContainer2 != null) {
         });
         
                 // ТАГ МЕМОНЕМ, ТО ОНРО ДАР СКРОЛЛ БА СТАТУС КЛЕЙ КУНЕМ
-        userIdTextView.setTag("user_id_text_view");
+userIdTextView.setTag("user_id_text_view");
 
-        // ТАНЗИМИ 100% ЗАВОДӢ БО МАСОФАИ 225
-        // Мо шакли заводии Телеграмро пурра нигоҳ медорем (чап, рост ва тамоми шартҳоро),
-        // аммо барои масофа аз боло (topMargin) маҳз ҳамон "225"-ро мегузорем, ки талаб кардӣ.
-        // Бо ин усул ID дар дохили сохтори заводӣ мешинад ва автоматӣ якҷоя ҳаракат мекунанд!
-        avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
-            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-            android.view.Gravity.LEFT | android.view.Gravity.TOP, 
-            109 - (a == 1 || a == 2 || a == 3 ? 4 : 0), 
-            225, // Маҳз ҳамин масофаи 225, ки нишон дода будӣ
-            (a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0), 
-            0
-        ));
-    }
+// ТАНЗИМИ 100% ЗАВОДӢ БО МАСОФАИ 225 АЗ РӮИ PDF
+avatarContainer2.addView(userIdTextView,
+org.telegram.ui.Components.LayoutHelper.createFrame(
+org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
+org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
+android.view.Gravity.LEFT | android.view.Gravity.TOP,
+109 - (a == 1 || a == 2 || a == 3 ? 4 : 0),
+225, // Маҳз ҳамин масофаи 225, ки нишон дода будӣ
+(a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0),
+0
+));
+}
 }
 
 // === END TAJGRAM USER ID UNDER STATUS ===

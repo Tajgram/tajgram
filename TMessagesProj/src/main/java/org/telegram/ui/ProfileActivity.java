@@ -5684,27 +5684,30 @@ if (avatarContainer2 != null) {
             }
         });
         
-                // ТАГ МЕМОНЕМ, ТО ОНРО ДАР СКРОЛЛ БА СТАТУС КЛЕЙ КУНЕМ
-userIdTextView.setTag("user_id_text_view");
+        // ТАГ МЕМОНЕМ, ТО ОНРО ДАР СКРОЛЛ БА СТАТУС КЛЕЙ КУНЕМ
+        userIdTextView.setTag("user_id_text_view");
 
-// ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
-int a = 0;
+        // ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
+        int a = 0;
 
-// ТАНЗИМИ 100% ЗАВОДӢ БО МАСОФАИ 225 АЗ РӮИ PDF ВА БЕ ХАТОГӢ
-avatarContainer2.addView(userIdTextView,
-org.telegram.ui.Components.LayoutHelper.createFrame(
-org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
-org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
-android.view.Gravity.LEFT | android.view.Gravity.TOP,
-109 - (a == 1 || a == 2 || a == 3 ? 4 : 0),
-225, // Маҳз ҳамин масофаи 225, ки нишон дода будӣ
-(a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0),
-0
-));
+        // ТАНЗИМИ 100% ЗАВОДӢ БО МАСОФАИ 225 АЗ РӮИ PDF ВА БЕ ХАТОГӢ
+        avatarContainer2.addView(userIdTextView,
+        org.telegram.ui.Components.LayoutHelper.createFrame(
+        org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
+        org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
+        android.view.Gravity.LEFT | android.view.Gravity.TOP,
+        109 - (a == 1 || a == 2 || a == 3 ? 4 : 0),
+        225, // Маҳз ҳамин масофаи 225, ки нишон дода будӣ
+        (a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0),
+        0
+        ));
+
+        // ИЛОВАИ МУҲИМ БАРОИ ОН КИ БО КОДИ СКРОЛЛИ НАВИ ТУ ДУРУСТ СИНХРОНӢ ШАВАД
+        userIdTextView.setAlpha(1.0f);
+    }
 }
-}
-
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
 
@@ -5720,17 +5723,31 @@ android.view.Gravity.LEFT | android.view.Gravity.TOP,
             onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
             onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
 
-           // === ТАНЗИМИ ИД ДАР СКРОЛЛ ===
+           // --- ТАНЗИМИ ИД ДАР СКРОЛЛ (Ислоҳшуда) ---
 android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
-if (userIdView != null && onlineTextView[1] != null) {
-    userIdView.setTranslationX(onlineTextView[1].getTranslationX());
-    // Истифодаи аниқи onlineTextView[1] ва иловаи 16dp
-    userIdView.setTranslationY(onlineTextView[1].getTranslationY() + org.telegram.messenger.AndroidUtilities.dp(16));
-    userIdView.setScaleX(onlineTextView[1].getScaleX());
-    userIdView.setScaleY(onlineTextView[1].getScaleY());
-    userIdView.setAlpha(onlineTextView[1].getAlpha());
+if (userIdView != null && onlineTextView != null) {
+    android.view.View activeOnlineView = null;
+    
+    // Массивро тафтиш мекунем, ки кадом индексаш холӣ нест (0, 1 ё 2)
+    for (int i = 0; i < onlineTextView.length; i++) {
+        if (onlineTextView[i] != null) {
+            activeOnlineView = onlineTextView[i];
+            break;
+        }
+    }
+    
+    // Агар унсури онлайн ёфт шавад, ID-ро айнан мисли он ҳаракат медиҳем
+    if (activeOnlineView != null) {
+        userIdView.setTranslationX(activeOnlineView.getTranslationX());
+        // 18dp поёнтар аз онлайн мегузорем, то болои ҳам наафтанд
+        userIdView.setTranslationY(activeOnlineView.getTranslationY() + org.telegram.messenger.AndroidUtilities.dp(18));
+        userIdView.setScaleX(activeOnlineView.getScaleX());
+        userIdView.setScaleY(activeOnlineView.getScaleY());
+        userIdView.setAlpha(activeOnlineView.getAlpha());
+    }
 }
-// =============================
+// ----------------------------------------
+
 
 
             

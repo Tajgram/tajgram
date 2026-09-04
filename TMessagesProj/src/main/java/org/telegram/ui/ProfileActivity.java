@@ -13303,10 +13303,17 @@ if (userIdView != null && onlineTextView != null) {
         bioRatingLayout = new android.widget.LinearLayout(mContext);
         bioRatingLayout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
         bioRatingLayout.setPadding(
-            org.telegram.messenger.AndroidUtilities.dp(12),
-            org.telegram.messenger.AndroidUtilities.dp(6),
-            org.telegram.messenger.AndroidUtilities.dp(12),
-            org.telegram.messenger.AndroidUtilities.dp(6)
+            org.telegram.messenger.AndroidUtilities.dp(16),
+            org.telegram.messenger.AndroidUtilities.dp(8),
+            org.telegram.messenger.AndroidUtilities.dp(16),
+            org.telegram.messenger.AndroidUtilities.dp(8)
+        );
+
+        // ТАНЗИМИ АНДОЗАИ САТР (LAYOUTPARAMS), ТО КИ ДАР ЭКРАН НАМОЁН ШАВАД
+        org.telegram.ui.Components.LayoutHelper.setLinearMargins(
+            bioRatingLayout,
+            org.telegram.ui.Components.LayoutHelper.MATCH_PARENT,
+            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT
         );
 
         android.graphics.drawable.GradientDrawable bioShape = new android.graphics.drawable.GradientDrawable();
@@ -13316,13 +13323,14 @@ if (userIdView != null && onlineTextView != null) {
 
         android.widget.TextView profLikeText = new android.widget.TextView(mContext);
         profLikeText.setText("👍 0");
-        profLikeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
-        profLikeText.setPadding(0, 0, org.telegram.messenger.AndroidUtilities.dp(12), 0);
+        profLikeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14); // Каме калонтар барои зебоӣ
+        profLikeText.setPadding(org.telegram.messenger.AndroidUtilities.dp(8), org.telegram.messenger.AndroidUtilities.dp(4), org.telegram.messenger.AndroidUtilities.dp(12), org.telegram.messenger.AndroidUtilities.dp(4));
         profLikeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_windowBackgroundWhiteBlackText));
 
         android.widget.TextView profDislikeText = new android.widget.TextView(mContext);
         profDislikeText.setText("👎 0");
-        profDislikeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+        profDislikeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14);
+        profDislikeText.setPadding(org.telegram.messenger.AndroidUtilities.dp(8), org.telegram.messenger.AndroidUtilities.dp(4), org.telegram.messenger.AndroidUtilities.dp(8), org.telegram.messenger.AndroidUtilities.dp(4));
         profDislikeText.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_windowBackgroundWhiteBlackText));
 
         bioRatingLayout.addView(profLikeText);
@@ -13380,10 +13388,17 @@ if (userIdView != null && onlineTextView != null) {
         }
     }
 
-    // Агар БИО холӣ бошад, сатри оддӣ месозем, то хато накунад
-    view = bioRatingLayout != null ? bioRatingLayout : new android.view.View(mContext);
+    // Агар БИО холӣ бошад, сатри оддии бењаҷм месозем, то рӯйхат вайрон нашавад
+    if (bioRatingLayout != null) {
+        view = bioRatingLayout;
+    } else {
+        android.view.View emptyView = new android.view.View(mContext);
+        emptyView.setLayoutParams(new androidx.recyclerview.widget.RecyclerView.LayoutParams(0, 0));
+        view = emptyView;
+    }
     break;
-  }               
+}
+
                     
                 case VIEW_TYPE_TEXT: {
                     view = new TextCell(mContext, 18, false, false, resourcesProvider) {

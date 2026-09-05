@@ -44,7 +44,7 @@ jobs:
         with:
           cache-read-only: false
 
-          #cache-disabled: false
+          cache-disabled: false
          
 
       - name: Set up Android SDK

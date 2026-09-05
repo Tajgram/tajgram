@@ -118,7 +118,7 @@ jobs:
       
       - name: Build with Gradle
         run: |
-          ./gradley clean
+          ./gradlew clean
           ./gradlew assembleRelease
           ./gradlew bundleRelease
           

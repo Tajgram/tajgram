@@ -121,14 +121,7 @@ android {
 
     defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def abi = output.getFilter(com.android.build.OutputFile.ABI)
-            def abiName = abi ?: "universal"
-            outputFileName = "Tajgram-${abiName}.apk"
-            output.versionCodeOverride = defaultConfig.versionCode * 10
-        }
-    }
+  
 
     defaultConfig {
         minSdkVersion 21

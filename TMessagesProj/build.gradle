@@ -1,8 +1,18 @@
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
+import org.gradle.internal.os.OperatingSystem
+
+import java.nio.file.Paths
+
 apply plugin: 'com.android.library'
 apply plugin: 'org.telegram.build-plugin'
 apply plugin: 'idea'
+
+tlReaders {
+    schemaDir = file("$rootDir/TMessagesProj_AppTests/tlscheme")
+    tlrpcFile = file("$projectDir/src/main/java/org/telegram/tgnet/TLRPC.java")
+}
+
 
 idea {
     module {

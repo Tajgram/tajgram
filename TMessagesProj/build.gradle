@@ -132,6 +132,8 @@ android {
             universalApk true
         }
     }
+}
+    
 
 
     externalNativeBuild {

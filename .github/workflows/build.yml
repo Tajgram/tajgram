@@ -44,6 +44,11 @@ jobs:
         with:
           cache-read-only: false
 
+          cache-disabled: false
+          
+          cache-overwrite-existing: true
+
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:

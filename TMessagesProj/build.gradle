@@ -134,6 +134,8 @@ android {
             universalApk true
         }
     }
+}
+    
 
     sourceSets.main.jniLibs.srcDirs = ['./jni/']
 

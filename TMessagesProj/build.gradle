@@ -138,11 +138,6 @@ android {
         coreLibraryDesugaringEnabled true
     }
 
-    dependenciesInfo {
-        includeInApk false
-        includeInBundle false
-    }
-
     defaultConfig {
 
         setProperty("archivesBaseName", "Tajgram-${versionName}-${versionCode}")

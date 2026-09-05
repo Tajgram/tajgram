@@ -1,18 +1,8 @@
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
-import org.gradle.internal.os.OperatingSystem
-
-import java.nio.file.Paths
-
 apply plugin: 'com.android.library'
 apply plugin: 'org.telegram.lottie-meta'
 apply plugin: 'idea'
-
-tlReaders {
-    schemaDir = file("$rootDir/TMessagesProj_AppTests/tlscheme")
-    tlrpcFile = file("$projectDir/src/main/java/org/telegram/tgnet/TLRPC.java")
-}
-
 
 idea {
     module {
@@ -121,8 +111,6 @@ android {
             universalApk true
         }
     }
-}
-    
 
     sourceSets.main.jniLibs.srcDirs = ['./jni/']
 
@@ -167,26 +155,6 @@ android {
         }
     }
 
-    externalNativeBuild {
-        cmake {
-            version '4.0.0+'
-        }
-    }
-
-    defaultConfig {
-        externalNativeBuild {
-            cmake {
-                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-23', '-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON'
-                System.getenv("PATH").split(File.pathSeparator).any { path ->
-                    var file = Paths.get("${path}${File.separator}ccache${if (OperatingSystem.current().windows) ".exe" else ""}").toFile()
-                    if (file.exists()) {
-                        println("Using ccache ${file.getAbsolutePath()}")
-                        arguments += "-DANDROID_CCACHE=${file.getAbsolutePath()}"
-                        return true
-                    }
-                }
-            }
-        }
 
     buildTypes {
         debug {

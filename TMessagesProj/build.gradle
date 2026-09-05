@@ -139,6 +139,9 @@ android {
     }
 
     defaultConfig {
+
+        setProperty("archivesBaseName", "Tajgram-${versionName}-${versionCode}")
+
         minSdkVersion 21
         targetSdkVersion 36
 

@@ -148,6 +148,11 @@ android {
         coreLibraryDesugaringEnabled true
     }
 
+    dependenciesInfo {
+        includeInApk false
+        includeInBundle false
+    }
+
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 36

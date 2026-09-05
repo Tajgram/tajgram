@@ -3,10 +3,6 @@ apply plugin: 'org.telegram.build-app-plugin'
 
 apply plugin: 'com.android.application'
 
-dependencies {
-    implementation project(':TMessagesProj')
-}
-
 repositories {
     mavenCentral()
     google()
@@ -224,12 +220,6 @@ android {
 
     lintOptions {
         checkReleaseBuilds false
-    }
-}
-
-dependenciesInfo {
-        includeInApk false
-        includeInBundle false
     }
 }
 

@@ -44,10 +44,8 @@ jobs:
         with:
           cache-read-only: false
 
-          cache-disabled: false
-          
-          cache-overwrite-existing: true
-
+          #cache-disabled: false
+         
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
@@ -120,7 +118,7 @@ jobs:
       
       - name: Build with Gradle
         run: |
-          
+          ./gradley clean
           ./gradlew assembleRelease
           ./gradlew bundleRelease
           

@@ -5690,22 +5690,16 @@ if (avatarContainer2 != null) {
         // ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
         int a = 0;
 
-        // ТАНЗИМИ 100% ЗАВОДӢ БО МАСОФАИ 225 АЗ РӮИ PDF ВА БЕ ХАТОГӢ
-        avatarContainer2.addView(userIdTextView,
-        org.telegram.ui.Components.LayoutHelper.createFrame(
-        org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
-        org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT,
-        android.view.Gravity.LEFT | android.view.Gravity.TOP,
-        109 - (a == 1 || a == 2 || a == 3 ? 4 : 0),
-        225, // Маҳз ҳамин масофаи 225, ки нишон дода будӣ
-        (a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0),
-        0
-        ));
+                // ТАНЗИМИ 100% ДИНАМИКӢ: ИД АКНУН ШАХ НАМЕШАВАД
+        if (userIdTextView != null) {
+            avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
+                org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+                org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+                android.view.Gravity.LEFT | android.view.Gravity.TOP, 
+                16, 110, 16, 0
+            ));
+        }
 
-        // ИЛОВАИ МУҲИМ БАРОИ ОН КИ БО КОДИ СКРОЛЛИ НАВИ ТУ ДУРУСТ СИНХРОНӢ ШАВАД
-        userIdTextView.setAlpha(1.0f);
-    }
-}
 // === END TAJGRAM USER ID UNDER STATUS ===
 
 

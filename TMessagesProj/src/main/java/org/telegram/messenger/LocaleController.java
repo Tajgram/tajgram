@@ -1464,6 +1464,13 @@ public class LocaleController {
                          .replace("Telegram Stars", "Tajgram Stars")
                          .replace("Telegram", "Tajgram");
         if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        
+        if ("777000".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        if ("5314653481".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        if ("-1001038976893".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        if ("-1001798673537".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+        
         if (("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
         if ("PremiumSubscribeTerms".equals(key) && value != null) value = value.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 

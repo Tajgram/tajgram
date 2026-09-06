@@ -1468,6 +1468,13 @@ public class LocaleController {
                          .replace("Telegram Stars", "Tajgram Stars")
                          .replace("Telegram", "Tajgram");
         if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        
+        if ("777000".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        if ("5314653481".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        if ("-1001038976893".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        if ("-1001798673537".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+        
         if (("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
         if ("PremiumSubscribeTerms".equals(key) && value != null) value = value.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
 
@@ -1541,6 +1548,25 @@ public class LocaleController {
             String serverStr = getServerString(key);
             if (serverStr != null) return serverStr.replace("Telegram", "Tajgram");
         }
+
+
+                if ("777000".equals(key)) {
+            String serverStr = getServerString(key);
+            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if ("5314653481".equals(key)) {
+            String serverStr = getServerString(key);
+            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if ("-1001038976893".equals(key)) {
+            String serverStr = getServerString(key);
+            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if ("-1001798673537".equals(key)) {
+            String serverStr = getServerString(key);
+            if (serverStr != null) return serverStr.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+
 
                 if ("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) {
             String serverStr = getServerString(key);
@@ -1720,6 +1746,13 @@ public class LocaleController {
             String value = BuildVars.USE_CLOUD_STRINGS ? getInstance().localeValues.get(key) : null;
             
             if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+
+            if ("777000".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+            if ("5314653481".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+            if ("-1001038976893".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+            if ("-1001798673537".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
 
             if (("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
             

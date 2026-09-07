@@ -5717,20 +5717,6 @@ if (avatarContainer2 != null) {
             onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
             onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
 
-        // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
-if (avatarContainer2 != null) {
-    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
-    if (userIdView != null) {
-        float translationY = avatarContainer2.getTranslationY();
-        userIdView.setTranslationY(translationY);
-        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
-            userIdView.setAlpha(0.0f);
-        } else {
-            userIdView.setAlpha(1.0f);
-        }
-    }
-}                       
-
 
 
 
@@ -5874,6 +5860,21 @@ if (avatarContainer2 != null) {
                 }
                 sharedMediaLayout.setPinnedToTop(sharedMediaLayout.getY() <= 0);
                 updateBottomButtonY();
+
+                // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+if (avatarContainer2 != null) {
+    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
+    if (userIdView != null) {
+        float translationY = avatarContainer2.getTranslationY();
+        userIdView.setTranslationY(translationY);
+        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
+            userIdView.setAlpha(0.0f);
+        } else {
+            userIdView.setAlpha(1.0f);
+        }
+    }
+}                       
+                
             }
         });
 

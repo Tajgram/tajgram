@@ -5690,7 +5690,7 @@ if (avatarContainer2 != null) {
         // ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
         int a = 0;
 
-                // ТАНЗИМИ 100% ДИНАМИКӢ: ИД АКНУН ШАХ НАМЕШАВАД
+        // ТАНЗИМИ 100% ДИНАМИКӢ: ИД АКНУН ШАХ НАМЕШАВАД
         if (userIdTextView != null) {
             avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
@@ -5699,9 +5699,9 @@ if (avatarContainer2 != null) {
                 16, 226, 16, 0
             ));
         }
-
+    }
+}
 // === END TAJGRAM USER ID UNDER STATUS ===
-
 
 
 
@@ -5717,17 +5717,19 @@ if (avatarContainer2 != null) {
             onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
             onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
 
-                               // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
-        android.view.View userIdView = avatarContainer2 != null ? avatarContainer2.findViewWithTag("user_id_text_view") : null;
-        if (userIdView != null) {
-            float translationY = avatarContainer2.getTranslationY();
-            userIdView.setTranslationY(translationY);
-            if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
-                userIdView.setAlpha(0.0f);
-            } else {
-                userIdView.setAlpha(1.0f);
-            }
+        // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+if (avatarContainer2 != null) {
+    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
+    if (userIdView != null) {
+        float translationY = avatarContainer2.getTranslationY();
+        userIdView.setTranslationY(translationY);
+        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
+            userIdView.setAlpha(0.0f);
+        } else {
+            userIdView.setAlpha(1.0f);
         }
+    }
+}                       
 
 
 

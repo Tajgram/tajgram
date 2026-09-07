@@ -5696,7 +5696,7 @@ if (avatarContainer2 != null) {
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
                 android.view.Gravity.LEFT | android.view.Gravity.TOP, 
-                16, 110, 16, 0
+                16, 226, 16, 0
             ));
         }
 

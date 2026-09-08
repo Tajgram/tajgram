@@ -43,8 +43,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: false
-
-          cache-disabled: false
          
 
       - name: Set up Android SDK

@@ -392,8 +392,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-           try {
-
+  //         try {
 // android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
 // boolean isVpnActive = false;
 // if (cm != null) {
@@ -552,9 +551,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 //    org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
 // }
 
-// } catch (Exception e) {
-                                    
-      }
+// } catch (Exception e) {                                    
+//      }
+        
         isActive = true;
         activeInstanceCount++;
         if (BuildVars.DEBUG_VERSION) {

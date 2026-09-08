@@ -384,7 +384,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     public boolean voipLaunchedInBackground;
 
     public WindowAnimatedInsetsProvider getRootAnimatedInsetsListener() {
-        return rootAnimatedInsetsListener;
+        return rootnimatedInsetsListener;
     }
 
     private FrameMetricsOverlayView frameMetricsOverlayView;
@@ -393,7 +393,6 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
                                 try {
-
 
 
 

@@ -616,6 +616,10 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     public int birthdayRow;
     private int setUsernameRow;
     private int bioRow;
+
+    private int bioRatingRow = -1;
+
+    
     private int phoneSuggestionSectionRow;
     private int graceSuggestionRow;
     private int graceSuggestionSectionRow;
@@ -5640,11 +5644,36 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         }
 
                // === START TAJGRAM USER ID UNDER STATUS ===
+
+
+
+
+        
+        checkPhotoDescriptionAlpha();
+        avatarContainer2.addView(animatedStatusView);
+
+        
+
+        ratingView = new StarRatingView(context);
+        ratingView.setLayoutParams(LayoutHelper.createFrame(32, 32, Gravity.LEFT, 109 - 6, -2, 0, 0));
+        ratingView.setResourcesProvider(resourcesProvider);
+        checkStarRatingVisible();
+        ratingView.setDelegate(visibility -> {
+            onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
+            onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
+
+
+            // === START TAJGRAM USER ID UNDER STATUS ===
 if (avatarContainer2 != null) {
     long idToCopy = userId;
     
     if (currentChat != null) {
-        idToCopy = currentChat.id;
+        // Барои каналҳо ва супергурӯҳҳо ба таври заводӣ префикси -100-ро худи Телеграм истифода мебарад
+        if (org.telegram.messenger.ChatObject.isChannel(currentChat)) {
+            idToCopy = -1000000000000L - currentChat.id;
+        } else {
+            idToCopy = -currentChat.id;
+        }
     }
 
     final long finalId = idToCopy;
@@ -5652,12 +5681,14 @@ if (avatarContainer2 != null) {
     if (finalId != 0) {
         android.widget.TextView userIdTextView = new android.widget.TextView(context);
         
+        // Коди худат барои тарҷумаи автоматии забонҳо (бе хардкод)
         if (currentChat == null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
             userIdTextView.setText("ID: " + finalId);
         } else if (currentChat == null) {
             String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
             userIdTextView.setText(label + ": " + finalId);
         } else {
+            // Барои чатҳо ва каналҳо префикси дурусти -100 ё - автоматӣ нишон дода мешавад
             userIdTextView.setText("ID: " + finalId);
         }
         
@@ -5673,28 +5704,30 @@ if (avatarContainer2 != null) {
             }
         });
         
-        avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
-            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-            org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-            android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
-            0, 225, 0, 0
-        ));
+        // ТАГ МЕМОНЕМ, ТО ОНРО ДАР СКРОЛЛ БА СТАТУС КЛЕЙ КУНЕМ
+        userIdTextView.setTag("user_id_text_view");
+
+        // ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
+        int a = 0;
+
+        // ТАНЗИМИ 100% ДИНАМИКӢ: ИД АКНУН ШАХ НАМЕШАВАД
+        if (userIdTextView != null) {
+            avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
+                org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+                org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+                android.view.Gravity.LEFT | android.view.Gravity.TOP, 
+                0, 226, 0, 0
+            ));
+        }
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
 
 
-        
-        checkPhotoDescriptionAlpha();
-        avatarContainer2.addView(animatedStatusView);
 
-        ratingView = new StarRatingView(context);
-        ratingView.setLayoutParams(LayoutHelper.createFrame(32, 32, Gravity.LEFT, 109 - 6, -2, 0, 0));
-        ratingView.setResourcesProvider(resourcesProvider);
-        checkStarRatingVisible();
-        ratingView.setDelegate(visibility -> {
-            onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
-            onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
+
+
+            
         });
         ratingView.setOnClickListener(this::showStarRatingBottomSheet);
         if (userInfo != null) {
@@ -5833,12 +5866,19 @@ if (avatarContainer2 != null) {
                 }
                 sharedMediaLayout.setPinnedToTop(sharedMediaLayout.getY() <= 0);
                 updateBottomButtonY();
+
+                // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+
+                
             }
         });
 
         undoView = new UndoView(context, null, false, resourcesProvider);
         frameLayout.addView(undoView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.BOTTOM | Gravity.LEFT, 8, 0, 8, 8));
 
+       // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+
+        
         expandAnimator = ValueAnimator.ofFloat(0f, 1f);
         expandAnimator.addUpdateListener(anim -> {
             setAvatarExpandProgress(anim.getAnimatedFraction());
@@ -5916,6 +5956,20 @@ if (avatarContainer2 != null) {
                     return false;
                 }
                 return listView.getScrollState() != RecyclerView.SCROLL_STATE_DRAGGING;
+
+                // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+if (avatarContainer2 != null) {
+    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
+    if (userIdView != null) {
+        float translationY = avatarContainer2.getTranslationY();
+        userIdView.setTranslationY(translationY);
+        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
+            userIdView.setAlpha(0.0f);
+        } else {
+            userIdView.setAlpha(1.0f);
+        }
+    }
+}                      
             }
         };
         pinchToZoomHelper.setCallback(new PinchToZoomHelper.Callback() {
@@ -10508,6 +10562,9 @@ if (avatarContainer2 != null) {
         birthdayRow = -1;
         setUsernameRow = -1;
         bioRow = -1;
+
+        bioRatingRow = -1;
+        
         channelRow = -1;
         channelDividerRow = -1;
         phoneSuggestionSectionRow = -1;
@@ -10673,6 +10730,8 @@ if (avatarContainer2 != null) {
                 numberRow = rowCount++;
                 setUsernameRow = rowCount++;
                 bioRow = rowCount++;
+
+                bioRatingRow = rowCount++;
 
                 settingsSectionRow = rowCount++;
 
@@ -13223,7 +13282,7 @@ if (avatarContainer2 != null) {
                         }
                     };
                     break;
-                }
+                }      
                 case VIEW_TYPE_TEXT: {
                     view = new TextCell(mContext, 18, false, false, resourcesProvider) {
                         @Override
@@ -14362,6 +14421,12 @@ if (avatarContainer2 != null) {
 
         @Override
         public int getItemViewType(int position) {
+
+            if (position == bioRatingRow) {
+    return 34;
+}
+
+            
             if (position == infoHeaderRow || position == membersHeaderRow || position == settingsSectionRow2 ||
                     position == numberSectionRow || position == helpHeaderRow || position == debugHeaderRow || position == botPermissionsHeader) {
                 return VIEW_TYPE_HEADER;

@@ -5652,7 +5652,18 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         checkPhotoDescriptionAlpha();
         avatarContainer2.addView(animatedStatusView);
 
-        // === START TAJGRAM USER ID UNDER STATUS ===
+        
+
+        ratingView = new StarRatingView(context);
+        ratingView.setLayoutParams(LayoutHelper.createFrame(32, 32, Gravity.LEFT, 109 - 6, -2, 0, 0));
+        ratingView.setResourcesProvider(resourcesProvider);
+        checkStarRatingVisible();
+        ratingView.setDelegate(visibility -> {
+            onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
+            onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
+
+
+            // === START TAJGRAM USER ID UNDER STATUS ===
 if (avatarContainer2 != null) {
     long idToCopy = userId;
     
@@ -5711,14 +5722,6 @@ if (avatarContainer2 != null) {
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
-
-        ratingView = new StarRatingView(context);
-        ratingView.setLayoutParams(LayoutHelper.createFrame(32, 32, Gravity.LEFT, 109 - 6, -2, 0, 0));
-        ratingView.setResourcesProvider(resourcesProvider);
-        checkStarRatingVisible();
-        ratingView.setDelegate(visibility -> {
-            onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
-            onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
 
 
 
@@ -5874,18 +5877,6 @@ if (avatarContainer2 != null) {
         frameLayout.addView(undoView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.BOTTOM | Gravity.LEFT, 8, 0, 8, 8));
 
        // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
-if (avatarContainer2 != null) {
-    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
-    if (userIdView != null) {
-        float translationY = avatarContainer2.getTranslationY();
-        userIdView.setTranslationY(translationY);
-        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
-            userIdView.setAlpha(0.0f);
-        } else {
-            userIdView.setAlpha(1.0f);
-        }
-    }
-}                       
 
         
         expandAnimator = ValueAnimator.ofFloat(0f, 1f);
@@ -5965,6 +5956,20 @@ if (avatarContainer2 != null) {
                     return false;
                 }
                 return listView.getScrollState() != RecyclerView.SCROLL_STATE_DRAGGING;
+
+                // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+if (avatarContainer2 != null) {
+    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
+    if (userIdView != null) {
+        float translationY = avatarContainer2.getTranslationY();
+        userIdView.setTranslationY(translationY);
+        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
+            userIdView.setAlpha(0.0f);
+        } else {
+            userIdView.setAlpha(1.0f);
+        }
+    }
+}                      
             }
         };
         pinchToZoomHelper.setCallback(new PinchToZoomHelper.Callback() {

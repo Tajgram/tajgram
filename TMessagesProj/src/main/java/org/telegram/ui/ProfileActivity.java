@@ -5868,6 +5868,18 @@ if (avatarContainer2 != null) {
                 updateBottomButtonY();
 
                 // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+if (avatarContainer2 != null) {
+    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
+    if (userIdView != null) {
+        float translationY = avatarContainer2.getTranslationY();
+        userIdView.setTranslationY(translationY);
+        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
+            userIdView.setAlpha(0.0f);
+        } else {
+            userIdView.setAlpha(1.0f);
+        }
+    }
+}                      
 
                 
             }
@@ -5875,9 +5887,6 @@ if (avatarContainer2 != null) {
 
         undoView = new UndoView(context, null, false, resourcesProvider);
         frameLayout.addView(undoView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.BOTTOM | Gravity.LEFT, 8, 0, 8, 8));
-
-       // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
-
         
         expandAnimator = ValueAnimator.ofFloat(0f, 1f);
         expandAnimator.addUpdateListener(anim -> {
@@ -5956,20 +5965,6 @@ if (avatarContainer2 != null) {
                     return false;
                 }
                 return listView.getScrollState() != RecyclerView.SCROLL_STATE_DRAGGING;
-
-                // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
-if (avatarContainer2 != null) {
-    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
-    if (userIdView != null) {
-        float translationY = avatarContainer2.getTranslationY();
-        userIdView.setTranslationY(translationY);
-        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
-            userIdView.setAlpha(0.0f);
-        } else {
-            userIdView.setAlpha(1.0f);
-        }
-    }
-}                      
             }
         };
         pinchToZoomHelper.setCallback(new PinchToZoomHelper.Callback() {

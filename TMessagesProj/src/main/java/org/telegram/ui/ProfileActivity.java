@@ -5643,27 +5643,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             avatarContainer2.addView(onlineTextView[a], LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.LEFT | Gravity.TOP, 109 - (a == 1 || a == 2 || a == 3 ? 4 : 0), (a == 1 || a == 2 || a == 3 ? -2 : 0), (a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0), 0));
         }
 
-               // === START TAJGRAM USER ID UNDER STATUS ===
-
-
-
-
-        
-        checkPhotoDescriptionAlpha();
-        avatarContainer2.addView(animatedStatusView);
-
-        
-
-        ratingView = new StarRatingView(context);
-        ratingView.setLayoutParams(LayoutHelper.createFrame(32, 32, Gravity.LEFT, 109 - 6, -2, 0, 0));
-        ratingView.setResourcesProvider(resourcesProvider);
-        checkStarRatingVisible();
-        ratingView.setDelegate(visibility -> {
-            onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
-            onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
-
-
-            // === START TAJGRAM USER ID UNDER STATUS ===
+              // === START TAJGRAM USER ID UNDER STATUS ===
 if (avatarContainer2 != null) {
     long idToCopy = userId;
     
@@ -5722,6 +5702,23 @@ if (avatarContainer2 != null) {
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
+
+
+
+
+        
+        checkPhotoDescriptionAlpha();
+        avatarContainer2.addView(animatedStatusView);
+
+        
+
+        ratingView = new StarRatingView(context);
+        ratingView.setLayoutParams(LayoutHelper.createFrame(32, 32, Gravity.LEFT, 109 - 6, -2, 0, 0));
+        ratingView.setResourcesProvider(resourcesProvider);
+        checkStarRatingVisible();
+        ratingView.setDelegate(visibility -> {
+            onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
+            onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
 
 
 

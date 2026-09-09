@@ -374,7 +374,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
             systemBlurEnabled = aBoolean;
         }
     };
-
+    
     private FlagSecureReason flagSecureReason;
     private final LiteMode.BatteryReceiver batteryReceiver = new LiteMode.BatteryReceiver();
     private WindowAnimatedInsetsProvider rootAnimatedInsetsListener;

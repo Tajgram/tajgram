@@ -529,7 +529,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                             }
                         }
                     } catch (Exception ignored) {
-                    } finaly {
+                    } finally {
                         if (reader != null) {
                             try { reader.close(); } catch (Exception ignored) {}
                         }

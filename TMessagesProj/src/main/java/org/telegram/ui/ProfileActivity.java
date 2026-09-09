@@ -5872,19 +5872,19 @@ if (avatarContainer2 != null) {
                 sharedMediaLayout.setPinnedToTop(sharedMediaLayout.getY() <= 0);
                 updateBottomButtonY();
 
-                // === ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА СТАТУС) ===
+                // === ВАРИАНТИ БЕХАТАР АГАР СТАТУС СУРХ ШАВАД ===
 if (avatarContainer2 != null) {
     android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
     if (userIdView != null) {
-        // Месанҷем, ки оё матни статус (в сети) дар ProfileActivity ҳаст ё не
-        if (statusTextView != null) {
-            // ИД-ро аниқ мисли матни статус ҳаракат медиҳем
-            userIdView.setTranslationY(statusTextView.getTranslationY());
-            userIdView.setAlpha(statusTextView.getAlpha());
+        // Ҳангоми скролл ба боло, ИД-ро ҳам ба боло мебарем, то аз экран берун набарояд
+        int scrollY = listView.computeVerticalScrollOffset();
+        userIdView.setTranslationY(-scrollY);
+        
+        // Агар хеле ба боло равад, онро кам-кам шаффоф (паҳн) мекунем, то зебо шавад
+        if (scrollY > org.telegram.messenger.AndroidUtilities.dp(50)) {
+            userIdView.setAlpha(0.0f);
         } else {
-            // Агар ба статус дастрасӣ набошад, вобаста ба ҳаракати худи контейнер кор мекунад
-            // Вале беҳтараш дар сатри боло statusTextView-ро истифода баред
-            userIdView.setTranslationY(avatarContainer2.getTranslationY());
+            userIdView.setAlpha(1.0f);
         }
     }
 }

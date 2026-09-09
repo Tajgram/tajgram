@@ -5690,18 +5690,26 @@ if (avatarContainer2 != null) {
         // ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
         int a = 0;
 
-        // ТАНЗИМИ 100% ДИНАМИКӢ: ИД АКНУН ШАХ НАМЕШАВАД
+        // 🔥 МАНТИҚИ НАВ ТАНҲО БАРОИ ҲАРАКАТ: Агар матни «в сети» мавҷуд бошад, 
+        // ИД-и ту мавқеъ ва шаффофияти онро нусхабардорӣ мекунад, то якҷоя ҳаракат кунанд
+        if (onlineTextView[a] != null) {
+            userIdTextView.setTranslationY(onlineTextView[a].getTranslationY());
+            userIdTextView.setAlpha(onlineTextView[a].getAlpha());
+        }
+
+        // ТАНЗИМИ 100% ДИНАМИКӢ БО КОДИ ХУДАТ
         if (userIdTextView != null) {
             avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-                android.view.Gravity.LEFT | android.view.Gravity.TOP, 
+                android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
                 0, 226, 0, 0
             ));
         }
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
 
@@ -5864,19 +5872,23 @@ if (avatarContainer2 != null) {
                 sharedMediaLayout.setPinnedToTop(sharedMediaLayout.getY() <= 0);
                 updateBottomButtonY();
 
-                // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+                // === ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА СТАТУС) ===
 if (avatarContainer2 != null) {
     android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
     if (userIdView != null) {
-        float translationY = avatarContainer2.getTranslationY();
-        userIdView.setTranslationY(translationY);
-        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
-            userIdView.setAlpha(0.0f);
+        // Месанҷем, ки оё матни статус (в сети) дар ProfileActivity ҳаст ё не
+        if (statusTextView != null) {
+            // ИД-ро аниқ мисли матни статус ҳаракат медиҳем
+            userIdView.setTranslationY(statusTextView.getTranslationY());
+            userIdView.setAlpha(statusTextView.getAlpha());
         } else {
-            userIdView.setAlpha(1.0f);
+            // Агар ба статус дастрасӣ набошад, вобаста ба ҳаракати худи контейнер кор мекунад
+            // Вале беҳтараш дар сатри боло statusTextView-ро истифода баред
+            userIdView.setTranslationY(avatarContainer2.getTranslationY());
         }
     }
-}                      
+}
+
 
                 
             }

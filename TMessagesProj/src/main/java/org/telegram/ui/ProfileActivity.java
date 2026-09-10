@@ -5690,18 +5690,26 @@ if (avatarContainer2 != null) {
         // ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
         int a = 0;
 
-        // ТАНЗИМИ 100% ДИНАМИКӢ: ИД АКНУН ШАХ НАМЕШАВАД
+        // 🔥 МАНТИҚИ НАВ ТАНҲО БАРОИ ҲАРАКАТ: Агар матни «в сети» мавҷуд бошад, 
+        // ИД-и ту мавқеъ ва шаффофияти онро нусхабардорӣ мекунад, то якҷоя ҳаракат кунанд
+        if (onlineTextView[a] != null) {
+            userIdTextView.setTranslationY(onlineTextView[a].getTranslationY());
+            userIdTextView.setAlpha(onlineTextView[a].getAlpha());
+        }
+
+        // ТАНЗИМИ 100% ДИНАМИКӢ БО КОДИ ХУДАТ
         if (userIdTextView != null) {
             avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
-                android.view.Gravity.LEFT | android.view.Gravity.TOP, 
+                android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
                 0, 226, 0, 0
             ));
         }
     }
 }
 // === END TAJGRAM USER ID UNDER STATUS ===
+
 
 
 
@@ -5864,19 +5872,23 @@ if (avatarContainer2 != null) {
                 sharedMediaLayout.setPinnedToTop(sharedMediaLayout.getY() <= 0);
                 updateBottomButtonY();
 
-                // ТАНЗИМИ ИД ДАР СКРОЛЛ (ЗАВЕЗОНИДАН БА АВАТАР)
+                // === ВАРИАНТИ БЕХАТАР АГАР СТАТУС СУРХ ШАВАД ===
 if (avatarContainer2 != null) {
     android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
     if (userIdView != null) {
-        float translationY = avatarContainer2.getTranslationY();
-        userIdView.setTranslationY(translationY);
-        if (translationY < -org.telegram.messenger.AndroidUtilities.dp(46)) {
+        // Ҳангоми скролл ба боло, ИД-ро ҳам ба боло мебарем, то аз экран берун набарояд
+        int scrollY = listView.computeVerticalScrollOffset();
+        userIdView.setTranslationY(-scrollY);
+        
+        // Агар хеле ба боло равад, онро кам-кам шаффоф (паҳн) мекунем, то зебо шавад
+        if (scrollY > org.telegram.messenger.AndroidUtilities.dp(50)) {
             userIdView.setAlpha(0.0f);
         } else {
             userIdView.setAlpha(1.0f);
         }
     }
-}                      
+}
+
 
                 
             }

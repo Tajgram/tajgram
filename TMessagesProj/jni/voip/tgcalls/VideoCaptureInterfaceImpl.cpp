@@ -9,9 +9,7 @@
 namespace tgcalls {
 
 VideoCaptureInterfaceObject::VideoCaptureInterfaceObject(std::string deviceId, bool isScreenCapture, std::shared_ptr<PlatformContext> platformContext, Threads &threads)
-: _videoSource(PlatformInterface::SharedInstance()->makeVideoSource(threads.getMediaThread(), threads.getWorkerThread(), isScreenCapture)) {
-	_platformContext = platformContext;
-
+: _videoSource(PlatformInterface::SharedInstance()->makeVideoSource(threads.getMediaThread(), threads.getWorkerThread(), isScreenCapture)), _platformContext(platformContext) {
 	switchToDevice(deviceId, isScreenCapture);
 }
 
@@ -167,6 +165,7 @@ void VideoCaptureInterfaceObject::setRotationUpdated(std::function<void(int)> ro
 }
 
 VideoCaptureInterfaceImpl::VideoCaptureInterfaceImpl(std::string deviceId, bool isScreenCapture, std::shared_ptr<PlatformContext> platformContext, std::shared_ptr<Threads> threads) :
+_platformContext(platformContext),
 _impl(threads->getMediaThread(), [deviceId, isScreenCapture, platformContext, threads]() {
 	return std::make_shared<VideoCaptureInterfaceObject>(deviceId, isScreenCapture, platformContext, *threads);
 }) {
@@ -218,6 +217,10 @@ void VideoCaptureInterfaceImpl::setOutput(std::shared_ptr<rtc::VideoSinkInterfac
 	_impl.perform([sink](VideoCaptureInterfaceObject *impl) {
 		impl->setOutput(sink);
 	});
+}
+
+std::shared_ptr<PlatformContext> VideoCaptureInterfaceImpl::getPlatformContext() {
+	return _platformContext;
 }
 
 ThreadLocalObject<VideoCaptureInterfaceObject> *VideoCaptureInterfaceImpl::object() {

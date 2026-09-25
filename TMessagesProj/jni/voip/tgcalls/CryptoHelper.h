@@ -2,7 +2,6 @@
 #define TGCALLS_CRYPTO_HELPER_H
 
 extern "C" {
-#include <cstdint>
 #include <openssl/sha.h>
 #include <openssl/aes.h>
 #ifndef OPENSSL_IS_BORINGSSL

@@ -12,7 +12,6 @@
 #ifndef TGCALLS_PLATFORM_DARWIN_H265_NALU_REWRITER_H_
 #define TGCALLS_PLATFORM_DARWIN_H265_NALU_REWRITER_H_
 
-#include <cstdint>
 #include "modules/video_coding/codecs/h264/include/h264.h"
 
 #include <CoreMedia/CoreMedia.h>

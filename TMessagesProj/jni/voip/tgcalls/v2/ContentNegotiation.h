@@ -1,7 +1,6 @@
 #ifndef TGCALLS_CONTENT_NEGOTIATION_H
 #define TGCALLS_CONTENT_NEGOTIATION_H
 
-#include <cstdint>
 #include <memory>
 
 #include "media/base/media_engine.h"

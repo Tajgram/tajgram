@@ -61,15 +61,12 @@ public:
     }
 };
 
-std::unique_ptr<webrtc::VideoEncoderFactory> AndroidInterface::makeVideoEncoderFactory(bool preferHardwareEncoding, bool isScreencast) {
+std::unique_ptr<webrtc::VideoEncoderFactory> AndroidInterface::makeVideoEncoderFactory(std::shared_ptr<PlatformContext> platformContext, bool preferHardwareEncoding, bool isScreencast) {
     JNIEnv *env = webrtc::AttachCurrentThreadIfNeeded();
 
-    webrtc::ScopedJavaLocalRef<jclass> video_capturer_class =
-            webrtc::GetClass(env, "org/telegram/messenger/voip/VideoCapturerDevice");
-    jmethodID video_capturer_shared_egl_method = env->GetStaticMethodID(
-            video_capturer_class.obj(), "getSharedEGLContext", "()Lorg/webrtc/EglBase$Context;");
-    jobject eglContext = env->CallStaticObjectMethod(video_capturer_class.obj(),
-                                                     video_capturer_shared_egl_method);
+    AndroidContext *context = (AndroidContext *) platformContext.get();
+    jmethodID methodId = env->GetMethodID(context->getJavaCapturerClass(), "getSharedEGLContext", "()Lorg/webrtc/EglBase$Context;");
+    jobject eglContext = env->CallObjectMethod(context->getJavaCapturer(), methodId);
 
     webrtc::ScopedJavaLocalRef<jclass> factory_class =
             webrtc::GetClass(env, "org/webrtc/DefaultVideoEncoderFactory");
@@ -84,15 +81,12 @@ std::unique_ptr<webrtc::VideoEncoderFactory> AndroidInterface::makeVideoEncoderF
     return std::make_unique<SimulcastVideoEncoderFactory>(webrtc::JavaToNativeVideoEncoderFactory(env, factory_object.obj()));
 }
 
-std::unique_ptr<webrtc::VideoDecoderFactory> AndroidInterface::makeVideoDecoderFactory() {
+std::unique_ptr<webrtc::VideoDecoderFactory> AndroidInterface::makeVideoDecoderFactory(std::shared_ptr<PlatformContext> platformContext) {
     JNIEnv *env = webrtc::AttachCurrentThreadIfNeeded();
 
-    webrtc::ScopedJavaLocalRef<jclass> video_capturer_class =
-            webrtc::GetClass(env, "org/telegram/messenger/voip/VideoCapturerDevice");
-    jmethodID video_capturer_shared_egl_method = env->GetStaticMethodID(
-            video_capturer_class.obj(), "getSharedEGLContext", "()Lorg/webrtc/EglBase$Context;");
-    jobject eglContext = env->CallStaticObjectMethod(video_capturer_class.obj(),
-                                                     video_capturer_shared_egl_method);
+    AndroidContext *context = (AndroidContext *) platformContext.get();
+    jmethodID methodId = env->GetMethodID(context->getJavaCapturerClass(), "getSharedEGLContext", "()Lorg/webrtc/EglBase$Context;");
+    jobject eglContext = env->CallObjectMethod(context->getJavaCapturer(), methodId);
 
     webrtc::ScopedJavaLocalRef<jclass> factory_class =
             webrtc::GetClass(env, "org/webrtc/DefaultVideoDecoderFactory");
@@ -114,16 +108,13 @@ rtc::scoped_refptr<webrtc::VideoTrackSourceInterface> AndroidInterface::makeVide
     return webrtc::CreateVideoTrackSourceProxy(signalingThread, workerThread, _source[screencapture ? 1 : 0].get());
 }
 
-bool AndroidInterface::supportsEncoding(const std::string &codecName) {
+bool AndroidInterface::supportsEncoding(const std::string &codecName, std::shared_ptr<PlatformContext> platformContext) {
     if (hardwareVideoEncoderFactory == nullptr) {
         JNIEnv *env = webrtc::AttachCurrentThreadIfNeeded();
 
-        webrtc::ScopedJavaLocalRef<jclass> video_capturer_class =
-                webrtc::GetClass(env, "org/telegram/messenger/voip/VideoCapturerDevice");
-        jmethodID video_capturer_shared_egl_method = env->GetStaticMethodID(
-                video_capturer_class.obj(), "getSharedEGLContext", "()Lorg/webrtc/EglBase$Context;");
-        jobject eglContext = env->CallStaticObjectMethod(video_capturer_class.obj(),
-                video_capturer_shared_egl_method);
+        AndroidContext *context = (AndroidContext *) platformContext.get();
+        jmethodID methodId = env->GetMethodID(context->getJavaCapturerClass(), "getSharedEGLContext", "()Lorg/webrtc/EglBase$Context;");
+        jobject eglContext = env->CallObjectMethod(context->getJavaCapturer(), methodId);
 
         webrtc::ScopedJavaLocalRef<jclass> factory_class =
                 webrtc::GetClass(env, "org/webrtc/HardwareVideoEncoderFactory");

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ AVTOMATIK YARATILDI - DUBLIKAT HIMOYASI FAOL -->
+<resources>
+    <string name="prank_instruction_title">Prank rejimi yo'riqnomasi 🎭</string>
+    <string name="prank_instruction_desc">Interfeysni o'z xohishingiz yoki hazillaringiz uchun sozlashingiz mumkin! Biroq, so'kinish va odobsiz so'zlar bloklanadi. Sizning quvonchingiz — ilovamizning muvaffaqiyati!</string>
+    <string name="prank_accept_btn">Tushundim, roziman 👍</string>
+    <string name="prank_warning_bad_word">Kechirasiz, siz bu so'zlar bilan ilova qoidalarini buzdingiz. Agar bu takrorlansa, kirish bir kunga qisman cheklanadi.</string>
+    <string name="prank_blocked_title">Kirish cheklandi 🚫</string>
+    <string name="prank_blocked_desc">Siz qoidalarni 3 marta buzdingiz. Prank rejimi siz uchun 24 soatga bloklandi. Ertaga yaxshi so'zlar bilan qayting!</string>
+    <string name="prank_generation_empty">Kechirasiz, ta'bingizga mos keladigan narsa topilmadi. Sozlamalarni o'zingiz xohlagancha o'zgartirishingiz mumkin! 😊</string>
+    <string name="prank_btn_replace">Almashtirish</string>
+    <string name="prank_btn_force">Baribir qoldirish!</string>
+    <string name="prank_btn_cool">Men zo'rroq narsa yozaman</string>
+
+    <!-- 20 HAZIL KATEGORIYALARI -->
+    <string name="joke_c1_title">Hoy, bezori!</string>
+    <string name="joke_c1_desc">Xudodan qo'rq! Matnni almashtir, bo'lmasa yigitlarni chaqiraman! 😡</string>
+    <string name="joke_c2_title">Hoy, kallavaram!</string>
+    <string name="joke_c2_desc">Boshqa so'z topilmadi? 🤣🤣 Na aqlli, na yurakka tegadi! Almashtir!</string>
+    <string name="joke_c3_title">Sekinroq!</string>
+    <string name="joke_c3_desc">Biz shunchaki do'stmiz! 😂 Ishga o't, sozlamalarni yoz!</string>
+    <string name="joke_c4_title">Hoy, Tolstoy!</string>
+    <string name="joke_c4_desc">Roman yozyapsanmi? 📝 Bu menyu sozlamalari, Urush va Tinchlik emas! Matnni qisqartir!</string>
+    <string name="joke_c5_title">Hoy, biznesmen!</string>
+    <string name="joke_c5_desc">Ilovam sozlamalarida reklama joylayapsanmi? 🤑 Bu senga Avito emas! Havolani olib tashla!</string>
+    <string name="joke_c6_title">Hoy, tanqidchi!</string>
+    <string name="joke_c6_desc">Shikoyat qilishdan oldin o'zing bir qator kod yozdingmi? 😉 Dasturchi buning uchun uxlari qochdi!</string>
+    <string name="joke_c7_title">Hoy, Xeker!</string>
+    <string name="joke_c7_desc">Xo'sh, buzib kirdingmi? 💻 Biz Kremniy vodiysida emasmiz, bu Tajgram! Kodlarni Terminal uchun qoldir!</string>
+    <string name="joke_c8_title">Hoy, Rais!</string>
+    <string name="joke_c8_desc">Mening menyumda rasmiy yig'ilish o'tkazyapsanmi? 🏛️ Ilova kodi bunga dosh bermaydi!</string>
+    <string name="joke_c9_title">Hoy, Kripto-Millioner!</string>
+    <string name="joke_c9_desc">Virtual dollarlaringning hidi boshimni aylantirib yubordi! 💰 Avval Premium-kalit sotib ol! 🤣</string>
+    <string name="joke_c10_title">Hoy, Arvoh!</string>
+    <string name="joke_c10_desc">U yerda nimani yashiryapsan? 👻 Qatorni bo'sh qoldirma, hech bo'lmasa smaylik qo'y!</string>
+    <string name="joke_c11_title">Hoy, baqirma!</string>
+    <string name="joke_c11_desc">Qulog'im bitib qoldi! 📢 Kichik harflar bilan yoz, keps bu yerda modada emas! 😂</string>
+    <string name="joke_c12_title">Hoy, Pushkin!</string>
+    <string name="joke_c12_desc">She'riyatga o'tdingmi? 📜 Bu ilova menyusi, she'riyat kechasi emas! Oddiyroq yoz!</string>
+    <string name="joke_c13_title">Hoy, dangasa!</string>
+    <string name="joke_c13_desc">Hech bo'lmasa bitta butun so'z yoz! 🐌 Harflarni qizg'anyapsanmi? O'yla!</string>
+    <string name="joke_c14_title">Hoy, Josus!</string>
+    <string name="joke_c14_desc">Agent 007 topildimi? 🕵️‍♂️ Koordinatalaringni yubordik! Niqobni yech! 🤣</string>
+    <string name="joke_c15_title">Hoy, gurman!</string>
+    <string name="joke_c15_desc">So'lagim oqib ketdi! 🍔 Shashliklaringdan server och qoldi! Avval sozla, keyin yeymiz!</string>
+    <string name="joke_c16_title">Hoy, sayohatchi!</string>
+    <string name="joke_c16_desc">Biz XXI asrdamiz! 🧙‍♂️ Bu sensorli telefon, ot-arava emas!</string>
+    <string name="joke_c17_title">Hazrati Oliylari!</string>
+    <string name="joke_c17_desc">Qara, tojing tushib ketmasin! 👑 Saroyda hukmronlik qil, Tajgramda foydalanuvchilar teng!</string>
+    <string name="joke_c18_title">Hoy, melanxolik!</string>
+    <string name="joke_c18_desc">Dramasiz, hammasi zo'r bo'ladi! 😭 Serverni ko'z yosh bilan to'ldirma, tutashuv bo'ladi! ✨</string>
+    <string name="joke_c19_title">Hoy, o'zga sayyoralik!</string>
+    <string name="joke_c19_desc">Qaysi mars tilida yozyapsan? 🤪 Klaviatura uchun achin, u aybsiz!</string>
+    <string name="joke_c20_title">Durovning nusxasi!</string>
+    <string name="joke_c20_desc">Tajgramning yaratuvchisi bitta va u hozir ekraningni ko'ryapti! 🕶️ Admin kabi ko'rinma! 🤣</string>
+</resources>

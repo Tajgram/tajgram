@@ -1,23 +1,16 @@
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 apply plugin: 'com.android.library'
-apply plugin: 'org.telegram.build-plugin'
+apply plugin: 'org.telegram.lottie-meta'
 apply plugin: 'idea'
 
 idea {
     module {
         excludeDirs += [
-            file('jni/td'),
-            file('jni/third_party/absl'),
-            file('jni/third_party/boringssl'),
-            file('jni/third_party/dav1d'),
-            file('jni/third_party/ffmpeg'),
-            file('jni/third_party/libvpx'),
-            file('jni/third_party/libyuv'),
-            file('jni/third_party/openh264'),
-            file('jni/third_party/xiph'),
+            file('jni/third_party'),
+            file('jni/ffmpeg'),
             file('jni/tlottie'),
-            file('jni/voip/webrtc'),
+            file('jni/boringssl'),
             file('jni/sqlite')
         ]
     }
@@ -45,7 +38,6 @@ dependencies {
     implementation "androidx.sharetarget:sharetarget:1.2.0"
     implementation 'androidx.interpolator:interpolator:1.0.0'
     implementation 'androidx.biometric:biometric:1.1.0'
-    implementation 'androidx.webkit:webkit:1.14.0'
 
     implementation 'com.google.android.gms:play-services-cast-framework:21.4.0'
     implementation "androidx.mediarouter:mediarouter:1.7.0"
@@ -89,12 +81,6 @@ dependencies {
     implementation("io.noties.markwon:ext-latex:4.6.2") {
         exclude group: 'ru.noties', module: 'jlatexmath-android'
     }
-
-    api project(":TMessagesProj_Modules:media3:media-lib-exoplayer")
-    api project(":TMessagesProj_Modules:media3:media-lib-exoplayer-dash")
-    api project(":TMessagesProj_Modules:media3:media-lib-exoplayer-hls")
-    api project(":TMessagesProj_Modules:media3:media-lib-decoder-ffmpeg")
-    api project(":TMessagesProj_Modules:media3:media-lib-session")
     api project(':jlatexmath')
 
 //    implementation 'com.google.mlkit:translate:17.0.3'
@@ -116,6 +102,15 @@ android {
     compileSdkVersion 36
     buildToolsVersion '36.0.0'
     ndkVersion "27.2.12479018"
+    
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+            universalApk true
+        }
+    }
 
     sourceSets.main.jniLibs.srcDirs = ['./jni/']
 
@@ -125,6 +120,11 @@ android {
         }
     }
 
+    Properties localProperties = new Properties()
+    if (project.rootProject.file('local.properties').exists()) {
+        localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+    }
+    
     lintOptions {
         disable 'MissingTranslation'
         disable 'ExtraTranslation'
@@ -138,8 +138,10 @@ android {
         coreLibraryDesugaringEnabled true
     }
 
-
     defaultConfig {
+
+        setProperty("archivesBaseName", "Tajgram-${versionName}-${versionCode}")
+
         minSdkVersion 21
         targetSdkVersion 36
 
@@ -156,89 +158,167 @@ android {
         }
     }
 
+
     buildTypes {
         debug {
             jniDebuggable true
+            minifyEnabled false
             shrinkResources false
             multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro', '../TMessagesProj/proguard-rules-beta.pro'
             ndk.debugSymbolLevel = 'FULL'
-            buildConfigField "String", "BUILD_VERSION_STRING", "\"" + APP_VERSION_NAME + "\""
+            buildConfigField("long", "VERSION_CODE", "${APP_VERSION_CODE}")
+            buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
+            buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
+            buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+            
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
+
+            buildConfigField "String", "APP_CENTER_HASH", "\"\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PRIVATE_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
             buildConfigField "boolean", "DEBUG_PRIVATE_VERSION", "true"
             buildConfigField "boolean", "BUNDLE", "false"
+            
             buildConfigField "int", "VERSION_NUM", "0"
         }
 
         HA_private {
             matchingFallbacks = ['release']
             jniDebuggable false
+            minifyEnabled true
             multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro', '../TMessagesProj/proguard-rules-beta.pro'
             ndk.debugSymbolLevel = 'FULL'
-            buildConfigField "String", "BUILD_VERSION_STRING", "\"" + APP_VERSION_NAME + "\""
+            buildConfigField("long", "VERSION_CODE", "${APP_VERSION_CODE}")
+            buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
+            buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
+            buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
+             
+            buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_PRIVATE") + "\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PRIVATE_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
             buildConfigField "boolean", "DEBUG_PRIVATE_VERSION", "true"
             buildConfigField "boolean", "BUNDLE", "false"
+            
             buildConfigField "int", "VERSION_NUM", "1"
         }
 
         HA_public {
             matchingFallbacks = ['release']
             jniDebuggable false
+            minifyEnabled true
             multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro', '../TMessagesProj/proguard-rules-beta.pro'
             ndk.debugSymbolLevel = 'FULL'
-            buildConfigField "String", "BUILD_VERSION_STRING", "\"" + APP_VERSION_NAME + "\""
+            buildConfigField("long", "VERSION_CODE", "${APP_VERSION_CODE}")
+            buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
+            buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
+            buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
+            
+            buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_PUBLIC") + "\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_PUBLIC_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
             buildConfigField "boolean", "DEBUG_PRIVATE_VERSION", "false"
             buildConfigField "boolean", "BUNDLE", "false"
+            
             buildConfigField "int", "VERSION_NUM", "4"
         }
 
         HA_hardcore {
             matchingFallbacks = ['release']
             jniDebuggable false
+            minifyEnabled true
             multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro', '../TMessagesProj/proguard-rules-beta.pro'
             ndk.debugSymbolLevel = 'FULL'
-            buildConfigField "String", "BUILD_VERSION_STRING", "\"" + APP_VERSION_NAME + "\""
+            buildConfigField("long", "VERSION_CODE", "${APP_VERSION_CODE}")
+            buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
+            buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
+            buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
+            
+            buildConfigField "String", "APP_CENTER_HASH", "\"" + getProps("APP_CENTER_HASH_HARDCORE") + "\""
             buildConfigField "String", "BETA_URL", "\"" + getProps("BETA_HARDCORE_URL") + "\""
             buildConfigField "boolean", "DEBUG_VERSION", "true"
             buildConfigField "boolean", "DEBUG_PRIVATE_VERSION", "true"
             buildConfigField "boolean", "BUNDLE", "false"
+            
             buildConfigField "int", "VERSION_NUM", "5"
         }
 
         standalone {
             matchingFallbacks = ['release']
             jniDebuggable false
+            minifyEnabled true
             multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro'
             ndk.debugSymbolLevel = 'FULL'
-            buildConfigField "String", "BUILD_VERSION_STRING", "\"" + APP_VERSION_NAME + "\""
+            buildConfigField("long", "VERSION_CODE", "${APP_VERSION_CODE}")
+            buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
+            buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
+            buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
+            
+            buildConfigField "String", "APP_CENTER_HASH", "\"\""
             buildConfigField "String", "BETA_URL", "\"\""
             buildConfigField "boolean", "DEBUG_VERSION", "false"
             buildConfigField "boolean", "DEBUG_PRIVATE_VERSION", "false"
             buildConfigField "boolean", "BUNDLE", "false"
+            
             buildConfigField "int", "VERSION_NUM", "6"
         }
 
         release {
             jniDebuggable false
+            minifyEnabled true
             shrinkResources false
             multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro'
             ndk.debugSymbolLevel = 'FULL'
-            buildConfigField "String", "BUILD_VERSION_STRING", "\"" + APP_VERSION_NAME + "\""
+            buildConfigField("long", "VERSION_CODE", "${APP_VERSION_CODE}")
+            buildConfigField("String", "VERSION_NAME", "\"${APP_VERSION_NAME}\"")
+            buildConfigField("long", "BUILD_VERSION", "${TG_APP_VERSION_CODE}")
+            buildConfigField("String", "BUILD_VERSION_STRING", "\"${TG_APP_VERSION_NAME}\"")
+
+            buildConfigField("int", "APP_ID", "${localProperties.getProperty('APP_ID') ?: '0'}")
+            buildConfigField("String", "APP_HASH", "\"${localProperties.getProperty('APP_HASH') ?: ''}\"")
+            buildConfigField("String", "SHA256", "\"${localProperties.getProperty('SHA256') ?: ''}\"")
+            buildConfigField("String", "CRYPTO_BOT_TOKEN", "\"${localProperties.getProperty('CRYPTO_BOT_TOKEN') ?: ''}\"")
+            
+            buildConfigField "String", "APP_CENTER_HASH", "\"\""
             buildConfigField "String", "BETA_URL", "\"\""
             buildConfigField "boolean", "DEBUG_VERSION", "false"
             buildConfigField "boolean", "DEBUG_PRIVATE_VERSION", "false"
             buildConfigField "boolean", "BUNDLE", "false"
+            
             buildConfigField "int", "VERSION_NUM", "7"
         }
     }
 
     namespace 'org.telegram.messenger'
 }
-
 
 def getProps(String propName) {
     def propsFile = rootProject.file('local.properties')
@@ -264,7 +344,7 @@ task checkVisibility {
     }
     doLast {
         if (project.gradle.startParameter.taskNames.find { it.contains("HA_public") }) {
-            def privateBuild = file("${projectDir}_AppHockeyApp/afat/HA_private/Telegram-Beta.apk")
+            def privateBuild = file("${projectDir}_AppHockeyApp/afat/HA_private/Tajgram-Beta.apk")
             if (privateBuild.exists()) {
                 privateBuild.delete()
             }

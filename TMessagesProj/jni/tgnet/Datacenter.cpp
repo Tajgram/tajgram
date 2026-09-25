@@ -13,7 +13,6 @@
 #include <openssl/bn.h>
 #include <openssl/pem.h>
 #include <openssl/aes.h>
-#include <openssl/aes_ige.h>
 #include <memory.h>
 #include <inttypes.h>
 #include "Datacenter.h"

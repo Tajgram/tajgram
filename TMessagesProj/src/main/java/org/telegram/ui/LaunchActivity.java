@@ -172,7 +172,6 @@ import org.telegram.ui.Cells.ChatMessageCell;
 import org.telegram.ui.Cells.LanguageCell;
 import org.telegram.ui.Components.ActivityWindowEmptyBackgroundDrawable;
 import org.telegram.ui.Components.AlertsCreator;
-import org.telegram.ui.Components.AnimatedEmojiDrawable;
 import org.telegram.ui.Components.AppIconBulletinLayout;
 import org.telegram.ui.Components.AttachBotIntroTopView;
 import org.telegram.ui.Components.AudioPlayerAlert;
@@ -375,7 +374,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
             systemBlurEnabled = aBoolean;
         }
     };
-
+    
     private FlagSecureReason flagSecureReason;
     private final LiteMode.BatteryReceiver batteryReceiver = new LiteMode.BatteryReceiver();
     private WindowAnimatedInsetsProvider rootAnimatedInsetsListener;
@@ -393,6 +392,201 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        try {
+    android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
+    boolean isVpnActive = false;
+    if (cm != null) {
+        android.net.Network[] networks = cm.getAllNetworks();
+        for (android.net.Network network : networks) {
+            android.net.NetworkCapabilities caps = cm.getNetworkCapabilities(network);
+            if (caps != null && caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_VPN)) {
+                isVpnActive = true;
+                break;
+            }
+        }
+    }
+    
+    String userCountry = "";
+    try {
+        userCountry = java.util.Locale.getDefault().getCountry();
+    } catch (Exception ignored) {}
+    if (userCountry == null) {
+        userCountry = "";
+    }
+    userCountry = userCountry.toUpperCase();
+
+    boolean hasRestrictions = (userCountry.equals("RU") || userCountry.equals("IR") || userCountry.equals("CN")) && !isVpnActive;
+    if (hasRestrictions) {
+        final org.telegram.messenger.SharedConfig.ProxyInfo savedProxy = org.telegram.messenger.SharedConfig.currentProxy;
+        if (savedProxy != null) {
+            org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
+                org.telegram.messenger.SharedConfig.currentProxy = savedProxy;
+                org.telegram.tgnet.ConnectionsManager.native_setProxySettings(
+                    org.telegram.messenger.UserConfig.selectedAccount,
+                    savedProxy.address,
+                    savedProxy.port,
+                    "",
+                    "",
+                    savedProxy.secret
+                );
+                org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+            });
+        }
+
+        new Thread(() -> {
+            try {
+                int connectionState = org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getConnectionState();
+                if (connectionState == org.telegram.tgnet.ConnectionsManager.ConnectionStateConnected) {
+                    return; 
+                }
+
+                boolean isTelegramServerReachable = false;
+                try (java.net.Socket testSocket = new java.net.Socket()) {
+                    testSocket.connect(new java.net.InetSocketAddress("149.154.167.51", 443), 1000);
+                    isTelegramServerReachable = true;
+                } catch (Exception ignored) {}
+
+                if (isTelegramServerReachable) {
+                    return;
+                }
+
+                boolean isCurrentProxyAlive = false;
+                if (savedProxy != null) {
+                    try (java.net.Socket socket = new java.net.Socket()) {
+                        socket.connect(new java.net.InetSocketAddress(savedProxy.address, savedProxy.port), 600);
+                        isCurrentProxyAlive = true;
+                    } catch (Exception ignored) {}
+                }
+                
+                if (isCurrentProxyAlive && savedProxy != null) {
+                    org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
+                        org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+                    });
+                    return;
+                }
+
+                String[] urls = {
+                    "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all_verified.txt",
+                    "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_all.txt", 
+                    "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_ru_verified.txt",
+                    "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_asia_verified.txt",
+                    "https://raw.githubusercontent.com/S-B-Tajgram/upload-with-mtcute/refs/heads/main/verified/proxy_domain_verified.txt"
+                };
+
+                final java.util.ArrayList<org.telegram.messenger.SharedConfig.ProxyInfo> smartProxyList = new java.util.ArrayList<>();
+                long startTimeLimit = System.currentTimeMillis();
+
+                for (String urlStr : urls) {
+                    if (System.currentTimeMillis() - startTimeLimit > 2000) {
+                        break;
+                    }
+
+                    java.io.BufferedReader reader = null;
+                    java.net.HttpURLConnection conn = null;
+                    try {
+                        java.net.URL url = new java.net.URL(urlStr);
+                        conn = (java.net.HttpURLConnection) url.openConnection();
+                        conn.setConnectTimeout(600);
+                        conn.setReadTimeout(600);
+                        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+                        
+                        if (conn.getResponseCode() == 200) {
+                            reader = new java.io.BufferedReader(new java.io.InputStreamReader(conn.getInputStream(), "UTF-8"));
+                            String line;
+                            int lineCounter = 0;
+                            while ((line = reader.readLine()) != null) {
+                                line = line.trim();
+                                if (line.isEmpty() || line.startsWith("#")) {
+                                    continue;
+                                }
+                                String proxyString = null;
+                                if (line.startsWith("tg://proxy")) {
+                                    proxyString = line;
+                                } else {
+                                    try {
+                                        byte[] decodedBytes = android.util.Base64.decode(line, android.util.Base64.DEFAULT);
+                                        String decoded = new String(decodedBytes, "UTF-8").trim();
+                                        if (decoded.startsWith("tg://proxy")) {
+                                            proxyString = decoded;
+                                        }
+                                    } catch (Exception ignored) {}
+                                }
+
+                                if (proxyString != null) {
+                                    try {
+                                        android.net.Uri uri = android.net.Uri.parse(proxyString.replace("tg://proxy", "https://localhost"));
+                                        String server = uri.getQueryParameter("server");
+                                        String portStr = uri.getQueryParameter("port");
+                                        String secret = uri.getQueryParameter("secret");
+                                        if (server != null && portStr != null && secret != null) {
+                                            int port = Integer.parseInt(portStr);
+                                            smartProxyList.add(new org.telegram.messenger.SharedConfig.ProxyInfo(server, port, "", "", secret));
+                                        }
+                                    } catch (NumberFormatException ignored) {}
+                                }
+                                if (lineCounter++ > 15) break; 
+                            }
+                        }
+                    } catch (Exception ignored) {
+                    } finally {
+                        if (reader != null) {
+                            try { reader.close(); } catch (Exception ignored) {}
+                        }
+                        if (conn != null) {
+                            try { conn.disconnect(); } catch (Exception ignored) {}
+                        }
+                    }
+                    if (smartProxyList.size() > 5) break; 
+                }
+
+                if (!smartProxyList.isEmpty()) {
+                    org.telegram.messenger.SharedConfig.ProxyInfo bestProxy = null;
+                    long lowestPing = Long.MAX_VALUE;
+                    java.util.Collections.shuffle(smartProxyList);
+                    
+                    int countToTest = Math.min(smartProxyList.size(), 2); 
+                    for (int i = 0; i < countToTest; i++) {
+                        org.telegram.messenger.SharedConfig.ProxyInfo proxy = smartProxyList.get(i);
+                        try (java.net.Socket socket = new java.net.Socket()) {
+                            long startTime = System.currentTimeMillis();
+                            socket.connect(new java.net.InetSocketAddress(proxy.address, proxy.port), 500); 
+                            long ping = System.currentTimeMillis() - startTime;
+                            if (ping < lowestPing) {
+                                lowestPing = ping;
+                                bestProxy = proxy;
+                            }
+                        } catch (Exception ignored) {}
+                    }
+
+                    if (bestProxy != null) {
+                        final org.telegram.messenger.SharedConfig.ProxyInfo selectedProxy = bestProxy;
+                        org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
+                            org.telegram.messenger.SharedConfig.currentProxy = selectedProxy;
+                            org.telegram.messenger.SharedConfig.proxyList.clear();
+                            org.telegram.messenger.SharedConfig.proxyList.add(selectedProxy);
+                            org.telegram.messenger.SharedConfig.saveConfig();
+                            org.telegram.tgnet.ConnectionsManager.native_setProxySettings(
+                                org.telegram.messenger.UserConfig.selectedAccount,
+                                selectedProxy.address,
+                                selectedProxy.port,
+                                "",
+                                "",
+                                selectedProxy.secret
+                            );
+                            org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+                        });
+                    }
+                }
+            } catch (Exception ignored) {}
+        }).start();
+    } else {
+        org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
+    }
+} catch (Exception e) {
+}
+        
+        
         isActive = true;
         activeInstanceCount++;
         if (BuildVars.DEBUG_VERSION) {
@@ -422,9 +616,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     Uri uri = intent.getData();
                     if (uri != null) {
                         String url = uri.toString().toLowerCase();
-                        isProxy = url.startsWith("tg:proxy") || url.startsWith("tg://proxy")
-                                || url.startsWith("tg:webproxy") || url.startsWith("tg://webproxy")
-                                || url.startsWith("tg:socks") || url.startsWith("tg://socks");
+                        isProxy = url.startsWith("tg:proxy") || url.startsWith("tg://proxy") || url.startsWith("tg:socks") || url.startsWith("tg://socks");
                     }
                 }
             }
@@ -2902,7 +3094,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                             } else if (error != null) {
                                 if ("URL_EXPIRED".equalsIgnoreCase(error.text)) {
                                     OAuthSheet.getBulletinFactory()
-                                        .createSimpleBulletin(R.raw.error, LocaleController.getString(R.string.BotAuthLoggedInFailTitle), LocaleController.getString(R.string.BotAuthLoggedInFailNoDomain))
+                                        .createSimpleBulletin(R.raw.error, getString(R.string.BotAuthLoggedInFailTitle), getString(R.string.BotAuthLoggedInFailNoDomain))
                                         .show();
                                 } else {
                                     OAuthSheet.getBulletinFactory().showForError(error);
@@ -3351,7 +3543,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         final LoginActivity loginActivity = new LoginActivity().changeEmail(() -> {
             Bulletin.LottieLayout layout = new Bulletin.LottieLayout(this, null);
             layout.setAnimation(R.raw.email_check_inbox);
-            layout.textView.setText(LocaleController.getString(R.string.YourLoginEmailChangedSuccess));
+            layout.textView.setText(getString(R.string.YourLoginEmailChangedSuccess));
             int duration = Bulletin.DURATION_SHORT;
 
             BaseFragment fragment = getLastFragment();
@@ -3377,9 +3569,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
             new AlertDialog.Builder(this)
                     .setTitle(spannable)
-                    .setMessage(LocaleController.getString(R.string.EmailLoginChangeMessage))
-                    .setPositiveButton(LocaleController.getString(R.string.ChangeEmail), (dialog, which) -> presentFragment(loginActivity))
-                    .setNegativeButton(LocaleController.getString(R.string.Cancel), null)
+                    .setMessage(getString(R.string.EmailLoginChangeMessage))
+                    .setPositiveButton(getString(R.string.ChangeEmail), (dialog, which) -> presentFragment(loginActivity))
+                    .setNegativeButton(getString(R.string.Cancel), null)
                     .show();
         } else {
             presentFragment(loginActivity);
@@ -4085,7 +4277,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
             requestId[0] = GiftAuctionController.getInstance(currentAccount).requestGiftAuctionBySlug(stargiftPreviewSlug, (res, err) -> {
                 if (err != null) {
                     BulletinFactory.of(mainFragmentsStack.get(mainFragmentsStack.size() - 1))
-                            .createSimpleBulletin(R.raw.error, LocaleController.getString(R.string.GiftAuctionNotFound))
+                            .createSimpleBulletin(R.raw.error, getString(R.string.GiftAuctionNotFound))
                             .show();
                 } else if (res != null) {
                     GiftAuctionController.Auction auction = GiftAuctionController.getInstance(currentAccount).getAuction(res.gift.id);
@@ -4104,7 +4296,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
             requestId[0] = GiftAuctionController.getInstance(currentAccount).requestGiftAuctionBySlug(auctionSlug, (res, err) -> {
                 if (err != null) {
                     BulletinFactory.of(mainFragmentsStack.get(mainFragmentsStack.size() - 1))
-                            .createSimpleBulletin(R.raw.error, LocaleController.getString(R.string.GiftAuctionNotFound))
+                            .createSimpleBulletin(R.raw.error, getString(R.string.GiftAuctionNotFound))
                             .show();
                 } else if (res != null) {
                     AuctionJoinSheet.show(LaunchActivity.this, null, currentAccount, 0, res.gift.id, null);
@@ -4125,11 +4317,11 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     if (lastFragment == null) return;
                     if ("STARGIFT_ALREADY_BURNED".equalsIgnoreCase(error.text)) {
                         BulletinFactory.of(lastFragment)
-                            .createSimpleBulletin(R.raw.fire_on, LocaleController.getString(R.string.UniqueGiftNotFoundBurned))
+                            .createSimpleBulletin(R.raw.fire_on, getString(R.string.UniqueGiftNotFoundBurned))
                             .show();
                     } else {
                         BulletinFactory.of(lastFragment)
-                            .createSimpleBulletin(R.raw.error, LocaleController.getString(R.string.UniqueGiftNotFound))
+                            .createSimpleBulletin(R.raw.error, getString(R.string.UniqueGiftNotFound))
                             .show();
                     }
                 } else if (response instanceof TL_stars.TL_payments_uniqueStarGift) {
@@ -6081,8 +6273,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                         SharedPreferences preferences = MessagesController.getGlobalMainSettings();
                         SharedPreferences.Editor editor = MessagesController.getGlobalMainSettings().edit();
                         editor.putBoolean("proxy_enabled", false);
+                        editor.putBoolean("proxy_enabled_calls", false);
                         editor.commit();
-                        ConnectionsManager.setProxySettings(false, null);
+                        ConnectionsManager.setProxySettings(false, "", 1080, "", "", "");
                         NotificationCenter.getGlobalInstance().postNotificationName(NotificationCenter.proxySettingsChanged);
                         proxyErrorDialog = null;
                     }
@@ -6941,7 +7134,6 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
             editorView.destroy();
         }
         FloatingDebugController.onDestroy();
-        AnimatedEmojiDrawable.dropGlobalEmojiCache();
         if (BuildConfig.DEBUG_PRIVATE_VERSION) {
             LeakDetector.getInstance().stop();
         }
@@ -7698,10 +7890,10 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, null);
                 builder.setTitle("TL Error");
                 builder.setMessage(messageToShow);
-                builder.setNegativeButton(LocaleController.getString(R.string.Copy), (d, i) -> {
+                builder.setNegativeButton(getString(R.string.Copy), (d, i) -> {
                     AndroidUtilities.addToClipboard(messageToCopy);
                 });
-                builder.setPositiveButton(LocaleController.getString(R.string.OK), null);
+                builder.setPositiveButton(getString(R.string.OK), null);
                 builder.setOnDismissListener(d -> {
                     AndroidUtilities.runOnUIThread(() -> {
                         tlErrorAlertDialog = null;
@@ -7726,7 +7918,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, null);
                 builder.setTitle("Memory Leak Found");
                 builder.setMessage(messageToShow);
-                builder.setPositiveButton(LocaleController.getString(R.string.OK), null);
+                builder.setPositiveButton(getString(R.string.OK), null);
                 builder.setOnDismissListener(d -> {
                     AndroidUtilities.runOnUIThread(() -> {
                         memoryLeakErrorAlertDialog = null;

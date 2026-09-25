@@ -1,46 +1,52 @@
-## Telegram messenger for Android
+# 🐾 Tajgram
 
-[Telegram](https://telegram.org) is a messaging app with a focus on speed and security. It’s superfast, simple and free.
-This repo contains the official source code for [Telegram App for Android](https://play.google.com/store/apps/details?id=org.telegram.messenger).
+[![Crowdin](https://badges.crowdin.net/e/a094217ac83905ae1625526d59bba8dc/localized.svg)](https://Tajgram.crowdin.com/tajgram)  
+Tajgram is a powerful, modern, third-party Tajgram client with deep modifications, advanced wallet systems, and hybrid premium functionality.
 
-## Creating your Telegram Application
+- **Tajgram Channel:** https://t.me/tajgramTips
+- **Official Updates:** https://t.me
+- **Feedback & Repository:** gh repo clone Tajgram/tajgram
 
-We welcome all developers to use our API and source code to create applications on our platform.
-There are several things we require from **all developers** for the moment.
+## 📚 API & Protocol Documentation
 
-1. [**Obtain your own api_id**](https://core.telegram.org/api/obtaining_api_id) for your application.
-2. Please **do not** use the name Telegram for your app — or make sure your users understand that it is unofficial.
-3. Kindly **do not** use our standard logo (white paper plane in a blue circle) as your app's logo.
-3. Please study our [**security guidelines**](https://core.telegram.org/mtproto/security_guidelines) and take good care of your users' data and privacy.
-4. Please remember to publish **your** code too in order to comply with the licences.
+- Telegram API manuals: https://core.telegram.org/api
+- MTProto protocol manuals: https://core.telegram.org/mtproto
 
-### API, Protocol documentation
+## 🛠️ Compilation Guide
 
-Telegram API manuals: https://core.telegram.org/api
+1. **Download the Source Code:**  
+   `git clone https://github.com/Tajgram/tajgram.git`
+   
+2. **Setup Keystore Signatures:**  
+   Fill out `storeFile`, `storePassword`, `keyAlias`, and `keyPassword` in your `gradle.properties` file to access your release keystore configuration safely.
 
-MTproto protocol manuals: https://core.telegram.org/mtproto
-
-### Compilation Guide
-
-**Note**: In order to support [reproducible builds](https://core.telegram.org/reproducible-builds), this repo contains dummy release.keystore,  google-services.json and filled variables inside BuildVars.java. Before publishing your own APKs please make sure to replace all these files with your own.
+3. **Configure Google Firebase:**  
+   Go to https://console.firebase.google.com/, create your Android application configuration with your application IDs, enable Firebase Cloud Messaging (FCM), download the official `google-services.json` metadata descriptor, and copy it directly into the `TMessagesProj` directory.
 
 You will require Android Studio 2025.1.4, Android NDK 27.2.12479018 and Android SDK 36.
 
-1. Clone the Telegram source code with its submodules:
+1. Clone the Tajgram source code with its submodules:
    ```bash
-   git clone --recursive --shallow-submodules https://github.com/DrKLO/Telegram.git Telegram
+   git clone --recursive --shallow-submodules https://github.com/Tajgram/tajgram.git Tajgram
    ```
-   In case you forgot the `--recursive` flag, change to the `Telegram` directory and run:
+   In case you forgot the `--recursive` flag, change to the `Tajgram` directory and run:
    ```bash
    git submodule init && git submodule update --init --recursive --depth=1
    ```
 2. Copy your release.keystore into TMessagesProj/config
 3. Fill out RELEASE_KEY_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_STORE_PASSWORD in gradle.properties to access your  release.keystore
-4.  Go to https://console.firebase.google.com/, create two android apps with application IDs org.telegram.messenger and org.telegram.messenger.beta, turn on firebase messaging and download google-services.json, which should be copied to the same folder as TMessagesProj.
+4.  Go to https://console.firebase.google.com/, create two android apps with application IDs org.telegram.messenger and org.tajgram.messenger.beta, turn on firebase messaging and download google-services.json, which should be copied to the same folder as TMessagesProj.
 5. Open the project in the Studio (note that it should be opened, NOT imported).
-6. Fill out values in TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java – there’s a link for each of the variables showing where and which data to obtain.
+6. Fill out values in TMessagesProj/src/main/java/org/tajgram/messenger/BuildVars.java – there’s a link for each of the variables showing where and which data to obtain.
 7. You are ready to compile Telegram.
 
-### Localization
+6. **Compile:**  
+   You are fully ready to compile and build production-ready signed binary targets for **Tajgram**.
 
-We moved all translations to https://translations.telegram.org/en/android/. Please use it.
+## 🌍 Localization & Translation
+
+Tajgram is forked from Telegram, meaning most translation contexts strictly follow the localizations provided by the active community for Tajgram for Android. Check out progress or contribute via: https://translations.telegram.org/en/android/.
+
+### 🇹🇯 Tajik Language Beta Activation
+Anyone can immediately switch their active Telegram interface layout directly to the certified Tajik localization layout context by accessing this secure structural redirection link:  
+👉 https://translations.telegram.org/Tg/android/ ☝👉 https://t.me/tajgramTips

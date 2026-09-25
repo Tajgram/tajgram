@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ АВТОМАТТУУ ТҮЗҮЛДҮ - ДУБЛИКАТТАН КОРГОО ИШТЕП ЖАТАТ -->
+<resources>
+    <string name="prank_instruction_title">Пранк режиминин нускамасы 🎭</string>
+    <string name="prank_instruction_desc">Интерфейсти өз табитиңизге же тамашаңызга жараша өзгөртө аласыз! Бирок, адепсиз сөздөр жана сөгүнүүлөр бөгөттөлөт. Сиздин кубанычыңыз — биздин тиркеменин ийгилиги!</string>
+    <string name="prank_accept_btn">Түшүндүм, макулмун 👍</string>
+    <string name="prank_warning_bad_word">Кечиресиз, сиз бул сөздөр менен тиркеменин эрежелерин буздуңуз. Эгер бул кайталанса, кирүү мүмкүнчүлүгү бир күнгө жарым-жартылай чектелет.</string>
+    <string name="prank_blocked_title">Кирүү чектелди 🚫</string>
+    <string name="prank_blocked_desc">Сиз эрежелерди 3 жолу буздуңуз. Пранк режими сиз үчүн 24 саатка бөгөттөлдү. Эртең жакшы сөздөр менен кайтыңыз!</string>
+    <string name="prank_generation_empty">Кечиресиз, сиздин табитиңизге туура келген эч нерсе табылбады. Орнотууларды өзүңүз каалагандай өзгөртө аласыз! 😊</string>
+    <string name="prank_btn_replace">Алмаштыруу</string>
+    <string name="prank_btn_force">Баары бир калтыруу!</string>
+    <string name="prank_btn_cool">Мен андан да сонун жазам</string>
+
+    <!-- 20 ТАМАША КАТЕГОРИЯЛАРЫ -->
+    <string name="joke_c1_title">Эй, тентек!</string>
+    <string name="joke_c1_desc">Кудайдан корк! Текстти алмаштыр, болбосо жигиттерди чакырам! 😡</string>
+    <string name="joke_c2_title">Эй, баш!</string>
+    <string name="joke_c2_desc">Башка сөз таппадыңбы? 🤣🤣 Бул сөздөр эч нерсеге жарабайт! Алмаштыр!</string>
+    <string name="joke_c3_title">Шашпа!</string>
+    <string name="joke_c3_desc">Биз жөн гана досторбуз! 😂 Иштин маңызына өт, орнотууларды жаз!</string>
+    <string name="joke_c4_title">Эй, Толстой!</string>
+    <string name="joke_c4_desc">Роман жазып жатасыңбы? 📝 Бул менюнун орнотуулары, "Согуш жана Тынчтык" эмес! Текстти кыскарт!</string>
+    <string name="joke_c5_title">Эй, бизнесмен!</string>
+    <string name="joke_c5_desc">Менин тиркемемдин орнотууларында реклама жайгаштырып жатасыңбы? 🤑 Бул жер Авито эмес! Шилтемени өчүр!</string>
+    <string name="joke_c6_title">Эй, сынчы!</string>
+    <string name="joke_c6_desc">Даттанардан мурун өзүң бир сап код жаздыңбы? 😉 Иштеп чыгуучу бу үчүн уйкусуз түндөрдү өткөргөн!</string>
+    <string name="joke_c7_title">Эй, Хакер!</string>
+    <string name="joke_c7_desc">Эмне, бузуп кирдиңби? 💻 Биз Кремний өрөөнүндө эмеспиз, бул Tajgram! Коддорду Терминал үчүн калтыр!</string>
+    <string name="joke_c8_title">Эй, Төрага!</string>
+    <string name="joke_c8_desc">Менин менюмда расмий жыйын өткөрүп жатасыңбы? 🏛️ Тиркеменин коду буга туруштук бере албайт!</string>
+    <string name="joke_c9_title">Эй, Крипто-Миллионер!</string>
+    <string name="joke_c9_desc">Виртуалдык долларыңдын жытынан башым айланып кетти! 💰 Алгач Premium-ачкыч сатып ал! 🤣</string>
+    <string name="joke_c10_title">Эй, Арбак!</string>
+    <string name="joke_c10_desc">Ал жакта эмнени жашырып жатасың? 👻 Сапты бош калтырба, жок дегенде смайлик кой!</string>
+    <string name="joke_c11_title">Эй, кыйкырба!</string>
+    <string name="joke_c11_desc">Кулагым дүлөй болуп калды! 📢 Кичинекей тамгалар менен жаз, капс (чоң тамга) бул жерде мода эмес! 😂</string>
+    <string name="joke_c12_title">Эй, Пушкин!</string>
+    <string name="joke_c12_desc">Ыр жаза баштадыңбы? 📜 Бул тиркеме менюсу, ыр кечеси эмес! Жөнөкөйүрөөк жаз!</string>
+    <string name="joke_c13_title">Эй, жалкоо!</string>
+    <string name="joke_c13_desc">Жок дегенде бир бүтүн сөз жаз! 🐌 Тамгаларды аяп жатасыңбы? Ойлон!</string>
+    <string name="joke_c14_title">Эй, тыңчы!</string>
+    <string name="joke_c14_desc">Агент 007 табылдыбы? 🕵️‍♂️ Координаталарыңды жөнөттүк! Беткапты чеч! 🤣</string>
+    <string name="joke_c15_title">Эй, гурман!</string>
+    <string name="joke_c15_desc">Оозумдун шилекейи агып кетти! 🍔 Шашлыктарыңдан улам сервер ачка калды! Алгач орнот, анан тамактанабыз!</string>
+    <string name="joke_c16_title">Эй, саякатчы!</string>
+    <string name="joke_c16_desc">Биз XXI кылымдабыз! 🧙‍♂️ Бул сенсордук телефон, ат араба эмес!</string>
+    <string name="joke_c17_title">Улуу Урматтуу!</string>
+    <string name="joke_c17_desc">Кара, таажың түшүп кетпесин! 👑 Сарайда падышалык кыл, Tajgram'да баары тең укуктуу!</string>
+    <string name="joke_c18_title">Эй, меланхолик!</string>
+    <string name="joke_c18_desc">Драмасыз, баары сонун болот! 😭 Серверди көз жаш менен толтурба, кыска туташуу болот! ✨</string>
+    <string name="joke_c19_title">Эй, бөтөн планеталык!</string>
+    <string name="joke_c19_desc">Кайсы марс тилинде жазып жатасың? 🤪 Клавиатураны ая, ал күнөөсүз!</string>
+    <string name="joke_c20_title">Дуровдун көчүрмөсү!</string>
+    <string name="joke_c20_desc">Tajgram'дын жаратуучусу бирөө эле жана ал азыр экраныңды көрүп турат! 🕶️ Админдей көрүнбө! 🤣</string>
+</resources>

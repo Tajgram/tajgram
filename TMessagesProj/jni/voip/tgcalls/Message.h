@@ -1,7 +1,6 @@
 #ifndef TGCALLS_MESSAGE_H
 #define TGCALLS_MESSAGE_H
 
-#include <cstdint>
 #include "api/candidate.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "absl/types/variant.h"

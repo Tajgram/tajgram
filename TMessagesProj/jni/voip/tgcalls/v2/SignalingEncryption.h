@@ -1,7 +1,6 @@
 #ifndef TGCALLS_SIGNALING_ENCRYPTION_H
 #define TGCALLS_SIGNALING_ENCRYPTION_H
 
-#include <cstdint>
 #include "Instance.h"
 #include "EncryptedConnection.h"
 

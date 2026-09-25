@@ -1,7 +1,6 @@
 #ifndef TGCALLS_MEDIA_MANAGER_H
 #define TGCALLS_MEDIA_MANAGER_H
 
-#include <cstdint>
 #include "rtc_base/thread.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
@@ -54,7 +53,8 @@ public:
         std::function<void(float, float)> audioLevelUpdated,
 		std::function<webrtc::scoped_refptr<webrtc::AudioDeviceModule>(webrtc::TaskQueueFactory*)> createAudioDeviceModule,
         bool enableHighBitrateVideo,
-        std::vector<std::string> preferredCodecs);
+        std::vector<std::string> preferredCodecs,
+		std::shared_ptr<PlatformContext> platformContext);
 	~MediaManager();
 
 	void start();
@@ -188,6 +188,8 @@ private:
 
     std::vector<float> _externalAudioSamples;
     webrtc::Mutex _externalAudioSamplesMutex;
+
+	std::shared_ptr<PlatformContext> _platformContext;
 };
 
 } // namespace tgcalls

@@ -1,0 +1,52 @@
+name: Merge Two Files from Telegram to Develop
+
+on:
+  workflow_dispatch:
+
+jobs:
+  merge-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "Tajgram Merge Bot"
+          git config --global user.email "bot@tajgram.local"
+
+      - name: Compare and Merge Telegram Updates into Develop
+        run: |
+          # 1. Гирифтани навгониҳо аз репозиторияи аслии Telegram (Дуров)
+          git remote add upstream https://github.com/DrKLO/Telegram.git
+          git fetch upstream
+
+          # 2. Ёфтани нуқтаи умумии байни шохаи develop ва upstream/master
+          BASE_COMMIT=$(git merge-base HEAD upstream/master)
+
+          # --- ФАЙЛИ ЯКУМ: MessagesController.java ---
+          # Муқоисаи коди Дуров бо коди шумо ва овардани навгониҳо
+          FILE1="TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java"
+          git show $BASE_COMMIT:$FILE1 > file1.base
+          git show upstream/master:$FILE1 > file1.upstream
+          git merge-file $FILE1 file1.base file1.upstream || echo "Conflict detected in MessagesController.java"
+
+          # --- ФАЙЛИ ДУВВУМ: build.gradle ---
+          # Муқоисаи build.gradle-и Дуров бо build.gradle-и шумо
+          FILE2="TMessagesProj/build.gradle"
+          git show $BASE_COMMIT:$FILE2 > file2.base
+          git show upstream/master:$FILE2 > file2.upstream
+          git merge-file $FILE2 file2.base file2.upstream || echo "Conflict detected in build.gradle"
+
+          # 3. Тоза кардани файлҳои муваққатии корӣ
+          rm -f file1.base file1.upstream file2.base file2.upstream
+
+      - name: Commit and Push Updates
+        run: |
+          # 4. Сабт ва фиристодани натиҷа ба шохаи develop агар навгоние бошад
+          git add TMessagesProj/src/main/java/org/telegram/messenger/MessagesController.java TMessagesProj/build.gradle
+          git commit -m "Auto-merge: Compare and bring Telegram updates into develop" || echo "No new changes from Telegram"
+          git push origin HEAD

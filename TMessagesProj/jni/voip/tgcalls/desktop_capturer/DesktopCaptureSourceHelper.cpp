@@ -224,7 +224,7 @@ void SourceFrameCallbackImpl::OnCaptureResult(
 		webrtc::kVideoRotation_0,
         webrtc::Clock::GetRealTimeClock()->CurrentTime().us());
 	if (const auto sink = _sink.get()) {
-		sink->OnFrame(nativeVideoFrame);
+		_sink->OnFrame(nativeVideoFrame);
 	}
 	if (const auto sink = _secondarySink.get()) {
 		sink->OnFrame(nativeVideoFrame);
@@ -255,13 +255,13 @@ DesktopSourceRenderer::DesktopSourceRenderer(
 : _scheduler(scheduler)
 , _callback(data.aspectSize, data.fps)
 , _delayMs(1000. / data.fps) {
-    _callback.setOnFatalError([=, this] {
+	_callback.setOnFatalError([=] {
 		stop();
 		_fatalError = true;
 		if (_onFatalError) _onFatalError();
 	});
 
-    _callback.setOnPause([=, this] (bool pause) {
+    _callback.setOnPause([=] (bool pause) {
         bool previousOnPause = _currentlyOnPause;
         _currentlyOnPause = pause;
         if (previousOnPause != _currentlyOnPause) {
@@ -335,7 +335,7 @@ void DesktopSourceRenderer::loop() {
 
     _capturer->CaptureFrame();
     const auto guard = std::weak_ptr<bool>(_timerGuard);
-    _scheduler.runDelayed(_delayMs, [=, this] {
+    _scheduler.runDelayed(_delayMs, [=] {
         if (guard.lock()) {
             loop();
         }

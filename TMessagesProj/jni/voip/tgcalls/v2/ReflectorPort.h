@@ -1,7 +1,6 @@
 #ifndef TGCALLS_REFLECTOR_PORT_H_
 #define TGCALLS_REFLECTOR_PORT_H_
 
-#include <cstdint>
 #include <stdio.h>
 
 #include <list>
@@ -48,8 +47,7 @@ public:
         uint8_t serverId,
         int server_priority,
         bool standaloneReflectorMode,
-        uint32_t standaloneReflectorRoleId,
-        bool resolveRemoteCandidateIp
+        uint32_t standaloneReflectorRoleId
     ) {
         // Do basic parameter validation.
         if (args.config->credentials.username.size() > 32) {
@@ -64,7 +62,7 @@ public:
             return nullptr;
         }
         // Using `new` to access a non-public constructor.
-        return absl::WrapUnique(new ReflectorPort(args, underlying_socket_factory, socket, serverId, server_priority, standaloneReflectorMode, standaloneReflectorRoleId, resolveRemoteCandidateIp));
+        return absl::WrapUnique(new ReflectorPort(args, underlying_socket_factory, socket, serverId, server_priority, standaloneReflectorMode, standaloneReflectorRoleId));
     }
     
     // Create a TURN port that will use a new socket, bound to `network` and
@@ -77,8 +75,7 @@ public:
         uint8_t serverId,
         int server_priority,
         bool standaloneReflectorMode,
-        uint32_t standaloneReflectorRoleId,
-        bool resolveRemoteCandidateIp
+        uint32_t standaloneReflectorRoleId
     ) {
         // Do basic parameter validation.
         if (args.config->credentials.username.size() > 32) {
@@ -93,7 +90,7 @@ public:
             return nullptr;
         }
         // Using `new` to access a non-public constructor.
-        return absl::WrapUnique(new ReflectorPort(args, underlying_socket_factory, min_port, max_port, serverId, server_priority, standaloneReflectorMode, standaloneReflectorRoleId, resolveRemoteCandidateIp));
+        return absl::WrapUnique(new ReflectorPort(args, underlying_socket_factory, min_port, max_port, serverId, server_priority, standaloneReflectorMode, standaloneReflectorRoleId));
     }
     
     ~ReflectorPort() override;
@@ -173,8 +170,7 @@ protected:
                   uint8_t serverId,
                   int server_priority,
                   bool standaloneReflectorMode,
-                  uint32_t standaloneReflectorRoleId,
-                  bool resolveRemoteCandidateIp);
+                  uint32_t standaloneReflectorRoleId);
     
     ReflectorPort(const cricket::CreateRelayPortArgs& args,
                   rtc::SocketFactory *underlying_socket_factory,
@@ -183,8 +179,7 @@ protected:
                   uint8_t serverId,
                   int server_priority,
                   bool standaloneReflectorMode,
-                  uint32_t standaloneReflectorRoleId,
-                  bool resolveRemoteCandidateIp);
+                  uint32_t standaloneReflectorRoleId);
     
     rtc::DiffServCodePoint StunDscpValue() const override;
     
@@ -240,7 +235,6 @@ private:
     int server_priority_;
     bool standaloneReflectorMode_ = false;
     uint32_t standaloneReflectorRoleId_ = 0;
-    bool resolve_remote_candidate_ip_ = false;
     
     // Optional TurnCustomizer that can modify outgoing messages. Once set, this
     // must outlive the ReflectorPort's lifetime.

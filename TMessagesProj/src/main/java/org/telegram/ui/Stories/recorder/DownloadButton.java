@@ -20,6 +20,7 @@ import android.os.Build;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ import org.telegram.messenger.VideoEncodingService;
 import org.telegram.tgnet.TLRPC;
 import org.telegram.ui.ActionBar.Theme;
 import org.telegram.ui.Components.AnimatedFloat;
+import org.telegram.ui.Components.BulletinFactory;
 import org.telegram.ui.Components.ButtonBounce;
 import org.telegram.ui.Components.CircularProgressDrawable;
 import org.telegram.ui.Components.CubicBezierInterpolator;
@@ -551,7 +553,7 @@ public class DownloadButton extends ImageView {
                 lottieDrawable.recycle(true);
             }
 
-            lottieDrawable = new RLottieDrawable(resId, dp(36), dp(36));
+            lottieDrawable = new RLottieDrawable(resId, "" + resId, dp(36), dp(36));
             lottieDrawable.setCallback(this);
             lottieDrawable.start();
 

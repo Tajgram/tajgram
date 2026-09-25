@@ -1,8 +1,6 @@
 package org.telegram.messenger.voip;
 
-import androidx.annotation.OptIn;
-import androidx.media3.common.util.UnstableApi;
-import androidx.media3.common.util.Util;
+import com.google.android.exoplayer2.util.Util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,8 +11,8 @@ import org.webrtc.ContextUtils;
 import org.webrtc.VideoSink;
 
 import java.util.Arrays;
+import java.util.List;
 
-@OptIn(markerClass = UnstableApi.class)
 public final class Instance {
 
     public static final int AUDIO_STATE_MUTED = 0;
@@ -115,6 +113,11 @@ public final class Instance {
     public static int getConnectionMaxLayer() {
         return 92;
     }
+
+    public static String getVersion() {
+        return instance != null ? instance.getVersion() : null;
+    }
+
     private static void checkHasDelegate() {
         if (instance == null) {
             throw new IllegalStateException("tgvoip version is not set");

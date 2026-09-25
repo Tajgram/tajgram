@@ -5,7 +5,6 @@
 #include <inttypes.h>
 #include <stdlib.h>
 #include <openssl/aes.h>
-#include <openssl/aes_ige.h>
 #include <openssl/evp.h>
 #include <unistd.h>
 #include <dirent.h>
@@ -15,7 +14,6 @@
 int registerNativeTgNetFunctions(JavaVM *vm, JNIEnv *env);
 int videoOnJNILoad(JavaVM *vm, JNIEnv *env);
 int tgvoipOnJNILoad(JavaVM *vm, JNIEnv *env);
-int ffmpegOnJNILoad(JavaVM *vm, JNIEnv *env);
 
 jint JNI_OnLoad(JavaVM *vm, void *reserved) {
 	JNIEnv *env = 0;
@@ -30,10 +28,6 @@ jint JNI_OnLoad(JavaVM *vm, void *reserved) {
     }
 
     if (registerNativeTgNetFunctions(vm, env) != JNI_TRUE) {
-        return -1;
-    }
-
-    if (ffmpegOnJNILoad(vm, env) != JNI_TRUE) {
         return -1;
     }
 

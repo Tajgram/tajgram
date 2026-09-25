@@ -12,7 +12,6 @@
 #ifndef TGCALLS_CUSTOM_SIMULCAST_ENCODER_ADAPTER_H_
 #define TGCALLS_CUSTOM_SIMULCAST_ENCODER_ADAPTER_H_
 
-#include <cstdint>
 #include <atomic>
 #include <list>
 #include <memory>

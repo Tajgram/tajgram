@@ -926,14 +926,14 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
         updateButtonText(false);
         buttonContainer = new FrameLayout(context);
 
-        buttonContainerInternal.setPadding(dp(8), dp(8), dp(8), dp(8));
+        buttonContainerInternal.setPadding(dp(12), dp(12), dp(12), dp(12));
         buttonContainerInternal.addView(premiumButtonView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
         buttonContainerInternal.setBackground(iBlur3Factory.create(buttonContainerInternal)
             .setColorProvider(BlurredBackgroundProviderImpl.premiumButton(resourceProvider))
             .setRadius(dp(28))
-            .setPadding(dp(5)));
+            .setPadding(dp(8)));
         ScaleStateListAnimator.apply(buttonContainerInternal, 0.02f, 1.5f);
-        buttonContainer.addView(buttonContainerInternal, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, 48 + 8 + 8, Gravity.BOTTOM, 4, 0, 4, 0));
+        buttonContainer.addView(buttonContainerInternal, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, 48 + 12 + 12, Gravity.BOTTOM, 4, 0, 4, 0));
 
         BlurredBackgroundWithFadeDrawable fade = new BlurredBackgroundWithFadeDrawable(iBlur3Factory.create(buttonContainer));
         fade.setFadeHeight(dp(40), false);
@@ -1778,6 +1778,8 @@ public class PremiumPreviewFragment extends BaseFragment implements Notification
 
             subtitleView = new TextView(context);
             subtitleView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+
+           
             subtitleView.setLineSpacing(dp(2), 1f);
             subtitleView.setGravity(Gravity.CENTER_HORIZONTAL);
             addView(subtitleView, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, 0, Gravity.CENTER_HORIZONTAL, 16, 7, 16, 0));

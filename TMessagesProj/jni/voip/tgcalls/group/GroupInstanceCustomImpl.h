@@ -1,7 +1,6 @@
 #ifndef TGCALLS_GROUP_INSTANCE_CUSTOM_IMPL_H
 #define TGCALLS_GROUP_INSTANCE_CUSTOM_IMPL_H
 
-#include <cstdint>
 #include <functional>
 #include <vector>
 #include <string>

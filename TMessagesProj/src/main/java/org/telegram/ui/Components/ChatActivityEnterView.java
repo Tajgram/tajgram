@@ -66,6 +66,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.util.Property;
 import android.util.TypedValue;
 import android.view.ActionMode;
@@ -996,7 +997,7 @@ public class ChatActivityEnterView extends FrameLayout implements
         public RecordDot(Context context) {
             super(context);
             int resId = R.raw.chat_audio_record_delete_2;
-            drawable = new RLottieDrawable(resId, dp(28), dp(28), false, null);
+            drawable = new RLottieDrawable(resId, "" + resId, dp(28), dp(28), false, null);
             drawable.setInvalidateOnProgressSet(true);
             updateColors();
         }
@@ -1004,20 +1005,13 @@ public class ChatActivityEnterView extends FrameLayout implements
         public void updateColors() {
             int dotColor = getThemedColor(Theme.key_chat_recordedVoiceDot);
             int background = getThemedColor(Theme.key_chat_messagePanelBackground);
-            int greyColor = getThemedColor(Theme.key_chat_messagePanelVoiceDelete);
             redDotPaint.setColor(dotColor);
             drawable.beginApplyLayerColors();
             drawable.setLayerColor("Cup Red", dotColor);
-            drawable.setLayerColor("Box Red", dotColor);
-            drawable.setLayerColor("Cup Grey", greyColor);
-            drawable.setLayerColor("Box Grey", greyColor);
-            drawable.setLayerColor("Box_Grey 2", greyColor);
-            drawable.setLayerColor("Line 1", greyColor);
-            drawable.setLayerColor("Line 2", greyColor);
-            drawable.setLayerColor("Line 3", greyColor);
-            drawable.setLayerColor("Line 1 Dup", background);
-            drawable.setLayerColor("Line 2 Dup", background);
-            drawable.setLayerColor("Line 3 Dup", background);
+            drawable.setLayerColor("Box", dotColor);
+            drawable.setLayerColor("Line 1", background);
+            drawable.setLayerColor("Line 2", background);
+            drawable.setLayerColor("Line 3", background);
             drawable.commitApplyLayerColors();
         }
 
@@ -2572,40 +2566,6 @@ public class ChatActivityEnterView extends FrameLayout implements
         this(context, parent, fragment, isChat, null);
     }
 
-    private NotificationCenter.ObserversGroup observersGroup;
-
-    private void addObservers() {
-        removeObservers();
-        observersGroup = NotificationCenter.getInstance(currentAccount)
-            .createWeakObserversGroup(this)
-            .addGlobal(NotificationCenter.emojiLoaded)
-            .add(NotificationCenter.recordStarted)
-            .add(NotificationCenter.recordPaused)
-            .add(NotificationCenter.recordResumed)
-            .add(NotificationCenter.recordStartError)
-            .add(NotificationCenter.recordStopped)
-            .add(NotificationCenter.recordProgressChanged)
-            .add(NotificationCenter.closeChats)
-            .add(NotificationCenter.audioDidSent)
-            .add(NotificationCenter.audioRouteChanged)
-            .add(NotificationCenter.messagePlayingProgressDidChanged)
-            .add(NotificationCenter.featuredStickersDidLoad)
-            .add(NotificationCenter.messageReceivedByServer2)
-            .add(NotificationCenter.sendingMessagesChanged)
-            .add(NotificationCenter.audioRecordTooShort)
-            .add(NotificationCenter.updateBotMenuButton)
-            .add(NotificationCenter.didUpdatePremiumGiftFieldIcon)
-            .add(NotificationCenter.currentUserPremiumStatusChanged);
-    }
-
-    private void removeObservers() {
-        if (observersGroup != null) {
-            observersGroup.removeAllObservers();
-            observersGroup = null;
-        }
-    }
-
-
     @SuppressLint("ClickableViewAccessibility")
     public ChatActivityEnterView(Activity context, SizeNotifierFrameLayout parent, ChatActivity fragment, final boolean isChat, Theme.ResourcesProvider resourcesProvider) {
         super(context);
@@ -2620,7 +2580,24 @@ public class ChatActivityEnterView extends FrameLayout implements
         setWillNotDraw(false);
         setClipChildren(false);
 
-        addObservers();
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordStarted);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordPaused);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordResumed);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordStartError);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordStopped);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordProgressChanged);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.closeChats);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.audioDidSent);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.audioRouteChanged);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.messagePlayingProgressDidChanged);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.featuredStickersDidLoad);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.messageReceivedByServer2);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.sendingMessagesChanged);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.audioRecordTooShort);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.updateBotMenuButton);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.didUpdatePremiumGiftFieldIcon);
+        NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.currentUserPremiumStatusChanged);
+        NotificationCenter.getGlobalInstance().addObserver(this, NotificationCenter.emojiLoaded);
 
         parentActivity = context;
         parentFragment = fragment;
@@ -6489,7 +6466,24 @@ public class ChatActivityEnterView extends FrameLayout implements
             MediaDataController.getInstance(currentAccount).setDraftVoiceRegion(dialog_id, parentFragment != null && parentFragment.isTopic ? parentFragment.getTopicId() : 0, audioTimelineView == null ? 0.0f : audioTimelineView.getAudioLeft(), audioTimelineView == null ? 1.0f : audioTimelineView.getAudioRight());
         }
         destroyed = true;
-        removeObservers();
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordStarted);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordPaused);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordResumed);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordStartError);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordStopped);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordProgressChanged);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.closeChats);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.audioDidSent);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.audioRouteChanged);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.messagePlayingProgressDidChanged);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.featuredStickersDidLoad);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.messageReceivedByServer2);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.sendingMessagesChanged);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.audioRecordTooShort);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.updateBotMenuButton);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.didUpdatePremiumGiftFieldIcon);
+        NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.currentUserPremiumStatusChanged);
+        NotificationCenter.getGlobalInstance().removeObserver(this, NotificationCenter.emojiLoaded);
         if (emojiView != null) {
             emojiView.onDestroy();
         }
@@ -6644,10 +6638,34 @@ public class ChatActivityEnterView extends FrameLayout implements
         dialog_id = id;
         if (currentAccount != account) {
             notificationsLocker.unlock();
-            removeObservers();
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordStarted);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordPaused);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordResumed);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordStartError);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordStopped);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.recordProgressChanged);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.closeChats);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.audioDidSent);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.audioRouteChanged);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.messagePlayingProgressDidChanged);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.featuredStickersDidLoad);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.messageReceivedByServer2);
+            NotificationCenter.getInstance(currentAccount).removeObserver(this, NotificationCenter.sendingMessagesChanged);
             currentAccount = account;
             accountInstance = AccountInstance.getInstance(currentAccount);
-            addObservers();
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordStarted);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordPaused);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordResumed);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordStartError);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordStopped);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.recordProgressChanged);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.closeChats);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.audioDidSent);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.audioRouteChanged);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.messagePlayingProgressDidChanged);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.featuredStickersDidLoad);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.messageReceivedByServer2);
+            NotificationCenter.getInstance(currentAccount).addObserver(this, NotificationCenter.sendingMessagesChanged);
         }
 
         sendPlainEnabled = true;
@@ -10376,13 +10394,10 @@ public class ChatActivityEnterView extends FrameLayout implements
             recordDeleteImageView.setLayerColor("Box Red", dotColor);
             recordDeleteImageView.setLayerColor("Cup Grey", greyColor);
             recordDeleteImageView.setLayerColor("Box Grey", greyColor);
-            recordDeleteImageView.setLayerColor("Box_Grey 2", greyColor);
-            recordDeleteImageView.setLayerColor("Line 1", greyColor);
-            recordDeleteImageView.setLayerColor("Line 2", greyColor);
-            recordDeleteImageView.setLayerColor("Line 3", greyColor);
-            recordDeleteImageView.setLayerColor("Line 1 Dup", background);
-            recordDeleteImageView.setLayerColor("Line 2 Dup", background);
-            recordDeleteImageView.setLayerColor("Line 3 Dup", background);
+
+            recordDeleteImageView.setLayerColor("Line 1", background);
+            recordDeleteImageView.setLayerColor("Line 2", background);
+            recordDeleteImageView.setLayerColor("Line 3", background);
         }
     }
 

@@ -245,7 +245,8 @@ public:
     _requestVideoBroadcastPart(arguments.requestVideoBroadcastPart),
     _updateAudioLevel(arguments.updateAudioLevel),
     _audioRingBuffer(_audioDataRingBufferMaxSize),
-    _audioFrameCombiner(false) {
+    _audioFrameCombiner(false),
+    _platformContext(arguments.platformContext) {
     }
 
     ~StreamingMediaContextPrivate() {
@@ -878,7 +879,7 @@ public:
 
                                         strong->_nextSegmentTimestamp = responseTimestampBoundary;
                                     }
-                                    
+
                                     strong->discardAllPendingSegments();
                                     strong->requestSegmentsIfNeeded();
                                     strong->checkPendingSegments();
@@ -894,12 +895,12 @@ public:
                     };
 
                     const auto typeData = &part->typeData;
-                    if (absl::get_if<PendingAudioSegmentData>(typeData)) {
-                        part->task = _requestAudioBroadcastPart(segmentTimestamp, _segmentDuration, handleResult);
+                    if (const auto audioData = absl::get_if<PendingAudioSegmentData>(typeData)) {
+                        part->task = _requestAudioBroadcastPart(_platformContext, segmentTimestamp, _segmentDuration, handleResult);
                     } else if (const auto videoData = absl::get_if<PendingVideoSegmentData>(typeData)) {
-                        part->task = _requestVideoBroadcastPart(segmentTimestamp, _segmentDuration, videoData->channelId, videoData->quality, handleResult);
-                    } else if (absl::get_if<PendingUnifiedSegmentData>(typeData)) {
-                        part->task = _requestVideoBroadcastPart(segmentTimestamp, _segmentDuration, 1, VideoChannelDescription::Quality::Full, handleResult);
+                        part->task = _requestVideoBroadcastPart(_platformContext, segmentTimestamp, _segmentDuration, videoData->channelId, videoData->quality, handleResult);
+                    } else if (const auto unifiedData = absl::get_if<PendingUnifiedSegmentData>(typeData)) {
+                        part->task = _requestVideoBroadcastPart(_platformContext, segmentTimestamp, _segmentDuration, 1, VideoChannelDescription::Quality::Full, handleResult);
                     }
                 }
             }
@@ -910,7 +911,7 @@ public:
                 segment->duration = _segmentDuration;
                 for (auto &part : pendingSegment->parts) {
                     const auto typeData = &part->typeData;
-                    if (absl::get_if<PendingAudioSegmentData>(typeData)) {
+                    if (const auto audioData = absl::get_if<PendingAudioSegmentData>(typeData)) {
                         segment->audio = std::make_shared<AudioStreamingPart>(std::move(part->result->data), "ogg", false);
                         _currentEndpointMapping = segment->audio->getEndpointMapping();
                     } else if (const auto videoData = absl::get_if<PendingVideoSegmentData>(typeData)) {
@@ -921,7 +922,7 @@ public:
                         }
                         videoSegment->part = std::make_shared<VideoStreamingPart>(std::move(part->result->data), VideoStreamingPart::ContentType::Video);
                         segment->video.push_back(videoSegment);
-                    } else if (absl::get_if<PendingUnifiedSegmentData>(typeData)) {
+                    } else if (const auto videoData = absl::get_if<PendingUnifiedSegmentData>(typeData)) {
                         auto unifiedSegment = std::make_shared<UnifiedSegment>();
                         if (part->result->data.empty()) {
                             RTC_LOG(LS_INFO) << "Unified part " << segment->timestamp << " is empty";
@@ -997,12 +998,12 @@ public:
         };
 
         const auto typeData = &part->typeData;
-        if (absl::get_if<PendingAudioSegmentData>(typeData)) {
-            part->task = _requestAudioBroadcastPart(segmentTimestamp, _segmentDuration, handleResult);
+        if (const auto audioData = absl::get_if<PendingAudioSegmentData>(typeData)) {
+            part->task = _requestAudioBroadcastPart(_platformContext, segmentTimestamp, _segmentDuration, handleResult);
         } else if (const auto videoData = absl::get_if<PendingVideoSegmentData>(typeData)) {
-            part->task = _requestVideoBroadcastPart(segmentTimestamp, _segmentDuration, videoData->channelId, videoData->quality, handleResult);
-        } else if (absl::get_if<PendingUnifiedSegmentData>(typeData)) {
-            part->task = _requestVideoBroadcastPart(segmentTimestamp, _segmentDuration, 1, VideoChannelDescription::Quality::Full, handleResult);
+            part->task = _requestVideoBroadcastPart(_platformContext, segmentTimestamp, _segmentDuration, videoData->channelId, videoData->quality, handleResult);
+        } else if (const auto unifiedData = absl::get_if<PendingUnifiedSegmentData>(typeData)) {
+            part->task = _requestVideoBroadcastPart(_platformContext, segmentTimestamp, _segmentDuration, 1, VideoChannelDescription::Quality::Full, handleResult);
         }
     }
 
@@ -1041,8 +1042,8 @@ private:
     std::shared_ptr<Threads> _threads;
     bool _isUnifiedBroadcast = false;
     std::function<std::shared_ptr<BroadcastPartTask>(std::function<void(int64_t)>)> _requestCurrentTime;
-    std::function<std::shared_ptr<BroadcastPartTask>(int64_t, int64_t, std::function<void(BroadcastPart &&)>)> _requestAudioBroadcastPart;
-    std::function<std::shared_ptr<BroadcastPartTask>(int64_t, int64_t, int32_t, VideoChannelDescription::Quality, std::function<void(BroadcastPart &&)>)> _requestVideoBroadcastPart;
+    std::function<std::shared_ptr<BroadcastPartTask>(std::shared_ptr<PlatformContext>, int64_t, int64_t, std::function<void(BroadcastPart &&)>)> _requestAudioBroadcastPart;
+    std::function<std::shared_ptr<BroadcastPartTask>(std::shared_ptr<PlatformContext>, int64_t, int64_t, int32_t, VideoChannelDescription::Quality, std::function<void(BroadcastPart &&)>)> _requestVideoBroadcastPart;
     std::function<void(uint32_t, float, bool)> _updateAudioLevel;
 
     const int _segmentDuration = 1000;
@@ -1077,6 +1078,8 @@ private:
     std::map<std::string, std::vector<std::weak_ptr<rtc::VideoSinkInterface<webrtc::VideoFrame>>>> _videoSinks;
 
     std::map<std::string, int32_t> _currentEndpointMapping;
+
+    std::shared_ptr<PlatformContext> _platformContext;
 };
 
 StreamingMediaContext::StreamingMediaContext(StreamingMediaContextArguments &&arguments) {

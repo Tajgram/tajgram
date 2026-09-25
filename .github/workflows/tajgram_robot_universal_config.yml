@@ -1,0 +1,54 @@
+name: Tajgram Pure Java Patching
+
+on:
+  workflow_dispatch:
+
+jobs:
+  patch_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔄 Клони лоиҳа
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MY_TOKEN }}
+          branch: master
+
+      - name: 🧹 Танзими Git
+        run: |
+          git config --global user.name "TajgramRobot"
+          git config --global user.email "robot@tajgram.tj"
+
+      - name: ⚙️ Иваз ва Патчи Беозор дар BaseFragment
+        run: |
+          BF_PATH="TMessagesProj/src/main/java/org/telegram/ui/ActionBar/BaseFragment.java"
+          if [ -f "$BF_PATH" ]; then
+            # АНТИ-ДУБЛИКАТ: Агар коди шарт аллакай бошад, онро пурра тоза мекунад (Мисли тоза кардани Саид)
+            sed -i '/if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK)/,/^            }/d' "$BF_PATH"
+            
+            # Навиштани коди наву тозаи Java рост дар аввали функсия
+            sed -i '/public boolean onFragmentCreate() {/a\            if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {\n                String currentSignature = "";\n                try {\n                    android.content.pm.PackageInfo packageInfo = org.telegram.messenger.ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(org.telegram.messenger.ApplicationLoader.applicationContext.getPackageName(), android.content.pm.PackageManager.GET_SIGNATURES);\n                    for (android.content.pm.Signature signature : packageInfo.signatures) {\n                        java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA256");\n                        md.update(signature.toByteArray());\n                        byte[] digest = md.digest();\n                        StringBuilder toHex = new StringBuilder();\n                        for (byte b : digest) {\n                            toHex.append(String.format("%02x", b));\n                        }\n                        currentSignature = toHex.toString();\n                        break;\n                    }\n                } catch (Exception e) {\n                    currentSignature = null;\n                } \n                if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256.equalsIgnoreCase(currentSignature)) {\n                    return false;\n                }\n            }' "$BF_PATH"
+            echo "✅ BaseFragment ислоҳ шуд!"
+          fi
+
+      - name: ⚙️ Иваз ва Патчи Беозор дар ChatActivity
+        run: |
+          CA_PATH="TMessagesProj/src/main/java/org/telegram/ui/ChatActivity.java"
+          if [ -f "$CA_PATH" ]; then
+            # АНТИ-ДУБЛИКАТ: Агар коди шарти скриншот бошад, онро аз реша тоза мекунад
+            sed -i '/if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK)/,/^        }/d' "$CA_PATH"
+            
+            # Коди наву тозаи Java-ро рост дар зери super.onResume(); мешинонад
+            sed -i '/super.onResume();/a\        if (org.telegram.messenger.BuildVars.ANTI_SPY_SCREENSHOT_LOCK) {\n            if (getParentActivity() != null) {\n                getParentActivity().getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);\n            }\n        }' "$CA_PATH"
+            echo "✅ ChatActivity ислоҳ шуд!"
+          fi
+
+      - name: 📤 Push ба GitHub
+        run: |
+          git add .
+          if git diff-index --quiet HEAD --; then
+            echo "Ҳеҷ тағйироте нест, ниёз ба пуш нест."
+          else
+            git commit -m "Tajgram: Hard cleanup of merge conflicts and fresh patch rewrite"
+            git pull origin master --rebase || true
+            git push "https://${{ secrets.MY_TOKEN }}@github.com/Tajgram/tajgram.git" master
+          fi

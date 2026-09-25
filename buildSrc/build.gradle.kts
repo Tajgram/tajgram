@@ -5,13 +5,9 @@ plugins {
 
 gradlePlugin {
     plugins {
-        register("telegramBuildPlugin") {
-            id = "org.telegram.build-plugin"
-            implementationClass = "org.telegram.plugin.TelegramBuildPlugin"
-        }
-        register("telegramBuildAppPlugin") {
-            id = "org.telegram.build-app-plugin"
-            implementationClass = "org.telegram.plugin.TelegramBuildAppPlugin"
+        register("lottiePreParser") {
+            id = "org.telegram.lottie-meta"
+            implementationClass = "org.telegram.lottie.LottieMetaPlugin"
         }
         register("testGenerator") {
             id = "test-generator"
@@ -40,7 +36,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 dependencies {
     implementation(gradleApi())
-    implementation("com.android.tools.build:gradle:8.13.2")
+    implementation("com.android.tools.build:gradle:8.10.1")
 
     implementation("com.squareup.moshi:moshi:1.15.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")

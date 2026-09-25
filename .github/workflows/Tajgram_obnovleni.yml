@@ -1,0 +1,53 @@
+name: 🔄 Tajgram Ultimate Rebase Sync
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync_upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Тамоми таърихро мегирем, то Гит корро дуруст кунад
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "Saidjun Chief Developer"
+          git config --global user.email "saidjun@tajgram.messenger"
+
+      - name: Fetch Upstream
+        run: |
+          # АЗ ИН ҶО ОБНОВЛЕНИРО МЕГИРАД: Репозиторияи расмии Телеграм (DrKLO)
+          git remote add upstream https://github.com/DrKLO/Telegram.git || true
+          git fetch upstream master
+
+      - name: Core Sync & Protection (Танҳо дар шохаи main)
+        run: |
+          # 1. Шохаи муваққатии тоза месозем, ки коди охирини DrKLO-ро дорад
+          git checkout -b temp_upstream upstream/master
+
+          # 2. Тамоми файлҳои тоза ва охирини лоиҳаи туро (аз шохаи main) меорем,
+          # лекин ТАНҲО ҳамчун тағйироти финалӣ (бе таърихи комитҳои кӯҳнаи кашашуда)
+          git checkout main -- .
+
+          # 3. Файлҳои воркфлоуи худро аз нест шудан ҳифз мекунем
+          git checkout HEAD -- .github/workflows/ || true
+
+          # 4. Тамоми лоиҳаро ҳамчун ЯК КОМИТИ ТОЗАИ НИҲОӢ сабт мекунем.
+          # Ин хотираи кӯҳнаро, ки дубликат месохт, ПУРРА НЕСТ МЕКУНАД!
+          git add -A
+          git commit -m "Tajgram Ultimate: Баробарсозии мукаммал бо DrKLO (Охирин тағйиротҳо дар main)" || true
+
+          # 5. Ин коди тозаи тайёрро маҷбуран ба шохаи main мебарем
+          git branch -M temp_upstream main
+
+      - name: Push Updates to Main
+        run: |
+          # ДАР ИН ҶО ПУШ МЕКУНАД: Мустақим ба шохаи main-и репозиторияи худат
+          git push origin main --force
+          echo "🚀 Шохаи main 100% бо DrKLO баробар шуд! Кодҳои ту тоза шиштанд ва дубликат нест!"

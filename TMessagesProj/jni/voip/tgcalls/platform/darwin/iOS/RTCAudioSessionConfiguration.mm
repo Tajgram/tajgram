@@ -70,11 +70,7 @@ static RTC_OBJC_TYPE(RTCAudioSessionConfiguration) *gWebRTCConfiguration = nil;
     // nonmixable, hence activating the session will interrupt any other
     // audio sessions which are also nonmixable.
     _category = AVAudioSessionCategoryPlayAndRecord;
-#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 260000
-    _categoryOptions = AVAudioSessionCategoryOptionAllowBluetoothHFP;
-#else
-      _categoryOptions = AVAudioSessionCategoryOptionAllowBluetooth;
-#endif
+    _categoryOptions = AVAudioSessionCategoryOptionAllowBluetooth;
 
     // Specify mode for two-way voice communication (e.g. VoIP).
     _mode = AVAudioSessionModeVoiceChat;

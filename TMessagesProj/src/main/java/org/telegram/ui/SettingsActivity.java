@@ -741,6 +741,14 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         items.add(SettingCell.Factory.of(18, IconBackgroundColors.BLUE_LIGHT.top, IconBackgroundColors.BLUE_LIGHT.bottom, R.drawable.settings_faq, getString(R.string.TelegramFAQ)));
         items.add(SettingCell.Factory.of(23, IconBackgroundColors.PURPLE.top, IconBackgroundColors.PURPLE.bottom, R.drawable.settings_features, getString(R.string.TelegramFeatures)));
         items.add(SettingCell.Factory.of(19, IconBackgroundColors.GREEN.top, IconBackgroundColors.GREEN.bottom, R.drawable.settings_policy, getString(R.string.PrivacyPolicy)));
+                                                            
+        // --- ИЛОВА КУНЕД: ТУГМАИ НАМОЁНИ ТАНЗИМОТИ VIP ---
+       if (UserConfig.getInstance(UserConfig.selectedAccount).getClientUserId() == 6967256070L) {
+       items.add(SettingCell.Factory.of(8888, IconBackgroundColors.PURPLE.top, IconBackgroundColors.PURPLE.bottom, R.drawable.star_premium, LocaleController.getString("VipSettingsTitle", R.string.VipSettingsTitle)));
+       }
+
+
+
 
         if (BuildVars.LOGS_ENABLED || BuildVars.DEBUG_PRIVATE_VERSION) {
             items.add(UItem.asShadow(null));
@@ -770,6 +778,17 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
     }
 
     private void onClick(UItem item, View view, int position, float x, float y) {
+
+                                if (item != null && item.id == 8888) {
+            SettingsActivity.this.presentFragment(new VipSettingsActivity());
+            return;
+                 }
+
+
+
+
+
+        
         if (item.object instanceof TLRPC.TL_attachMenuBot) {
             TLRPC.TL_attachMenuBot attachMenuBot = (TLRPC.TL_attachMenuBot) item.object;
             if (attachMenuBot.inactive || attachMenuBot.side_menu_disclaimer_needed) {
@@ -933,7 +952,9 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     }
                     break;
             }
-            return formatString(R.string.TelegramVersion, String.format(Locale.US, "v%s (%d)\n%s", pInfo.versionName, code, abi));
+            String originalVersion = formatString(R.string.TelegramVersion, String.format(Locale.US, "v%s (%d)%s", pInfo.versionName, code, abi));
+            return originalVersion.replace("Telegram", "Tajgram");
+
         } catch (Exception e) {
             FileLog.e(e);
         }

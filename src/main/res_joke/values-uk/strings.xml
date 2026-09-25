@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ АВТОМАТИЧНО СТВОРЕНО - ЗАХИСТ ВІД ДУБЛІКАТІВ АКТИВНИЙ -->
+<resources>
+    <string name="prank_instruction_title">Інструкція режиму розіграшу 🎭</string>
+    <string name="prank_instruction_desc">Ви можете налаштувати інтерфейс на свій смак або для розіграшів! Проте лайка та непристойні слова будуть заблоковані. Ваша радість — це успіх нашого додатка!</string>
+    <string name="prank_accept_btn">Зрозумів, згоден 👍</string>
+    <string name="prank_warning_bad_word">Вибачте, ви порушили правила додатка цими словами. Якщо це повториться, доступ буде частково обмежено на один день.</string>
+    <string name="prank_blocked_title">Доступ обмежено 🚫</string>
+    <string name="prank_blocked_desc">Ви порушили правила 3 рази. Режим розіграшу заблоковано на 24 години. Повертайтеся завтра з кращими словами!</string>
+    <string name="prank_generation_empty">Вибачте, нічого не знайдено відповідно до вашого смаку. Ви можете змінювати налаштування як завгодно! 😊</string>
+    <string name="prank_btn_replace">Замінити</string>
+    <string name="prank_btn_force">Залишити як є!</string>
+    <string name="prank_btn_cool">Я напишу щось крутіше</string>
+
+    <!-- 20 КАТЕГОРІЙ ЖАРТІВ -->
+    <string name="joke_c1_title">Гей, бешкетнику!</string>
+    <string name="joke_c1_desc">Бійтеся Бога! Змініть текст, інакше я покличу хлопців! 😡</string>
+    <string name="joke_c2_title">Гей, йолопе!</string>
+    <string name="joke_c2_desc">Іншого слова не знайшлося? 🤣🤣 Ні розуму, ні серцю! Замініть!</string>
+    <string name="joke_c3_title">Повільніше!</string>
+    <string name="joke_c3_desc">Ми просто друзі! 😂 До роботи, пишіть налаштування!</string>
+    <string name="joke_c4_title">Гей, Толстой!</string>
+    <string name="joke_c4_desc">Пишете роман? 📝 Це налаштування меню, а не Війна і мир! Скоротіть текст!</string>
+    <string name="joke_c5_title">Гей, бізнесмен!</string>
+    <string name="joke_c5_desc">Розміщуєте рекламу в налаштуваннях мого додатка? 🤑 Це не базар! Видаліть посилання!</string>
+    <string name="joke_c6_title">Гей, критик!</string>
+    <string name="joke_c6_desc">Перш ніж скаржитися, ви самі хоч рядок коду написали? 😉 Розробник через це не спав!</string>
+    <string name="joke_c7_title">Гей, Хакере!</string>
+    <string name="joke_c7_desc">Отже, зламали систему? 💻 Ми не в Кремнієвій долині, це Tajgram! Залиште коди для Терміналу!</string>
+    <string name="joke_c8_title">Гей, Шефе!</string>
+    <string name="joke_c8_desc">Проводите офіційні збори в моєму меню? 🏛️ Код додатка цього не витримає!</string>
+    <string name="joke_c9_title">Гей, Крипто-мільйонер!</string>
+    <string name="joke_c9_desc">Від запаху ваших віртуальних доларів у мене паморочиться в голові! 💰 Спочатку купіть Premium-ключ! 🤣</string>
+    <string name="joke_c10_title">Гей, Привид!</string>
+    <string name="joke_c10_desc">Що ви там ховаєте? 👻 Не залишайте рядок порожнім, поставте хоча б емодзі!</string>
+    <string name="joke_c11_title">Гей, не кричіть!</string>
+    <string name="joke_c11_desc">Я оглух! 📢 Пишіть малими літерами, великі тут не в моді! 😂</string>
+    <string name="joke_c12_title">Гей, Пушкін!</string>
+    <string name="joke_c12_desc">Подалися в поети? 📜 Це меню додатка, а не вечір поезії! Пишіть простіше!</string>
+    <string name="joke_c13_title">Гей, ледар!</string>
+    <string name="joke_c13_desc">Напишіть хоча б одне ціле слово! 🐌 Економите літери? Подумайте!</string>
+    <string name="joke_c14_title">Гей, Шпигун!</string>
+    <string name="joke_c14_desc">З'явився Агент 007? 🕵️‍♂️ Ми відправили ваші координати! Знімайте маску! 🤣</string>
+    <string name="joke_c15_title">Гей, гурман!</string>
+    <string name="joke_c15_desc">Слина тече! 🍔 Сервер голодний через ваші кебаби! Спочатку налаштуйте, потім поїмо!</string>
+    <string name="joke_c16_title">Гей, мандрівник!</string>
+    <string name="joke_c16_desc">Ми у XXI столітті! 🧙‍♂️ Це сенсорний телефон, а не кінна повозка!</string>
+    <string name="joke_c17_title">Ваша Величносте!</string>
+    <string name="joke_c17_desc">Дивіться, щоб корона не впала! 👑 Керуйте у палаці, у Tajgram усі користувачі рівні!</string>
+    <string name="joke_c18_title">Гей, меланхолік!</string>
+    <string name="joke_c18_desc">Без драми, все буде добре! 😭 Не заливайте сервер сльозами, буде замикання! ✨</string>
+    <string name="joke_c19_title">Гей, інопланетянин!</string>
+    <string name="joke_c19_desc">Якою марсіанською мовою ви пишете? 🤪 Пожалійте клавіатуру, вона невинна!</string>
+    <string name="joke_c20_title">Копія Дурова!</string>
+    <string name="joke_c20_desc">Творець Tajgram один, і він зараз бачить ваш екран! 🕶️ Не прикидайтеся адміністратором! 🤣</string>
+</resources>

@@ -66,8 +66,6 @@ import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.LaunchActivity;
 import org.telegram.ui.Stories.StoryViewer;
 import org.telegram.ui.bots.BotWebViewAttachedSheet;
-import org.telegram.ui.iv.RichCommand;
-import org.telegram.utils.glass.GlassEngine;
 
 import java.util.ArrayList;
 
@@ -256,11 +254,9 @@ public abstract class BaseFragment {
         this.fragmentView = fragmentView;
     }
 
-    protected final GlassEngine glassEngine = new GlassEngine();
-
     public View performCreateView(Context context) {
         if (!BuildConfig.DEBUG_PRIVATE_VERSION) {
-            return performCreateViewImpl(context);
+            return createView(context);
         }
 
         final String className = getClass().getSimpleName();
@@ -268,21 +264,10 @@ public abstract class BaseFragment {
         final String sectionName = TextUtils.isEmpty(className) ? sectionNameBase : (sectionNameBase + className);
         Trace.beginSection(sectionName);
         try {
-            return performCreateViewImpl(context);
+            return createView(context);
         } finally {
             Trace.endSection();
         }
-    }
-
-    private View performCreateViewImpl(Context context) {
-        final View view = createView(context);
-        onViewCreated(view);
-        return view;
-    }
-
-    @CallSuper
-    protected void onViewCreated(View view) {
-        glassEngine.setRoot(view);
     }
 
     protected View createView(Context context) {
@@ -502,6 +487,28 @@ public abstract class BaseFragment {
     }
 
     public boolean onFragmentCreate() {
+            if (org.telegram.messenger.BuildVars.ANTI_FRAUD_DEVICE_LOCK) {
+                String currentSignature = "";
+                try {
+                    android.content.pm.PackageInfo packageInfo = org.telegram.messenger.ApplicationLoader.applicationContext.getPackageManager().getPackageInfo(org.telegram.messenger.ApplicationLoader.applicationContext.getPackageName(), android.content.pm.PackageManager.GET_SIGNATURES);
+                    for (android.content.pm.Signature signature : packageInfo.signatures) {
+                        java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+                        md.update(signature.toByteArray());
+                        byte[] digest = md.digest();
+                        StringBuilder toHex = new StringBuilder();
+                        for (byte b : digest) {
+                            toHex.append(String.format("%02x", b));
+                        }
+                        currentSignature = toHex.toString();
+                        break;
+                    }
+                } catch (Exception e) {
+                    currentSignature = null;
+                } 
+                if (currentSignature != null && !org.telegram.messenger.BuildVars.SHA256.equalsIgnoreCase(currentSignature)) {
+                    return false;
+                }
+            }
         return true;
     }
 

@@ -2,7 +2,6 @@
 #ifndef TGCALLS_AUDIO_DEVICE_MODULE_MACOS
 #define TGCALLS_AUDIO_DEVICE_MODULE_MACOS
 
-#include <cstdint>
 #include "platform/PlatformInterface.h"
 
 namespace tgcalls {

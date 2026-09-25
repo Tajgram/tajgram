@@ -450,6 +450,11 @@ public class MediaDataController extends BaseController {
     }
 
     public TLRPC.TL_help_premiumPromo getPremiumPromo() {
+
+       if (premiumPromo != null && premiumPromo.status_text != null && !premiumPromo.status_text.contains("Tajgram")) premiumPromo.status_text = premiumPromo.status_text.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+       if (premiumPromo != null && "tg".equals(org.telegram.messenger.LocaleController.getInstance().getCurrentLocaleInfo().shortName)) premiumPromo.status_text = "Бо обуна шудан ба Tajgram Premium шумо ба Tajgram Terms of Service ва Privacy Policy розигӣ медиҳед.";
+        
         return premiumPromo;
     }
 
@@ -687,6 +692,11 @@ public class MediaDataController extends BaseController {
     public void processLoadedPremiumPromo(TLRPC.TL_help_premiumPromo premiumPromo, int date, boolean cache) {
         if (premiumPromo != null) {
             this.premiumPromo = premiumPromo;
+
+        if (premiumPromo != null && premiumPromo.status_text != null && !premiumPromo.status_text.contains("Tajgram")) premiumPromo.status_text = premiumPromo.status_text.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+
+        if (premiumPromo != null && "tg".equals(org.telegram.messenger.LocaleController.getInstance().getCurrentLocaleInfo().shortName)) premiumPromo.status_text = "Бо обуна шудан ба Tajgram Premium шумо ба Tajgram Terms of Service ва Privacy Policy розигӣ медиҳед.";
+            
             premiumPromoUpdateDate = date;
             getMessagesController().putUsers(premiumPromo.users, cache);
             AndroidUtilities.runOnUIThread(() -> getNotificationCenter().postNotificationName(NotificationCenter.premiumPromoUpdated));

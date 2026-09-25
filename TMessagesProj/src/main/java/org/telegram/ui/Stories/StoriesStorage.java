@@ -2,11 +2,9 @@ package org.telegram.ui.Stories;
 
 import android.text.TextUtils;
 
-import androidx.annotation.OptIn;
 import androidx.collection.LongSparseArray;
 
-import androidx.media3.common.util.Consumer;
-import androidx.media3.common.util.UnstableApi;
+import com.google.android.exoplayer2.util.Consumer;
 
 import org.telegram.SQLite.SQLiteCursor;
 import org.telegram.SQLite.SQLiteDatabase;
@@ -33,7 +31,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-@OptIn(markerClass = UnstableApi.class)
 public class StoriesStorage {
 
     private static final int EXPIRE_AFTER = 60 * 60 * 24;//one day

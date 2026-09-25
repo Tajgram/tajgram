@@ -616,6 +616,10 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     public int birthdayRow;
     private int setUsernameRow;
     private int bioRow;
+
+    private int bioRatingRow = -1;
+
+    
     private int phoneSuggestionSectionRow;
     private int graceSuggestionRow;
     private int graceSuggestionSectionRow;
@@ -5328,6 +5332,10 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         avatarGooey = new ProfileGooeyView(context);
         avatarGooey.addView(avatarContainer, LayoutHelper.createFrame(100, 100, Gravity.TOP | Gravity.LEFT));
         avatarContainer2.addView(avatarGooey, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
+
+                        
+
+        
 //        avatarContainer2.addView(avatarContainer, LayoutHelper.createFrame(100, 100, Gravity.TOP | Gravity.LEFT, 64, 0, 0, 0));
         avatarImage = new AvatarImageView(context) {
             @Override
@@ -5634,8 +5642,83 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
             onlineTextView[a].setFocusable(a == 0);
             avatarContainer2.addView(onlineTextView[a], LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.LEFT | Gravity.TOP, 109 - (a == 1 || a == 2 || a == 3 ? 4 : 0), (a == 1 || a == 2 || a == 3 ? -2 : 0), (a == 0 ? rightMargin - (hasTitleExpanded ? 10 : 0) : 8) - (a == 1 || a == 2 || a == 3 ? 4 : 0), 0));
         }
+
+              // === START TAJGRAM USER ID UNDER STATUS ===
+if (avatarContainer2 != null) {
+    long idToCopy = userId;
+    
+    if (currentChat != null) {
+        // Барои каналҳо ва супергурӯҳҳо ба таври заводӣ префикси -100-ро худи Телеграм истифода мебарад
+        if (org.telegram.messenger.ChatObject.isChannel(currentChat)) {
+            idToCopy = -1000000000000L - currentChat.id;
+        } else {
+            idToCopy = -currentChat.id;
+        }
+    }
+
+    final long finalId = idToCopy;
+
+    if (finalId != 0) {
+        android.widget.TextView userIdTextView = new android.widget.TextView(context);
+        
+        // Коди худат барои тарҷумаи автоматии забонҳо (бе хардкод)
+        if (currentChat == null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
+            userIdTextView.setText("ID: " + finalId);
+        } else if (currentChat == null) {
+            String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
+            userIdTextView.setText(label + ": " + finalId);
+        } else {
+            // Барои чатҳо ва каналҳо префикси дурусти -100 ё - автоматӣ нишон дода мешавад
+            userIdTextView.setText("ID: " + finalId);
+        }
+        
+        userIdTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+        userIdTextView.setTextColor(org.telegram.ui.ActionBar.Theme.getColor(org.telegram.ui.ActionBar.Theme.key_profile_status));
+        
+        userIdTextView.setOnClickListener(v -> {
+            org.telegram.messenger.AndroidUtilities.addToClipboard(String.valueOf(finalId));
+            if (getContext() != null) {
+                android.widget.Toast.makeText(getContext(), 
+                    org.telegram.messenger.LocaleController.getString("UserIdCopied", org.telegram.messenger.R.string.UserIdCopied), 
+                    android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        // ТАГ МЕМОНЕМ, ТО ОНРО ДАР СКРОЛЛ БА СТАТУС КЛЕЙ КУНЕМ
+        userIdTextView.setTag("user_id_text_view");
+
+        // ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
+        int a = 0;
+
+        // 🔥 МАНТИҚИ НАВ ТАНҲО БАРОИ ҲАРАКАТ: Агар матни «в сети» мавҷуд бошад, 
+        // ИД-и ту мавқеъ ва шаффофияти онро нусхабардорӣ мекунад, то якҷоя ҳаракат кунанд
+        if (onlineTextView[a] != null) {
+            userIdTextView.setTranslationY(onlineTextView[a].getTranslationY());
+            userIdTextView.setAlpha(onlineTextView[a].getAlpha());
+        }
+
+        // ТАНЗИМИ 100% ДИНАМИКӢ БО КОДИ ХУДАТ
+        if (userIdTextView != null) {
+            avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
+                org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+                org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
+                android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
+                0, 226, 0, 0
+            ));
+        }
+    }
+}
+// === END TAJGRAM USER ID UNDER STATUS ===
+
+
+
+
+
+        
         checkPhotoDescriptionAlpha();
         avatarContainer2.addView(animatedStatusView);
+
+        
 
         ratingView = new StarRatingView(context);
         ratingView.setLayoutParams(LayoutHelper.createFrame(32, 32, Gravity.LEFT, 109 - 6, -2, 0, 0));
@@ -5644,6 +5727,12 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         ratingView.setDelegate(visibility -> {
             onlineTextView[1].setTranslationX(getOnlineTextViewTranslationXWithOffsets(lastOnlineTextViewX));
             onlineTextView[1].setTranslationY(getOnlineTextViewTranslationYWithOffsets(lastOnlineTextViewY));
+
+
+
+
+
+            
         });
         ratingView.setOnClickListener(this::showStarRatingBottomSheet);
         if (userInfo != null) {
@@ -5709,8 +5798,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         writeButtonSetBackground();
         if (userId != 0) {
             if (imageUpdater != null) {
-                cameraDrawable = new RLottieDrawable(R.raw.camera_outline, AndroidUtilities.dp(56), AndroidUtilities.dp(56), false, null);
-                cellCameraDrawable = new RLottieDrawable(R.raw.camera_outline, AndroidUtilities.dp(42), AndroidUtilities.dp(42), false, null);
+                cameraDrawable = new RLottieDrawable(R.raw.camera_outline, String.valueOf(R.raw.camera_outline), AndroidUtilities.dp(56), AndroidUtilities.dp(56), false, null);
+                cellCameraDrawable = new RLottieDrawable(R.raw.camera_outline, R.raw.camera_outline + "_cell", AndroidUtilities.dp(42), AndroidUtilities.dp(42), false, null);
 
                 if (actionsView != null) {
                     actionsView.beginApplyingActions();
@@ -5782,12 +5871,32 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 }
                 sharedMediaLayout.setPinnedToTop(sharedMediaLayout.getY() <= 0);
                 updateBottomButtonY();
+
+                // === ВАРИАНТИ БЕХАТАР АГАР СТАТУС СУРХ ШАВАД ===
+if (avatarContainer2 != null) {
+    android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
+    if (userIdView != null) {
+        // Ҳангоми скролл ба боло, ИД-ро ҳам ба боло мебарем, то аз экран берун набарояд
+        int scrollY = listView.computeVerticalScrollOffset();
+        userIdView.setTranslationY(-scrollY);
+        
+        // Агар хеле ба боло равад, онро кам-кам шаффоф (паҳн) мекунем, то зебо шавад
+        if (scrollY > org.telegram.messenger.AndroidUtilities.dp(50)) {
+            userIdView.setAlpha(0.0f);
+        } else {
+            userIdView.setAlpha(1.0f);
+        }
+    }
+}
+
+
+                
             }
         });
 
         undoView = new UndoView(context, null, false, resourcesProvider);
         frameLayout.addView(undoView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.WRAP_CONTENT, Gravity.BOTTOM | Gravity.LEFT, 8, 0, 8, 8));
-
+        
         expandAnimator = ValueAnimator.ofFloat(0f, 1f);
         expandAnimator.addUpdateListener(anim -> {
             setAvatarExpandProgress(anim.getAnimatedFraction());
@@ -10457,6 +10566,9 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
         birthdayRow = -1;
         setUsernameRow = -1;
         bioRow = -1;
+
+        bioRatingRow = -1;
+        
         channelRow = -1;
         channelDividerRow = -1;
         phoneSuggestionSectionRow = -1;
@@ -10622,6 +10734,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 numberRow = rowCount++;
                 setUsernameRow = rowCount++;
                 bioRow = rowCount++;
+
+                bioRatingRow = rowCount++;
 
                 settingsSectionRow = rowCount++;
 
@@ -13172,7 +13286,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         }
                     };
                     break;
-                }
+                }      
                 case VIEW_TYPE_TEXT: {
                     view = new TextCell(mContext, 18, false, false, resourcesProvider) {
                         @Override
@@ -14311,6 +14425,12 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
 
         @Override
         public int getItemViewType(int position) {
+
+            if (position == bioRatingRow) {
+    return 34;
+}
+
+            
             if (position == infoHeaderRow || position == membersHeaderRow || position == settingsSectionRow2 ||
                     position == numberSectionRow || position == helpHeaderRow || position == debugHeaderRow || position == botPermissionsHeader) {
                 return VIEW_TYPE_HEADER;
@@ -14634,6 +14754,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     new SearchResult(218, getString(R.string.VoipUseLessData), "useLessDataForCallsRow", getString(R.string.DataSettings), R.drawable.msg2_data, () -> f.presentFragment(new DataSettingsActivity())).withLink("tg://settings/data/use-less-data"),
                     new SearchResult(219, getString(R.string.VoipQuickReplies), "quickRepliesRow", getString(R.string.DataSettings), R.drawable.msg2_data, () -> f.presentFragment(new DataSettingsActivity())),
                     new SearchResult(220, getString(R.string.ProxySettings), getString(R.string.DataSettings), R.drawable.msg2_data, () -> f.presentFragment(new ProxyListActivity())).withLink("tg://settings/data/proxy"),
+                    new SearchResult(221, getString(R.string.UseProxyForCalls), "callsRow", getString(R.string.DataSettings), getString(R.string.ProxySettings), R.drawable.msg2_data, () -> f.presentFragment(new ProxyListActivity())).withLink("tg://settings/data/proxy/use-for-calls"),
                     new SearchResult(111, getString(R.string.PrivacyDeleteCloudDrafts), "clearDraftsRow", getString(R.string.DataSettings), R.drawable.msg2_data, () -> f.presentFragment(new DataSettingsActivity())).withLink("tg://settings/privacy/data-settings/delete-cloud-drafts"),
                     new SearchResult(222, getString(R.string.SaveToGallery), "saveToGallerySectionRow", getString(R.string.DataSettings), R.drawable.msg2_data, () -> f.presentFragment(new DataSettingsActivity())),
                     new SearchResult(223, getString(R.string.SaveToGalleryPrivate), "saveToGalleryPeerRow", getString(R.string.DataSettings), getString(R.string.SaveToGallery), R.drawable.msg2_data, () -> f.presentFragment(new DataSettingsActivity())).withLink("tg://settings/data/save-to-photos/chats"),

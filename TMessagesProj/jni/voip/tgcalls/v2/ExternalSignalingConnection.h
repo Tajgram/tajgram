@@ -1,7 +1,6 @@
 #ifndef TGCALLS_EXTERNAL_SIGNALING_CONNECTION_H_
 #define TGCALLS_EXTERNAL_SIGNALING_CONNECTION_H_
 
-#include <cstdint>
 #include <functional>
 #include <vector>
 

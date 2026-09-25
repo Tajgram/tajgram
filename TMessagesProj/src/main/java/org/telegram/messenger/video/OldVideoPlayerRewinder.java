@@ -1,6 +1,6 @@
 package org.telegram.messenger.video;
 
-import androidx.media3.common.C;
+import com.google.android.exoplayer2.C;
 
 import org.telegram.messenger.AndroidUtilities;
 import org.telegram.ui.Components.PhotoViewerWebView;

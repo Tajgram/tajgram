@@ -1,45 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="onboarding_title_1">Welcome! 🌍</string>
+<string name="onboarding_desc_1">Speed and security.</string>
+<string name="onboarding_title_2">Shine with Stars! ⭐</string>
+<string name="onboarding_desc_2">Premium features and translation.</string>
+<string name="onboarding_title_3">Personal Bell 🔊</string>
+<string name="onboarding_desc_3">Select voices and manage alerts.</string>
+<string name="onboarding_title_4">100% Security 🛡️</string>
+<string name="onboarding_desc_4">Proxy and anti-spy protection.</string>
+<string name="onboarding_title_5">Let’s Go! ✨</string>
+<string name="onboarding_desc_5">Switch to Folk Mode and enjoy!</string>
+<string name="skip_button">Skip (X)</string>
+<string name="start_button">Start</string>
+<string name="VipSettingsTitle">Tajgram VIP Settings</string>
+<string name="VipSupportBot">Direct Support</string>
+<string name="LikeButton">👍 Like</string>
+<string name="DislikeButton">👎 Dislike</string>
+<string name="VoiceSelection">Select Voice Style 🔊</string>
+<string name="VoiceIcon_Girl">👩 Girl Voice</string>
+<string name="VoiceIcon_Boy">👨 Boy Voice</string>
+<string name="WelcomeBellTitle">Welcome to Tajgram!</string>
+<string name="WelcomeBellDesc">Thank you for choosing us.</string>
+<string name="WelcomeChannelSuggest">Please subscribe to the official channel.</string>
+<string name="WelcomeBellTitle_Reentry">Welcome Back!</string>
+<string name="WelcomeBellDesc_Reentry">Your space is ready.</string>
+<string name="ExitDialogTitle">Are you sure you want to leave?</string>
+<string name="ExitDialogDesc">We will be waiting for your quick return! ✨</string>
+<string name="TajgramBellCurrencyTitle">Live Currency Rates</string>
+<string name="TajgramBellCurrencyStatus">Updating rates online...</string>
+<string name="VipSettingsMenuTitle">Tajgram Settings</string>
+<string name="SecretSupportButtonLabel">Tajgram Secret Support</string>
+<string name="AskAQuestion">Technical Support</string>
+<string name="AskAQuestion_Owner">Contact Owner</string>
+<string name="TajgramFolkModeSwitch">Folk Mode</string>
+<string name="TajgramFolkModeDesc">Change dialect</string>
+<string name="Folk_Settings">App Repair</string>
+<string name="Folk_Security">Anti-Spy</string>
+<string name="Folk_InviteFriends">Invite Friends</string>
     <string name="SmsJobsMenu">SMS Statistics</string>
 
     <string name="SmsJobsPremiumHintTitle">Premium Subscription **for free**</string>
-    <string name="SmsJobsPremiumHintMessage">Help Telegram send SMS codes and get a free premium subscription.</string>
+    <string name="SmsJobsPremiumHintMessage">Help Tajgram send SMS codes and get a free premium subscription.</string>
     <string name="SmsJobsErrorHintTitle">Some SMS were not sent successfully</string>
     <string name="SmsJobsErrorHintMessage">Review SMS history to troubleshoot</string>
 
     <string name="SmsSubscribeTitle">Premium for Free</string>
-    <string name="SmsSubscribeMessage">You are one of **0.01%** users eligible to take part in Telegram\'s **Premium for SMS** initiative!</string>
+    <string name="SmsSubscribeMessage">You are one of **0.01%** users eligible to take part in Tajgram\'s **Premium for SMS** initiative!</string>
     <string name="SmsSubscribeFeature1Title">Help Send Login SMS</string>
-    <string name="SmsSubscribeFeature1Message_other">Let Telegram use your phone to send %d login SMS per month.</string>
-    <string name="SmsSubscribeFeature2Title">Get Telegram Premium</string>
+    <string name="SmsSubscribeFeature1Message_other">Let Tajgram use your phone to send %d login SMS per month.</string>
+    <string name="SmsSubscribeFeature2Title">Get Tajgram Premium VIP</string>
     <string name="SmsSubscribeFeature2Message">Receive 1-month **Premium subscription** each month.</string>
     <string name="SmsSubscribeFeature3Title">Share Premium with Friends</string>
-    <string name="SmsSubscribeFeature3Message">Send gift links granting Telegram subscriptions to your friends.</string>
+    <string name="SmsSubscribeFeature3Message">Send gift links granting Tajgram subscriptions to your friends.</string>
 
     <string name="SmsSubscribeAccept">I accept the **Terms of Service for P2PLP**</string>
     <string name="SmsSubscribeActivate">Activate</string>
     <string name="SmsSubscribeActivateText">Sending SMS can result in charges. Please read **Terms of Service for Peer-to-Peer Login Program.**</string>
 
     <string name="SmsPremiumActivated">Premium for SMS activated!</string>
-    <string name="SmsPremiumActivatedText">Telegram will now try to use your device to automatically send SMS codes in your country (**%s**).</string>
-    <string name="SmsPremiumActivatedTextUnknown">Telegram will now try to use your device to automatically send SMS codes in your country.</string>
+    <string name="SmsPremiumActivatedText">Tajgram will now try to use your device to automatically send SMS codes in your country (**%s**).</string>
+    <string name="SmsPremiumActivatedTextUnknown">Tajgram will now try to use your device to automatically send SMS codes in your country.</string>
     <string name="SmsPremiumActivatedText2">Check **SMS Statistics** in the left-side menu to see how many SMS have been sent or change settings for this Program.</string>
-    <string name="SmsPermissionText">To join the **Premium for SMS** program, please allow Telegram to send out SMS from your device</string>
-    <string name="SmsPermissionTextSMSSettings">To join the **Premium for SMS** program, please allow Telegram to send out SMS from your device.\n\nTap Settings -> Permissions, and turn **SMS** on.</string>
-    <string name="SmsPermissionTextPhoneSettings">To join the **Premium for SMS** program, please allow Telegram to read phone SIM card info.\n\nTap Settings -> Permissions, and turn **Phone** permission on.</string>
-    <string name="SmsPermissionTextSMSPhoneSettings">To join the **Premium for SMS** program, please allow Telegram to send out SMS and read phone SIM card info.\n\nTap Settings -> Permissions, and turn **SMS** and **Phone** permissions on.</string>
+    <string name="SmsPermissionText">To join the **Premium for SMS** program, please allow Tajgram to send out SMS from your device</string>
+    <string name="SmsPermissionTextSMSSettings">To join the **Premium for SMS** program, please allow Tajgram to send out SMS from your device.\n\nTap Settings -> Permissions, and turn **SMS** on.</string>
+    <string name="SmsPermissionTextPhoneSettings">To join the **Premium for SMS** program, please allow Tajgram to read phone SIM card info.\n\nTap Settings -> Permissions, and turn **Phone** permission on.</string>
+    <string name="SmsPermissionTextSMSPhoneSettings">To join the **Premium for SMS** program, please allow Tajgram to send out SMS and read phone SIM card info.\n\nTap Settings -> Permissions, and turn **SMS** and **Phone** permissions on.</string>
 
     <string name="SmsStatusSending">%1$d of %2$d SMS Sent</string>
-    <string name="SmsStatusSendingSubtitle_other">Only **%d** SMS left to send to received your **Telegram Premium** gift link.</string>
+    <string name="SmsStatusSendingSubtitle_other">Only **%d** SMS left to send to received your **Tajgram Premium VIP** gift link.</string>
 
     <string name="SmsStatusFirst">Premium for SMS</string>
-    <string name="SmsStatusFirstSubtitle">Help Telegram send SMS login codes and get **Telegram Premium** gift links.</string>
+    <string name="SmsStatusFirstSubtitle">Help Tajgram send SMS login codes and get **Tajgram Premium VIP** gift links.</string>
     <string name="SmsStatusNoSim">Insert a SIM card</string>
     <string name="SmsStatusNoSimSubtitle">To join this program, please insert a SIM card into the device to start sending SMS.</string>
     <string name="SmsStatusNoPermission">Access Required</string>
-    <string name="SmsStatusNoPermissionSubtitle">To join this program, please allow Telegram to send SMS in your phone\'s Settings.</string>
+    <string name="SmsStatusNoPermissionSubtitle">To join this program, please allow Tajgram to send SMS in your phone\'s Settings.</string>
     <string name="SmsStatusDone">All %d SMS Sent!</string>
-    <string name="SmsStatusDoneSubtitle">Telegram Premium gift-code is sent for you to activate.</string>
+    <string name="SmsStatusDoneSubtitle">Tajgram Premium VIP gift-code is sent for you to activate.</string>
 
     <string name="SmsNoSimTitle">No SIM card</string>
     <string name="SmsNoSimMessage">Insert a SIM card into the device and come back to **SMS Statistics**.</string>
@@ -75,6 +112,6 @@
     <string name="SmsDescrRESULT_ERROR_NO_SERVICE">Your device hasn\'t had contact with cell phone network.</string>
     <string name="SmsDescrRESULT_RIL_NETWORK_ERR">Network error. Make sure your SIM card is active.</string>
 
-    <string name="SmsNotificationTitle">Telegram Premium for SMS</string>
+    <string name="SmsNotificationTitle">Tajgram Premium VIP for SMS</string>
     <string name="SmsNotificationSubtitle">%1$d of %2$d SMS Sent</string>
 </resources>

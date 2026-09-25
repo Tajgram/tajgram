@@ -4,7 +4,6 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-#include <cstdint>
 #include <memory>
 #include "api/scoped_refptr.h"
 #include "api/media_stream_interface.h"

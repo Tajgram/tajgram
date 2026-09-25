@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ تم الإنشاء تلقائيًا - حماية التكرار مفعلة -->
+<resources>
+    <string name="prank_instruction_title">دليل وضع المزاح 🎭</string>
+    <string name="prank_instruction_desc">يمكنك تخصيص الواجهة حسب ذوقك أو للمزاح! لكن، الشتائم والكلمات غير اللائقة سيتم حظرها. سعادتك هي نجاح تطبيقنا!</string>
+    <string name="prank_accept_btn">فهمت، موافق 👍</string>
+    <string name="prank_warning_bad_word">عذرًا، لقد انتهكت قواعد التطبيق بهذه الكلمات. إذا تكرر ذلك، سيتم تقييد الوصول جزئيًا لمدة يوم.</string>
+    <string name="prank_blocked_title">تم تقييد الوصول 🚫</string>
+    <string name="prank_blocked_desc">لقد انتهكت القواعد 3 مرات. تم حظر وضع المزاح لمدة 24 ساعة. عد غدًا بكلمات أفضل!</string>
+    <string name="prank_generation_empty">عذرًا، لم يتم العثور على شيء يناسب ذوقك. يمكنك تغيير الإعدادات كما تشاء! 😊</string>
+    <string name="prank_btn_replace">استبدال</string>
+    <string name="prank_btn_force">ابقها على أي حال!</string>
+    <string name="prank_btn_cool">سأكتب شيئًا أروع</string>
+
+    <!-- 20 فئة من المزاح -->
+    <string name="joke_c1_title">يا مشاغب!</string>
+    <string name="joke_c1_desc">خف الله! غيّر النص، وإلا سأنادي الشباب! 😡</string>
+    <string name="joke_c2_title">يا مغفل!</string>
+    <string name="joke_c2_desc">ألم تجد كلمة أخرى؟ 🤣🤣 لا عقل ولا قلب! استبدلها!</string>
+    <string name="joke_c3_title">ببطء!</string>
+    <string name="joke_c3_desc">نحن مجرد أصدقاء! 😂 انتقل للعمل، واكتب الإعدادات!</string>
+    <string name="joke_c4_title">يا تولستوي!</string>
+    <string name="joke_c4_desc">هل تكتب رواية؟ 📝 هذه إعدادات القائمة، وليست الحرب والسلم! اختصر النص!</string>
+    <string name="joke_c5_title">يا رجل أعمال!</string>
+    <string name="joke_c5_desc">هل تضع إعلانات في إعدادات تطبيقي؟ 🤑 هذا ليس موقع بيع! احذف الرابط!</string>
+    <string name="joke_c6_title">يا ناقد!</string>
+    <string name="joke_c6_desc">قبل أن تنتقد، هل كتبت سطر كود واحد؟ 😉 المطور لم ينم من أجل هذا!</string>
+    <string name="joke_c7_title">يا هكر!</string>
+    <string name="joke_c7_desc">إذن، هل اخترقت النظام؟ 💻 نحن لسنا في وادي السيليكون، هذا تاج‌گرام! اترك الأكواد للمحطة (Terminal)!</string>
+    <string name="joke_c8_title">يا رئيس!</string>
+    <string name="joke_c8_desc">هل تعقد اجتماعًا رسميًا في قائمتي؟ 🏛️ كود التطبيق لا يتحمل ذلك!</string>
+    <string name="joke_c9_title">يا مليونير العملات الرقمية!</string>
+    <string name="joke_c9_desc">رائحة دولاراتك الافتراضية أصابتني بالدوار! 💰 اشترِ مفتاح بريميوم أولًا! 🤣</string>
+    <string name="joke_c10_title">يا شبح!</string>
+    <string name="joke_c10_desc">ماذا تخفي هناك؟ 👻 لا تترك السطر فارغًا، ضع إيموجي على الأقل!</string>
+    <string name="joke_c11_title">يا هذا، لا تصرخ!</string>
+    <string name="joke_c11_desc">أذني صمت! 📢 اكتب بحروف صغيرة، الحروف الكبيرة ليست موضة هنا! 😂</string>
+    <string name="joke_c12_title">يا بوشكين!</string>
+    <string name="joke_c12_desc">هل تحولت للشعر؟ 📜 هذه قائمة تطبيق، وليست أمسية شعرية! اكتب ببساطة!</string>
+    <string name="joke_c13_title">يا كسول!</string>
+    <string name="joke_c13_desc">اكتب كلمة كاملة واحدة على الأقل! 🐌 هل تبخل بالحروف؟ فكر!</string>
+    <string name="joke_c14_title">يا جاسوس!</string>
+    <string name="joke_c14_desc">هل ظهر العميل 007؟ 🕵️‍♂️ لقد أرسلنا إحداثياتك! اخلع القناع! 🤣</string>
+    <string name="joke_c15_title">يا ذواق!</string>
+    <string name="joke_c15_desc">سال لعابي! 🍔 الخادم جائع بسبب كبابك! اضبط الإعدادات أولًا، ثم نأكل!</string>
+    <string name="joke_c16_title">يا مسافر!</string>
+    <string name="joke_c16_desc">نحن في القرن الحادي والعشرين! 🧙‍♂️ هذا هاتف يعمل باللمس، وليس عربة خيول!</string>
+    <string name="joke_c17_title">يا صاحب الجلالة!</string>
+    <string name="joke_c17_desc">انظر، لا تسقط تاجك! 👑 احكم في قصرك، في تاج‌گرام الجميع متساوون!</string>
+    <string name="joke_c18_title">يا مكتئب!</string>
+    <string name="joke_c18_desc">بدون دراما، كل شيء سيكون على ما يرام! 😭 لا تملأ الخادم بالدموع، سيحدث تماس كهربائي! ✨</string>
+    <string name="joke_c19_title">يا كائن فضائي!</string>
+    <string name="joke_c19_desc">بأي لغة مريخية تكتب؟ 🤪 ارحم لوحة المفاتيح، إنها بريئة!</string>
+    <string name="joke_c20_title">يا نسخة دوروف!</string>
+    <string name="joke_c20_desc">صانع تاج‌گرام واحد فقط وهو يرى شاشتك الآن! 🕶️ لا تتظاهر بأنك المشرف! 🤣</string>
+</resources>

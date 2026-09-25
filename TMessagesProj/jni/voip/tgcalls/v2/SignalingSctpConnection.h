@@ -2,7 +2,6 @@
 #define TGCALLS_SIGNALING_SCTP_CONNECTION_H_
 
 #ifdef WEBRTC_WIN
-#include <cstdint>
 #include <WinSock2.h>
 #endif // WEBRTC_WIN
 
@@ -24,6 +23,7 @@ class Socket;
 }
 
 namespace cricket {
+class SctpTransportFactory;
 class SctpTransportInternal;
 };
 
@@ -44,14 +44,7 @@ private:
     };
 
 public:
-    struct Options {
-        int t1InitTimeoutMs;   // 0 = use default
-        int t1CookieTimeoutMs; // 0 = use default
-        int maxBackoffMs;      // 0 = use default
-        Options() : t1InitTimeoutMs(400), t1CookieTimeoutMs(400), maxBackoffMs(750) {}
-    };
-
-    SignalingSctpConnection(std::shared_ptr<Threads> threads, std::function<void(const std::vector<uint8_t> &)> onIncomingData, std::function<void(const std::vector<uint8_t> &)> emitData, bool isInitiator, Options options = Options());
+    SignalingSctpConnection(std::shared_ptr<Threads> threads, std::function<void(const std::vector<uint8_t> &)> onIncomingData, std::function<void(const std::vector<uint8_t> &)> emitData);
     virtual ~SignalingSctpConnection();
 
     virtual void receiveExternal(const std::vector<uint8_t> &data) override;
@@ -74,6 +67,7 @@ private:
     std::function<void(const std::vector<uint8_t> &)> _onIncomingData;
 
     std::unique_ptr<SignalingPacketTransport> _packetTransport;
+    std::unique_ptr<cricket::SctpTransportFactory> _sctpTransportFactory;
     std::unique_ptr<cricket::SctpTransportInternal> _sctpTransport;
     
     bool _isReadyToSend = false;

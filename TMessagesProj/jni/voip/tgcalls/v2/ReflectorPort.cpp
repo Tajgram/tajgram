@@ -128,8 +128,7 @@ ReflectorPort::ReflectorPort(const cricket::CreateRelayPortArgs& args,
                              uint8_t serverId,
                              int server_priority,
                              bool standaloneReflectorMode,
-                             uint32_t standaloneReflectorRoleId,
-                             bool resolveRemoteCandidateIp)
+                             uint32_t standaloneReflectorRoleId)
 : Port(args.network_thread,
     cricket::RELAY_PORT_TYPE,
     args.socket_factory,
@@ -145,8 +144,7 @@ stun_dscp_value_(rtc::DSCP_NO_CHANGE),
 state_(STATE_CONNECTING),
 server_priority_(server_priority),
 standaloneReflectorMode_(standaloneReflectorMode),
-standaloneReflectorRoleId_(standaloneReflectorRoleId),
-resolve_remote_candidate_ip_(resolveRemoteCandidateIp) {
+standaloneReflectorRoleId_(standaloneReflectorRoleId) {
     serverId_ = serverId;
     
     if (standaloneReflectorMode_) {
@@ -160,14 +158,7 @@ resolve_remote_candidate_ip_(resolveRemoteCandidateIp) {
     }
     
     auto rawPeerTag = parseHex(args.config->credentials.password);
-    if (rawPeerTag.size() == 16) {
-        peer_tag_.AppendData(rawPeerTag.data(), rawPeerTag.size() - 4);
-    } else {
-        for (int i = 0; i < 16; i++) {
-            uint8_t zero = 0;
-            peer_tag_.AppendData(&zero, 1);
-        }
-    }
+    peer_tag_.AppendData(rawPeerTag.data(), rawPeerTag.size() - 4);
     peer_tag_.AppendData((uint8_t *)&randomTag_, 4);
 }
 
@@ -178,8 +169,7 @@ ReflectorPort::ReflectorPort(const cricket::CreateRelayPortArgs& args,
                              uint8_t serverId,
                              int server_priority,
                              bool standaloneReflectorMode,
-                             uint32_t standaloneReflectorRoleId,
-                             bool resolveRemoteCandidateIp)
+                             uint32_t standaloneReflectorRoleId)
 : Port(args.network_thread,
        cricket::RELAY_PORT_TYPE,
        args.socket_factory,
@@ -197,8 +187,7 @@ stun_dscp_value_(rtc::DSCP_NO_CHANGE),
 state_(STATE_CONNECTING),
 server_priority_(server_priority),
 standaloneReflectorMode_(standaloneReflectorMode),
-standaloneReflectorRoleId_(standaloneReflectorRoleId),
-resolve_remote_candidate_ip_(resolveRemoteCandidateIp) {
+standaloneReflectorRoleId_(standaloneReflectorRoleId) {
     serverId_ = serverId;
 
     if (standaloneReflectorMode_) {
@@ -212,14 +201,7 @@ resolve_remote_candidate_ip_(resolveRemoteCandidateIp) {
     }
     
     auto rawPeerTag = parseHex(args.config->credentials.password);
-    if (rawPeerTag.size() == 16) {
-        peer_tag_.AppendData(rawPeerTag.data(), rawPeerTag.size() - 4);
-    } else {
-        for (int i = 0; i < 16; i++) {
-            uint8_t zero = 0;
-            peer_tag_.AppendData(&zero, 1);
-        }
-    }
+    peer_tag_.AppendData(rawPeerTag.data(), rawPeerTag.size() - 4);
     peer_tag_.AppendData((uint8_t *)&randomTag_, 4);
 }
 
@@ -232,16 +214,12 @@ ReflectorPort::~ReflectorPort() {
         Release();
     }
 
-    // Unsubscribe BEFORE deleting: UnsubscribeCloseEvent mutates the socket's
-    // callback list, so doing it after `delete socket_` is a write-after-free.
-    // Stock TurnPort has no PROTO_TCP condition here - unsubscribing a tag that
-    // was never subscribed is a no-op - and neither should we.
-    if (socket_) {
-        socket_->UnsubscribeCloseEvent(this);
-    }
-
     if (!SharedSocket()) {
         delete socket_;
+    }
+    
+    if (server_address_.proto == cricket::PROTO_TCP) {
+        socket_->UnsubscribeCloseEvent(this);
     }
 }
 
@@ -546,20 +524,10 @@ cricket::Connection* ReflectorPort::CreateConnection(const cricket::Candidate& r
     }
     
     cricket::Candidate updated_remote_candidate = remote_candidate;
-    if (server_address_.proto == cricket::PROTO_TCP || resolve_remote_candidate_ip_) {
+    if (server_address_.proto == cricket::PROTO_TCP) {
         rtc::SocketAddress updated_address = updated_remote_candidate.address();
         updated_address.SetResolvedIP(server_address_.address.ipaddr());
         updated_remote_candidate.set_address(updated_address);
-    }
-
-    if (resolve_remote_candidate_ip_) {
-        // Once the IP is resolved, this key can collide with a peer-reflexive
-        // connection already created for the same path by the inbound path (which
-        // has always resolved). AddOrReplaceConnection would DESTROY that live
-        // connection - firing OnSelectedConnectionDestroyed if it was selected.
-        if (GetConnection(updated_remote_candidate.address()) != nullptr) {
-            return nullptr;
-        }
     }
 
     cricket::ProxyConnection* conn = new cricket::ProxyConnection(NewWeakPtr(), 0, updated_remote_candidate);
@@ -898,10 +866,10 @@ void ReflectorPort::Close() {
     }
     // Stop the port from creating new connections.
     state_ = STATE_DISCONNECTED;
-    // Delete all existing connections; stop sending data. Do NOT hand-roll this
-    // loop: Connection::Destroy() erases from the same map connections()
-    // returns, so iterating it directly invalidates the iterator mid-walk.
-    DestroyAllConnections();
+    // Delete all existing connections; stop sending data.
+    for (auto kv : connections()) {
+        kv.second->Destroy();
+    }
 
     SignalReflectorPortClosed(this);
 }

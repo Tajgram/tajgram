@@ -17,8 +17,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class SerializedData extends AbstractSerializedData {
     protected boolean isOut = true;
@@ -88,15 +86,6 @@ public class SerializedData extends AbstractSerializedData {
         } catch (Exception e) {
             FileLog.e(e);
         }
-    }
-
-    public SerializedData(InputStream is) throws IOException {
-        byte[] data = new byte[(int) is.available()];
-        new DataInputStream(is).readFully(data);
-
-        isOut = false;
-        inbuf = new ByteArrayInputStream(data);
-        in = new DataInputStream(inbuf);
     }
 
     public SerializedData(File file) throws Exception {

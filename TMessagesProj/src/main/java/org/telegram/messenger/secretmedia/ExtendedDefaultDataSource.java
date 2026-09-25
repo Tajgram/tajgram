@@ -10,23 +10,26 @@ package org.telegram.messenger.secretmedia;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.util.LongSparseArray;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.OptIn;
-import androidx.media3.common.util.Assertions;
-import androidx.media3.common.util.UnstableApi;
-import androidx.media3.common.util.Util;
-import androidx.media3.datasource.AssetDataSource;
-import androidx.media3.datasource.ContentDataSource;
-import androidx.media3.datasource.DataSchemeDataSource;
-import androidx.media3.datasource.DataSource;
-import androidx.media3.datasource.DataSpec;
-import androidx.media3.datasource.DefaultHttpDataSource;
-import androidx.media3.datasource.FileDataSource;
-import androidx.media3.datasource.RawResourceDataSource;
-import androidx.media3.datasource.TransferListener;
+
+import com.google.android.exoplayer2.upstream.AssetDataSource;
+import com.google.android.exoplayer2.upstream.ContentDataSource;
+import com.google.android.exoplayer2.upstream.DataSchemeDataSource;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DataSpec;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
+import com.google.android.exoplayer2.upstream.FileDataSource;
+import com.google.android.exoplayer2.upstream.RawResourceDataSource;
+import com.google.android.exoplayer2.upstream.TransferListener;
+import com.google.android.exoplayer2.upstream.cache.Cache;
+import com.google.android.exoplayer2.upstream.cache.CacheSpan;
+import com.google.android.exoplayer2.upstream.cache.ContentMetadata;
+import com.google.android.exoplayer2.upstream.cache.ContentMetadataMutations;
+import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
+import com.google.android.exoplayer2.util.Util;
 
 import org.telegram.messenger.FileStreamLoadOperation;
 
@@ -39,8 +42,6 @@ import java.util.Map;
 import java.util.NavigableSet;
 import java.util.Set;
 
-
-@OptIn(markerClass = UnstableApi.class)
 public final class ExtendedDefaultDataSource implements DataSource {
 
     private static final String TAG = "ExtendedDefaultDataSource";
@@ -103,12 +104,12 @@ public final class ExtendedDefaultDataSource implements DataSource {
             boolean allowCrossProtocolRedirects) {
         this(
             context,
-            new DefaultHttpDataSource.Factory()
-                .setUserAgent(userAgent)
-                .setConnectTimeoutMs(connectTimeoutMillis)
-                .setReadTimeoutMs(readTimeoutMillis)
-                .setAllowCrossProtocolRedirects(allowCrossProtocolRedirects)
-                .createDataSource(),
+            new DefaultHttpDataSource(
+                    userAgent,
+                    connectTimeoutMillis,
+                    readTimeoutMillis,
+                    allowCrossProtocolRedirects,
+                    /* defaultRequestProperties= */ null),
             null
         );
     }
@@ -169,8 +170,7 @@ public final class ExtendedDefaultDataSource implements DataSource {
         Uri uri = dataSpec.uri;
         if ("mtproto".equals(uri.getScheme())) {
             final long docId = Long.parseLong(dataSpec.uri.toString().substring("mtproto:".length()));
-            uri = mtprotoUris.get(docId);
-            dataSpec = dataSpec.buildUpon().setUri(uri).build();
+            dataSpec.uri = uri = mtprotoUris.get(docId);
         }
         // Choose the correct source for the scheme.
         String scheme = uri.getScheme();

@@ -499,14 +499,10 @@ static inline void getCubeVertexData(size_t frameWidth,
     }];
     
     [commandBuffer_b addScheduledHandler:^(id<MTLCommandBuffer> _Nonnull) {
-        [CATransaction begin];
         [background present];
-        [CATransaction commit];
     }];
     [commandBuffer_f addScheduledHandler:^(id<MTLCommandBuffer> _Nonnull) {
-        [CATransaction begin];
         [foreground present];
-        [CATransaction commit];
     }];
         
 
@@ -602,9 +598,7 @@ static inline void getCubeVertexData(size_t frameWidth,
 
 
     [commandBuffer addScheduledHandler:^(id<MTLCommandBuffer> _Nonnull) {
-        [CATransaction begin];
         [drawable present];
-        [CATransaction commit];
     }];
     
     [commandBuffer commit];

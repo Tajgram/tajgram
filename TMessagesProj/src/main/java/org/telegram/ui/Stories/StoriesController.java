@@ -10,11 +10,9 @@ import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.OptIn;
 import androidx.collection.LongSparseArray;
 
-import androidx.media3.common.util.Consumer;
-import androidx.media3.common.util.UnstableApi;
+import com.google.android.exoplayer2.util.Consumer;
 
 import org.telegram.SQLite.SQLiteCursor;
 import org.telegram.SQLite.SQLiteDatabase;
@@ -92,7 +90,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-@OptIn(markerClass = UnstableApi.class)
 public class StoriesController {
 
     public final static int STATE_READ = 0;

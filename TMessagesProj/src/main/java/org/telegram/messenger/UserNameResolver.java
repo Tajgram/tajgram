@@ -3,7 +3,7 @@ package org.telegram.messenger;
 import android.text.TextUtils;
 import android.util.LruCache;
 
-import androidx.media3.common.util.Consumer;
+import com.google.android.exoplayer2.util.Consumer;
 
 import org.telegram.tgnet.ConnectionsManager;
 import org.telegram.tgnet.TLObject;

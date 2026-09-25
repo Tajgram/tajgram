@@ -55,6 +55,10 @@ public:
     virtual void withNativeImplementation(std::function<void(void *)> completion) {
         completion(nullptr);
     }
+
+	virtual std::shared_ptr<PlatformContext> getPlatformContext() {
+		return nullptr;
+	}
 };
 
 } // namespace tgcalls

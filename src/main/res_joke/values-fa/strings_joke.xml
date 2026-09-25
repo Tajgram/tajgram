@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 🛡️ تولید خودکار - محافظت از تکرار فعال است -->
+<resources>
+    <string name="prank_instruction_title">آموزش حالت شوخی 🎭</string>
+    <string name="prank_instruction_desc">می‌توانید رابط کاربری را طبق سلیقه یا شوخی‌های خود تنظیم کنید! اما، توهین و کلمات نامناسب مسدود می‌شوند. شادی شما موفقیت برنامه ماست!</string>
+    <string name="prank_accept_btn">فهمیدم، موافقم 👍</string>
+    <string name="prank_warning_bad_word">متأسفم، شما با این کلمات قوانین برنامه را نقض کردید. اگر تکرار شود، دسترسی شما برای یک روز محدود خواهد شد.</string>
+    <string name="prank_blocked_title">دسترسی محدود شد 🚫</string>
+    <string name="prank_blocked_desc">شما ۳ بار قوانین را نقض کردید. حالت شوخی برای ۲۴ ساعت برای شما مسدود شد. فردا با کلمات بهتری برگردید!</string>
+    <string name="prank_generation_empty">متأسفم، چیزی متناسب با سلیقه شما پیدا نشد. می‌توانید تنظیمات را هر طور که می‌خواهید تغییر دهید! 😊</string>
+    <string name="prank_btn_replace">جایگزین کردن</string>
+    <string name="prank_btn_force">به هر حال نگه دار!</string>
+    <string name="prank_btn_cool">من چیز بهتری می‌نویسم</string>
+
+    <!-- ۲۰ دسته‌بندی شوخی -->
+    <string name="joke_c1_title">هی، سرکش!</string>
+    <string name="joke_c1_desc">از خدا بترس! متن را عوض کن، وگرنه بچه‌ها رو صدا می‌کنم! 😡</string>
+    <string name="joke_c2_title">هی، کله‌شق!</string>
+    <string name="joke_c2_desc">کلمه بهتری پیدا نکردی؟ 🤣🤣 نه به عقل می‌چسبه نه به دل! عوضش کن!</string>
+    <string name="joke_c3_title">یواش‌تر!</string>
+    <string name="joke_c3_desc">ما فقط دوستیم! 😂 بیا سر اصل مطلب، تنظیمات رو بنویس!</string>
+    <string name="joke_c4_title">هی، تولستوی!</string>
+    <string name="joke_c4_desc">رمان می‌نویسی؟ 📝 اینجا تنظیمات منو هست، نه جنگ و صلح! متن رو کوتاه کن!</string>
+    <string name="joke_c5_title">هی، تاجر!</string>
+    <string name="joke_c5_desc">توی تنظیمات برنامه من تبلیغ می‌کنی؟ 🤑 اینجا که دیوار نیست! لینک رو بردار!</string>
+    <string name="joke_c6_title">هی، منتقد!</string>
+    <string name="joke_c6_desc">خودت تا حالا یه خط کد نوشتی که حالا انتقاد می‌کنی؟ 😉 توسعه‌دهنده برای این نخوابیده!</string>
+    <string name="joke_c7_title">هی، هکر!</string>
+    <string name="joke_c7_desc">خب، هک کردی؟ 💻 اینجا سیلیکون ولی نیست، اینجا تاج‌گرام هست! کدها رو بذار برای ترمینال!</string>
+    <string name="joke_c8_title">هی، رئیس!</string>
+    <string name="joke_c8_desc">اینجا داری جلسه رسمی تشکیل می‌دی؟ 🏛️ کد برنامه تحمل این همه رسمیت رو نداره!</string>
+    <string name="joke_c9_title">هی، کریپتو-میلیونر!</string>
+    <string name="joke_c9_desc">بوی دلارهای مجازی‌ات سرم رو گیج کرد! 💰 اول یه کلید پریمیوم بخر! 🤣</string>
+    <string name="joke_c10_title">هی، روح!</string>
+    <string name="joke_c10_desc">اونجا چی رو قایم کردی؟ 👻 خط رو خالی نذار، حداقل یه شکلک بذار!</string>
+    <string name="joke_c11_title">هی، داد نزن!</string>
+    <string name="joke_c11_desc">گوشم کر شد! 📢 با حروف کوچک بنویس، کپس‌لاک اینجا مد نیست! 😂</string>
+    <string name="joke_c12_title">هی، پوشکین!</string>
+    <string name="joke_c12_desc">شاعر شدی؟ 📜 این منوی برنامه است، نه شب شعر! ساده بنویس! 😉</string>
+    <string name="joke_c13_title">هی، تنبل!</string>
+    <string name="joke_c13_desc">حداقل یه کلمه درست‌وحسابی بنویس! 🐌 حروف رو می‌خوای صرفه‌جویی کنی؟ فکر کن!</string>
+    <string name="joke_c14_title">هی، جاسوس!</string>
+    <string name="joke_c14_desc">مامور ۰۰۷ شدی؟ 🕵️‍♂️ ما همین الان مختصاتت رو لو دادیم! ماسک رو بردار! 🤣</string>
+    <string name="joke_c15_title">هی، شکمو!</string>
+    <string name="joke_c15_desc">دهنم آب افتاد! 🍔 از دست کباب‌های تو سرور گشنه‌اش شد! اول تنظیم کن، بعد می‌خوریم!</string>
+    <string name="joke_c16_title">هی، مسافر زمان!</string>
+    <string name="joke_c16_desc">ما توی قرن بیست‌ویکم هستیم! 🧙‍♂️ اینجا گوشی لمسیه، نه درشکه و اسب!</string>
+    <string name="joke_c17_title">عالی‌جناب!</string>
+    <string name="joke_c17_desc">مراقب باش تاجت نیفته! 👑 توی قصر خودت پادشاهی کن، اینجا توی تاج‌گرام همه کاربرها برابرن!</string>
+    <string name="joke_c18_title">هی، آدم غمگین!</string>
+    <string name="joke_c18_desc">درام بازی نکن، همه چی ردیفه! 😭 سرور رو با اشک‌هات آب می‌گیری‌ها! ✨</string>
+    <string name="joke_c19_title">هی، آدم فضایی!</string>
+    <string name="joke_c19_desc">به چه زبون مریخی‌ای می‌نویسی؟ 🤪 به کیبورد رحم کن، اون گناهی نداره!</string>
+    <string name="joke_c20_title">بدل دوروف!</string>
+    <string name="joke_c20_desc">سازنده تاج‌گرام یکیه و اون الان داره صفحه تو رو می‌بینه! 🕶️ تظاهر به ادمین بودن نکن! 🤣</string>
+</resources>

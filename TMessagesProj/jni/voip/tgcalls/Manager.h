@@ -1,7 +1,6 @@
 #ifndef TGCALLS_MANAGER_H
 #define TGCALLS_MANAGER_H
 
-#include <cstdint>
 #include "ThreadLocalObject.h"
 #include "EncryptedConnection.h"
 #include "NetworkManager.h"
@@ -86,6 +85,8 @@ private:
     bool _remoteIsLowDataRequested = false;
     absl::optional<ResolvedNetworkStatus> _currentResolvedLocalNetworkStatus;
     absl::optional<ResolvedNetworkStatus> _currentResolvedNetworkStatus;
+
+	std::shared_ptr<PlatformContext> _platformContext;
 
 };
 

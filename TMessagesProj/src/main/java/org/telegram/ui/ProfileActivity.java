@@ -5648,7 +5648,6 @@ if (avatarContainer2 != null) {
     long idToCopy = userId;
     
     if (currentChat != null) {
-        // Барои каналҳо ва супергурӯҳҳо ба таври заводӣ префикси -100-ро худи Телеграм истифода мебарад
         if (org.telegram.messenger.ChatObject.isChannel(currentChat)) {
             idToCopy = -1000000000000L - currentChat.id;
         } else {
@@ -5661,14 +5660,12 @@ if (avatarContainer2 != null) {
     if (finalId != 0) {
         android.widget.TextView userIdTextView = new android.widget.TextView(context);
         
-        // Коди худат барои тарҷумаи автоматии забонҳо (бе хардкод)
         if (currentChat == null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId) != null && org.telegram.messenger.MessagesController.getInstance(org.telegram.messenger.UserConfig.selectedAccount).getUser(userId).bot) {
             userIdTextView.setText("ID: " + finalId);
         } else if (currentChat == null) {
             String label = org.telegram.messenger.LocaleController.getString("UserIdLabel", org.telegram.messenger.R.string.UserIdLabel);
             userIdTextView.setText(label + ": " + finalId);
         } else {
-            // Барои чатҳо ва каналҳо префикси дурусти -100 ё - автоматӣ нишон дода мешавад
             userIdTextView.setText("ID: " + finalId);
         }
         
@@ -5684,26 +5681,44 @@ if (avatarContainer2 != null) {
             }
         });
         
-        // ТАГ МЕМОНЕМ, ТО ОНРО ДАР СКРОЛЛ БА СТАТУС КЛЕЙ КУНЕМ
         userIdTextView.setTag("user_id_text_view");
 
-        // ЭЪЛОН КАРДАНИ ИНДЕКС, ТО КИ ACTIONS ХАТОИ VARIABLE A НАДИҲАД
         int a = 0;
 
-        // 🔥 МАНТИҚИ НАВ ТАНҲО БАРОИ ҲАРАКАТ: Агар матни «в сети» мавҷуд бошад, 
-        // ИД-и ту мавқеъ ва шаффофияти онро нусхабардорӣ мекунад, то якҷоя ҳаракат кунанд
+        // 🔥 ИНАК ИСЛОҲИ АНИҚ МИСЛИ ЗАВОДӢ:
+        // Барои он ки ҳангоми скролл ба боло ИД ба кунҷи чап рафта хурд нашавад ва шаклаш вайрон нашавад,
+        // мо динамикаи хурдшавӣ (Scale) ва ҷойивазкунии контейнери Телеграмро ба ИД-и ту ҳам мебахшем.
         if (onlineTextView[a] != null) {
+            onlineTextView[a].getViewTreeObserver().addOnGlobalLayoutListener(new android.view.ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (onlineTextView[a] != null && userIdTextView != null) {
+                        userIdTextView.setTranslationY(onlineTextView[a].getTranslationY());
+                        userIdTextView.setTranslationX(onlineTextView[a].getTranslationX());
+                        userIdTextView.setScaleX(onlineTextView[a].getScaleX());
+                        userIdTextView.setScaleY(onlineTextView[a].getScaleY());
+                        userIdTextView.setAlpha(onlineTextView[a].getAlpha());
+                        userIdTextView.setVisibility(onlineTextView[a].getVisibility());
+                    }
+                }
+            });
+            
+            // Синхронизатсияи аввалия дар вақти сохтан
             userIdTextView.setTranslationY(onlineTextView[a].getTranslationY());
+            userIdTextView.setTranslationX(onlineTextView[a].getTranslationX());
+            userIdTextView.setScaleX(onlineTextView[a].getScaleX());
+            userIdTextView.setScaleY(onlineTextView[a].getScaleY());
             userIdTextView.setAlpha(onlineTextView[a].getAlpha());
+            userIdTextView.setVisibility(onlineTextView[a].getVisibility());
         }
 
-        // ТАНЗИМИ 100% ДИНАМИКӢ БО КОДИ ХУДАТ
+        // РАЗМЕРИ ДИНАМИКИИ ХУДАТ БО АНДОЗАИ ЭКРАН (АКНУН ДАР ҲАМА ТЕЛЕФОН ЯК ХЕЛ МЕШАВАД)
         if (userIdTextView != null) {
             avatarContainer2.addView(userIdTextView, org.telegram.ui.Components.LayoutHelper.createFrame(
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
                 android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
-                0, 226, 0, 0
+                0, org.telegram.messenger.AndroidUtilities.dp(224), 0, 0
             ));
         }
     }
@@ -5876,18 +5891,36 @@ if (avatarContainer2 != null) {
 if (avatarContainer2 != null) {
     android.view.View userIdView = avatarContainer2.findViewWithTag("user_id_text_view");
     if (userIdView != null) {
-        // Ҳангоми скролл ба боло, ИД-ро ҳам ба боло мебарем, то аз экран берун набарояд
+        int a = 0;
         int scrollY = listView.computeVerticalScrollOffset();
-        userIdView.setTranslationY(-scrollY);
         
-        // Агар хеле ба боло равад, онро кам-кам шаффоф (паҳн) мекунем, то зебо шавад
+        // Мавқеъ ва хурдшавиро маҳз мувофиқи матни "в сети" месозем, то шаклаш мисли заводӣ шавад
+        if (onlineTextView[a] != null) {
+            userIdView.setTranslationY(onlineTextView[a].getTranslationY());
+            userIdView.setTranslationX(onlineTextView[a].getTranslationX());
+            userIdView.setScaleX(onlineTextView[a].getScaleX());
+            userIdView.setScaleY(onlineTextView[a].getScaleY());
+        } else {
+            userIdView.setTranslationY(-scrollY);
+        }
+        
+        // 🔥 ИСЛОҲИ АСОСӢ: Агар ба поён кашем, он бояд танҳо дар сурати намоён будани "в сети" пайдо шавад
         if (scrollY > org.telegram.messenger.AndroidUtilities.dp(50)) {
             userIdView.setAlpha(0.0f);
+            userIdView.setVisibility(android.view.View.GONE);
         } else {
-            userIdView.setAlpha(1.0f);
+            // Вақте абратно ба поён мекашем, ID дубора намоён мешавад
+            if (onlineTextView[a] != null) {
+                userIdView.setAlpha(onlineTextView[a].getAlpha());
+                userIdView.setVisibility(onlineTextView[a].getVisibility());
+            } else {
+                userIdView.setAlpha(1.0f);
+                userIdView.setVisibility(android.view.View.VISIBLE);
+            }
         }
     }
 }
+
 
 
                 

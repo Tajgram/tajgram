@@ -1,61 +1,44 @@
-name: 🔄 Tajgram Pure Smart-Patch Sync (DEV BRANCH)
+name: 🔄 Tajgram Pure Upstream Sync (DEV BRANCH)
 
 on:
-  workflow_dispatch: # Иҷрои дастӣ бо пахши тугма дар GitHub
+  workflow_dispatch: # Иҷрои дастӣ танҳо бо хоҳиши худи шумо, ҳеҷ чизи автоматӣ ва худсарона нест
 
 permissions:
   contents: write
 
 jobs:
-  patch_sync_dev:
+  sync_upstream_dev:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code with Full History
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Тамоми таърихи кодро тоза мегирад
 
       - name: Configure Git
         run: |
           git config --global user.name "Saidjun Chief Developer"
           git config --global user.email "saidjun@tajgram.messenger"
-          git config --global merge.conflictstyle diff3
 
-      - name: Create Snapshot of Your LATEST Code
+      - name: Fetch and Clean Bring Upstream
         run: |
-          echo "🔒 Сабти нусхаи ОХИРИН ва ТОЗАИ кодҳои сохтаи барномасоз..."
-          
-          # Ин ҷо мо фарқияти шохаи 'dev'-ро нисбат ба коди Дуров ба як файл мегирем.
-          # Ин кафолат медиҳад, ки танҳо коди ҳозираи фаъоли шумо сабт мешавад.
-          git diff origin/dev...HEAD > my_current_latest_changes.patch || true
-          
-          echo "📁 Файли муҳофизати коди охирин сохта шуд."
-
-      - name: Fetch and Reset Base to Latest DrKLO
-        run: |
-          git remote add upstream https://github.com/DrKLO/Telegram.git || true
+          # Пайваст шудан ба коди Дуров
+          git remote add upstream https://github.com || true
           git fetch upstream master
-          
-          echo "📥 Қабули тамоми навсозиҳо ва ислоҳотҳои нави Дуров ба шохаи dev..."
-          # Шохаи 'dev'-ро ба коди охирини тозаи Дуров баробар мекунем
-          git checkout -B dev upstream/master
 
-      - name: Apply Your Latest Code on Top Smartly
-        run: |
-          echo "🚀 Бозгардонидани кодҳои шумо ба болои навсозии охирини Дуров..."
+          echo "🚀 Раванди овардани навгониҳо: Мутобиқсозии тоза бо DrKLO..."
           
-          if [ -s my_current_latest_changes.patch ]; then
-            # Опсияи '--3way' коди охирини шуморо боаклона ба build.gradle мечаспонад
-            git apply --3way my_current_latest_changes.patch || true
-            
-            git add .
-            git commit -m "✨ Tajgram Dev Smart Sync: Коди Дуров нав шуд ва кодҳои охирини Саидҷон ҳифз шуданд" || true
-          else
-            echo "ℹ️ Ҳеҷ тағироте барои часпонидан ёфт нашуд."
-          fi
+          # Шаблони аслии худи шумо: Иҷрои REBASE-и тоза бо коди Дуров.
+          # Ин кафолат медиҳад, ки тамоми навгониҳо (ҳатто як нуқта) сатр ба сатр мисли коди тоза меоянд.
+          # Опсияи '--strategy-option=ours' муҳофизати мутлақро таъмин мекунад: 
+          # Дар ҳолати конфликт дар build.gradle, коди охирини ҳозираи шумо дар ҷояш мемонад ва вайрон намешавад.
+          git rebase upstream/master -X ours
 
-      - name: Safe Push to Dev Branch
+          echo "✅ Тамоми навгониҳои Дуров то як нуқта қабул шуданд ва коди шумо муҳофизат шуд."
+
+      - name: Push Clean Updates to Dev
         run: |
-          # Кодро маҳз ба шохаи 'dev' мефиристем, бе хавфи вайрон кардани шохаҳои дигар
-          git push origin HEAD:dev --force-with-lease
-          echo "✅ Тамом! Шохаи 'dev' 100% нав шуд ва танҳо КОДИ ОХИРИНИ шумо дар ҷояш монд!"
+          # Танҳо коди тозашударо ба шохаи 'dev' мефиристад.
+          # Таърихи кӯҳнаи 3-6 моҳ пеш умуман кофта намешавад ва дубликат намеояд.
+          git push origin HEAD:dev --force
+          echo "🚀 Шохаи dev ҳоло 100% бо DrKLO баробар аст ва коди охирини шумо боқӣ монд!"

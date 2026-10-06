@@ -5703,7 +5703,7 @@ if (avatarContainer2 != null) {
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
                 org.telegram.ui.Components.LayoutHelper.WRAP_CONTENT, 
                 android.view.Gravity.CENTER_HORIZONTAL | android.view.Gravity.TOP, 
-                0, 226, 0, 0
+                0, 223, 0, 0
             ));
         }
     }

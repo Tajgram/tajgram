@@ -11270,4 +11270,20 @@
     <string name="UnsupportedMessageTitle">Паёми дастгиринашаванда</string>
     <string name="UnsupportedMessageMessage">Барои дидани ин паём, Tajgram-ро навсозӣ кунед</string>
     <string name="UnsupportedUpdate">Навсозӣ кардан</string>
+        <string name="UseProxyWeb">WEB-прокси</string>
+    <string name="UseProxyWebInfo">WEB-прокси саҳифаи HTTPS-ро дар дохили WebView-и махсус истифода мебарад. Номи хостро бе схема ё роҳ ва сирри 16-байтии MTProxy ворид кунед. Ин консепт Android System WebView-и кунуниро талаб мекунад ва барои санҷиши фаъол пешбинӣ шудааст.</string>
+    <string name="RoundVideoSettings">Танзимоти паёмҳои видеоӣ</string>
+    <string name="RoundVideoGeneral">Сабткунанда</string>
+    <string name="RoundVideoUseNewRecorder">Истифодаи сабткунандаи Camera2</string>
+    <string name="RoundVideoOutputResolution">Сифати баромад (басомад)</string>
+    <string name="RoundVideoCameraResolution">Сифати камера</string>
+    <string name="RoundVideoCameraResolutionHigh">Баланд</string>
+    <string name="RoundVideoCameraResolutionMedium">Миёна</string>
+    <string name="RoundVideoCameraResolutionLow">Паст</string>
+    <string name="RoundVideoFrameRate">Басомади кадрҳо (FPS)</string>
+    <string name="RoundVideoBitrate">Битрейти видео</string>
+    <string name="RoundVideoGeneralInfo">Реҷаи 60 FPS танҳо вақте кор мекунад, ки ҳам камераи пеш ва ҳам ақиб онро дастгирӣ кунанд. Дар ҳолати муқобил, сабт ба 30 FPS мегузарад.</string>
+    <string name="RoundVideoComposition">Композитсия</string>
+    <string name="RoundVideoCompositionEnabled">Стилизатсияи видеои гирд</string>
+    <string name="RoundVideoCompositionInfo">Стилизатсияро хомӯш кунед, то видеои оддии чоркунҷаро бе хиракунии берунии доира, торикшавӣ ё унсурҳои болоии Tajgram сабт кунед.</string> 
 </resources>

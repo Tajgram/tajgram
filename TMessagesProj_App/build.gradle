@@ -1,5 +1,4 @@
-apply plugin: 'com.android.application'
-apply plugin: 'org.telegram.build-app-plugin'
+import com.android.build.api.variant.FilterConfiguration
 
 apply plugin: 'com.android.application'
 
@@ -55,11 +54,6 @@ android {
         coreLibraryDesugaringEnabled true
     }
 
-    androidResources {
-        noCompress += "pack"
-        localeFilters += ["zz"]
-    }
-
     signingConfigs {
         debug {
             storeFile file("../TMessagesProj/config/release.keystore")
@@ -85,7 +79,7 @@ android {
             minifyEnabled false
             shrinkResources false
             multiDexEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../TMessagesProj/proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro', '../TMessagesProj/proguard-rules-beta.pro'
             ndk.debugSymbolLevel = 'FULL'
         }
 
@@ -95,17 +89,20 @@ android {
             signingConfig signingConfigs.release
             applicationIdSuffix ".web"
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             multiDexEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../TMessagesProj/proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro'
             ndk.debugSymbolLevel = 'FULL'
         }
 
         release {
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.release
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             multiDexEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../TMessagesProj/proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../TMessagesProj/proguard-rules.pro'
             ndk.debugSymbolLevel = 'FULL'
         }
     }
@@ -121,6 +118,10 @@ android {
     sourceSets.release {
         manifest.srcFile '../TMessagesProj/config/release/AndroidManifest.xml'
     }
+
+    defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)
+
+  
 
     defaultConfig {
         minSdkVersion 21

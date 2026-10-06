@@ -394,24 +394,21 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-// android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
-// boolean isVpnActive = false;
-// if (cm != null) {
- //   android.net.Network[] networks = cm.getAllNetworks();
-//    for (android.net.Network network : networks) {
-//        android.net.NetworkCapabilities caps = cm.getNetworkCapabilities(network);
-//        if (caps != null && caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_VPN)) {
-//            isVpnActive = true;
-//            break;
- //       }
-//    }
-// }
 
-// String userCountry = "";
-// try {
-//    userCountry = java.util.Locale.getDefault().getCountry();
-// } catch (Exception ignored) {}
-
+        try {
+    android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
+    boolean isVpnActive = false;
+    if (cm != null) {
+        android.net.Network[] networks = cm.getAllNetworks();
+        for (android.net.Network network : networks) {
+            android.net.NetworkCapabilities caps = cm.getNetworkCapabilities(network);
+            if (caps != null && caps.hasTransport(android.net.NetworkCapabilities.TRANSPORT_VPN)) {
+                isVpnActive = true;
+                break;
+            }
+        }
+    }
+    
     String userCountry = "";
     try {
         userCountry = java.util.Locale.getDefault().getCountry();
@@ -591,9 +588,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 } catch (Exception e) {
 }
 
-// } catch (Exception e) {
-                                    
-//}
+
 
 
 

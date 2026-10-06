@@ -160,7 +160,7 @@ android {
 // 🔹 НОМГУЗОРИИ АПКАҲО БО УСУЛИ НАВИ GRADLE (БИДУНИ FLAVOR/AFAT)
 androidComponents {
     onVariants(selector().all()) { variant ->
-        variant.outputs.each { output ->
+       // variant.outputs.each { output ->
             def abi = output.filters.find { it.filterType == FilterConfiguration.FilterType.ABI }?.identifier
             def abiName = abi ?: "universal"
             def baseVersionCode = output.versionCode.get()

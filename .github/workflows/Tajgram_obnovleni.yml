@@ -23,7 +23,7 @@ jobs:
       - name: Fetch and Clean Bring Upstream
         run: |
           # Пайваст шудан ба коди Дуров
-          git remote add upstream https://github.com || true
+          git remote add upstream https://github.com/DrKLO/Telegram.git || true
           git fetch upstream master
 
           echo "🚀 Раванди овардани навгониҳо: Мутобиқсозии тоза бо DrKLO..."

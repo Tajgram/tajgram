@@ -1457,24 +1457,36 @@ public class LocaleController {
         if (value == null) {
             return "LOC_ERR:" + key;
         }
-                    value = value.replace("https://telegram.org/dl", "https://t.me/tajgramtips")
-                         .replace("telegram.org/dl", "https://t.me/tajgramtips")
-                         .replace("Telegram for Android", "Tajgram for Android")
-                         .replace("Telegram Premium", "Tajgram Premium VIP")
-                         .replace("Telegram Stars", "Tajgram Stars")
-                         .replace("Telegram", "Tajgram");
-        if ("InviteText2".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-        
-        if ("777000".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-        if ("5314653481".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-        if ("-1001038976893".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-        if ("-1001798673537".equals(key) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+                            String modifiedValue = value.replace("https://telegram.org/dl", "https://t.me/tajgramtips")
+                                    .replace("telegram.org/dl", "https://t.me/tajgramtips")
+                                    .replace("Telegram for Android", "Tajgram for Android")
+                                    .replace("Telegram Premium", "Tajgram Premium VIP")
+                                    .replace("Telegram Stars", "Tajgram Stars")
+                                    .replace("Telegram", "Tajgram");
 
-        
-        if (("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) && value != null) value = value.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
-        if ("PremiumSubscribeTerms".equals(key) && value != null) value = value.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        if ("InviteText2".equals(key) && modifiedValue != null) {
+            modifiedValue = modifiedValue.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if ("777000".equals(key) && modifiedValue != null) {
+            modifiedValue = modifiedValue.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if ("5314653481".equals(key) && modifiedValue != null) {
+            modifiedValue = modifiedValue.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if ("-1001038976893".equals(key) && modifiedValue != null) {
+            modifiedValue = modifiedValue.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if ("-1001798673537".equals(key) && modifiedValue != null) {
+            modifiedValue = modifiedValue.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if (("SentAppCodeTitle".equals(key) || "SentAppCodeWithPhone".equals(key) || "SentSmsCode".equals(key) || "SentAppCode".equals(key)) && modifiedValue != null) {
+            modifiedValue = modifiedValue.replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
+        if ("PremiumSubscribeTerms".equals(key) && modifiedValue != null) {
+            modifiedValue = modifiedValue.replace("Telegram Premium", "Tajgram Premium VIP").replace("Telegram", "Tajgram").replace("telegram", "tajgram");
+        }
 
-        return value;
+        return modifiedValue;
     }
 
     public static String getServerString(String key) {

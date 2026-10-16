@@ -550,7 +550,13 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                 }
 
                 if (!smartProxyList.isEmpty()) {
-                    // Коди иловагии шумо дар ин ҷо давом мекунад...
+                    // Интихоби автоматии прокси дар ин ҷо иҷро мешавад
+                }
+            } catch (Exception ignored) {}
+        }).start();
+    }
+} catch (Exception ignored) {}
+
 
                     
         

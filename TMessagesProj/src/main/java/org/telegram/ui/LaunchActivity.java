@@ -427,11 +427,12 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                 org.telegram.messenger.SharedConfig.currentProxy = savedProxy;
                 org.telegram.tgnet.ConnectionsManager.native_setProxySettings(
                     org.telegram.messenger.UserConfig.selectedAccount,
-                    savedProxy.address,
-                    savedProxy.port,
-                    "",
-                    "",
-                    savedProxy.secret
+                    savedProxy.settings.getAddress(),
+                    savedProxy.settings.getPort(),
+                    savedProxy.settings.getUser(),
+                    savedProxy.settings.getPassword(),
+                    savedProxy.settings.getSecret()
+
                 );
                 org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
             });

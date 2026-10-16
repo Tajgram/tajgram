@@ -396,6 +396,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+    }
         
         isActive = true;
         activeInstanceCount++;

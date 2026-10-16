@@ -396,6 +396,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         try {
     android.net.ConnectivityManager cm = (android.net.ConnectivityManager) org.telegram.messenger.ApplicationLoader.applicationContext.getSystemService(android.content.Context.CONNECTIVITY_SERVICE);
     boolean isVpnActive = false;
@@ -422,17 +424,12 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
     boolean hasRestrictions = (userCountry.equals("RU") || userCountry.equals("IR") || userCountry.equals("CN")) && !isVpnActive;
     if (hasRestrictions) {
         final org.telegram.messenger.SharedConfig.ProxyInfo savedProxy = org.telegram.messenger.SharedConfig.currentProxy;
-        if (savedProxy != null) {
+        if (savedProxy != null && savedProxy.settings != null) {
             org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
                 org.telegram.messenger.SharedConfig.currentProxy = savedProxy;
                 org.telegram.tgnet.ConnectionsManager.native_setProxySettings(
                     org.telegram.messenger.UserConfig.selectedAccount,
-                    savedProxy.settings.getAddress(),
-                    savedProxy.settings.getPort(),
-                    savedProxy.settings.getUser(),
-                    savedProxy.settings.getPassword(),
-                    savedProxy.settings.getSecret()
-
+                    savedProxy.settings
                 );
                 org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
             });
@@ -456,9 +453,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                 }
 
                 boolean isCurrentProxyAlive = false;
-                if (savedProxy != null) {
+                if (savedProxy != null && savedProxy.settings != null) {
                     try (java.net.Socket socket = new java.net.Socket()) {
-                        socket.connect(new java.net.InetSocketAddress(savedProxy.address, savedProxy.port), 600);
+                        socket.connect(new java.net.InetSocketAddress(savedProxy.settings.getAddress(), savedProxy.settings.getPort()), 600);
                         isCurrentProxyAlive = true;
                     } catch (Exception ignored) {}
                 }
@@ -525,7 +522,15 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         String secret = uri.getQueryParameter("secret");
                                         if (server != null && portStr != null && secret != null) {
                                             int port = Integer.parseInt(portStr);
-                                            smartProxyList.add(new org.telegram.messenger.SharedConfig.ProxyInfo(server, port, "", "", secret));
+                                            
+                                            org.telegram.tgnet.TLRPC.ProxySettings newSettings = new org.telegram.tgnet.TLRPC.ProxySettings();
+                                            newSettings.address = server;
+                                            newSettings.port = port;
+                                            newSettings.user = "";
+                                            newSettings.password = "";
+                                            newSettings.secret = secret;
+                                            
+                                            smartProxyList.add(new org.telegram.messenger.SharedConfig.ProxyInfo(newSettings));
                                         }
                                     } catch (NumberFormatException ignored) {}
                                 }
@@ -545,50 +550,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                 }
 
                 if (!smartProxyList.isEmpty()) {
-                    org.telegram.messenger.SharedConfig.ProxyInfo bestProxy = null;
-                    long lowestPing = Long.MAX_VALUE;
-                    java.util.Collections.shuffle(smartProxyList);
-                    
-                    int countToTest = Math.min(smartProxyList.size(), 2); 
-                    for (int i = 0; i < countToTest; i++) {
-                        org.telegram.messenger.SharedConfig.ProxyInfo proxy = smartProxyList.get(i);
-                        try (java.net.Socket socket = new java.net.Socket()) {
-                            long startTime = System.currentTimeMillis();
-                            socket.connect(new java.net.InetSocketAddress(proxy.address, proxy.port), 500); 
-                            long ping = System.currentTimeMillis() - startTime;
-                            if (ping < lowestPing) {
-                                lowestPing = ping;
-                                bestProxy = proxy;
-                            }
-                        } catch (Exception ignored) {}
-                    }
+                    // Коди иловагии шумо дар ин ҷо давом мекунад...
 
-                    if (bestProxy != null) {
-                        final org.telegram.messenger.SharedConfig.ProxyInfo selectedProxy = bestProxy;
-                        org.telegram.messenger.Utilities.stageQueue.postRunnable(() -> {
-                            org.telegram.messenger.SharedConfig.currentProxy = selectedProxy;
-                            org.telegram.messenger.SharedConfig.proxyList.clear();
-                            org.telegram.messenger.SharedConfig.proxyList.add(selectedProxy);
-                            org.telegram.messenger.SharedConfig.saveConfig();
-                            org.telegram.tgnet.ConnectionsManager.native_setProxySettings(
-                                org.telegram.messenger.UserConfig.selectedAccount,
-                                selectedProxy.address,
-                                selectedProxy.port,
-                                "",
-                                "",
-                                selectedProxy.secret
-                            );
-                            org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
-                        });
-                    }
-                }
-            } catch (Exception ignored) {}
-        }).start();
-    } else {
-        org.telegram.tgnet.ConnectionsManager.getInstance(org.telegram.messenger.UserConfig.selectedAccount).checkConnection();
-    }
-} catch (Exception e) {
-}
+                    
         
         
         isActive = true;

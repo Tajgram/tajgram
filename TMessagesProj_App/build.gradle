@@ -1,6 +1,7 @@
 import com.android.build.api.variant.FilterConfiguration
 
 apply plugin: 'com.android.application'
+apply plugin: 'org.telegram.build-app-plugin'
 
 repositories {
     mavenCentral()

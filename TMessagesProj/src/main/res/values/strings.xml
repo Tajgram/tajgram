@@ -11580,7 +11580,7 @@
     <string name="WalletSearchNoResults">There were no results for \"%1$s\".\nTry another name or address.</string>
     <string name="WalletUserWallet">%1$s\'s wallet</string>
     <string name="WalletAddressLinkedToUser">This TON Blockchain address is linked to **%1$s** on Tajgram.</string>
-    <string name="WalletAddressNoLinkedAccount">This address has no linked\nTelegram account.</string>
+    <string name="WalletAddressNoLinkedAccount">This address has no linked\nTajgram account.</string>
     <string name="WalletTapToSetAmount">Tap to set amount</string>
     <string name="WalletTonConnectRequestUnavailable">This TON Connect request is unavailable or has already been answered</string>
     <string name="WalletTonConnectSessionResponseEmpty">Empty TON Connect session response</string>

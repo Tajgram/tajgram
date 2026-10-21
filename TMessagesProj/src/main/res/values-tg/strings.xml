@@ -11586,4 +11586,18 @@
     <string name="CreateManagedBotUsernameSuffixMissing">Номи корбарӣ бояд бо %1$s тамом шавад.</string>
     <string name="CreateManagedBotUsernameCheckFailed">Санҷиши ин номи корбарӣ муяссар нашуд. Лутфан боз кӯшиш кунед.</string>
 
+    <string name="BotTypeAgent">Агент</string>
+    <string name="BotTypeGame">Бозӣ</string>
+    <string name="BotTypeApp">Барнома</string>
+    <string name="BotTypeAI">Интеллекти сунъӣ</string>
+    <string name="BotTypeNonBinary">Ғайрибинарӣ</string>
+    <string name="AudioRecorderSettings">Паёмҳои овозӣ</string>
+    <string name="AudioRecorderGeneral">Диктофон</string>
+    <string name="AudioRecorderUseNewRecorder">Истифодаи диктофони нав</string>
+    <string name="AudioRecorderNoiseSuppression">Пахшкунии садоҳои зиёдатӣ</string>
+    <string name="AudioRecorderNoiseSuppressionOff">Хомӯш</string>
+    <string name="AudioRecorderNoiseSuppressionRNNoise">RNNoise</string>
+    <string name="AudioRecorderGeneralInfo">Технологияи RNNoise садоҳои пасманзарро нест мекунад, аммо метавонад ба мусиқӣ ё нутқи хеле оҳиста таъсир расонад.</string>
+
+
 </resources>
